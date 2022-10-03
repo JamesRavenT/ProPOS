@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.ProductItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.RVA_UpdatePOS;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Objects.CartObject;
 import com.wabizabi.wazabipos.R;
 
@@ -94,7 +95,7 @@ public class RVA_POSItem extends RecyclerView.Adapter<RVA_POSItem.RVH_POSItem>{
             } else {
                 cart.put(new CartObject(name, price), 1);
             }
-            updateCartCount.callback(context);
+            updateCartCount.refresh(context);
             Toast.makeText(context, "Item added to Cart!", Toast.LENGTH_SHORT).show();
         }
     }

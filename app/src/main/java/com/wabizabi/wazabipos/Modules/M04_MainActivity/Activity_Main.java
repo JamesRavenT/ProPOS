@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -31,8 +32,8 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
 
 
     Fragment01_POS pos = new Fragment01_POS();
-    public static int currentPOSCategoryIndex = -1;
-    public static String currentPOSCategory;
+        public static int currentPOSCategoryIndex = -1;
+        public static String currentPOSCategory;
 
     Fragment02_Stocks stocks = new Fragment02_Stocks();
     Fragment03_Products products = new Fragment03_Products();
@@ -128,8 +129,12 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
+        } else if(currentFragment == "Cart") {
+            currentFragment = "POS";
+            getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, pos).commit();
         } else {
             return;
         }
     }
+
 }

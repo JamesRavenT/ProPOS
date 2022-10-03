@@ -1,4 +1,4 @@
-package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters;
+package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces;
 
 import android.content.Context;
 
@@ -7,5 +7,5 @@ import com.wabizabi.wazabipos.Database.Schemas.ProductItem;
 import io.realm.RealmResults;
 
 public interface RVA_UpdatePOS {
-    public void callback(Context context);
+    public void refresh(Context context);
 }

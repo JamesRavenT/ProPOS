@@ -17,6 +17,6 @@ public class SubFragment01_Cart extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.act04_main_frag01_pos_subfrag01_cart, container, false);
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return v;
     }
 }

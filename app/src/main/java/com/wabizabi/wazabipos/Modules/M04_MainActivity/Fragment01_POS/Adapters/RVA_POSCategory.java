@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
 import com.wabizabi.wazabipos.Database.Schemas.ProductItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.RVA_UpdatePOSItemList;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;

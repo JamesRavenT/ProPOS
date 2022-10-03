@@ -1,5 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS;
 
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentFragment;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentPOSCategory;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentPOSCategoryIndex;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSCart.cart;
@@ -13,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,9 +27,10 @@ import com.wabizabi.wazabipos.Database.Schemas.ProductItem;
 import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_UpdatePOS;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_UpdatePOSItemList;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.RVA_UpdatePOS;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.RVA_UpdatePOSItemList;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Objects.CartObject;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart;
 import com.wabizabi.wazabipos.R;
 
 import java.text.DateFormat;
@@ -44,12 +45,14 @@ import io.realm.RealmResults;
 
 public class Fragment01_POS extends Fragment implements RVA_UpdatePOSItemList, RVA_UpdatePOS {
 
+    SubFragment01_Cart pos_cart = new SubFragment01_Cart();
     Realm realm;
     TextView header1, header2, header3;
     RecyclerView posCategoryRV, posItemRV;
     RecyclerView.Adapter posCategoryRVA, posItemRVA;
     CardView goToCartButton;
     TextView goToCartText;
+
 
     @Nullable
     @Override
@@ -59,6 +62,7 @@ public class Fragment01_POS extends Fragment implements RVA_UpdatePOSItemList, R
         setHeader(v);
         setCartCounter(v);
         setRecyclerview(v);
+        setButtons(v);
         return v;
     }
 
@@ -111,6 +115,19 @@ public class Fragment01_POS extends Fragment implements RVA_UpdatePOSItemList, R
         }
     }
 
+    private void setButtons(View v){
+        goToCartButton = v.findViewById(R.id.POS_CheckOutBtn);
+        goToCartButton.setOnClickListener((btn) -> {
+            currentFragment = "Cart";
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.MainActivityContainer, pos_cart)
+                    .commit();
+        });
+    }
+
+
     @Override
     public void callback(int position, RealmResults<ProductItem> products) {
         posItemRVA = new RVA_POSItem(getActivity(), realm, this);
@@ -119,7 +136,7 @@ public class Fragment01_POS extends Fragment implements RVA_UpdatePOSItemList, R
     }
 
     @Override
-    public void callback(Context context) {
+    public void refresh(Context context) {
         if(!cart.isEmpty()){
             String cartsize = String.valueOf(cart.size());
             goToCartText.setText("C a r t (" + cartsize + ")");
