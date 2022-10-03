@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_POS"
+            android:title="POS"/>
+
+        <item android:title="Inventory Management">
+            <menu>
+                <item
+                    android:id="@+id/nav_Stocks"
+                    android:title="Stocks"/>
+                <item
+                    android:id="@+id/nav_Products"
+                    android:title="Products"/>
+            </menu>
+        </item>
+
+        <item android:title="BackOffice">
+            <menu>
+                <item
+                    android:id="@+id/nav_User"
+                    android:title="User"/>
+                <item
+                    android:id="@+id/nav_Records"
+                    android:title="Records"/>
+                <item
+                    android:id="@+id/nav_SalesReport"
+                    android:title="SalesReport"/>
+            </menu>
+        </item>
+
+        <item android:title="Settings">
+            <menu>
+                <item
+                    android:id="@+id/nav_Printer"
+                    android:title="Printer"/>
+            </menu>
+        </item>
+    </group>
+</menu>

@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "620035151638",
+    "project_id": "wabizabidb",
+    "storage_bucket": "wabizabidb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620035151638:android:3bc7287df2dca6f4eda237",
+        "android_client_info": {
+          "package_name": "com.example.wazabiposprototype"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620035151638-g7i6eb8vck9sj3uhrjfgbppm3vd5o7op.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTfIAy3lvBAJEoHsqD6jB0ctsOcIYs0EI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620035151638-g7i6eb8vck9sj3uhrjfgbppm3vd5o7op.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620035151638:android:d048428eb291367aeda237",
+        "android_client_info": {
+          "package_name": "com.wabizabi.wazabipos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620035151638-g7i6eb8vck9sj3uhrjfgbppm3vd5o7op.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTfIAy3lvBAJEoHsqD6jB0ctsOcIYs0EI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620035151638-g7i6eb8vck9sj3uhrjfgbppm3vd5o7op.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.WaZabiPOS" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/WazabiTheme</item>
+        <item name="colorPrimaryVariant">@color/dirtywhite</item>
+        <item name="colorOnPrimary">@color/WazabiTheme</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/WazabiTheme</item>
+        <item name="colorSecondaryVariant">@color/WazabiTheme</item>
+        <item name="colorOnSecondary">@color/WazabiTheme</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.WaZabiPOSOpening" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/WazabiTheme</item>
+        <item name="colorPrimaryVariant">@color/WazabiTheme</item>
+        <item name="colorOnPrimary">@color/WazabiTheme</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="ToolbarStyle">
+        <item name="android:textColorPrimary">@color/WazabiTheme</item>
+        <item name="android:textColorSecondary">@color/WazabiTheme</item>
+        <item name="actionMenuTextColor">@color/WazabiTheme</item>
+    </style>
+</resources>

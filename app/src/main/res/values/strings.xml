@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">WaZabiPOS</string>
+
+    <string name="SplashScreen_appname">W A Z A B I P O S</string>
+
+    <string name="ConfirmBtn">Confirm</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
