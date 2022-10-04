@@ -95,7 +95,7 @@ public class Fragment01_POS extends Fragment implements Update_POSItemList, Upda
         categoryLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         listOfPOSCategories = realm.where(ProductsList.class).sort("categoryName").findAll();
-        posCategoryRVA = new RVA_POSCategory(getActivity(), realm, this);
+        posCategoryRVA = new RVA_POSCategory(this, getActivity(), realm);
         posCategoryRV = v.findViewById(R.id.POS_CategoryRV);
         posCategoryRV.setLayoutManager(categoryLayout);
         posCategoryRV.setAdapter(posCategoryRVA);
@@ -105,13 +105,13 @@ public class Fragment01_POS extends Fragment implements Update_POSItemList, Upda
         itemLayout.setOrientation(LinearLayoutManager.VERTICAL);
         if(currentPOSCategoryIndex == -1){
             listOfPOSItems = realm.where(ProductsItem.class).sort("itemName").findAll();
-            posItemRVA = new RVA_POSItem(getActivity(), realm, this);
+            posItemRVA = new RVA_POSItem(this, getActivity(), realm);
             posItemRV = v.findViewById(R.id.POS_ItemRV);
             posItemRV.setLayoutManager(itemLayout);
             posItemRV.setAdapter(posItemRVA);
         } else {
             listOfPOSItems = realm.where(ProductsItem.class).equalTo("itemCategory", currentPOSCategory).sort("itemName").findAll();
-            posItemRVA = new RVA_POSItem(getActivity(), realm, this);
+            posItemRVA = new RVA_POSItem(this, getActivity(), realm);
             posItemRV = v.findViewById(R.id.POS_ItemRV);
             posItemRV.setLayoutManager(itemLayout);
             posItemRV.setAdapter(posItemRVA);
@@ -133,7 +133,7 @@ public class Fragment01_POS extends Fragment implements Update_POSItemList, Upda
 
     @Override
     public void refreshItemList(int position, RealmResults<ProductsItem> products) {
-        posItemRVA = new RVA_POSItem(getActivity(), realm, this);
+        posItemRVA = new RVA_POSItem(this, getActivity(), realm);
         posItemRVA.notifyDataSetChanged();
         posItemRV.setAdapter(posItemRVA);
     }

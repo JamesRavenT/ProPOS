@@ -26,15 +26,16 @@ import io.realm.RealmResults;
 public class RVA_POSCategory extends RecyclerView.Adapter<RVA_POSCategory.RVH_POSCategory> {
 
     public static RealmResults<ProductsList> listOfPOSCategories;
-
+    Update_POSItemList updatePOSitemList;
     Context context;
     Realm realm;
-    Update_POSItemList updatePOSitemList;
 
-    public RVA_POSCategory(Context context, Realm realm, Update_POSItemList updatePOS) {
+
+    public RVA_POSCategory(Update_POSItemList updatePOS, Context context, Realm realm) {
+        this.updatePOSitemList = updatePOS;
         this.context = context;
         this.realm = realm;
-        this.updatePOSitemList = updatePOS;
+
     }
 
     @NonNull

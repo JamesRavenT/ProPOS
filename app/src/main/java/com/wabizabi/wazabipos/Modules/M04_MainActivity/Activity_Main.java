@@ -27,16 +27,17 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
     Toolbar toolbar;
     DrawerLayout drawer;
     NavigationView navigation;
-
-    public static String currentFragment;
-
+        public static String currentFragment;
 
     Fragment01_POS pos = new Fragment01_POS();
         public static int currentPOSCategoryIndex = -1;
         public static String currentPOSCategory;
-
     Fragment02_Stocks stocks = new Fragment02_Stocks();
+        public static int currentStockCategoryIndex = -1;
+        public static String currentStockCategory;
     Fragment03_Products products = new Fragment03_Products();
+        public static int currentProductCategoryIndex = -1;
+        public static String currentProductCategory;
     Fragment04_User user = new Fragment04_User();
     Fragment05_Records records = new Fragment05_Records();
     Fragment06_SalesReport salesReport = new Fragment06_SalesReport();
