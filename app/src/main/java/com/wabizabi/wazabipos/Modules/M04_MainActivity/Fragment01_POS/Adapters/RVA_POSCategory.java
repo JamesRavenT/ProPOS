@@ -15,9 +15,9 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
 import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
-import com.wabizabi.wazabipos.Database.Schemas.ProductItem;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.RVA_UpdatePOSItemList;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.Update_POSItemList;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
@@ -29,9 +29,9 @@ public class RVA_POSCategory extends RecyclerView.Adapter<RVA_POSCategory.RVH_PO
 
     Context context;
     Realm realm;
-    RVA_UpdatePOSItemList updatePOSitemList;
+    Update_POSItemList updatePOSitemList;
 
-    public RVA_POSCategory(Context context, Realm realm, RVA_UpdatePOSItemList updatePOS) {
+    public RVA_POSCategory(Context context, Realm realm, Update_POSItemList updatePOS) {
         this.context = context;
         this.realm = realm;
         this.updatePOSitemList = updatePOS;
@@ -83,11 +83,11 @@ public class RVA_POSCategory extends RecyclerView.Adapter<RVA_POSCategory.RVH_PO
         currentPOSCategoryIndex = holder.getAdapterPosition();
         notifyDataSetChanged();
 
-        RealmResults<ProductsList> categories = realm.where(ProductsList.class).sort("CategoryName").findAll();
+        RealmResults<ProductsList> categories = realm.where(ProductsList.class).sort("categoryName").findAll();
         ProductsList currentIndex = categories.get(currentPOSCategoryIndex);
         currentPOSCategory = currentIndex.getCategoryName();
-        listOfPOSItems = realm.where(ProductItem.class).equalTo("ItemCategory", currentPOSCategory).sort("ItemName").findAll();
-        updatePOSitemList.callback(position, listOfPOSItems);
+        listOfPOSItems = realm.where(ProductsItem.class).equalTo("itemCategory", currentPOSCategory).sort("itemName").findAll();
+        updatePOSitemList.refreshItemList(position, listOfPOSItems);
 
     }
 }

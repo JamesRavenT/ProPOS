@@ -72,6 +72,7 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
     private void setToolbar(){
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
     }
     private void setDrawer(){
         drawer = findViewById(R.id.drawerLayout);
@@ -89,32 +90,26 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
         switch(item.getItemId()){
             case R.id.nav_POS:
                 currentFragment = "WaZabiPOS";
-                getSupportActionBar().setTitle(currentFragment);
                 getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, pos).commit();
                 break;
             case R.id.nav_Stocks:
                 currentFragment = "Stocks";
-                getSupportActionBar().setTitle(currentFragment);
                 getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, stocks).commit();
                 break;
             case R.id.nav_Products:
                 currentFragment = "Products";
-                getSupportActionBar().setTitle(currentFragment);
                 getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, products).commit();
                 break;
             case R.id.nav_User:
                 currentFragment = "User";
-                getSupportActionBar().setTitle(currentFragment);
                 getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, user).commit();
                 break;
             case R.id.nav_Records:
                 currentFragment = "Records";
-                getSupportActionBar().setTitle(currentFragment);
                 getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, records).commit();
                 break;
             case R.id.nav_SalesReport:
                 currentFragment = "SalesReport";
-                getSupportActionBar().setTitle(currentFragment);
                 getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, salesReport).commit();
                 break;
             case R.id.nav_Printer:

@@ -1,9 +1,7 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
 
-import android.util.Log;
-
-import com.wabizabi.wazabipos.Database.Schemas.Transactions;
+import com.wabizabi.wazabipos.Database.Schemas.TransactionsOfSales;
 
 import org.bson.types.ObjectId;
 
@@ -14,20 +12,24 @@ import io.realm.RealmList;
 
 public class OpenTransactionsInstance {
 
-    public static void toCreateTransaction(List<String> itemset,
-                                           double totalPrice,
-                                           String time,
-                                           String month,
-                                           String day,
-                                           String year){
+    public static void toCreateSalesTransaction(List<String> itemsetName,
+                                                List<Double> itemsetPrice,
+                                                List<Integer> itemsetQty,
+                                                double totalPrice,
+                                                String time,
+                                                String month,
+                                                String day,
+                                                String year){
         try(Realm realm = Realm.getDefaultInstance()){
 
             realm.executeTransaction(db -> {
-                Transactions transaction = db.createObject(Transactions.class, new ObjectId());
-                RealmList<String> items = new RealmList<>();
-                items.addAll(itemset);
-                Log.v("AAAAAA", "Item" + items.size());
-                transaction.setNameOfEachItem(items);
+                TransactionsOfSales transaction = db.createObject(TransactionsOfSales.class, new ObjectId());
+                RealmList<String> itemsIDName = new RealmList<>(); itemsIDName.addAll(itemsetName);
+                RealmList<Double> itemsIDPrice = new RealmList<>(); itemsIDPrice.addAll(itemsetPrice);
+                RealmList<Integer> itemsIDAmount = new RealmList<>(); itemsIDAmount.addAll(itemsetQty);
+                transaction.setNameOfEachItem(itemsIDName);
+                transaction.setPriceOfEachItem(itemsIDPrice);
+                transaction.setAmountOfEachItem(itemsIDAmount);
                 transaction.setPriceOfAllItems(totalPrice);
                 transaction.setTime(time);
                 transaction.setMonth(month);

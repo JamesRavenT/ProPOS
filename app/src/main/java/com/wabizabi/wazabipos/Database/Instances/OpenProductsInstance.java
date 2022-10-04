@@ -1,7 +1,7 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
 import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
-import com.wabizabi.wazabipos.Database.Schemas.ProductItem;
+import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
 
 import org.bson.types.ObjectId;
 
@@ -21,7 +21,7 @@ public class OpenProductsInstance {
     public static void toCreateItem(String category, String name, double price){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction((db) -> {
-                ProductItem product = db.createObject(ProductItem.class, new ObjectId());
+                ProductsItem product = db.createObject(ProductsItem.class, new ObjectId());
                 product.setItemCategory(category);
                 product.setItemName(name);
                 product.setItemPrice(price);

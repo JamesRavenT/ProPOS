@@ -1,23 +1,17 @@
 package com.wabizabi.wazabipos.Utilities.Testing;
 
-import android.util.Log;
-
 import com.wabizabi.wazabipos.Database.Instances.OpenProductsInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
-import com.wabizabi.wazabipos.Database.Schemas.ProductItem;
-import com.wabizabi.wazabipos.Database.Schemas.Transactions;
-
-import org.bson.types.ObjectId;
+import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
+import com.wabizabi.wazabipos.Database.Schemas.TransactionsOfSales;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class TestData {
@@ -118,7 +112,7 @@ public class TestData {
                 "Chocolate Cake"
         };
         try(Realm realm = Realm.getDefaultInstance()){
-            RealmResults<ProductItem> products = realm.where(ProductItem.class).findAll();
+            RealmResults<ProductsItem> products = realm.where(ProductsItem.class).findAll();
             if(products.isEmpty()){
                 for (String category : categories) {
                     OpenProductsInstance.toCreateCategory(category);
@@ -153,7 +147,7 @@ public class TestData {
 
     public static void preloadTransactions() {
         try(Realm realm = Realm.getDefaultInstance()){
-            RealmResults<Transactions> listOfTransactions = realm.where(Transactions.class).findAll();
+            RealmResults<TransactionsOfSales> listOfTransactions = realm.where(TransactionsOfSales.class).findAll();
             if (listOfTransactions.size() < 100) {
                 List<List<String>> table = new ArrayList<>();
                 DataSetZ.insertInto(table);
@@ -172,7 +166,15 @@ public class TestData {
                 String year = currentYear.format(new Date());
 
                 for (List<String> items : table) {
-                    OpenTransactionsInstance.toCreateTransaction(items, totalPrice, time, month, day, year);
+                    List<Double> price = new ArrayList<>();
+                    List<Integer> amount = new ArrayList<>();
+
+                    for(int i = 0 ; i < items.size() ; i++){
+                        price.add(100.00);
+                        amount.add(1);
+                    }
+
+                    OpenTransactionsInstance.toCreateSalesTransaction(items, price, amount, totalPrice, time, month, day, year);
                 }
 
             }

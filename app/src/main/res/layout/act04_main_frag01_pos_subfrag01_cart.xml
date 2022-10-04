@@ -13,24 +13,25 @@
         android:fontFamily="@font/nunito_sans"
         android:text="屋台Cart ( 0 )"
         android:textColor="@color/WazabiTheme"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.018" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/POS_CartRV"
         android:layout_width="0dp"
-        android:layout_height="525dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintBottom_toTopOf="@+id/POS_CartStatisticContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/POS_CartStatisticContainer"
@@ -51,18 +52,18 @@
 
             <TextView
                 android:id="@+id/POS_CartTotalPriceTxt"
-                android:layout_width="300dp"
+                android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans"
                 android:text="Total Price"
                 android:textColor="@color/WazabiTheme"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.144"
+                app:layout_constraintHorizontal_bias="0.183"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.107" />
+                app:layout_constraintVertical_bias="0.111" />
 
             <TextView
                 android:id="@+id/POS_CartTotalPriceNo"
@@ -72,7 +73,7 @@
                 android:text="0.00"
                 android:textAlignment="textEnd"
                 android:textColor="@color/WazabiTheme"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -82,18 +83,18 @@
 
             <TextView
                 android:id="@+id/POS_CartTotalTaxTxt"
-                android:layout_width="300dp"
+                android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans"
                 android:text="Total Tax ( 3% )"
                 android:textColor="@color/WazabiTheme"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.144"
+                app:layout_constraintHorizontal_bias="0.183"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.305" />
+                app:layout_constraintVertical_bias="0.303" />
 
             <TextView
                 android:id="@+id/POS_CartTotalTaxNo"
@@ -103,7 +104,7 @@
                 android:text="0.00"
                 android:textAlignment="textEnd"
                 android:textColor="@color/WazabiTheme"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -113,18 +114,17 @@
 
             <TextView
                 android:id="@+id/POS_CartFinalTxt"
-                android:layout_width="300dp"
+                android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans"
                 android:text="Final Price"
                 android:textColor="@color/WazabiTheme"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.144"
+                app:layout_constraintHorizontal_bias="0.183"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.502" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/POS_CartFinalNo"
@@ -134,7 +134,7 @@
                 android:text="0.00"
                 android:textAlignment="textEnd"
                 android:textColor="@color/WazabiTheme"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -167,9 +167,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans"
-                        android:text="C o n  f i r m"
-                        android:textSize="25sp"
+                        android:text="C o n f i r m"
                         android:textColor="@color/white"
+                        android:textSize="25sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

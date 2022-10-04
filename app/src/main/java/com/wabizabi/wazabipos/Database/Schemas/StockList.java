@@ -5,13 +5,14 @@ import org.bson.types.ObjectId;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class ProductsList extends RealmObject {
+public class StockList extends RealmObject {
     @PrimaryKey
     ObjectId _id;
     String categoryName;
 
-    public ProductsList(){}
-    public ProductsList(ObjectId _id, String categoryName) {
+    public StockList(){}
+
+    public StockList(ObjectId _id, String categoryName) {
         this._id = _id;
         this.categoryName = categoryName;
     }

@@ -3,17 +3,20 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentFragment;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentPOSCategory;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentPOSCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSCart.cart;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSCategory.listOfPOSCategories;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem.listOfPOSItems;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart.Adapter.RVA_Cart.cart;
+import static com.wabizabi.wazabipos.Utilities.Cache.cachedTransactions;
 import static com.wabizabi.wazabipos.Utilities.Cache.fpList;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,14 +26,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
-import com.wabizabi.wazabipos.Database.Schemas.ProductItem;
+import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
 import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.RVA_UpdatePOS;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.RVA_UpdatePOSItemList;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.Update_POS;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.Update_POSItemList;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Objects.CartObject;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart.SubFragment01_Cart;
 import com.wabizabi.wazabipos.R;
 
 import java.text.DateFormat;
@@ -43,7 +46,7 @@ import java.util.Random;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class Fragment01_POS extends Fragment implements RVA_UpdatePOSItemList, RVA_UpdatePOS {
+public class Fragment01_POS extends Fragment implements Update_POSItemList, Update_POS {
 
     SubFragment01_Cart pos_cart = new SubFragment01_Cart();
     Realm realm;
@@ -91,7 +94,7 @@ public class Fragment01_POS extends Fragment implements RVA_UpdatePOSItemList, R
         LinearLayoutManager categoryLayout = new LinearLayoutManager(getActivity());
         categoryLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        listOfPOSCategories = realm.where(ProductsList.class).sort("CategoryName").findAll();
+        listOfPOSCategories = realm.where(ProductsList.class).sort("categoryName").findAll();
         posCategoryRVA = new RVA_POSCategory(getActivity(), realm, this);
         posCategoryRV = v.findViewById(R.id.POS_CategoryRV);
         posCategoryRV.setLayoutManager(categoryLayout);
@@ -101,13 +104,13 @@ public class Fragment01_POS extends Fragment implements RVA_UpdatePOSItemList, R
         LinearLayoutManager itemLayout = new LinearLayoutManager(getActivity());
         itemLayout.setOrientation(LinearLayoutManager.VERTICAL);
         if(currentPOSCategoryIndex == -1){
-            listOfPOSItems = realm.where(ProductItem.class).sort("ItemName").findAll();
+            listOfPOSItems = realm.where(ProductsItem.class).sort("itemName").findAll();
             posItemRVA = new RVA_POSItem(getActivity(), realm, this);
             posItemRV = v.findViewById(R.id.POS_ItemRV);
             posItemRV.setLayoutManager(itemLayout);
             posItemRV.setAdapter(posItemRVA);
         } else {
-            listOfPOSItems = realm.where(ProductItem.class).equalTo("ItemCategory", currentPOSCategory).sort("ItemName").findAll();
+            listOfPOSItems = realm.where(ProductsItem.class).equalTo("itemCategory", currentPOSCategory).sort("itemName").findAll();
             posItemRVA = new RVA_POSItem(getActivity(), realm, this);
             posItemRV = v.findViewById(R.id.POS_ItemRV);
             posItemRV.setLayoutManager(itemLayout);
@@ -129,14 +132,14 @@ public class Fragment01_POS extends Fragment implements RVA_UpdatePOSItemList, R
 
 
     @Override
-    public void callback(int position, RealmResults<ProductItem> products) {
+    public void refreshItemList(int position, RealmResults<ProductsItem> products) {
         posItemRVA = new RVA_POSItem(getActivity(), realm, this);
         posItemRVA.notifyDataSetChanged();
         posItemRV.setAdapter(posItemRVA);
     }
 
     @Override
-    public void refresh(Context context) {
+    public void refreshCartCount(Context context) {
         if(!cart.isEmpty()){
             String cartsize = String.valueOf(cart.size());
             goToCartText.setText("C a r t (" + cartsize + ")");

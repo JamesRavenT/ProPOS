@@ -1,6 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSCart.cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart.Adapter.RVA_Cart.cart;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductItem;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.RVA_UpdatePOS;
+import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.Update_POS;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Objects.CartObject;
 import com.wabizabi.wazabipos.R;
 
@@ -26,12 +26,12 @@ import io.realm.RealmResults;
 
 public class RVA_POSItem extends RecyclerView.Adapter<RVA_POSItem.RVH_POSItem>{
 
-    public static RealmResults<ProductItem> listOfPOSItems;
+    public static RealmResults<ProductsItem> listOfPOSItems;
     Context context;
     Realm realm;
-    RVA_UpdatePOS updateCartCount;
+    Update_POS updateCartCount;
 
-    public RVA_POSItem(Context context, Realm realm, RVA_UpdatePOS updateCartCount) {
+    public RVA_POSItem(Context context, Realm realm, Update_POS updateCartCount) {
         this.context = context;
         this.realm = realm;
         this.updateCartCount = updateCartCount;
@@ -48,7 +48,7 @@ public class RVA_POSItem extends RecyclerView.Adapter<RVA_POSItem.RVH_POSItem>{
 
     @Override
     public void onBindViewHolder(@NonNull RVH_POSItem holder, int position) {
-        ProductItem item = listOfPOSItems.get(position);
+        ProductsItem item = listOfPOSItems.get(position);
         holder.getPOSItem(item, position);
         holder.addToCartBtn.setOnClickListener((v)-> holder.addToCart(item, position));
 
@@ -72,13 +72,13 @@ public class RVA_POSItem extends RecyclerView.Adapter<RVA_POSItem.RVH_POSItem>{
 
         }
 
-        public void getPOSItem(ProductItem item, int position){
+        public void getPOSItem(ProductsItem item, int position){
             this.position = position;
             itemName.setText(item.getItemName());
             itemPrice.setText("₱" + String.valueOf(item.getItemPrice()) + "0");
         }
 
-        public void addToCart(ProductItem item, int position){
+        public void addToCart(ProductsItem item, int position){
             this.position = position;
             String name = item.getItemName();
             double price = item.getItemPrice();
@@ -95,7 +95,7 @@ public class RVA_POSItem extends RecyclerView.Adapter<RVA_POSItem.RVH_POSItem>{
             } else {
                 cart.put(new CartObject(name, price), 1);
             }
-            updateCartCount.refresh(context);
+            updateCartCount.refreshCartCount(context);
             Toast.makeText(context, "Item added to Cart!", Toast.LENGTH_SHORT).show();
         }
     }
