@@ -4,8 +4,8 @@
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_POS"
-            android:title="POS"/>
+            android:id="@+id/nav_Home"
+            android:title="Home"/>
 
         <item android:title="Inventory Management">
             <menu>

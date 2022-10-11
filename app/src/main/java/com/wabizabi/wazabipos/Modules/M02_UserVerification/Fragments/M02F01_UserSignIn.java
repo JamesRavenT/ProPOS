@@ -24,30 +24,15 @@ public class M02F01_UserSignIn extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.act02_userverification_frag01_signin, container, false);
-        checkContentOrientation(v);
+        setContentFunctionalities(v);
         return v;
     }
-    private void checkContentOrientation(View v){
-        int currentOrientation = getResources().getConfiguration().orientation;
-        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            setPortraitFunctionalities(v);
-        }
-        else {
-            setLandscapeFunctionalities(v);
-        }
-    }
-    private void setPortraitFunctionalities(View v){
-        userInput = v.findViewById(R.id.PM02F01_UsernameInput);
-        pinInput = v.findViewById(R.id.PM02F01_PasswordInput);
-        pinConfirmInput = v.findViewById(R.id.PM02F01_PasswordConfirmInput);
-        confirmCreationBtn = v.findViewById(R.id.PM02F01_ConfirmButton);
-        confirmCreationBtn.setOnClickListener((button)-> confirmAccountCreation());
-    }
-    private void setLandscapeFunctionalities(View v){
-        userInput = v.findViewById(R.id.LM02F01_UsernameInput);
-        pinInput = v.findViewById(R.id.LM02F01_PasswordInput);
-        pinConfirmInput = v.findViewById(R.id.LM02F01_PasswordConfirmInput);
-        confirmCreationBtn = v.findViewById(R.id.LM02F01_ConfirmButton);
+
+    private void setContentFunctionalities(View v){
+        userInput = v.findViewById(R.id.M02F01_UsernameInput);
+        pinInput = v.findViewById(R.id.M02F01_PasswordInput);
+        pinConfirmInput = v.findViewById(R.id.M02F01_PasswordConfirmInput);
+        confirmCreationBtn = v.findViewById(R.id.M02F01_ConfirmButton);
         confirmCreationBtn.setOnClickListener((button)-> confirmAccountCreation());
     }
     private void confirmAccountCreation(){

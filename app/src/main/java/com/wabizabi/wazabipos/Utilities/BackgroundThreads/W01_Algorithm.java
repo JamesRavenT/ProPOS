@@ -49,9 +49,9 @@ public class W01_Algorithm extends Worker {
         if (!transactionsAll.isEmpty()) {
             List<List<String>> transactions = new ArrayList<>();
             for (int i = counter; i < transactionsAll.size(); i++) {
-                TransactionsOfSales transact = transactionsAll.get(i);
-                List<String> aaa = transact.getNameOfEachItem();
-                List<String> transaction = new ArrayList<>(aaa);
+                TransactionsOfSales transactionObject = transactionsAll.get(i);
+                List<String> listOfItemsinTheTransaction = transactionObject.getNameOfEachItem();
+                List<String> transaction = new ArrayList<>(listOfItemsinTheTransaction);
                 transactions.add(transaction);
                 counter++;
             }

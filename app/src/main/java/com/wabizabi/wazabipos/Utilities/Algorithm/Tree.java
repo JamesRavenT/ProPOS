@@ -12,9 +12,6 @@ import java.util.Set;
 public class Tree {
 
     public Node root = new Node();
-    Map<String, Node> mapItemNodes = new HashMap<>();
-    Map<String, Node> mapItemLastNodes = new HashMap<>();
-    boolean hasMoreThanOnePath = false;
 
     public Tree(){}
 
@@ -30,10 +27,6 @@ public class Tree {
         }
         filteredTransactions.removeIf(List::isEmpty);
 
-
-
-
-
         Tree tree = new Tree();
         for (List<String> transaction : filteredTransactions) {
             tree.addTransaction(transaction);
@@ -47,27 +40,11 @@ public class Tree {
             if (child == null) {
                 Node newNode = new Node(item, 1, currentNode);
                 currentNode.children.add(newNode);
-                if (!hasMoreThanOnePath && currentNode.children.size() > 1) {
-                    hasMoreThanOnePath = true;
-                }
                 currentNode = newNode;
-                linkNodes(item, newNode);
             } else {
                 child.support++;
                 currentNode = child;
             }
-        }
-    }
-
-    void linkNodes(String item, Node newNode) {
-        Node lastNode = mapItemLastNodes.get(item);
-        if (lastNode != null) {
-            lastNode.edge = newNode;
-        }
-        mapItemLastNodes.put(item, newNode);
-        Node headerNode = mapItemNodes.get(item);
-        if (headerNode == null) {
-            mapItemNodes.put(item, newNode);
         }
     }
 

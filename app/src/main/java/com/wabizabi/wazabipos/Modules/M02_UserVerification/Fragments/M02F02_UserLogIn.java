@@ -35,67 +35,26 @@ public class M02F02_UserLogIn extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.act02_userverification_frag02_login, container, false);
-        checkContentOrientation(v);
+        setContentFunctionalities(v);
         return v;
     }
-    private void checkContentOrientation(View v){
-        int currentOrientation = getResources().getConfiguration().orientation;
-        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            setPortraitFunctionalities(v);
-        }
-        else {
-            setLandscapeFunctionalities(v);
-        }
-    }
     //--PORTRAIT METHODS--//
-    private void setPortraitFunctionalities(View v){
-        pin1 = v.findViewById(R.id.PM02F02_PIN1);
-        pin2 = v.findViewById(R.id.PM02F02_PIN2);
-        pin3 = v.findViewById(R.id.PM02F02_PIN3);
-        pin4 = v.findViewById(R.id.PM02F02_PIN4);
-        btn00 = v.findViewById(R.id.PM02F02_Button00);
-        btn01 = v.findViewById(R.id.PM02F02_Button01);
-        btn02 = v.findViewById(R.id.PM02F02_Button02);
-        btn03 = v.findViewById(R.id.PM02F02_Button03);
-        btn04 = v.findViewById(R.id.PM02F02_Button04);
-        btn05 = v.findViewById(R.id.PM02F02_Button05);
-        btn06 = v.findViewById(R.id.PM02F02_Button06);
-        btn07 = v.findViewById(R.id.PM02F02_Button07);
-        btn08 = v.findViewById(R.id.PM02F02_Button08);
-        btn09 = v.findViewById(R.id.PM02F02_Button09);
-        btnBackspace = v.findViewById(R.id.PM02F02_ButtonBackspace);
-
-        updatePIN();
-
-        btn00.setOnClickListener((btn) -> insertEntry(0));
-        btn01.setOnClickListener((btn) -> insertEntry(1));
-        btn02.setOnClickListener((btn) -> insertEntry(2));
-        btn03.setOnClickListener((btn) -> insertEntry(3));
-        btn04.setOnClickListener((btn) -> insertEntry(4));
-        btn05.setOnClickListener((btn) -> insertEntry(5));
-        btn06.setOnClickListener((btn) -> insertEntry(6));
-        btn07.setOnClickListener((btn) -> insertEntry(7));
-        btn08.setOnClickListener((btn) -> insertEntry(8));
-        btn09.setOnClickListener((btn) -> insertEntry(9));
-        btnBackspace.setOnClickListener((btn) -> deleteEntry());
-    }
-    //--LANDSCAPE METHODS--//
-    private void setLandscapeFunctionalities(View v){
-        pin1 = v.findViewById(R.id.LM02F02_PIN1);
-        pin2 = v.findViewById(R.id.LM02F02_PIN2);
-        pin3 = v.findViewById(R.id.LM02F02_PIN3);
-        pin4 = v.findViewById(R.id.LM02F02_PIN4);
-        btn00 = v.findViewById(R.id.LM02F02_Button00);
-        btn01 = v.findViewById(R.id.LM02F02_Button01);
-        btn02 = v.findViewById(R.id.LM02F02_Button02);
-        btn03 = v.findViewById(R.id.LM02F02_Button03);
-        btn04 = v.findViewById(R.id.LM02F02_Button04);
-        btn05 = v.findViewById(R.id.LM02F02_Button05);
-        btn06 = v.findViewById(R.id.LM02F02_Button06);
-        btn07 = v.findViewById(R.id.LM02F02_Button07);
-        btn08 = v.findViewById(R.id.LM02F02_Button08);
-        btn09 = v.findViewById(R.id.LM02F02_Button09);
-        btnBackspace = v.findViewById(R.id.LM02F02_ButtonBackspace);
+    private void setContentFunctionalities(View v){
+        pin1 = v.findViewById(R.id.M02F02_PIN1);
+        pin2 = v.findViewById(R.id.M02F02_PIN2);
+        pin3 = v.findViewById(R.id.M02F02_PIN3);
+        pin4 = v.findViewById(R.id.M02F02_PIN4);
+        btn00 = v.findViewById(R.id.M02F02_Button00);
+        btn01 = v.findViewById(R.id.M02F02_Button01);
+        btn02 = v.findViewById(R.id.M02F02_Button02);
+        btn03 = v.findViewById(R.id.M02F02_Button03);
+        btn04 = v.findViewById(R.id.M02F02_Button04);
+        btn05 = v.findViewById(R.id.M02F02_Button05);
+        btn06 = v.findViewById(R.id.M02F02_Button06);
+        btn07 = v.findViewById(R.id.M02F02_Button07);
+        btn08 = v.findViewById(R.id.M02F02_Button08);
+        btn09 = v.findViewById(R.id.M02F02_Button09);
+        btnBackspace = v.findViewById(R.id.M02F02_ButtonBackspace);
 
         updatePIN();
 

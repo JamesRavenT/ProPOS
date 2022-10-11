@@ -21,24 +21,10 @@ public class M03A01_LoadResources extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act03_loadresources);
-        checkOrientation();
+        setContentFunctionalities();
     }
-    private void checkOrientation(){
-        int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        if (screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
-            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            loadContentInPortrait();
-        } else {
-            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            loadContentInLandscape();
-        }
-    }
-    private void loadContentInPortrait() {
-        loading = findViewById(R.id.PM03A01_LoadingText);
-        initBackgroundResources();
-    }
-    private void loadContentInLandscape(){
-        loading = findViewById(R.id.LM03A01_LoadingText);
+    private void setContentFunctionalities() {
+        loading = findViewById(R.id.M03A01_LoadingText);
         initBackgroundResources();
     }
     private void initBackgroundResources(){

@@ -2,10 +2,7 @@ package com.wabizabi.wazabipos.Modules.M02_UserVerification;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments.M02F01_UserSignIn;
@@ -24,23 +21,9 @@ public class M02A01_UserVerification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act02_userverification);
-        setContentOrientation();
+        setContentFunctionalities();
     }
-
-    private void setContentOrientation(){
-        int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        if (screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
-            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            setPortraitFunctionalities();
-        } else {
-            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            setLandsacpeFunctionalities();
-        }
-    }
-    private void setPortraitFunctionalities(){
-        checkForUsers();
-    }
-    private void setLandsacpeFunctionalities(){
+    private void setContentFunctionalities(){
         checkForUsers();
     }
     private void checkForUsers(){
@@ -54,10 +37,10 @@ public class M02A01_UserVerification extends AppCompatActivity {
         }
     }
     private void initFragment01(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.PM02A01_FragContainer, signIn).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.M02A01_FragContainer, signIn).commit();
     }
     private void initFragment02(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.PM02A01_FragContainer, logIn).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.M02A01_FragContainer, logIn).commit();
     }
 
 }

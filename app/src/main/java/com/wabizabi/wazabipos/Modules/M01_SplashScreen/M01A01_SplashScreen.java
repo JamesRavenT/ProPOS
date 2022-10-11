@@ -22,24 +22,10 @@ public class M01A01_SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act01_splashscreen);
-        setContentOrientation();
+        setContentFunctionalities();
     }
-    private void setContentOrientation(){
-        int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        if (screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
-            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            setPortraitFunctionalities();
-        } else {
-            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            setLandscapeFunctionalites();
-        }
-    }
-    private void setPortraitFunctionalities(){
-        initDB();
-        loadTestData();
-        loadNextModule();
-    }
-    private void setLandscapeFunctionalites(){
+
+    private void setContentFunctionalities(){
         initDB();
         loadTestData();
         loadNextModule();

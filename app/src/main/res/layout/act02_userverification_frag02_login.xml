@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/PM02F02_Layout"
+    android:id="@+id/M02F02_Layout"
     android:layout_width="match_parent"
     android:layout_height="700dp">
 
@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.279" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_PIN1"
+        android:id="@+id/M02F02_PIN1"
         android:layout_width="25dp"
         android:layout_height="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +32,7 @@
         app:layout_constraintVertical_bias="0.361" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_PIN2"
+        android:id="@+id/M02F02_PIN2"
         android:layout_width="25dp"
         android:layout_height="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +45,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_PIN3"
+        android:id="@+id/M02F02_PIN3"
         android:layout_width="25dp"
         android:layout_height="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
         app:layout_constraintVertical_bias="0.361" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_PIN4"
+        android:id="@+id/M02F02_PIN4"
         android:layout_width="25dp"
         android:layout_height="25dp"
 
@@ -68,7 +68,7 @@
         app:layout_constraintVertical_bias="0.361" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_Button01"
+        android:id="@+id/M02F02_Button01"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -99,7 +99,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_Button02"
+        android:id="@+id/M02F02_Button02"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -129,7 +129,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_Button03"
+        android:id="@+id/M02F02_Button03"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -160,7 +160,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_Button04"
+        android:id="@+id/M02F02_Button04"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -192,7 +192,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_Button05"
+        android:id="@+id/M02F02_Button05"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -223,7 +223,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_Button06"
+        android:id="@+id/M02F02_Button06"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -255,7 +255,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_Button07"
+        android:id="@+id/M02F02_Button07"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -287,7 +287,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_Button08"
+        android:id="@+id/M02F02_Button08"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -318,7 +318,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_Button09"
+        android:id="@+id/M02F02_Button09"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -350,7 +350,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PM02F02_Button00"
+        android:id="@+id/M02F02_Button00"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -381,7 +381,7 @@
     </androidx.cardview.widget.CardView>
 
     <ImageButton
-        android:id="@+id/PM02F02_ButtonBackspace"
+        android:id="@+id/M02F02_ButtonBackspace"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:background="@null"

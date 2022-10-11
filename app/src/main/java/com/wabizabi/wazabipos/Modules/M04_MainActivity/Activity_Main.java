@@ -7,8 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -85,7 +83,7 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.nav_POS:
+            case R.id.nav_Home:
                 currentFragment = "WaZabiPOS";
                 getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, pos).commit();
                 break;
