@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/WazabiTheme"
-    tools:context=".Modules.M03_LoadResources.Activity_LoadResources">
+    android:id="@+id/PM03A01_Layout"
+    tools:context=".Modules.M03_LoadResources.M03A01_LoadResources">
 
     <TextView
-        android:id="@+id/LoadResoures_LoadingText"
+        android:id="@+id/PM03A01_LoadingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nunito_sans_extralight"
@@ -22,7 +23,7 @@
         app:layout_constraintVertical_bias="0.499" />
 
     <ImageView
-        android:id="@+id/LoadResoures_Logo"
+        android:id="@+id/PM03A01_AppLogo"
         android:layout_width="180dp"
         android:layout_height="180dp"
         app:layout_constraintBottom_toBottomOf="parent"

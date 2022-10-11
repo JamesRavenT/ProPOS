@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/SplashScreenLayout"
+    android:id="@+id/PM01A01_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/WazabiTheme"
-    tools:context=".Modules.M01_SplashScreen.Activity_SplashScreen">
+    tools:context=".Modules.M01_SplashScreen.M01A01_SplashScreen">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/PM01A01_AppLogo"
         android:layout_width="180dp"
         android:layout_height="180dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/icon_logo_textless" />
 
     <TextView
-        android:id="@+id/SplashScreenTxt"
+        android:id="@+id/PM01A01_AppTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nunito_sans_extralight"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.499" />
 
     <TextView
-        android:id="@+id/splashScreenTxt"
+        android:id="@+id/PM01A01_AppMotto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nunito_sans_extralight_italic"

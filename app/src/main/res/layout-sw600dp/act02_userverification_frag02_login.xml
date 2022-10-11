@@ -2,12 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/UserLogin"
     android:layout_width="match_parent"
     android:layout_height="700dp">
 
     <TextView
-        android:id="@+id/UserLogin_Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nunito_sans_light"
@@ -22,7 +20,7 @@
         app:layout_constraintVertical_bias="0.279" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLogin_PIN1"
+        android:id="@+id/LM02F02_PIN1"
         android:layout_width="25dp"
         android:layout_height="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +31,7 @@
         app:layout_constraintVertical_bias="0.361" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLogin_PIN2"
+        android:id="@+id/LM02F02_PIN2"
         android:layout_width="25dp"
         android:layout_height="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -46,7 +44,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLogin_PIN3"
+        android:id="@+id/LM02F02_PIN3"
         android:layout_width="25dp"
         android:layout_height="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +55,7 @@
         app:layout_constraintVertical_bias="0.361" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLogin_PIN4"
+        android:id="@+id/LM02F02_PIN4"
         android:layout_width="25dp"
         android:layout_height="25dp"
 
@@ -69,7 +67,7 @@
         app:layout_constraintVertical_bias="0.361" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLoginBtn1"
+        android:id="@+id/LM02F02_Button01"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -77,7 +75,7 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintHorizontal_bias="0.376"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -86,7 +84,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/UserLogin_BtnTxt1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
@@ -101,7 +98,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLoginBtn2"
+        android:id="@+id/LM02F02_Button02"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -109,6 +106,7 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -117,7 +115,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/UserLogin_BtnTxt2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
@@ -132,7 +129,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLoginBtn3"
+        android:id="@+id/LM02F02_Button03"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -140,7 +137,7 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.608"
+        app:layout_constraintHorizontal_bias="0.633"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -149,7 +146,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/UserLogin_BtnTxt3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
@@ -164,7 +160,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLoginBtn4"
+        android:id="@+id/LM02F02_Button04"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -172,7 +168,7 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintHorizontal_bias="0.376"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.644">
@@ -182,7 +178,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/UserLogin_BtnTxt4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
@@ -197,7 +192,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLoginBtn5"
+        android:id="@+id/LM02F02_Button05"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -214,7 +209,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/UserLogin_BtnTxt5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
@@ -229,7 +223,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLoginBtn6"
+        android:id="@+id/LM02F02_Button06"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -237,7 +231,7 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.608"
+        app:layout_constraintHorizontal_bias="0.633"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.644">
@@ -247,7 +241,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/UserLogin_BtnTxt6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
@@ -262,7 +255,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLogin_Btn7"
+        android:id="@+id/LM02F02_Button07"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -270,7 +263,7 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintHorizontal_bias="0.376"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.787">
@@ -295,7 +288,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLogIn_Btn8"
+        android:id="@+id/LM02F02_Button08"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -312,7 +305,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/UserLogin_BtnTxt8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
@@ -327,7 +319,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLogin_Btn9"
+        android:id="@+id/LM02F02_Button09"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -335,7 +327,7 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.608"
+        app:layout_constraintHorizontal_bias="0.633"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.787">
@@ -345,7 +337,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/UserLogin_BtnTxt9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
@@ -360,7 +351,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserLogin_Btn0"
+        android:id="@+id/LM02F02_Button00"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -377,7 +368,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/UserLogin_BtnTxt0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
@@ -392,13 +382,13 @@
     </androidx.cardview.widget.CardView>
 
     <ImageButton
-        android:id="@+id/UserLogin_BtnBckspc"
+        android:id="@+id/LM02F02_ButtonBackspace"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.608"
+        app:layout_constraintHorizontal_bias="0.633"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.929"

@@ -20,6 +20,7 @@ import io.realm.RealmConfiguration;
 
 
 public class DB {
+    private static final String TAG = "Database";
     public static Realm realm;
     public static RealmConfiguration wazabi;
     public static FirebaseFirestore firestore;
@@ -31,8 +32,8 @@ public class DB {
                 .allowWritesOnUiThread(true)
                 .build();
         Realm.setDefaultConfiguration(wazabi);
+        Log.d(TAG, "RealmDatabase | Initialized");
     }
-
     public static void uploadFPListData(Map<String, Map<List<String>, Integer>> fpList){
         Map<String, Object> items = new HashMap<>();
         for(Map.Entry<String, Map<List<String>, Integer>> entry : fpList.entrySet()){
@@ -56,7 +57,6 @@ public class DB {
         firestore.collection("WazabiPOS").document("FrequentPatterns").set(items);
 
     }
-
     public static void uploadFQListData(Map<String, Integer> fqList) {
         Map<String,Object> items = new HashMap<>();
         for(Map.Entry<String, Integer> entry : fqList.entrySet()){

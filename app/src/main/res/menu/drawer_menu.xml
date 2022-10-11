@@ -22,13 +22,7 @@
             <menu>
                 <item
                     android:id="@+id/nav_User"
-                    android:title="User"/>
-                <item
-                    android:id="@+id/nav_Records"
-                    android:title="Records"/>
-                <item
-                    android:id="@+id/nav_SalesReport"
-                    android:title="SalesReport"/>
+                    android:title="Admin"/>
             </menu>
         </item>
 

@@ -1,8 +1,7 @@
-package com.wabizabi.wazabipos.Modules.M02_UserVerification;
+package com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
-import com.wabizabi.wazabipos.Modules.M03_LoadResources.Activity_LoadResources;
+import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03A01_LoadResources;
 import com.wabizabi.wazabipos.R;
 
 import java.util.ArrayList;
@@ -26,32 +25,45 @@ import java.util.stream.Collectors;
 
 import io.realm.Realm;
 
-public class Fragment02_UserLogIn extends Fragment {
+public class M02F02_UserLogIn extends Fragment {
     List<Integer> pin = new ArrayList<>();
     CardView pin1, pin2, pin3, pin4;
     CardView btn01, btn02, btn03, btn04, btn05, btn06, btn07, btn08, btn09, btn00;
-    ImageButton btnbck;
+    ImageButton btnBackspace;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.act02_userverification_frag02_login, container, false);
-        //--FRAGMENT CONTENT--//
-        pin1 = v.findViewById(R.id.UserLogin_PIN1);
-        pin2 = v.findViewById(R.id.UserLogin_PIN2);
-        pin3 = v.findViewById(R.id.UserLogin_PIN3);
-        pin4 = v.findViewById(R.id.UserLogin_PIN4);
-        btn00 = v.findViewById(R.id.UserLogin_Btn0);
-        btn01 = v.findViewById(R.id.UserLoginBtn1);
-        btn02 = v.findViewById(R.id.UserLoginBtn2);
-        btn03 = v.findViewById(R.id.UserLoginBtn3);
-        btn04 = v.findViewById(R.id.UserLoginBtn4);
-        btn05 = v.findViewById(R.id.UserLoginBtn5);
-        btn06 = v.findViewById(R.id.UserLoginBtn6);
-        btn07 = v.findViewById(R.id.UserLogin_Btn7);
-        btn08 = v.findViewById(R.id.UserLogIn_Btn8);
-        btn09 = v.findViewById(R.id.UserLogin_Btn9);
-        btnbck = v.findViewById(R.id.UserLogin_BtnBckspc);
+        checkContentOrientation(v);
+        return v;
+    }
+    private void checkContentOrientation(View v){
+        int currentOrientation = getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            setPortraitFunctionalities(v);
+        }
+        else {
+            setLandscapeFunctionalities(v);
+        }
+    }
+    //--PORTRAIT METHODS--//
+    private void setPortraitFunctionalities(View v){
+        pin1 = v.findViewById(R.id.PM02F02_PIN1);
+        pin2 = v.findViewById(R.id.PM02F02_PIN2);
+        pin3 = v.findViewById(R.id.PM02F02_PIN3);
+        pin4 = v.findViewById(R.id.PM02F02_PIN4);
+        btn00 = v.findViewById(R.id.PM02F02_Button00);
+        btn01 = v.findViewById(R.id.PM02F02_Button01);
+        btn02 = v.findViewById(R.id.PM02F02_Button02);
+        btn03 = v.findViewById(R.id.PM02F02_Button03);
+        btn04 = v.findViewById(R.id.PM02F02_Button04);
+        btn05 = v.findViewById(R.id.PM02F02_Button05);
+        btn06 = v.findViewById(R.id.PM02F02_Button06);
+        btn07 = v.findViewById(R.id.PM02F02_Button07);
+        btn08 = v.findViewById(R.id.PM02F02_Button08);
+        btn09 = v.findViewById(R.id.PM02F02_Button09);
+        btnBackspace = v.findViewById(R.id.PM02F02_ButtonBackspace);
 
         updatePIN();
 
@@ -65,11 +77,41 @@ public class Fragment02_UserLogIn extends Fragment {
         btn07.setOnClickListener((btn) -> insertEntry(7));
         btn08.setOnClickListener((btn) -> insertEntry(8));
         btn09.setOnClickListener((btn) -> insertEntry(9));
-        btnbck.setOnClickListener((btn) -> deleteEntry());
-
-        return v;
+        btnBackspace.setOnClickListener((btn) -> deleteEntry());
     }
+    //--LANDSCAPE METHODS--//
+    private void setLandscapeFunctionalities(View v){
+        pin1 = v.findViewById(R.id.LM02F02_PIN1);
+        pin2 = v.findViewById(R.id.LM02F02_PIN2);
+        pin3 = v.findViewById(R.id.LM02F02_PIN3);
+        pin4 = v.findViewById(R.id.LM02F02_PIN4);
+        btn00 = v.findViewById(R.id.LM02F02_Button00);
+        btn01 = v.findViewById(R.id.LM02F02_Button01);
+        btn02 = v.findViewById(R.id.LM02F02_Button02);
+        btn03 = v.findViewById(R.id.LM02F02_Button03);
+        btn04 = v.findViewById(R.id.LM02F02_Button04);
+        btn05 = v.findViewById(R.id.LM02F02_Button05);
+        btn06 = v.findViewById(R.id.LM02F02_Button06);
+        btn07 = v.findViewById(R.id.LM02F02_Button07);
+        btn08 = v.findViewById(R.id.LM02F02_Button08);
+        btn09 = v.findViewById(R.id.LM02F02_Button09);
+        btnBackspace = v.findViewById(R.id.LM02F02_ButtonBackspace);
 
+        updatePIN();
+
+        btn00.setOnClickListener((btn) -> insertEntry(0));
+        btn01.setOnClickListener((btn) -> insertEntry(1));
+        btn02.setOnClickListener((btn) -> insertEntry(2));
+        btn03.setOnClickListener((btn) -> insertEntry(3));
+        btn04.setOnClickListener((btn) -> insertEntry(4));
+        btn05.setOnClickListener((btn) -> insertEntry(5));
+        btn06.setOnClickListener((btn) -> insertEntry(6));
+        btn07.setOnClickListener((btn) -> insertEntry(7));
+        btn08.setOnClickListener((btn) -> insertEntry(8));
+        btn09.setOnClickListener((btn) -> insertEntry(9));
+        btnBackspace.setOnClickListener((btn) -> deleteEntry());
+    }
+    //--MAIN METHODS--//
     private void insertEntry(int number){
         if(pin.size() == 3){
             pin.add(number);
@@ -129,7 +171,7 @@ public class Fragment02_UserLogIn extends Fragment {
                 pin.clear();
                 updatePIN();
                 Toast.makeText(getActivity(), "Logged In Successfully!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity(), Activity_LoadResources.class));
+                startActivity(new Intent(getActivity(), M03A01_LoadResources.class));
             } else {
                 pin.clear();
                 updatePIN();

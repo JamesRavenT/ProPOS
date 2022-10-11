@@ -1,4 +1,4 @@
-package com.wabizabi.wazabipos.Algorithm.Libraries;
+package com.wabizabi.wazabipos.Utilities.Algorithm;
 
 import java.util.ArrayList;
 import java.util.List;

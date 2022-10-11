@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/UserSignIn"
+    android:id="@+id/LM02F01_Layout"
     android:layout_width="match_parent"
     android:layout_height="700dp"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/UserSignIn_Text01"
+        android:id="@+id/LM02F01_WelcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -18,13 +18,13 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.261"
+        app:layout_constraintHorizontal_bias="0.217"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintVertical_bias="0.219" />
 
     <TextView
-        android:id="@+id/UserSignIn_Text02"
+        android:id="@+id/LM02F01_InstructionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nunito_sans_light"
@@ -33,17 +33,17 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.299"
+        app:layout_constraintHorizontal_bias="0.248"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.301" />
+        app:layout_constraintTop_toBottomOf="@+id/LM02F01_WelcomeText"
+        app:layout_constraintVertical_bias="0.014" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserSignIn_UserNameContainer"
+        android:id="@+id/LM02F01_UsernameContainer"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginStart="300dp"
-        android:layout_marginEnd="300dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginEnd="250dp"
         app:cardCornerRadius="25dp"
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,7 +58,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/UserSignIn_UserNameImage"
+                android:id="@+id/LM02F01_UsernameIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_user"
@@ -69,7 +69,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/UserSignIn_UserNameInput"
+                android:id="@+id/LM02F01_UsernameInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -81,32 +81,33 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/UserSignIn_UserNameImage"
+                app:layout_constraintStart_toEndOf="@+id/LM02F01_UsernameIcon"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserSignIn_4PINContainer"
+        android:id="@+id/LM02F01_PasswordContainer"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginStart="300dp"
-        android:layout_marginEnd="300dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="250dp"
+        android:layout_marginBottom="10dp"
         app:cardCornerRadius="25dp"
         app:cardElevation="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/LM02F01_PasswordConfirmContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499">
+        app:layout_constraintTop_toBottomOf="@+id/LM02F01_UsernameContainer">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/UserSignIn_4PINImage"
+                android:id="@+id/LM02F01_PasswordIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_userpin"
@@ -117,7 +118,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/UserSignIn_4PINInput"
+                android:id="@+id/LM02F01_PasswordInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -130,17 +131,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/UserSignIn_4PINImage"
+                app:layout_constraintStart_toEndOf="@+id/LM02F01_PasswordIcon"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserSignIn_4PINConfirmContainer"
+        android:id="@+id/LM02F01_PasswordConfirmContainer"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginStart="300dp"
-        android:layout_marginEnd="300dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginEnd="250dp"
         app:cardCornerRadius="25dp"
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -154,7 +155,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/UserSignIn_4PINConfirmImage"
+                android:id="@+id/LM02F01_PasswordConfirmIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_userpin"
@@ -165,7 +166,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/UserSignIn_4PINConfirmInput"
+                android:id="@+id/LM02F01_PasswordConfirmInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -173,38 +174,38 @@
                 android:background="@android:color/transparent"
                 android:ems="10"
                 android:hint="Confirm 4-PIN password"
-                android:inputType="textPersonName"
+                android:inputType="numberPassword"
                 android:maxLength="4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/UserSignIn_4PINConfirmImage"
+                app:layout_constraintStart_toEndOf="@+id/LM02F01_PasswordConfirmIcon"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/UserSignIn_ConfirmButton"
+        android:id="@+id/LM02F01_ConfirmButton"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="300dp"
-        android:layout_marginEnd="300dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="400dp"
+        android:layout_marginEnd="400dp"
         android:backgroundTint="@color/WazabiTheme"
         app:cardCornerRadius="25dp"
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749">
+        app:layout_constraintTop_toBottomOf="@+id/LM02F01_PasswordConfirmContainer"
+        app:layout_constraintVertical_bias="0.435">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/UserSignIn_ConfirmButtonText"
+                android:id="@+id/LM02F01_ConfirmButtonText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:elevation="5dp"

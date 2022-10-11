@@ -6,17 +6,14 @@ import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.curr
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSCategory.listOfPOSCategories;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem.listOfPOSItems;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart.Adapter.RVA_Cart.cart;
-import static com.wabizabi.wazabipos.Utilities.Cache.cachedTransactions;
-import static com.wabizabi.wazabipos.Utilities.Cache.fpList;
+import static com.wabizabi.wazabipos.Utilities.GlobalVariables.fpList;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

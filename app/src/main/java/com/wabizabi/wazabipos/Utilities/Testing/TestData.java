@@ -173,7 +173,6 @@ public class TestData {
                         price.add(100.00);
                         amount.add(1);
                     }
-
                     OpenTransactionsInstance.toCreateSalesTransaction(items, price, amount, totalPrice, time, month, day, year);
                 }
 

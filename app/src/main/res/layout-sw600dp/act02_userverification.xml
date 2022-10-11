@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/UserVerification"
+    android:id="@+id/LM02A01_Layout"
     android:background="@drawable/bg_login_tablet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Modules.M02_UserVerification.Activity_UserVerification">
+    tools:context=".Modules.M02_UserVerification.M02A01_UserVerification">
 
     <FrameLayout
-        android:id="@+id/UserVerification_FragmentLayout"
+        android:id="@+id/LM02A01_FragContainer"
         android:layout_width="0dp"
         android:layout_height="550dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,11 +18,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.989">
-
     </FrameLayout>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/LM02A01_AppLogo"
         android:layout_width="180dp"
         android:layout_height="180dp"
         app:layout_constraintBottom_toBottomOf="parent"

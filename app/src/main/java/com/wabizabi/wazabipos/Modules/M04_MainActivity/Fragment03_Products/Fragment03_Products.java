@@ -36,7 +36,6 @@ public class Fragment03_Products extends Fragment implements Update_ProductsItem
     RecyclerView productCategoryRV, productItemRV;
     RecyclerView.Adapter productCategoryRVA, productItemRVA;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +45,7 @@ public class Fragment03_Products extends Fragment implements Update_ProductsItem
         setRecyclerView();
         return v;
     }
+
 
     private void setDBInstance(){
         realm = Realm.getDefaultInstance();

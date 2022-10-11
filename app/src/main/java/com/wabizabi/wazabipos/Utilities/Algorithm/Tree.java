@@ -1,4 +1,6 @@
-package com.wabizabi.wazabipos.Algorithm.Libraries;
+package com.wabizabi.wazabipos.Utilities.Algorithm;
+
+import static com.wabizabi.wazabipos.Utilities.GlobalVariables.filteredTransactions;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,7 +18,7 @@ public class Tree {
 
     public Tree(){}
 
-    public static Tree create(List<List<String>> unfilteredTransactions, List<List<String>> filteredTransactions, Map<String, Integer> fqList) {
+    public static Tree create(List<List<String>> unfilteredTransactions, Map<String, Integer> fqList) {
         for(List<String> transact : unfilteredTransactions){
             filteredTransactions.add(transact);
         }
@@ -73,6 +75,7 @@ public class Tree {
     public static List<List<String>> mine(Tree tree) {
         Node root = tree.root;
         List<Node> paths = new ArrayList<>();
+
         List<List<Node>> nodePaths = new ArrayList<>();
         List<List<String>> stringPaths = new ArrayList<>();
         for (Node child : root.children) {
@@ -92,7 +95,6 @@ public class Tree {
                 nodePath.remove(nodePath.size()-1);
             }
         }
-
         return stringPaths;
     }
 
