@@ -8,15 +8,20 @@ import io.realm.annotations.PrimaryKey;
 public class StockList extends RealmObject {
     @PrimaryKey
     ObjectId _id;
+    int categoryImage;
     String categoryName;
 
     public StockList(){}
 
-    public StockList(ObjectId _id, String categoryName) {
-        this._id = _id;
+    public StockList(int categoryImage, String categoryName) {
+        this.categoryImage = categoryImage;
         this.categoryName = categoryName;
     }
 
+    public int getCategoryImage() { return categoryImage; }
     public String getCategoryName() { return categoryName; }
+
+    public void setCategoryImage(int categoryImage) { this.categoryImage = categoryImage; }
+
     public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
 }

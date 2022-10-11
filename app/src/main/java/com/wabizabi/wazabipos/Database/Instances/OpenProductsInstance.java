@@ -11,7 +11,7 @@ public class OpenProductsInstance {
 
     public static void toCreateCategory(String category){
         try(Realm realm = Realm.getDefaultInstance()){
-            realm.executeTransaction((db) -> {
+            realm.executeTransaction(db -> {
                 ProductsList product = db.createObject(ProductsList.class, new ObjectId());
                 product.setCategoryName(category);
             });

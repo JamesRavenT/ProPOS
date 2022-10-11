@@ -17,7 +17,7 @@ public class FQList {
             }
         }
         fqItems.values().removeIf(value -> value < minSuppThreshold);
-        fqItems.entrySet().removeIf(entry -> entry.getValue() == 0);
+//        fqItems.entrySet().removeIf(entry -> entry.getValue() == 0);
         fqList.putAll(fqItems);
         List<Map.Entry<String, Integer>> fqListEntry = new ArrayList<>(fqList.entrySet());
         fqListEntry.sort((highestVal, lowestVal) -> lowestVal.getValue().compareTo(highestVal.getValue()));

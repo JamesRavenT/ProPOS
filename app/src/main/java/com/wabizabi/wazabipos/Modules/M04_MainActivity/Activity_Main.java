@@ -12,7 +12,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Fragment01_POS;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Fragment02_Stocks;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Fragment03_Products;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Fragment04_User;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_Printer.Fragment05_Printer;
@@ -28,7 +28,7 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
     Fragment01_POS pos = new Fragment01_POS();
         public static int currentPOSCategoryIndex = -1;
         public static String currentPOSCategory;
-    Fragment02_Stocks stocks = new Fragment02_Stocks();
+    M04F02_Stocks stocks = new M04F02_Stocks();
         public static int currentStockCategoryIndex = -1;
         public static String currentStockCategory;
     Fragment03_Products products = new Fragment03_Products();
