@@ -9,15 +9,16 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.Categories.Create.M04F02SM01CF01_CreateCategory;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.Categories.Read.M04F02SM01CF02_ViewCategory;
 import com.wabizabi.wazabipos.R;
 
 public class M04F02SM01_CRUD extends AppCompatActivity {
 
-    public static
-    String setOperationForM04F02;
+    public static String setOperationForM04F02;
     Toolbar toolbar;
 
     M04F02SM01CF01_CreateCategory createCategoryFragment = new M04F02SM01CF01_CreateCategory();
+    M04F02SM01CF02_ViewCategory viewCategoryFragment = new M04F02SM01CF02_ViewCategory();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class M04F02SM01_CRUD extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.M04F02SM01_FragmentContainer, createCategoryFragment).commit();
                 break;
             case "View Category":
-                getSupportFragmentManager().beginTransaction().replace(R.id.M04F02SM01_FragmentContainer, createCategoryFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.M04F02SM01_FragmentContainer, viewCategoryFragment).commit();
                 break;
             case "Update Category":
                 getSupportFragmentManager().beginTransaction().replace(R.id.M04F02SM01_FragmentContainer, createCategoryFragment).commit();

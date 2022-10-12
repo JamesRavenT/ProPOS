@@ -97,7 +97,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_weight="0"
                         android:background="@null"
-                        app:srcCompat="@drawable/icon_addbutton" />
+                        app:srcCompat="@drawable/icon_crud_create" />
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -132,7 +132,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_weight="0"
                         android:background="@null"
-                        app:srcCompat="@drawable/icon_addbutton" />
+                        app:srcCompat="@drawable/icon_crud_create" />
 
                 </LinearLayout>
 

@@ -1,13 +1,13 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.Categories.Create.SubActivity.Model;
 
-public class M04F02SM01CF01SA01_RVModel {
+public class StockImg_CategoryModel {
 
     int iconNo;
     String iconName;
 
-    public M04F02SM01CF01SA01_RVModel(){}
+    public StockImg_CategoryModel(){}
 
-    public M04F02SM01CF01SA01_RVModel(int iconNo, String iconName) {
+    public StockImg_CategoryModel(int iconNo, String iconName) {
         this.iconNo = iconNo;
         this.iconName = iconName;
     }

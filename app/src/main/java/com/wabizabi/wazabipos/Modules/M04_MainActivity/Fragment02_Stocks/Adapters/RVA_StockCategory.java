@@ -1,13 +1,12 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentPOSCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentPOSCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentStockCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentStockCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem.listOfPOSItems;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockItem.listOfStockItems;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.currentStockCategory;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.currentStockCategoryIndex;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.M04F02SM01_CRUD.setOperationForM04F02;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +17,16 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
 import com.wabizabi.wazabipos.Database.Schemas.StockItem;
 import com.wabizabi.wazabipos.Database.Schemas.StockList;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Interfaces.Update_StocksItemList;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.M04F02SM01_CRUD;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class RVA_StockCategory extends RecyclerView.Adapter<RVA_StockCategory.RVH_StockCategory> {
+public class RVA_StockCategory extends RecyclerView.Adapter<RVA_StockCategory.ViewHolder> {
 
     public static RealmResults<StockList> listOfStockCategories;
     Update_StocksItemList updateItemsRV;
@@ -44,17 +41,25 @@ public class RVA_StockCategory extends RecyclerView.Adapter<RVA_StockCategory.RV
 
     @NonNull
     @Override
-    public RVH_StockCategory onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.act04_main_frag02_stocks_category_rvlayout, parent, false);
-        RVH_StockCategory categoryLayout = new RVH_StockCategory(viewLayout);
+        ViewHolder categoryLayout = new ViewHolder(viewLayout);
         return categoryLayout;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RVH_StockCategory holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         StockList category = listOfStockCategories.get(position);
-        holder.getStockCategory(category, position);
+        holder.showCategory(category, position);
         holder.categoryLayout.setOnClickListener((v) -> updateItemsRV(holder, position));
+        holder.categoryLayout.setOnLongClickListener((v) -> {
+            currentStockCategoryIndex = holder.getAdapterPosition();
+            currentStockCategory = category.getCategoryName();
+            setOperationForM04F02 = "View Category";
+            context.startActivity(new Intent(context, M04F02SM01_CRUD.class));
+            return false;
+        });
+
         if(currentStockCategoryIndex == position){
             holder.categoryLayout.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
         } else {
@@ -69,23 +74,23 @@ public class RVA_StockCategory extends RecyclerView.Adapter<RVA_StockCategory.RV
         return listOfStockCategories.size();
     }
 
-    public class RVH_StockCategory extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
         CardView categoryLayout;
         TextView categoryName;
-        public RVH_StockCategory(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryName = itemView.findViewById(R.id.StocksRV_CategoryNameTxt);
             categoryLayout = itemView.findViewById(R.id.StocksRV_CategoryContainer);
         }
 
-        public void getStockCategory(StockList category, int position){
+        public void showCategory(StockList category, int position){
             this.position = position;
             categoryName.setText(category.getCategoryName());
         }
     }
 
-    private void updateItemsRV(@NonNull RVA_StockCategory.RVH_StockCategory holder, int position){
+    private void updateItemsRV(@NonNull ViewHolder holder, int position){
         currentStockCategoryIndex = holder.getAdapterPosition();
         notifyDataSetChanged();
 
@@ -94,6 +99,6 @@ public class RVA_StockCategory extends RecyclerView.Adapter<RVA_StockCategory.RV
         currentStockCategory = currentIndex.getCategoryName();
         listOfStockItems = realm.where(StockItem.class).equalTo("itemCategory", currentStockCategory).sort("itemName").findAll();
         updateItemsRV.refreshItemList(position, listOfStockItems);
-
     }
+
 }

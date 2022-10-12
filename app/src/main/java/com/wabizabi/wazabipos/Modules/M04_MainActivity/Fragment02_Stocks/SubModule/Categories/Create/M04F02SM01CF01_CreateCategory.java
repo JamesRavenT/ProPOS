@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.wabizabi.wazabipos.Database.Instances.OpenStocksInstance;
 import com.wabizabi.wazabipos.Database.Schemas.StockList;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.Categories.Create.SubActivity.M04F02SM01CF01SA01_SelectCategoryImage;
 import com.wabizabi.wazabipos.R;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class M04F02SM01CF01_CreateCategory extends Fragment {
     }
 
     private void init_ImageSelectionPage(){
-//        startActivity(new Intent(getActivity(), M04F02SM01CF01S01_SelectCategoryImage));
+        startActivity(new Intent(getActivity(), M04F02SM01CF01SA01_SelectCategoryImage.class));
     }
 
     private void init_Creation(){

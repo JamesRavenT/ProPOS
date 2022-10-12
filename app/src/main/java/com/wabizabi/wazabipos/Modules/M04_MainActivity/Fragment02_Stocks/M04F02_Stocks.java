@@ -1,7 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentStockCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentStockCategoryIndex;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockCategory.listOfStockCategories;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockItem.listOfStockItems;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.M04F02SM01_CRUD.setOperationForM04F02;
@@ -32,7 +30,8 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F02_Stocks extends Fragment implements Update_StocksItemList {
-
+    public static int currentStockCategoryIndex;
+    public static String currentStockCategory;
     Realm realm;
     ImageButton newCategoryBtn, newItemBtn;
     RecyclerView stockCategoryRV, stockItemRV;
@@ -58,10 +57,8 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList {
     }
 
     private void init_Views(View v){
-        //--BUTTONS--//
         newCategoryBtn = v.findViewById(R.id.M04F02_NewCategoryButton);
         newItemBtn = v.findViewById(R.id.M04F02_NewItemButton);
-        //--RECYLERVIEWS--//
         stockCategoryRV = v.findViewById(R.id.M04F02_CategoryRV);
         stockItemRV = v.findViewById(R.id.M04F02_ItemRV);
     }
@@ -71,7 +68,6 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList {
             setOperationForM04F02 = "Create Category";
             startActivity(new Intent(getActivity(), M04F02SM01_CRUD.class));
         });
-
         newItemBtn.setOnClickListener(v -> {
             setOperationForM04F02 = "Create Item";
             startActivity(new Intent(getActivity(), M04F02SM01_CRUD.class));
@@ -82,7 +78,6 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList {
         //--CATEGORY--//
         LinearLayoutManager categoryLayout = new LinearLayoutManager(getActivity());
         categoryLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
-
         listOfStockCategories = realm.where(StockList.class).sort("categoryName").findAll();
         stockCategoryRVA = new RVA_StockCategory(this, getActivity(), realm);
         stockCategoryRV.setLayoutManager(categoryLayout);

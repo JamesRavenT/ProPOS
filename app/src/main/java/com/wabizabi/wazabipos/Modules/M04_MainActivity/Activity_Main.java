@@ -22,15 +22,13 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
     Toolbar toolbar;
     DrawerLayout drawer;
     NavigationView navigation;
-        public static String currentFragment;
+    public static String currentFragment;
 
     public static
     Fragment01_POS pos = new Fragment01_POS();
         public static int currentPOSCategoryIndex = -1;
         public static String currentPOSCategory;
     M04F02_Stocks stocks = new M04F02_Stocks();
-        public static int currentStockCategoryIndex = -1;
-        public static String currentStockCategory;
     Fragment03_Products products = new Fragment03_Products();
         public static int currentProductCategoryIndex = -1;
         public static String currentProductCategory;
@@ -47,16 +45,7 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
         }
     }
 
-//    private void setScreenOrientation(){
-//        int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-//        if (screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
-//            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//            setContentView(R.layout.act04_main);
-//        } else {
-//            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//            setContentView(R.layout.act04_main);
-//        }
-//    }
+
 
     private void setActivityContents(){
         setToolbar();
@@ -120,3 +109,15 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
     }
 
 }
+
+
+//    private void setScreenOrientation(){
+//        int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+//        if (screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+//            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//            setContentView(R.layout.act04_main);
+//        } else {
+//            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//            setContentView(R.layout.act04_main);
+//        }
+//    }
