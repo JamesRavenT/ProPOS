@@ -2,8 +2,8 @@ package com.wabizabi.wazabipos.Modules.M05_CRUD.Fragment03;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentProductCategory;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentProductCategoryIndex;
-import static com.wabizabi.wazabipos.Utilities.GlobalVariables.currentIndex;
-import static com.wabizabi.wazabipos.Utilities.GlobalVariables.fpList;
+import static com.wabizabi.wazabipos.Utilities.Global.Variables.currentIndex;
+import static com.wabizabi.wazabipos.Utilities.Global.Variables.fpList;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +23,6 @@ import com.wabizabi.wazabipos.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

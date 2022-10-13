@@ -6,7 +6,7 @@ import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.curr
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSCategory.listOfPOSCategories;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem.listOfPOSItems;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart.Adapter.RVA_Cart.cart;
-import static com.wabizabi.wazabipos.Utilities.GlobalVariables.fpList;
+import static com.wabizabi.wazabipos.Utilities.Global.Variables.fpList;
 
 import android.content.Context;
 import android.os.Bundle;

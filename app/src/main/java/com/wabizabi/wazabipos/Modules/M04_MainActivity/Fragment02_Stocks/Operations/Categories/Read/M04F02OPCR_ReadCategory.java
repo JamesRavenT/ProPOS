@@ -1,8 +1,11 @@
-package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.Categories.Read;
+package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Read;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.currentStockCategory;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.currentStockCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.Categories.Read.Adapter.M04F02SM01CF02_RVA.listOfAssociatedStockItems;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Read.Adapter.M04F02OPCR_ReadCategoryRVA.listOfAssociatedStockItems;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockCategorySelectIconFragment;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockUpdateCategoryFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,13 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.StockItem;
 import com.wabizabi.wazabipos.Database.Schemas.StockList;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.Categories.Read.Adapter.M04F02SM01CF02_RVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Read.Adapter.M04F02OPCR_ReadCategoryRVA;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class M04F02SM01CF02_ViewCategory extends Fragment {
+public class M04F02OPCR_ReadCategory extends Fragment {
 
     Realm realm;
     ImageView categoryImage;
@@ -38,7 +41,7 @@ public class M04F02SM01CF02_ViewCategory extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.act04_main_frag02_stocks_sm01_crud_category_frag02_read, container, false);
+        View v = inflater.inflate(R.layout.act04_main_frag02_stocks_operation_crud_categoryread, container, false);
         init_FragmentFunctionalities(v);
         return v;
     }
@@ -47,7 +50,7 @@ public class M04F02SM01CF02_ViewCategory extends Fragment {
         init_Views(v);
         init_DB();
         init_CategoryDetails();
-//        init_Button();
+        init_Button();
         init_RecyclerView();
     }
 
@@ -61,7 +64,6 @@ public class M04F02SM01CF02_ViewCategory extends Fragment {
 
     private void init_DB() {
         realm = Realm.getDefaultInstance();
-        //AAAA
     }
 
     private void init_CategoryDetails(){
@@ -98,7 +100,12 @@ public class M04F02SM01CF02_ViewCategory extends Fragment {
 
     private void init_Button(){
         editButton.setOnClickListener(v -> {
-
+            operationForM04F02OP = "Update Category";
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.M04F02SM01_FragmentContainer, stockUpdateCategoryFragment)
+                    .commit();
         });
     }
 
@@ -107,7 +114,7 @@ public class M04F02SM01CF02_ViewCategory extends Fragment {
         layout.setOrientation(LinearLayoutManager.VERTICAL);
 
         listOfAssociatedStockItems = realm.where(StockItem.class).equalTo("itemCategory", currentStockCategory).sort("itemName").findAll();
-        associatedItemsRVA = new M04F02SM01CF02_RVA(getActivity());
+        associatedItemsRVA = new M04F02OPCR_ReadCategoryRVA(getActivity());
         associatedItemsRV.setLayoutManager(layout);
     }
 }

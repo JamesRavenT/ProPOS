@@ -2,7 +2,7 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockCategory.listOfStockCategories;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockItem.listOfStockItems;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.M04F02SM01_CRUD.setOperationForM04F02;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +22,7 @@ import com.wabizabi.wazabipos.Database.Schemas.StockList;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Interfaces.Update_StocksItemList;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.M04F02SM01_CRUD;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
@@ -65,12 +64,12 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList {
 
     private void init_Buttons(){
         newCategoryBtn.setOnClickListener(v -> {
-            setOperationForM04F02 = "Create Category";
-            startActivity(new Intent(getActivity(), M04F02SM01_CRUD.class));
+            operationForM04F02OP = "Create Category";
+            startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
         });
         newItemBtn.setOnClickListener(v -> {
-            setOperationForM04F02 = "Create Item";
-            startActivity(new Intent(getActivity(), M04F02SM01_CRUD.class));
+            operationForM04F02OP = "Create Item";
+            startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
         });
     }
 

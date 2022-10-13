@@ -3,5 +3,5 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interface
 import android.content.Context;
 
 public interface Update_POS {
-    public void refreshCartCount(Context context);
+    void refreshCartCount(Context context);
 }

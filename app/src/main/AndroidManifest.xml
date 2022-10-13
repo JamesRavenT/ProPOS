@@ -14,11 +14,11 @@
         android:theme="@style/Theme.WaZabiPOS"
         tools:targetApi="31">
         <activity
-            android:name=".Modules.M04_MainActivity.Fragment02_Stocks.SubModule.Categories.Create.SubActivity.M04F02SM01CF01SA01_SelectCategoryImage"
+            android:name=".Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.CategoryIconSelector.M04F02OPCIS_SelectCategoryImage"
             android:exported="false"
             android:screenOrientation="locked"/>
         <activity
-            android:name=".Modules.M04_MainActivity.Fragment02_Stocks.SubModule.M04F02SM01_CRUD"
+            android:name=".Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD"
             android:exported="false"
             android:screenOrientation="locked"/>
         <activity

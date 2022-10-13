@@ -1,17 +1,15 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Adapters;
 
-import static com.wabizabi.wazabipos.Utilities.GlobalVariables.currentIndex;
+import static com.wabizabi.wazabipos.Utilities.Global.Variables.currentIndex;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;

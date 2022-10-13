@@ -1,10 +1,9 @@
 package com.wabizabi.wazabipos.Utilities.Algorithm;
 
-import static com.wabizabi.wazabipos.Utilities.GlobalVariables.filteredTransactions;
+import static com.wabizabi.wazabipos.Utilities.Global.Variables.filteredTransactions;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

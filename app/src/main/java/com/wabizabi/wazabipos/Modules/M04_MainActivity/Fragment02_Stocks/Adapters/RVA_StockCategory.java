@@ -3,7 +3,7 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapte
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockItem.listOfStockItems;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.currentStockCategory;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.currentStockCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.M04F02SM01_CRUD.setOperationForM04F02;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.Schemas.StockItem;
 import com.wabizabi.wazabipos.Database.Schemas.StockList;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Interfaces.Update_StocksItemList;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.M04F02SM01_CRUD;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
@@ -55,8 +55,8 @@ public class RVA_StockCategory extends RecyclerView.Adapter<RVA_StockCategory.Vi
         holder.categoryLayout.setOnLongClickListener((v) -> {
             currentStockCategoryIndex = holder.getAdapterPosition();
             currentStockCategory = category.getCategoryName();
-            setOperationForM04F02 = "View Category";
-            context.startActivity(new Intent(context, M04F02SM01_CRUD.class));
+            operationForM04F02OP = "Read Category";
+            context.startActivity(new Intent(context, M04F02OP_CRUD.class));
             return false;
         });
 

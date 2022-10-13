@@ -1,4 +1,4 @@
-package com.wabizabi.wazabipos.Utilities;
+package com.wabizabi.wazabipos.Utilities.Global;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.TreeMap;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class GlobalVariables {
+public class Variables {
 
     //ALGORITHM
     public static List<List<String>> filteredTransactions = new ArrayList<>();

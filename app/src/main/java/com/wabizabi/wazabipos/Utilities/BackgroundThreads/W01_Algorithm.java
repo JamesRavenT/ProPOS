@@ -1,8 +1,8 @@
 package com.wabizabi.wazabipos.Utilities.BackgroundThreads;
 
-import static com.wabizabi.wazabipos.Utilities.GlobalVariables.fpList;
-import static com.wabizabi.wazabipos.Utilities.GlobalVariables.fqItems;
-import static com.wabizabi.wazabipos.Utilities.GlobalVariables.fqList;
+import static com.wabizabi.wazabipos.Utilities.Global.Variables.fpList;
+import static com.wabizabi.wazabipos.Utilities.Global.Variables.fqItems;
+import static com.wabizabi.wazabipos.Utilities.Global.Variables.fqList;
 
 import android.content.Context;
 

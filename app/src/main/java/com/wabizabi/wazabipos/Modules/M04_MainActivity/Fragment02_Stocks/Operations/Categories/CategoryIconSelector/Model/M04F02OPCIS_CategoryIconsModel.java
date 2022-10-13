@@ -1,13 +1,13 @@
-package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.SubModule.Categories.Create.SubActivity.Model;
+package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.CategoryIconSelector.Model;
 
-public class StockImg_CategoryModel {
+public class M04F02OPCIS_CategoryIconsModel {
 
     int iconNo;
     String iconName;
 
-    public StockImg_CategoryModel(){}
+    public M04F02OPCIS_CategoryIconsModel(){}
 
-    public StockImg_CategoryModel(int iconNo, String iconName) {
+    public M04F02OPCIS_CategoryIconsModel(int iconNo, String iconName) {
         this.iconNo = iconNo;
         this.iconName = iconName;
     }
