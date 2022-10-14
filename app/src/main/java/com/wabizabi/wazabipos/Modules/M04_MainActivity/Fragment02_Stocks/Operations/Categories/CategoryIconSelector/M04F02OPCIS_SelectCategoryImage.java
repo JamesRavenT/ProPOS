@@ -1,7 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.CategoryIconSelector;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.CategoryIconSelector.Adapter.M04F02OPCIS_CategoryIconsRVA.listOfStockCategoryIcons;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,11 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operati
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.CategoryIconSelector.Model.M04F02OPCIS_CategoryIconsModel;
 import com.wabizabi.wazabipos.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class M04F02OPCIS_SelectCategoryImage extends Fragment {
+    List<M04F02OPCIS_CategoryIconsModel> listOfStockCategoryIcons = new ArrayList<>();
     RecyclerView selectCategoryImageRV;
     RecyclerView.Adapter selectCategoryImageRVA;
 
@@ -36,7 +38,7 @@ public class M04F02OPCIS_SelectCategoryImage extends Fragment {
     }
 
     private void init_Views(View v){
-        selectCategoryImageRV = v.findViewById(R.id.M04F02SM01CF01SA01_RecyclerView);
+        selectCategoryImageRV = v.findViewById(R.id.M04F02OPCIS_RecyclerView);
     }
 
     private void init_ListOfIcons(){
@@ -55,7 +57,7 @@ public class M04F02OPCIS_SelectCategoryImage extends Fragment {
     private void init_RecyclerView(){
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        selectCategoryImageRVA = new M04F02OPCIS_CategoryIconsRVA(getActivity());
+        selectCategoryImageRVA = new M04F02OPCIS_CategoryIconsRVA(listOfStockCategoryIcons, getActivity());
         selectCategoryImageRV.setAdapter(selectCategoryImageRVA);
         selectCategoryImageRV.setLayoutManager(layout);
     }

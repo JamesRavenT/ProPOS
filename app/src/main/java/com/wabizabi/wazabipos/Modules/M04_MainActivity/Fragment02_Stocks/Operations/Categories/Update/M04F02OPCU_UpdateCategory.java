@@ -20,6 +20,8 @@ import com.wabizabi.wazabipos.Database.Instances.OpenStocksInstance;
 import com.wabizabi.wazabipos.Database.Schemas.StockList;
 import com.wabizabi.wazabipos.R;
 
+import org.bson.types.ObjectId;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +70,7 @@ public class M04F02OPCU_UpdateCategory extends Fragment {
     private void init_CategoryDetails(){
         RealmResults<StockList> listOfCategories = realm.where(StockList.class).sort("categoryName").findAll();
         StockList category = listOfCategories.get(currentStockCategoryIndex);
-        categoryNameInput.setText(category.getCategoryName());
+        categoryNameInput.setHint(category.getCategoryName());
         if(oldCategoryDetail == 0){
             M04F02OPCU_CategoryImgNo = category.getCategoryImage();
         }
@@ -101,7 +103,7 @@ public class M04F02OPCU_UpdateCategory extends Fragment {
     }
 
     private void init_ImageSelectionPage(){
-        operationForM04F02OP = "SelectIcon_CategoryEdit";
+        operationForM04F02OP = "Select Icon For Category Revision";
         getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
@@ -110,26 +112,14 @@ public class M04F02OPCU_UpdateCategory extends Fragment {
     }
 
     private void init_Updates(){
-        try(Realm realm = Realm.getDefaultInstance()){
-            RealmResults<StockList> listOfStockList = realm.where(StockList.class).findAll();
-            List<String> listOfStockListName = new ArrayList<>();
-            for(StockList category : listOfStockList){
-                listOfStockListName.add(category.getCategoryName());
-            }
-
-            String name = categoryNameInput.getText().toString();
-
-            if(name.equals("")){
-                categoryNameInput.setError("Please enter a name");
-            }
-            else {
-                OpenStocksInstance.toEditCategory(M04F02OPCU_CategoryImgNo, name, currentStockCategoryIndex);
-                M04F02OPCU_CategoryImgNo = 0;
-                categoryNameInput.setText("");
-                getActivity().finish();
-            }
+        String name = categoryNameInput.getText().toString();
+        if(name.equals("")) {
+            categoryNameInput.setError("This field can't be empty.");
         }
-
-
+        else {
+            OpenStocksInstance.toEditCategory(M04F02OPCU_CategoryImgNo, name, currentStockCategoryIndex);
+            M04F02OPCU_CategoryImgNo = 0;
+            getActivity().finish();
+        }
     }
 }

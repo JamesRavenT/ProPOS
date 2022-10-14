@@ -1,6 +1,7 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
 
+import com.wabizabi.wazabipos.Database.Schemas.TransactionsOfInventory;
 import com.wabizabi.wazabipos.Database.Schemas.TransactionsOfSales;
 
 import org.bson.types.ObjectId;
@@ -21,7 +22,6 @@ public class OpenTransactionsInstance {
                                                 String day,
                                                 String year){
         try(Realm realm = Realm.getDefaultInstance()){
-
             realm.executeTransaction(db -> {
                 TransactionsOfSales transaction = db.createObject(TransactionsOfSales.class, new ObjectId());
                 RealmList<String> itemsIDName = new RealmList<>(); itemsIDName.addAll(itemsetName);
@@ -36,7 +36,29 @@ public class OpenTransactionsInstance {
                 transaction.setDay(day);
                 transaction.setYear(year);
             });
+        }
+    }
 
+    public static void toCreateInventoryTransaction(String operation,
+                                                    String itemName,
+                                                    int amountAdded,
+                                                    int amountSubtracted,
+                                                    String time,
+                                                    String day,
+                                                    String month,
+                                                    String year){
+        try(Realm realm = Realm.getDefaultInstance()){
+            realm.executeTransaction(db -> {
+                TransactionsOfInventory transaction = db.createObject(TransactionsOfInventory.class, new ObjectId());
+                transaction.setOperation(operation);
+                transaction.setItemName(itemName);
+                transaction.setAmountAdded(amountAdded);
+                transaction.setAmountSubtracted(amountSubtracted);
+                transaction.setTime(time);
+                transaction.setDay(day);
+                transaction.setMonth(month);
+                transaction.setYear(year);
+            });
         }
     }
 }

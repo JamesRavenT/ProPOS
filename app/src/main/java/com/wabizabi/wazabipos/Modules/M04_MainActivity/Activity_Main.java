@@ -107,7 +107,6 @@ public class Activity_Main extends AppCompatActivity implements NavigationView.O
             return;
         }
     }
-
 }
 
 

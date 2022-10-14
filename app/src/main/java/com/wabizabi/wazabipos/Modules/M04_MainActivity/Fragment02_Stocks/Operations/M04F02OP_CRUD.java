@@ -13,6 +13,8 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operati
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Create.M04F02OPCC_CreateCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Read.M04F02OPCR_ReadCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Update.M04F02OPCU_UpdateCategory;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.CategoryItemSelector.M04F02OPICS_SelectItemCategory;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create.M04F02OPIC_CreateItem;
 import com.wabizabi.wazabipos.R;
 
 public class M04F02OP_CRUD extends AppCompatActivity {
@@ -20,6 +22,11 @@ public class M04F02OP_CRUD extends AppCompatActivity {
     public static M04F02OPCC_CreateCategory stockCreateCategoryFragment = new M04F02OPCC_CreateCategory();
     public static M04F02OPCR_ReadCategory stockReadCategoryFragment = new M04F02OPCR_ReadCategory();
     public static M04F02OPCU_UpdateCategory stockUpdateCategoryFragment = new M04F02OPCU_UpdateCategory();
+
+    public static M04F02OPICS_SelectItemCategory stockItemCategorySelectFragment = new M04F02OPICS_SelectItemCategory();
+    public static M04F02OPIC_CreateItem stockCreateItemFragment = new M04F02OPIC_CreateItem();
+
+
     public static String operationForM04F02OP;
     Toolbar toolbar;
 
@@ -52,12 +59,12 @@ public class M04F02OP_CRUD extends AppCompatActivity {
             case "Read Category":
                 getSupportFragmentManager().beginTransaction().replace(R.id.M04F02SM01_FragmentContainer, stockReadCategoryFragment).commit();
                 break;
-            case "Update Category":
+            case "Edit Category":
                 getSupportFragmentManager().beginTransaction().replace(R.id.M04F02SM01_FragmentContainer, stockUpdateCategoryFragment).commit();
                 break;
-//            case "Create Item":
-//                getSupportFragmentManager().beginTransaction().replace(R.id.M04F02SM01_FragmentContainer, stockCreateCategoryFragment).commit();
-//                break;
+            case "Create Item":
+                getSupportFragmentManager().beginTransaction().replace(R.id.M04F02SM01_FragmentContainer, stockCreateItemFragment).commit();
+                break;
 //            case "View Item":
 //                getSupportFragmentManager().beginTransaction().replace(R.id.M04F02SM01_FragmentContainer, stockCreateCategoryFragment).commit();
 //                break;
@@ -69,10 +76,10 @@ public class M04F02OP_CRUD extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(operationForM04F02OP.equals("SelectIcon_CategoryCreation")){
+        if(operationForM04F02OP.equals("Select Icon For Category Creation")){
             getSupportFragmentManager().beginTransaction().replace(R.id.M04F02SM01_FragmentContainer, stockCreateCategoryFragment).commit();
             operationForM04F02OP = "Create Category";
-        } else if(operationForM04F02OP.equals("SelectIcon_CategoryEdit")){
+        } else if(operationForM04F02OP.equals("Select Icon For Category Revision")){
             getSupportFragmentManager().beginTransaction().replace(R.id.M04F02SM01_FragmentContainer, stockUpdateCategoryFragment).commit();
             operationForM04F02OP = "Update Category";
         }

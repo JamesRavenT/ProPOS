@@ -33,7 +33,6 @@ public class M04F02OPCR_ReadCategory extends Fragment {
 
     Realm realm;
     ImageView categoryImage;
-    ImageButton editButton;
     TextView categoryName, associatedItemsTxt;
     RecyclerView associatedItemsRV;
     RecyclerView.Adapter associatedItemsRVA;
@@ -50,13 +49,11 @@ public class M04F02OPCR_ReadCategory extends Fragment {
         init_Views(v);
         init_DB();
         init_CategoryDetails();
-        init_Button();
         init_RecyclerView();
     }
 
     private void init_Views(View v){
         categoryImage = v.findViewById(R.id.M04F02SM01CF02_CategoryImage);
-        editButton = v.findViewById(R.id.M04F02SM01CF02_EditButton);
         categoryName = v.findViewById(R.id.M04F02SM01CF02_CategoryName);
         associatedItemsTxt = v.findViewById(R.id.M04F02SM01CF02_AssociatedItemsText);
         associatedItemsRV = v.findViewById(R.id.M04F02SM01CF02_AssociatedItemsRV);
@@ -96,17 +93,6 @@ public class M04F02OPCR_ReadCategory extends Fragment {
                 categoryImage.setImageResource(R.drawable.icon_stocks07_japanese);
                 break;
         }
-    }
-
-    private void init_Button(){
-        editButton.setOnClickListener(v -> {
-            operationForM04F02OP = "Update Category";
-            getActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.M04F02SM01_FragmentContainer, stockUpdateCategoryFragment)
-                    .commit();
-        });
     }
 
     private void init_RecyclerView(){

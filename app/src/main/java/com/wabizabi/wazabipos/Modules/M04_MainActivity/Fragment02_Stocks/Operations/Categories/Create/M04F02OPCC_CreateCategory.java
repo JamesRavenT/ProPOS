@@ -26,7 +26,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F02OPCC_CreateCategory extends Fragment {
-    public static int M04F02OPCC_CategoryImgNo;
+    public static int M04F02OPCC_CategoryImage;
     ImageView categoryImg;
     EditText categoryNameInput;
     CardView selectImgBtn, confirmCreationBtn;
@@ -51,7 +51,7 @@ public class M04F02OPCC_CreateCategory extends Fragment {
     }
 
     private void init_CategoryImage(){
-        switch(M04F02OPCC_CategoryImgNo){
+        switch(M04F02OPCC_CategoryImage){
             case 0:
                 categoryImg.setImageResource(R.drawable.icon_stocks00_default);
                 break;
@@ -85,7 +85,7 @@ public class M04F02OPCC_CreateCategory extends Fragment {
     }
 
     private void init_ImageSelectionPage(){
-        operationForM04F02OP = "SelectIcon_CategoryCreation";
+        operationForM04F02OP = "Select Icon For Category Creation";
         getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
@@ -107,11 +107,11 @@ public class M04F02OPCC_CreateCategory extends Fragment {
                 categoryNameInput.setError("Category Name Already Exists");
             }
             else if(categoryName.equals("")){
-                categoryNameInput.setError("Please enter a name");
+                categoryNameInput.setError("This field can't be empty");
             }
             else {
-                OpenStocksInstance.toCreateCategory(M04F02OPCC_CategoryImgNo, categoryName);
-                M04F02OPCC_CategoryImgNo = 0;
+                OpenStocksInstance.toCreateCategory(M04F02OPCC_CategoryImage, categoryName);
+                M04F02OPCC_CategoryImage = 0;
                 categoryNameInput.setText("");
                 getActivity().finish();
             }

@@ -1,6 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.CategoryIconSelector.Adapter;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Create.M04F02OPCC_CreateCategory.M04F02OPCC_CategoryImgNo;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Create.M04F02OPCC_CreateCategory.M04F02OPCC_CategoryImage;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Update.M04F02OPCU_UpdateCategory.M04F02OPCU_CategoryImgNo;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Update.M04F02OPCU_UpdateCategory.oldCategoryDetail;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
@@ -9,7 +9,6 @@ import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +28,11 @@ import java.util.List;
 
 public class M04F02OPCIS_CategoryIconsRVA extends RecyclerView.Adapter<M04F02OPCIS_CategoryIconsRVA.ViewHolder> {
 
-    public static List<M04F02OPCIS_CategoryIconsModel> listOfStockCategoryIcons = new ArrayList<>();
+    List<M04F02OPCIS_CategoryIconsModel> listOfStockCategoryIcons;
     Context context;
 
-    public M04F02OPCIS_CategoryIconsRVA(Context context) {
+    public M04F02OPCIS_CategoryIconsRVA(List<M04F02OPCIS_CategoryIconsModel> listOfStockCategoryIcons, Context context) {
+        this.listOfStockCategoryIcons = listOfStockCategoryIcons;
         this.context = context;
     }
 
@@ -49,10 +49,10 @@ public class M04F02OPCIS_CategoryIconsRVA extends RecyclerView.Adapter<M04F02OPC
         M04F02OPCIS_CategoryIconsModel icons = listOfStockCategoryIcons.get(position);
         holder.showIcons(icons, position);
         holder.iconSelectButton.setOnClickListener(v -> {
-            if(operationForM04F02OP.equals("SelectIcon_CategoryCreation")) {
-                M04F02OPCC_CategoryImgNo = holder.getAdapterPosition();
+            if(operationForM04F02OP.equals("Select Icon For Category Creation")) {
+                M04F02OPCC_CategoryImage = holder.getAdapterPosition();
                 init_CreateCategoryPage();
-            } else if(operationForM04F02OP.equals("SelectIcon_CategoryEdit")){
+            } else if(operationForM04F02OP.equals("Select Icon For Category Revision")){
                 M04F02OPCU_CategoryImgNo = holder.getAdapterPosition();
                 init_UpdateCategoryPage();
             }

@@ -2,16 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/M04F02_RVLayout"
     android:layout_width="match_parent"
     android:layout_height="100dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/StocksRV_ItemContainer"
+        android:id="@+id/M04F02_RVItemContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:elevation="15dp"
         app:cardCornerRadius="5dp"
@@ -27,7 +28,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/StocksRV_Image"
+                android:id="@+id/M04F02_RVItemImage"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -39,7 +40,7 @@
                 app:srcCompat="@drawable/icon_testimg" />
 
             <TextView
-                android:id="@+id/StocksRV_ItemName"
+                android:id="@+id/M04F02_RVItemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -51,12 +52,12 @@
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.04"
-                app:layout_constraintStart_toEndOf="@+id/StocksRV_Image"
+                app:layout_constraintStart_toEndOf="@+id/M04F02_RVItemImage"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.266" />
 
             <TextView
-                android:id="@+id/StocksRV_ItemAmount"
+                android:id="@+id/M04F02_RVItemAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -67,18 +68,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.037"
-                app:layout_constraintStart_toEndOf="@+id/StocksRV_Image"
+                app:layout_constraintStart_toEndOf="@+id/M04F02_RVItemImage"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.75" />
 
             <TextView
-                android:id="@+id/StocksRV_ItemView"
+                android:id="@+id/M04F02_RVItemView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans"
                 android:text="View >"
-                android:textSize="15sp"
                 android:textColor="@color/gray"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.95"

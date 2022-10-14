@@ -18,6 +18,7 @@ public class StockList extends RealmObject {
         this.categoryName = categoryName;
     }
 
+    public ObjectId get_id() { return _id; }
     public int getCategoryImage() { return categoryImage; }
     public String getCategoryName() { return categoryName; }
 
