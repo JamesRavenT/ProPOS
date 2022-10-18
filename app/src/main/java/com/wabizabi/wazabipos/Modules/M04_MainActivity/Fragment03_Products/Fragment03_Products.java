@@ -1,10 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentPOSCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentPOSCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentProductCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentProductCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem.listOfPOSItems;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentProductCategory;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentProductCategoryIndex;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Adapters.RVA_ProductCategory.listOfProductCategories;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Adapters.RVA_ProductItem.listOfProductItems;
 
@@ -21,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
 import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Adapters.RVA_ProductCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Adapters.RVA_ProductItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Interfaces.Update_ProductsItemList;

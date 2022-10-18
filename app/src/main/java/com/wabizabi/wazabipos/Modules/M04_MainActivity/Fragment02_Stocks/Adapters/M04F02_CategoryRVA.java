@@ -1,8 +1,8 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockItem.listOfStockItems;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.currentStockCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.currentStockCategoryIndex;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.M04F02_ItemRVA.listOfStockItems;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentCategory;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentCategoryIndex;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -26,7 +26,7 @@ import com.wabizabi.wazabipos.R;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class RVA_StockCategory extends RecyclerView.Adapter<RVA_StockCategory.ViewHolder> {
+public class M04F02_CategoryRVA extends RecyclerView.Adapter<M04F02_CategoryRVA.ViewHolder> {
 
     public static RealmResults<StockList> listOfStockCategories;
     Update_StocksCurrentCategory updateCurrentStock;
@@ -35,7 +35,7 @@ public class RVA_StockCategory extends RecyclerView.Adapter<RVA_StockCategory.Vi
     Context context;
     Realm realm;
 
-    public RVA_StockCategory(Update_StocksCurrentCategory updateCurrentStock, Update_StocksItemList updateItemsRV, Dialog categoryDialog, Context context, Realm realm) {
+    public M04F02_CategoryRVA(Update_StocksCurrentCategory updateCurrentStock, Update_StocksItemList updateItemsRV, Dialog categoryDialog, Context context, Realm realm) {
         this.updateCurrentStock = updateCurrentStock;
         this.updateItemsRV = updateItemsRV;
         this.categoryDialog = categoryDialog;
@@ -110,20 +110,20 @@ public class RVA_StockCategory extends RecyclerView.Adapter<RVA_StockCategory.Vi
 
         public void onClick(int position){
             categoryLayout.setOnClickListener(v -> {
-                currentStockCategoryIndex = position;
+                M04F02_CurrentCategoryIndex = position;
                 notifyDataSetChanged();
                 RealmResults<StockList> categories = realm.where(StockList.class).sort("categoryName").findAll();
-                StockList currentIndex = categories.get(currentStockCategoryIndex);
-                currentStockCategory = currentIndex.getCategoryName();
-                listOfStockItems = realm.where(StockItem.class).equalTo("itemCategory", currentStockCategory).sort("itemName").findAll();
+                StockList currentIndex = categories.get(M04F02_CurrentCategoryIndex);
+                M04F02_CurrentCategory = currentIndex.getCategoryName();
+                listOfStockItems = realm.where(StockItem.class).equalTo("itemCategory", M04F02_CurrentCategory).sort("itemName").findAll();
                 updateItemsRV.refreshItemList(position, listOfStockItems);
             });
         }
 
         public void onHold(StockList category, int position){
             categoryLayout.setOnLongClickListener((v) -> {
-                currentStockCategoryIndex = position;
-                currentStockCategory = category.getCategoryName();
+                M04F02_CurrentCategoryIndex = position;
+                M04F02_CurrentCategory = category.getCategoryName();
                 notifyDataSetChanged();
                 updateCurrentStock.updateCurrentStock();
                 updateItemsRV.refreshItemList(position, listOfStockItems);
@@ -133,7 +133,7 @@ public class RVA_StockCategory extends RecyclerView.Adapter<RVA_StockCategory.Vi
         }
 
         public void highlight(){
-            if(currentStockCategoryIndex == position){
+            if(M04F02_CurrentCategoryIndex == position){
                 categoryLayout.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
             } else {
                 categoryLayout.setCardBackgroundColor(ContextCompat.getColor(context, R.color.gray));

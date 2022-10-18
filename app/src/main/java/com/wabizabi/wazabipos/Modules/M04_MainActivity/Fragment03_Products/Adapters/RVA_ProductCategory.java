@@ -1,10 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Adapters;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentPOSCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentPOSCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentProductCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentProductCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem.listOfPOSItems;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentProductCategory;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentProductCategoryIndex;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Adapters.RVA_ProductItem.listOfProductItems;
 
 import android.content.Context;

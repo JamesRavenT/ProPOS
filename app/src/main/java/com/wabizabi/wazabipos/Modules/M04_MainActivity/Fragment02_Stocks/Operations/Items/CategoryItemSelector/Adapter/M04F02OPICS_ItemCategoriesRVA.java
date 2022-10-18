@@ -1,19 +1,16 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.CategoryItemSelector.Adapter;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create.M04F02OPIC_CreateItem.M04F02PIC_ItemCategoryImage;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create.M04F02OPIC_CreateItem.M04F02PIC_ItemCategoryText;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create.M04F02OPIC_CreateItem.M04F02PIC_SelectedCategoryImage;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create.M04F02OPIC_CreateItem.M04F02PIC_SelectedCategoryText;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockCreateCategoryFragment;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockCreateItemFragment;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -101,13 +98,13 @@ public class M04F02OPICS_ItemCategoriesRVA extends RecyclerView.Adapter<M04F02OP
         public void onClickSelectButton(StockList category){
             selectButton.setOnClickListener(v -> {
                 if(operationForM04F02OP.equals("Select Category for Item Creation")){
-                    M04F02PIC_ItemCategoryImage = category.getCategoryImage();
-                    M04F02PIC_ItemCategoryText = category.getCategoryName();
+                    M04F02PIC_SelectedCategoryImage = category.getCategoryImage();
+                    M04F02PIC_SelectedCategoryText = category.getCategoryName();
                     operationForM04F02OP = "Create Item";
                     ((FragmentActivity) context)
                             .getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.M04F02SM01_FragmentContainer, stockCreateItemFragment)
+                            .replace(R.id.M04F02OP_FragmentContainer, stockCreateItemFragment)
                             .commit();
                 } else if(operationForM04F02OP.equals("Select Icon For Item Revision")){
                     //Wow

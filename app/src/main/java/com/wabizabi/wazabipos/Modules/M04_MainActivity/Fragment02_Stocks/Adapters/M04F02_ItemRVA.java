@@ -1,6 +1,12 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters;
 
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentItem;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentItemIndex;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
+
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,20 +14,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.StockItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class RVA_StockItem extends RecyclerView.Adapter<RVA_StockItem.ViewHolder> {
+public class M04F02_ItemRVA extends RecyclerView.Adapter<M04F02_ItemRVA.ViewHolder> {
     public static RealmResults<StockItem> listOfStockItems;
+    Dialog itemDialog;
     Context context;
     Realm realm;
 
-    public RVA_StockItem(Context context, Realm realm) {
+    public M04F02_ItemRVA(Dialog itemDialog, Context context, Realm realm) {
+        this.itemDialog = itemDialog;
         this.context = context;
         this.realm = realm;
     }
@@ -37,8 +47,9 @@ public class RVA_StockItem extends RecyclerView.Adapter<RVA_StockItem.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         StockItem item = listOfStockItems.get(position);
-        holder.getStockItems(item, position);
-
+        holder.showItems(item, position);
+        holder.onHoldLayout(item, position);
+        holder.onClickManage(item, position);
     }
 
     @Override
@@ -49,19 +60,21 @@ public class RVA_StockItem extends RecyclerView.Adapter<RVA_StockItem.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
         ImageView itemImage;
-        TextView itemName, itemAmount, viewItemBtn;
+        TextView itemName, itemAmount, updateItemBtn;
+        CardView itemLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemImage = itemView.findViewById(R.id.M04F02_RVItemImage);
             itemName = itemView.findViewById(R.id.M04F02_RVItemName);
             itemAmount = itemView.findViewById(R.id.M04F02_RVItemAmount);
-            viewItemBtn = itemView.findViewById(R.id.M04F02_RVItemView);
+            updateItemBtn = itemView.findViewById(R.id.M04F02_RVItemManage);
+            itemLayout = itemView.findViewById(R.id.M04F02_RVItemContainer);
         }
 
-        public void getStockItems(StockItem item, int position){
+        public void showItems(StockItem item, int position){
             this.position = position;
             itemName.setText(item.getItemName());
-            itemAmount.setText("In stock: " + item.getItemAmount());
+            itemAmount.setText("In stock: " + item.getItemAmount() + " " + item.getItemUnit());
             switch(item.getItemImage()){
                 case 0:
                     itemImage.setImageResource(R.drawable.icon_stocks00_default);
@@ -88,6 +101,24 @@ public class RVA_StockItem extends RecyclerView.Adapter<RVA_StockItem.ViewHolder
                     itemImage.setImageResource(R.drawable.icon_stocks07_japanese);
                     break;
             }
+        }
+
+        public void onHoldLayout(StockItem item, int position){
+            itemLayout.setOnLongClickListener(v -> {
+                M04F02_CurrentItemIndex = position;
+                M04F02_CurrentItem = item.getItemName();
+                itemDialog.show();
+                return false;
+            });
+        }
+
+        public void onClickManage(StockItem item, int position){
+            updateItemBtn.setOnClickListener(v -> {
+                M04F02_CurrentItemIndex = position;
+                M04F02_CurrentItem = item.getItemName();
+                operationForM04F02OP = "Update Item";
+                context.startActivity(new Intent(context, M04F02OP_CRUD.class));
+            });
         }
     }
 }

@@ -6,6 +6,9 @@ import com.wabizabi.wazabipos.Database.Schemas.TransactionsOfSales;
 
 import org.bson.types.ObjectId;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
@@ -43,17 +46,26 @@ public class OpenTransactionsInstance {
                                                     String itemName,
                                                     int amountAdded,
                                                     int amountSubtracted,
-                                                    String time,
-                                                    String day,
-                                                    String month,
-                                                    String year){
+                                                    String itemUnit){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                TransactionsOfInventory transaction = db.createObject(TransactionsOfInventory.class, new ObjectId());
+                DateFormat currentDT = new SimpleDateFormat("yyyyMMMdhmmsS");
+                DateFormat currentTime = new SimpleDateFormat("h:mm a");
+                DateFormat currentMonth = new SimpleDateFormat("MMM");
+                DateFormat currentDay = new SimpleDateFormat("d");
+                DateFormat currentYear = new SimpleDateFormat("yyyy");
+                String dt = currentDT.format(new Date());
+                String time = currentTime.format(new Date());
+                String month = currentMonth.format(new Date());
+                String day = currentDay.format(new Date());
+                String year = currentYear.format(new Date());
+
+                TransactionsOfInventory transaction = db.createObject(TransactionsOfInventory.class, dt);
                 transaction.setOperation(operation);
                 transaction.setItemName(itemName);
-                transaction.setAmountAdded(amountAdded);
-                transaction.setAmountSubtracted(amountSubtracted);
+                transaction.setStockIn(amountAdded);
+                transaction.setStockOut(amountSubtracted);
+                transaction.setItemUnit(itemUnit);
                 transaction.setTime(time);
                 transaction.setDay(day);
                 transaction.setMonth(month);

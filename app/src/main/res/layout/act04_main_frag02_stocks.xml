@@ -7,7 +7,6 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +27,7 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/Stocks_TitleContainer"
+                    android:id="@+id/M04F02_Header"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_margin="10dp"
@@ -41,7 +40,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/InventoryManagement_Stocks"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nunito_sans_extralight"
@@ -56,7 +54,6 @@
                             app:layout_constraintVertical_bias="0.32" />
 
                         <TextView
-                            android:id="@+id/Category_InventoryManagement"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nunito_sans"
@@ -78,7 +75,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/Stocks_CategoryTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -113,7 +109,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/Stocks_ItemTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

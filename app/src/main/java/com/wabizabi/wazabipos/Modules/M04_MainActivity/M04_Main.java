@@ -18,7 +18,7 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Fragment0
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_Printer.Fragment05_Printer;
 import com.wabizabi.wazabipos.R;
 
-public class Activity_Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class M04_Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     DrawerLayout drawer;
     NavigationView navigation;

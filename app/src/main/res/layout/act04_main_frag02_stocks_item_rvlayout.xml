@@ -73,11 +73,11 @@
                 app:layout_constraintVertical_bias="0.75" />
 
             <TextView
-                android:id="@+id/M04F02_RVItemView"
+                android:id="@+id/M04F02_RVItemManage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans"
-                android:text="View >"
+                android:text="Manage >"
                 android:textColor="@color/gray"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"

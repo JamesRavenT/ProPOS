@@ -1,7 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M05_CRUD.Fragment03;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentProductCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Activity_Main.currentProductCategoryIndex;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentProductCategory;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentProductCategoryIndex;
 import static com.wabizabi.wazabipos.Utilities.Global.Variables.currentIndex;
 import static com.wabizabi.wazabipos.Utilities.Global.Variables.fpList;
 

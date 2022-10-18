@@ -1,7 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockCategory.listOfStockCategories;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockItem.listOfStockItems;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.M04F02_CategoryRVA.listOfStockCategories;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.M04F02_ItemRVA.listOfStockItems;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
 
 import android.app.Dialog;
@@ -25,8 +25,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.Instances.OpenStocksInstance;
 import com.wabizabi.wazabipos.Database.Schemas.StockItem;
 import com.wabizabi.wazabipos.Database.Schemas.StockList;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockCategory;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.RVA_StockItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.M04F02_CategoryRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.M04F02_ItemRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Interfaces.Update_StocksCurrentCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Interfaces.Update_StocksItemList;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD;
@@ -36,9 +36,10 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Update_StocksCurrentCategory {
-    public static int currentStockCategoryIndex;
-    public static int currentStockItemIndex;
-    public static String currentStockCategory;
+    public static int M04F02_CurrentCategoryIndex = -1;
+    public static int M04F02_CurrentItemIndex = -1;
+    public static String M04F02_CurrentCategory;
+    public static String M04F02_CurrentItem;
 
     Realm realm;
     Dialog dialogCategoryCRUD, dialogItemCRUD;
@@ -107,8 +108,9 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
             startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
         });
         categoryDeleteText.setOnClickListener(v -> {
-            OpenStocksInstance.toDeleteCategory(currentStockCategoryIndex);
+            OpenStocksInstance.toDeleteCategory();
             stockCategoryRVA.notifyDataSetChanged();
+            stockItemRVA.notifyDataSetChanged();
             dialogCategoryCRUD.dismiss();
             Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_SHORT).show();
         });
@@ -132,7 +134,7 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
             startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
         });
         itemDeleteText.setOnClickListener(v -> {
-            OpenStocksInstance.toDeleteItem(currentStockCategory, currentStockItemIndex);
+            OpenStocksInstance.toDeleteItem(M04F02_CurrentCategory, M04F02_CurrentItemIndex);
             stockItemRVA.notifyDataSetChanged();
             dialogItemCRUD.dismiss();
             Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_SHORT).show();
@@ -145,29 +147,29 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
         LinearLayoutManager categoryLayout = new LinearLayoutManager(getActivity());
         categoryLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
         listOfStockCategories = realm.where(StockList.class).sort("categoryName").findAll();
-        stockCategoryRVA = new RVA_StockCategory(this,this, dialogCategoryCRUD, getActivity(), realm);
+        stockCategoryRVA = new M04F02_CategoryRVA(this,this, dialogCategoryCRUD, getActivity(), realm);
         stockCategoryRV.setLayoutManager(categoryLayout);
         stockCategoryRV.setAdapter(stockCategoryRVA);
 
         //--ITEM--//
         LinearLayoutManager itemLayout = new LinearLayoutManager(getActivity());
         itemLayout.setOrientation(LinearLayoutManager.VERTICAL);
-        listOfStockItems = realm.where(StockItem.class).equalTo("itemCategory", currentStockCategory).sort("itemName").findAll();
-        stockItemRVA = new RVA_StockItem(getActivity(), realm);
+        listOfStockItems = realm.where(StockItem.class).equalTo("itemCategory", M04F02_CurrentCategory).sort("itemName").findAll();
+        stockItemRVA = new M04F02_ItemRVA(dialogItemCRUD, getActivity(), realm);
         stockItemRV.setLayoutManager(itemLayout);
         stockItemRV.setAdapter(stockItemRVA);
 
         //--CURRENT CATEGORY ON START--//
         if(!listOfStockCategories.isEmpty()){
             StockList category = listOfStockCategories.get(0);
-            currentStockCategory = category.getCategoryName();
+            M04F02_CurrentCategory = category.getCategoryName();
         }
     }
 
     @Override
     public void refreshItemList(int position, RealmResults<StockItem> products) {
         try(Realm realm = Realm.getDefaultInstance()){
-            stockItemRVA = new RVA_StockItem(getActivity(), realm);
+            stockItemRVA = new M04F02_ItemRVA(dialogItemCRUD, getActivity(), realm);
             stockItemRVA.notifyDataSetChanged();
             stockItemRV.setAdapter(stockItemRVA);
         }
@@ -175,7 +177,7 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
 
     @Override
     public void updateCurrentStock() {
-        categoryNameText.setText(currentStockCategory);
+        categoryNameText.setText(M04F02_CurrentCategory);
     }
 
     @Override

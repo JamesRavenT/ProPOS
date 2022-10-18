@@ -1,17 +1,13 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Read;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.currentStockCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.currentStockCategoryIndex;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentCategory;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentCategoryIndex;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Read.Adapter.M04F02OPCR_ReadCategoryRVA.listOfAssociatedStockItems;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockCategorySelectIconFragment;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockUpdateCategoryFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,10 +49,10 @@ public class M04F02OPCR_ReadCategory extends Fragment {
     }
 
     private void init_Views(View v){
-        categoryImage = v.findViewById(R.id.M04F02SM01CF02_CategoryImage);
-        categoryName = v.findViewById(R.id.M04F02SM01CF02_CategoryName);
-        associatedItemsTxt = v.findViewById(R.id.M04F02SM01CF02_AssociatedItemsText);
-        associatedItemsRV = v.findViewById(R.id.M04F02SM01CF02_AssociatedItemsRV);
+        categoryImage = v.findViewById(R.id.M04F02OPCR_CategoryImage);
+        categoryName = v.findViewById(R.id.M04F02OPCR_CategoryName);
+        associatedItemsTxt = v.findViewById(R.id.M04F02OPCR_AssociatedItemsText);
+        associatedItemsRV = v.findViewById(R.id.M04F02OPCR_AssociatedItemsRV);
     }
 
     private void init_DB() {
@@ -65,7 +61,7 @@ public class M04F02OPCR_ReadCategory extends Fragment {
 
     private void init_CategoryDetails(){
         RealmResults<StockList> listOfStocks = realm.where(StockList.class).sort("categoryName").findAll();
-        StockList category = listOfStocks.get(currentStockCategoryIndex);
+        StockList category = listOfStocks.get(M04F02_CurrentCategoryIndex);
         categoryName.setText(category.getCategoryName());
         switch (category.getCategoryImage()) {
             case 0:
@@ -98,9 +94,9 @@ public class M04F02OPCR_ReadCategory extends Fragment {
     private void init_RecyclerView(){
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-
-        listOfAssociatedStockItems = realm.where(StockItem.class).equalTo("itemCategory", currentStockCategory).sort("itemName").findAll();
+        listOfAssociatedStockItems = realm.where(StockItem.class).equalTo("itemCategory", M04F02_CurrentCategory).sort("itemName").findAll();
         associatedItemsRVA = new M04F02OPCR_ReadCategoryRVA(getActivity());
         associatedItemsRV.setLayoutManager(layout);
+        associatedItemsRV.setAdapter(associatedItemsRVA);
     }
 }

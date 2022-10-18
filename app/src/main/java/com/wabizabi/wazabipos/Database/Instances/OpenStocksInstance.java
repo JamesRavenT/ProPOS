@@ -1,5 +1,8 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentCategory;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentItem;
+
 import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
 import com.wabizabi.wazabipos.Database.Schemas.StockItem;
 import com.wabizabi.wazabipos.Database.Schemas.StockList;
@@ -20,7 +23,6 @@ public class OpenStocksInstance {
             });
         }
     }
-
     public static void toEditCategory(int image, String name, int position){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
@@ -37,24 +39,18 @@ public class OpenStocksInstance {
             });
         }
     }
-
-    public static void toDeleteCategory(int position){
+    public static void toDeleteCategory(){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                RealmResults<StockList> categories = db.where(StockList.class).sort("categoryName").findAll();
-                StockList category = categories.get(position);
-                RealmResults<StockItem> items = db.where(StockItem.class).equalTo("itemCategory", category.getCategoryName()).findAll();
-                if(!items.isEmpty()){
-                    for(int i = 0 ; i < items.size() ; i++){
-                        items.deleteFromRealm(i);
-                    }
-                }
-                categories.deleteFromRealm(position);
+                StockList category = db.where(StockList.class).equalTo("categoryName", M04F02_CurrentCategory).findFirst();
+                RealmResults<StockItem> items = db.where(StockItem.class).equalTo("itemCategory", M04F02_CurrentCategory).findAll();
+                items.deleteAllFromRealm();
+                category.deleteFromRealm();
             });
         }
     }
 
-    public static void toCreateItem(int image, String category, String name, int amount){
+    public static void toCreateItem(int image, String category, String name, int amount, String unit){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 StockItem item = db.createObject(StockItem.class, new ObjectId());
@@ -62,19 +58,36 @@ public class OpenStocksInstance {
                 item.setItemCategory(category);
                 item.setItemName(name);
                 item.setItemAmount(amount);
+                item.setItemUnit(unit);
             });
         }
     }
-
-    public static void toEditItem(int image, String category, String name, int amount, int position){
+    public static void toEditItem(String name){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                RealmResults<StockItem> items = db.where(StockItem.class).equalTo("itemCategory", category).sort("itemName").findAll();
-                StockItem item = items.get(position);
-                item.setItemImage(image);
-                item.setItemCategory(category);
+                StockItem item = db.where(StockItem.class).equalTo("itemName", M04F02_CurrentItem).findFirst();
                 item.setItemName(name);
-                item.setItemAmount(amount);
+
+            });
+        }
+    }
+    public static void toStockIn(int amount){
+        try(Realm realm = Realm.getDefaultInstance()){
+            realm.executeTransaction(db -> {
+                StockItem item = db.where(StockItem.class).equalTo("itemName", M04F02_CurrentItem).findFirst();
+                int oldAmount = item.getItemAmount();
+                int newAmount = oldAmount + amount;
+                item.setItemAmount(newAmount);
+            });
+        }
+    }
+    public static void toStockOut(int amount){
+        try(Realm realm = Realm.getDefaultInstance()){
+            realm.executeTransaction(db -> {
+                StockItem item = db.where(StockItem.class).equalTo("itemName", M04F02_CurrentItem).findFirst();
+                int oldAmount = item.getItemAmount();
+                int newAmount = oldAmount - amount;
+                item.setItemAmount(newAmount);
             });
         }
     }

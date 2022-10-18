@@ -2,60 +2,29 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/M04F02OPCC_Layout"
-    android:background="@color/dirtywhite"
+    android:id="@+id/M04F02OPIU_Layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/dirtywhite">
 
     <ImageView
-        android:id="@+id/M04F02OPCC_Image"
+        android:id="@+id/M04F02OPIU_Image"
         android:layout_width="150dp"
         android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08"
+        app:layout_constraintVertical_bias="0.075"
         app:srcCompat="@drawable/icon_stocks00_default" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/M04F02OPCC_SelectImageButton"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/WazabiTheme"
-        android:elevation="50dp"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.881"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.131">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito_sans_light"
-                android:text="Select Image"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
     <TextView
+        android:id="@+id/textView11"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nunito_sans_light"
-        android:text="Category Name"
+        android:text="Item Name"
         android:textColor="@color/WazabiTheme"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -66,7 +35,7 @@
         app:layout_constraintVertical_bias="0.312" />
 
     <EditText
-        android:id="@+id/M04F02OPCC_CategoryNameInput"
+        android:id="@+id/M04F02OPIU_ItemNameInput"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="25dp"
@@ -74,17 +43,16 @@
         android:ems="10"
         android:fontFamily="@font/nunito_sans_light"
         android:inputType="textPersonName"
-        android:hint="Input Category Name"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.362" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/M04F02OPCC_ConfirmCreationButton"
+        android:id="@+id/M04F02OPIU_ConfirmChangesButton"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:backgroundTint="@color/WazabiTheme"
@@ -105,9 +73,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
-                android:text="Confirm"
-                android:textSize="25sp"
+                android:text="Confirm Changes"
                 android:textColor="@color/white"
+                android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

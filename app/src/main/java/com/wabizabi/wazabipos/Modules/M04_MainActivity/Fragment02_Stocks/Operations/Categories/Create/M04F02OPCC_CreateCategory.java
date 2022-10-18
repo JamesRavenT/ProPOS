@@ -44,10 +44,10 @@ public class M04F02OPCC_CreateCategory extends Fragment {
         init_Buttons();
     }
     private void init_Views(View v){
-        categoryImg = v.findViewById(R.id.M04F02SM01FA01_Image);
-        categoryNameInput = v.findViewById(R.id.M04F02SM01FA01_CategoryNameInput);
-        selectImgBtn = v.findViewById(R.id.M04F02SM01FA01_SelectImageButton);
-        confirmCreationBtn = v.findViewById(R.id.M04F02SM01FA01_ConfirmCreationButton);
+        categoryImg = v.findViewById(R.id.M04F02OPCC_Image);
+        categoryNameInput = v.findViewById(R.id.M04F02OPCC_CategoryNameInput);
+        selectImgBtn = v.findViewById(R.id.M04F02OPCC_SelectImageButton);
+        confirmCreationBtn = v.findViewById(R.id.M04F02OPCC_ConfirmCreationButton);
     }
 
     private void init_CategoryImage(){
@@ -89,7 +89,7 @@ public class M04F02OPCC_CreateCategory extends Fragment {
         getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.M04F02SM01_FragmentContainer, stockCategorySelectIconFragment)
+                .replace(R.id.M04F02OP_FragmentContainer, stockCategorySelectIconFragment)
                 .commit();
     }
 

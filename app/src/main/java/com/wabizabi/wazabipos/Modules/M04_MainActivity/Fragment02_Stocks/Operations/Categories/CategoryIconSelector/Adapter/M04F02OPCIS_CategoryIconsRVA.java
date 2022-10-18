@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.CategoryIconSelector.Model.M04F02OPCIS_CategoryIconsModel;
 import com.wabizabi.wazabipos.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class M04F02OPCIS_CategoryIconsRVA extends RecyclerView.Adapter<M04F02OPCIS_CategoryIconsRVA.ViewHolder> {
@@ -73,9 +72,9 @@ public class M04F02OPCIS_CategoryIconsRVA extends RecyclerView.Adapter<M04F02OPC
         CardView iconSelectButton;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            iconImage = itemView.findViewById(R.id.M04F02SM01CF01SA01_IconImage);
-            iconName = itemView.findViewById(R.id.M04F02SM01CF01SA01_IconName);
-            iconSelectButton = itemView.findViewById(R.id.M04F02SM01CF01SA01_SelectButton);
+            iconImage = itemView.findViewById(R.id.M04F02OPCIS_IconImage);
+            iconName = itemView.findViewById(R.id.M04F02OPCIS_IconName);
+            iconSelectButton = itemView.findViewById(R.id.M04F02OPCIS_SelectButton);
         }
 
         public void showIcons(M04F02OPCIS_CategoryIconsModel icon, int position){
@@ -115,7 +114,7 @@ public class M04F02OPCIS_CategoryIconsRVA extends RecyclerView.Adapter<M04F02OPC
         ((FragmentActivity) context)
                 .getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.M04F02SM01_FragmentContainer, stockCreateCategoryFragment)
+                .replace(R.id.M04F02OP_FragmentContainer, stockCreateCategoryFragment)
                 .commit();
     }
 
@@ -125,7 +124,7 @@ public class M04F02OPCIS_CategoryIconsRVA extends RecyclerView.Adapter<M04F02OPC
         ((FragmentActivity) context)
                 .getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.M04F02SM01_FragmentContainer, stockUpdateCategoryFragment)
+                .replace(R.id.M04F02OP_FragmentContainer, stockUpdateCategoryFragment)
                 .commit();
     }
 }

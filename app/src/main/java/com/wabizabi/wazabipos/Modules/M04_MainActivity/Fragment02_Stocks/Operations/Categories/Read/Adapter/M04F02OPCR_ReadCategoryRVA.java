@@ -49,8 +49,8 @@ public class M04F02OPCR_ReadCategoryRVA extends RecyclerView.Adapter<M04F02OPCR_
         TextView itemName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.M04F02SM01CF02_RVItemImage);
-            itemName = itemView.findViewById(R.id.M04F02SM01CF02_RVItemName);
+            itemImage = itemView.findViewById(R.id.M04F02OPCR_RVItemImage);
+            itemName = itemView.findViewById(R.id.M04F02OPCR_RVItemName);
         }
 
         public void showItems(StockItem item, int position){

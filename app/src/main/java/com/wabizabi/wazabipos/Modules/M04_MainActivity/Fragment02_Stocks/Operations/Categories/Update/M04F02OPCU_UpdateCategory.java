@@ -1,6 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Update;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.currentStockCategoryIndex;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentCategory;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentCategoryIndex;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockCategorySelectIconFragment;
 
@@ -19,11 +20,6 @@ import androidx.fragment.app.Fragment;
 import com.wabizabi.wazabipos.Database.Instances.OpenStocksInstance;
 import com.wabizabi.wazabipos.Database.Schemas.StockList;
 import com.wabizabi.wazabipos.R;
-
-import org.bson.types.ObjectId;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -68,8 +64,7 @@ public class M04F02OPCU_UpdateCategory extends Fragment {
     }
 
     private void init_CategoryDetails(){
-        RealmResults<StockList> listOfCategories = realm.where(StockList.class).sort("categoryName").findAll();
-        StockList category = listOfCategories.get(currentStockCategoryIndex);
+        StockList category = realm.where(StockList.class).equalTo("categoryName", M04F02_CurrentCategory).findFirst();
         categoryNameInput.setHint(category.getCategoryName());
         if(oldCategoryDetail == 0){
             M04F02OPCU_CategoryImgNo = category.getCategoryImage();
@@ -107,7 +102,7 @@ public class M04F02OPCU_UpdateCategory extends Fragment {
         getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.M04F02SM01_FragmentContainer, stockCategorySelectIconFragment)
+                .replace(R.id.M04F02OP_FragmentContainer, stockCategorySelectIconFragment)
                 .commit();
     }
 
@@ -117,7 +112,7 @@ public class M04F02OPCU_UpdateCategory extends Fragment {
             categoryNameInput.setError("This field can't be empty.");
         }
         else {
-            OpenStocksInstance.toEditCategory(M04F02OPCU_CategoryImgNo, name, currentStockCategoryIndex);
+            OpenStocksInstance.toEditCategory(M04F02OPCU_CategoryImgNo, name, M04F02_CurrentCategoryIndex);
             M04F02OPCU_CategoryImgNo = 0;
             getActivity().finish();
         }

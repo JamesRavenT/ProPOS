@@ -14,10 +14,6 @@
         android:theme="@style/Theme.WaZabiPOS"
         tools:targetApi="31">
         <activity
-            android:name=".Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.CategoryIconSelector.M04F02OPCIS_SelectCategoryImage"
-            android:exported="false"
-            android:screenOrientation="locked"/>
-        <activity
             android:name=".Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD"
             android:exported="false"
             android:screenOrientation="locked"/>
@@ -47,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Modules.M04_MainActivity.Activity_Main"
+            android:name=".Modules.M04_MainActivity.M04_Main"
             android:exported="false" />
 
         <meta-data

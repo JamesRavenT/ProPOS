@@ -31,11 +31,11 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F02OPIC_CreateItem extends Fragment {
-    public static int M04F02PIC_ItemCategoryImage;
-    public static String M04F02PIC_ItemCategoryText;
+    public static int M04F02PIC_SelectedCategoryImage;
+    public static String M04F02PIC_SelectedCategoryText = "No Category Selected";
     ImageView itemImage;
     TextView itemCategory;
-    EditText itemNameInput, itemAmountInput;
+    EditText itemNameInput, itemAmountInput, itemUnitInput;
     CardView selectCategoryBtn, confirmCreationBtn;
 
 
@@ -58,13 +58,14 @@ public class M04F02OPIC_CreateItem extends Fragment {
         itemCategory = v.findViewById(R.id.M04F02OPIC_ItemCategoryText);
         itemNameInput = v.findViewById(R.id.M04F02OPIC_ItemNameInput);
         itemAmountInput = v.findViewById(R.id.M04F02OPIC_ItemAmountInput);
+        itemUnitInput = v.findViewById(R.id.M04F02OPIC_ItemMeasurementInput);
         selectCategoryBtn = v.findViewById(R.id.M04F02OPIC_SelectCategoryButton);
         confirmCreationBtn = v.findViewById(R.id.M04F02OPIC_ConfirmCreationButton);
     }
 
     private void init_ItemCategory(){
-        itemCategory.setText(M04F02PIC_ItemCategoryText);
-        switch(M04F02PIC_ItemCategoryImage){
+        itemCategory.setText(M04F02PIC_SelectedCategoryText);
+        switch(M04F02PIC_SelectedCategoryImage){
             case 0:
                 itemImage.setImageResource(R.drawable.icon_stocks00_default);
                 break;
@@ -102,7 +103,7 @@ public class M04F02OPIC_CreateItem extends Fragment {
         getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.M04F02SM01_FragmentContainer, stockItemCategorySelectFragment)
+                .replace(R.id.M04F02OP_FragmentContainer, stockItemCategorySelectFragment)
                 .commit();
     }
 
@@ -115,25 +116,24 @@ public class M04F02OPIC_CreateItem extends Fragment {
             }
 
             String itemName = itemNameInput.getText().toString();
-            String itemAmountString = itemAmountInput.getText().toString();
-            int itemAmount = Integer.parseInt(itemAmountString);
+            int itemAmount = Integer.parseInt(itemAmountInput.getText().toString());
+            String itemUnit = itemUnitInput.getText().toString();
 
             if(listOfItemNames.contains(itemName)){
                 itemNameInput.setError("Item Name Already Exists");
             }
-            else if(itemName.equals("") || itemAmountString.equals("")){
+            else if(itemName.equals("")){
                 itemNameInput.setError("This field can't be empty");
-            } else {
-                DateFormat currentTime = new SimpleDateFormat("h:mm a");
-                DateFormat currentMonth = new SimpleDateFormat("MMM");
-                DateFormat currentDay = new SimpleDateFormat("d");
-                DateFormat currentYear = new SimpleDateFormat("yyyy");
-                String time = currentTime.format(new Date());
-                String month = currentMonth.format(new Date());
-                String day = currentDay.format(new Date());
-                String year = currentYear.format(new Date());
-                OpenStocksInstance.toCreateItem(M04F02PIC_ItemCategoryImage, M04F02PIC_ItemCategoryText, itemName, itemAmount);
-                OpenTransactionsInstance.toCreateInventoryTransaction("create", itemName, itemAmount, 0, time, month, day, year);
+            }
+            else if(itemAmountInput.getText().toString().equals("")){
+                itemAmountInput.setError("This field can't be empty");
+            }
+            else if(itemUnit.equals("")){
+                itemUnitInput.setError("This field can't be empty");
+            }
+            else {
+                OpenStocksInstance.toCreateItem(M04F02PIC_SelectedCategoryImage, M04F02PIC_SelectedCategoryText, itemName, itemAmount, itemUnit);
+                OpenTransactionsInstance.toCreateInventoryTransaction("create", itemName, itemAmount, 0, itemUnit);
                 getActivity().finish();
             }
         }

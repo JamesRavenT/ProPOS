@@ -7,7 +7,7 @@
     android:id="@+id/drawerLayout"
     android:background="@color/dirtywhite"
     android:fitsSystemWindows="true"
-    tools:context=".Modules.M04_MainActivity.Activity_Main"
+    tools:context=".Modules.M04_MainActivity.M04_Main"
     tools:openDrawer="start"
     >
 

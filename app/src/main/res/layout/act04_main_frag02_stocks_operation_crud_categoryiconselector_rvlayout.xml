@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:id="@+id/M04F02OPICS_Layout">
+    android:id="@+id/M04F02OPCIS_Layout">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/M04F02SM01CF01SA01_Container"
+        android:id="@+id/M04F02OPCIS_Container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="15dp"
@@ -25,7 +25,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/M04F02SM01CF01SA01_IconImage"
+                android:id="@+id/M04F02OPCIS_IconImage"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,7 @@
                 app:srcCompat="@drawable/icon_stocks00_default" />
 
             <TextView
-                android:id="@+id/M04F02SM01CF01SA01_IconName"
+                android:id="@+id/M04F02OPCIS_IconName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -48,11 +48,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.067"
-                app:layout_constraintStart_toEndOf="@+id/M04F02SM01CF01SA01_IconImage"
+                app:layout_constraintStart_toEndOf="@+id/M04F02OPCIS_IconImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/M04F02SM01CF01SA01_SelectButton"
+                android:id="@+id/M04F02OPCIS_SelectButton"
                 android:layout_width="100dp"
                 android:layout_height="35dp"
                 android:backgroundTint="@color/WazabiTheme"
