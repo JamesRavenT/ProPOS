@@ -1,6 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockItemCategorySelectFragment;
 
 import android.os.Bundle;
@@ -21,18 +21,15 @@ import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
 import com.wabizabi.wazabipos.Database.Schemas.StockItem;
 import com.wabizabi.wazabipos.R;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F02OPIC_CreateItem extends Fragment {
-    public static int M04F02PIC_SelectedCategoryImage;
-    public static String M04F02PIC_SelectedCategoryText = "No Category Selected";
+    public static int M04F02OPIC_SelectedCategoryImage;
+    public static String M04F02OPIC_SelectedCategoryText = "No Category Selected";
     ImageView itemImage;
     TextView itemCategory;
     EditText itemNameInput, itemAmountInput, itemUnitInput;
@@ -64,8 +61,8 @@ public class M04F02OPIC_CreateItem extends Fragment {
     }
 
     private void init_ItemCategory(){
-        itemCategory.setText(M04F02PIC_SelectedCategoryText);
-        switch(M04F02PIC_SelectedCategoryImage){
+        itemCategory.setText(M04F02OPIC_SelectedCategoryText);
+        switch(M04F02OPIC_SelectedCategoryImage){
             case 0:
                 itemImage.setImageResource(R.drawable.icon_stocks00_default);
                 break;
@@ -99,7 +96,7 @@ public class M04F02OPIC_CreateItem extends Fragment {
     }
 
     private void init_CategorySelectionPage(){
-        operationForM04F02OP = "Select Category for Item Creation";
+        operationForM04F02 = "Select Category for Item Creation";
         getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
@@ -116,7 +113,8 @@ public class M04F02OPIC_CreateItem extends Fragment {
             }
 
             String itemName = itemNameInput.getText().toString();
-            int itemAmount = Integer.parseInt(itemAmountInput.getText().toString());
+            String itemAmountString = itemAmountInput.getText().toString();
+
             String itemUnit = itemUnitInput.getText().toString();
 
             if(listOfItemNames.contains(itemName)){
@@ -132,7 +130,8 @@ public class M04F02OPIC_CreateItem extends Fragment {
                 itemUnitInput.setError("This field can't be empty");
             }
             else {
-                OpenStocksInstance.toCreateItem(M04F02PIC_SelectedCategoryImage, M04F02PIC_SelectedCategoryText, itemName, itemAmount, itemUnit);
+                int itemAmount = Integer.parseInt(itemAmountString);
+                OpenStocksInstance.toCreateItem(M04F02OPIC_SelectedCategoryImage, M04F02OPIC_SelectedCategoryText, itemName, itemAmount, itemUnit);
                 OpenTransactionsInstance.toCreateInventoryTransaction("create", itemName, itemAmount, 0, itemUnit);
                 getActivity().finish();
             }

@@ -30,19 +30,17 @@ public class M04F02OP_CRUD extends AppCompatActivity {
     public static M04F02OPIU_UpdateItem stockUpdateItemFragment = new M04F02OPIU_UpdateItem();
     public static M04F02OPIT_UpdateItemTransaction stockTransactionItemFragment = new M04F02OPIT_UpdateItemTransaction();
 
-
-    public static String operationForM04F02OP;
+    public static String operationForM04F02;
     Toolbar toolbar;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act04_main_frag02_stocks_operation_crud);
-        init_ContentFunctionalities();
+        init_Functionalities();
     }
 
-    private void init_ContentFunctionalities(){
+    private void init_Functionalities(){
         init_Toolbar();
         init_Fragment();
     }
@@ -56,7 +54,7 @@ public class M04F02OP_CRUD extends AppCompatActivity {
     }
 
     private void init_Fragment(){
-        switch(operationForM04F02OP){
+        switch(operationForM04F02){
             case "Create Category":
                 getSupportFragmentManager().beginTransaction().replace(R.id.M04F02OP_FragmentContainer, stockCreateCategoryFragment).commit();
                 break;
@@ -83,17 +81,17 @@ public class M04F02OP_CRUD extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(operationForM04F02OP.equals("Select Icon For Category Creation")){
+        if(operationForM04F02.equals("Select Icon For Category Creation")){
             getSupportFragmentManager().beginTransaction().replace(R.id.M04F02OP_FragmentContainer, stockCreateCategoryFragment).commit();
-            operationForM04F02OP = "Create Category";
+            operationForM04F02 = "Create Category";
         }
-        else if(operationForM04F02OP.equals("Select Icon For Category Revision")){
+        else if(operationForM04F02.equals("Select Icon For Category Revision")){
             getSupportFragmentManager().beginTransaction().replace(R.id.M04F02OP_FragmentContainer, stockUpdateCategoryFragment).commit();
-            operationForM04F02OP = "Update Category";
+            operationForM04F02 = "Update Category";
         }
-        else if(operationForM04F02OP.equals("Select Category for Item Creation")){
+        else if(operationForM04F02.equals("Select Category for Item Creation")){
             getSupportFragmentManager().beginTransaction().replace(R.id.M04F02OP_FragmentContainer, stockCreateItemFragment).commit();
-            operationForM04F02OP = "Create Item";
+            operationForM04F02 = "Create Item";
         }
         else {
             finish();

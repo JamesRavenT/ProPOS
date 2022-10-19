@@ -27,7 +27,7 @@
             android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/Products_TitleContainer"
+            android:id="@+id/M04F03_Header"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_margin="10dp"
@@ -39,7 +39,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/InventoryManagement_Stocks"
+                    android:id="@+id/M04F03_HeaderTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_sans_extralight"

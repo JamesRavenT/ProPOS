@@ -2,7 +2,7 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapte
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentItem;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentItemIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -116,7 +116,7 @@ public class M04F02_ItemRVA extends RecyclerView.Adapter<M04F02_ItemRVA.ViewHold
             updateItemBtn.setOnClickListener(v -> {
                 M04F02_CurrentItemIndex = position;
                 M04F02_CurrentItem = item.getItemName();
-                operationForM04F02OP = "Update Item";
+                operationForM04F02 = "Update Item";
                 context.startActivity(new Intent(context, M04F02OP_CRUD.class));
             });
         }

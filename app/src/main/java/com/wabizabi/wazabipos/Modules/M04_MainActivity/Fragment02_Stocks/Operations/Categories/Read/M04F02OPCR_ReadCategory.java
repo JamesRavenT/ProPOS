@@ -29,7 +29,7 @@ public class M04F02OPCR_ReadCategory extends Fragment {
 
     Realm realm;
     ImageView categoryImage;
-    TextView categoryName, associatedItemsTxt;
+    TextView categoryName;
     RecyclerView associatedItemsRV;
     RecyclerView.Adapter associatedItemsRVA;
 
@@ -51,7 +51,6 @@ public class M04F02OPCR_ReadCategory extends Fragment {
     private void init_Views(View v){
         categoryImage = v.findViewById(R.id.M04F02OPCR_CategoryImage);
         categoryName = v.findViewById(R.id.M04F02OPCR_CategoryName);
-        associatedItemsTxt = v.findViewById(R.id.M04F02OPCR_AssociatedItemsText);
         associatedItemsRV = v.findViewById(R.id.M04F02OPCR_AssociatedItemsRV);
     }
 

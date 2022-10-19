@@ -1,8 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Update;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockCategorySelectIconFragment;
 
 import android.os.Bundle;
@@ -22,11 +21,10 @@ import com.wabizabi.wazabipos.Database.Schemas.StockList;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class M04F02OPCU_UpdateCategory extends Fragment {
-    public static int M04F02OPCU_CategoryImgNo;
-    public static int oldCategoryDetail;
+    public static int M04F02OPCU_CategoryImg;
+    public static int M04F02OPCU_IsEdited;
     Realm realm;
     ImageView categoryImage;
     EditText categoryNameInput;
@@ -43,8 +41,8 @@ public class M04F02OPCU_UpdateCategory extends Fragment {
     private void init_FragmentFunctionalities(View v){
         init_Views(v);
         init_DB();
-        init_Buttons();
         init_CategoryDetails();
+        init_Buttons();
     }
 
     private void init_Views(View v){
@@ -58,18 +56,13 @@ public class M04F02OPCU_UpdateCategory extends Fragment {
         realm = Realm.getDefaultInstance();
     }
 
-    private void init_Buttons(){
-        categorySelectImage.setOnClickListener(v -> init_ImageSelectionPage());
-        categoryConfirmChanges.setOnClickListener(v -> init_Updates());
-    }
-
     private void init_CategoryDetails(){
         StockList category = realm.where(StockList.class).equalTo("categoryName", M04F02_CurrentCategory).findFirst();
         categoryNameInput.setHint(category.getCategoryName());
-        if(oldCategoryDetail == 0){
-            M04F02OPCU_CategoryImgNo = category.getCategoryImage();
+        if(M04F02OPCU_IsEdited == 0){
+            M04F02OPCU_CategoryImg = category.getCategoryImage();
         }
-        switch(M04F02OPCU_CategoryImgNo){
+        switch(M04F02OPCU_CategoryImg){
             case 0:
                 categoryImage.setImageResource(R.drawable.icon_stocks00_default);
                 break;
@@ -97,24 +90,26 @@ public class M04F02OPCU_UpdateCategory extends Fragment {
         }
     }
 
-    private void init_ImageSelectionPage(){
-        operationForM04F02OP = "Select Icon For Category Revision";
-        getActivity()
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.M04F02OP_FragmentContainer, stockCategorySelectIconFragment)
-                .commit();
-    }
+    private void init_Buttons(){
+        categorySelectImage.setOnClickListener(v -> {
+            operationForM04F02 = "Select Icon For Category Revision";
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.M04F02OP_FragmentContainer, stockCategorySelectIconFragment)
+                    .commit();
+        });
 
-    private void init_Updates(){
-        String name = categoryNameInput.getText().toString();
-        if(name.equals("")) {
-            categoryNameInput.setError("This field can't be empty.");
-        }
-        else {
-            OpenStocksInstance.toEditCategory(M04F02OPCU_CategoryImgNo, name, M04F02_CurrentCategoryIndex);
-            M04F02OPCU_CategoryImgNo = 0;
-            getActivity().finish();
-        }
+        categoryConfirmChanges.setOnClickListener(v -> {
+            String name = categoryNameInput.getText().toString();
+            if(name.equals("")) {
+                categoryNameInput.setError("This field can't be empty.");
+            }
+            else {
+                OpenStocksInstance.toEditCategory(M04F02OPCU_CategoryImg, name);
+                M04F02OPCU_IsEdited = 0;
+                getActivity().finish();
+            }
+        });
     }
 }

@@ -1,9 +1,9 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.CategoryIconSelector.Adapter;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Create.M04F02OPCC_CreateCategory.M04F02OPCC_CategoryImage;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Update.M04F02OPCU_UpdateCategory.M04F02OPCU_CategoryImgNo;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Update.M04F02OPCU_UpdateCategory.oldCategoryDetail;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Update.M04F02OPCU_UpdateCategory.M04F02OPCU_CategoryImg;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Update.M04F02OPCU_UpdateCategory.M04F02OPCU_IsEdited;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockCreateCategoryFragment;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockUpdateCategoryFragment;
 
@@ -47,16 +47,7 @@ public class M04F02OPCIS_CategoryIconsRVA extends RecyclerView.Adapter<M04F02OPC
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         M04F02OPCIS_CategoryIconsModel icons = listOfStockCategoryIcons.get(position);
         holder.showIcons(icons, position);
-        holder.iconSelectButton.setOnClickListener(v -> {
-            if(operationForM04F02OP.equals("Select Icon For Category Creation")) {
-                M04F02OPCC_CategoryImage = holder.getAdapterPosition();
-                init_CreateCategoryPage();
-            } else if(operationForM04F02OP.equals("Select Icon For Category Revision")){
-                M04F02OPCU_CategoryImgNo = holder.getAdapterPosition();
-                init_UpdateCategoryPage();
-            }
-
-        });
+        holder.onClickSelectButton(position);
 
     }
 
@@ -107,24 +98,28 @@ public class M04F02OPCIS_CategoryIconsRVA extends RecyclerView.Adapter<M04F02OPC
                     break;
             }
         }
-    }
 
-    private void init_CreateCategoryPage(){
-        operationForM04F02OP = "Create Category";
-        ((FragmentActivity) context)
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.M04F02OP_FragmentContainer, stockCreateCategoryFragment)
-                .commit();
-    }
-
-    private void init_UpdateCategoryPage(){
-        oldCategoryDetail = 1;
-        operationForM04F02OP = "Edit Category";
-        ((FragmentActivity) context)
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.M04F02OP_FragmentContainer, stockUpdateCategoryFragment)
-                .commit();
+        public void onClickSelectButton(int position){
+            iconSelectButton.setOnClickListener(v -> {
+                if(operationForM04F02.equals("Select Icon For Category Creation")) {
+                    M04F02OPCC_CategoryImage = position;
+                    operationForM04F02 = "Create Category";
+                    ((FragmentActivity) context)
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.M04F02OP_FragmentContainer, stockCreateCategoryFragment)
+                            .commit();
+                } else if(operationForM04F02.equals("Select Icon For Category Revision")){
+                    M04F02OPCU_CategoryImg = position;
+                    M04F02OPCU_IsEdited = 1;
+                    operationForM04F02 = "Edit Category";
+                    ((FragmentActivity) context)
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.M04F02OP_FragmentContainer, stockUpdateCategoryFragment)
+                            .commit();
+                }
+            });
+        }
     }
 }

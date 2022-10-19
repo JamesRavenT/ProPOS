@@ -2,7 +2,7 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.M04F02_CategoryRVA.listOfStockCategories;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.M04F02_ItemRVA.listOfStockItems;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -79,11 +79,11 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
 
     private void init_Buttons(){
         newCategoryBtn.setOnClickListener(v -> {
-            operationForM04F02OP = "Create Category";
+            operationForM04F02 = "Create Category";
             startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
         });
         newItemBtn.setOnClickListener(v -> {
-            operationForM04F02OP = "Create Item";
+            operationForM04F02 = "Create Item";
             startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
         });
     }
@@ -98,12 +98,12 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
         categoryEditText = dialogCategoryCRUD.findViewById(R.id.M04F02OPCD_EditText);
         categoryDeleteText = dialogCategoryCRUD.findViewById(R.id.M04F02OPCD_DeleteText);
         categoryViewText.setOnClickListener(v -> {
-            operationForM04F02OP = "Read Category";
+            operationForM04F02 = "Read Category";
             dialogCategoryCRUD.dismiss();
             startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
         });
         categoryEditText.setOnClickListener(v -> {
-            operationForM04F02OP = "Edit Category";
+            operationForM04F02 = "Edit Category";
             dialogCategoryCRUD.dismiss();
             startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
         });
@@ -124,12 +124,12 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
         itemEditText = dialogItemCRUD.findViewById(R.id.M04F02OPDI_EditText);
         itemDeleteText = dialogItemCRUD.findViewById(R.id.M04F02OPDI_DeleteText);
         itemViewText.setOnClickListener(v -> {
-            operationForM04F02OP = "Read Item";
+            operationForM04F02 = "Read Item";
             dialogItemCRUD.dismiss();
             startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
         });
         itemEditText.setOnClickListener(v -> {
-            operationForM04F02OP = "Edit Item";
+            operationForM04F02 = "Edit Item";
             dialogItemCRUD.dismiss();
             startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
         });
@@ -159,11 +159,11 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
         stockItemRV.setLayoutManager(itemLayout);
         stockItemRV.setAdapter(stockItemRVA);
 
-        //--CURRENT CATEGORY ON START--//
-        if(!listOfStockCategories.isEmpty()){
-            StockList category = listOfStockCategories.get(0);
-            M04F02_CurrentCategory = category.getCategoryName();
-        }
+//        //--CURRENT CATEGORY ON START--//
+//        if(!listOfStockCategories.isEmpty()){
+//            StockList category = listOfStockCategories.get(0);
+//            M04F02_CurrentCategory = category.getCategoryName();
+//        }
     }
 
     @Override

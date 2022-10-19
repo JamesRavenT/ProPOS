@@ -14,11 +14,11 @@
         android:theme="@style/Theme.WaZabiPOS"
         tools:targetApi="31">
         <activity
-            android:name=".Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD"
+            android:name=".Modules.M04_MainActivity.Fragment03_Products.Operations.M04F03OP_CRUD"
             android:exported="false"
             android:screenOrientation="locked"/>
         <activity
-            android:name=".Modules.M05_CRUD.Activity_CRUD"
+            android:name=".Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD"
             android:exported="false"
             android:screenOrientation="locked"/>
         <activity

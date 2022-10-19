@@ -57,7 +57,7 @@ public class M04F02_CategoryRVA extends RecyclerView.Adapter<M04F02_CategoryRVA.
         holder.showCategory(category, position);
         holder.onClick(position);
         holder.onHold(category, position);
-        holder.highlight();
+        holder.highlight(position);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class M04F02_CategoryRVA extends RecyclerView.Adapter<M04F02_CategoryRVA.
             });
         }
 
-        public void highlight(){
+        public void highlight(int position){
             if(M04F02_CurrentCategoryIndex == position){
                 categoryLayout.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
             } else {

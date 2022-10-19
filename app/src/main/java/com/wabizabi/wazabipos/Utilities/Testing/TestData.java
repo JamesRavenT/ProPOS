@@ -115,7 +115,7 @@ public class TestData {
             RealmResults<ProductsItem> products = realm.where(ProductsItem.class).findAll();
             if(products.isEmpty()){
                 for (String category : categories) {
-                    OpenProductsInstance.toCreateCategory(category);
+                    OpenProductsInstance.toCreateCategory(0, category);
                     switch (category) {
                         case "Sashimi and Nigiri": createItem(category, SashimiAndNigiri);
                             break;
@@ -141,7 +141,7 @@ public class TestData {
     }
     public static void createItem(String category, String[] items){
         for(String item : items){
-            OpenProductsInstance.toCreateItem(category, item, 100.00);
+            OpenProductsInstance.toCreateItem(0, category, item, 100.00);
         }
     }
 

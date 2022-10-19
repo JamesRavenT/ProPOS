@@ -1,7 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.CategoryIconSelector.Model;
 
 public class M04F02OPCIS_CategoryIconsModel {
-
     int iconNo;
     String iconName;
 

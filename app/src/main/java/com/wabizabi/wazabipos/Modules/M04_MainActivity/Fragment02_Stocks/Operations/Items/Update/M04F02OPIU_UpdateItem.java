@@ -90,6 +90,7 @@ public class M04F02OPIU_UpdateItem extends Fragment {
             }
             else {
                 OpenStocksInstance.toEditItem(name);
+                getActivity().finish();
             }
         });
     }

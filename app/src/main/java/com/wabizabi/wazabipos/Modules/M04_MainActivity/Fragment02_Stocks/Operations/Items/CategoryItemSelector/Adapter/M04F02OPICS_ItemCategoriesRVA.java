@@ -1,8 +1,8 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.CategoryItemSelector.Adapter;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create.M04F02OPIC_CreateItem.M04F02PIC_SelectedCategoryImage;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create.M04F02OPIC_CreateItem.M04F02PIC_SelectedCategoryText;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create.M04F02OPIC_CreateItem.M04F02OPIC_SelectedCategoryImage;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create.M04F02OPIC_CreateItem.M04F02OPIC_SelectedCategoryText;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockCreateItemFragment;
 
 import android.content.Context;
@@ -23,7 +23,6 @@ import com.wabizabi.wazabipos.R;
 import io.realm.RealmResults;
 
 public class M04F02OPICS_ItemCategoriesRVA extends RecyclerView.Adapter<M04F02OPICS_ItemCategoriesRVA.ViewHolder> {
-
     RealmResults<StockList> listOfStockList;
     Context context;
 
@@ -97,16 +96,16 @@ public class M04F02OPICS_ItemCategoriesRVA extends RecyclerView.Adapter<M04F02OP
 
         public void onClickSelectButton(StockList category){
             selectButton.setOnClickListener(v -> {
-                if(operationForM04F02OP.equals("Select Category for Item Creation")){
-                    M04F02PIC_SelectedCategoryImage = category.getCategoryImage();
-                    M04F02PIC_SelectedCategoryText = category.getCategoryName();
-                    operationForM04F02OP = "Create Item";
+                if(operationForM04F02.equals("Select Category for Item Creation")){
+                    M04F02OPIC_SelectedCategoryImage = category.getCategoryImage();
+                    M04F02OPIC_SelectedCategoryText = category.getCategoryName();
+                    operationForM04F02 = "Create Item";
                     ((FragmentActivity) context)
                             .getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.M04F02OP_FragmentContainer, stockCreateItemFragment)
                             .commit();
-                } else if(operationForM04F02OP.equals("Select Icon For Item Revision")){
+                } else if(operationForM04F02.equals("Select Icon For Item Revision")){
                     //Wow
                 }
             });

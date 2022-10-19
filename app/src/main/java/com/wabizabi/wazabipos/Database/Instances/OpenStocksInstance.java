@@ -23,14 +23,14 @@ public class OpenStocksInstance {
             });
         }
     }
-    public static void toEditCategory(int image, String name, int position){
+    public static void toEditCategory(int image, String name){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                RealmResults<StockList> categories = db.where(StockList.class).sort("categoryName").findAll();
-                StockList category = categories.get(position);
+                StockList category = db.where(StockList.class).equalTo("categoryName", M04F02_CurrentCategory).findFirst();
                 RealmResults<StockItem> items = db.where(StockItem.class).equalTo("itemCategory", category.getCategoryName()).findAll();
                 if(!items.isEmpty()){
                     for(StockItem item : items){
+                        item.setItemImage(image);
                         item.setItemCategory(name);
                     }
                 }

@@ -1,6 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Categories.Create;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02OP;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockCategorySelectIconFragment;
 
 import android.os.Bundle;
@@ -85,7 +85,7 @@ public class M04F02OPCC_CreateCategory extends Fragment {
     }
 
     private void init_ImageSelectionPage(){
-        operationForM04F02OP = "Select Icon For Category Creation";
+        operationForM04F02 = "Select Icon For Category Creation";
         getActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
