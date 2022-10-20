@@ -7,7 +7,10 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +43,8 @@ public class DB {
             Map<String, Object> frequentItemSets = new HashMap<>();
             Set<List<String>> keyItemSets = entry.getValue().keySet();
             List<List<String>> listItemSets = new ArrayList<>(keyItemSets);
+            String docId = String.valueOf(new ObjectId());
+            frequentItemSets.put("DocID", docId);
             for(int i = 0 ; i < listItemSets.size() ; i ++){
                 List<String> itemset = listItemSets.get(i);
                 if (i < 9){
@@ -51,10 +56,9 @@ public class DB {
                 }
             }
             items.put(entry.getKey(), frequentItemSets);
-
         }
         firestore = FirebaseFirestore.getInstance();
-        firestore.collection("WazabiPOS").document("FrequentPatterns").set(items);
+        firestore.collection("WazabiPOSTEST2").document("FrequentPatterns").set(items);
 
     }
     public static void uploadFQListData(Map<String, Integer> fqList) {

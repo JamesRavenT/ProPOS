@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -117,7 +118,10 @@ public class M04F02OPIC_CreateItem extends Fragment {
 
             String itemUnit = itemUnitInput.getText().toString();
 
-            if(listOfItemNames.contains(itemName)){
+            if(M04F02OPIC_SelectedCategoryText.equals("No Category Selected")){
+                Toast.makeText(getActivity(), "Please select a category", Toast.LENGTH_SHORT).show();
+            }
+            else if(listOfItemNames.contains(itemName)){
                 itemNameInput.setError("Item Name Already Exists");
             }
             else if(itemName.equals("")){
@@ -133,6 +137,7 @@ public class M04F02OPIC_CreateItem extends Fragment {
                 int itemAmount = Integer.parseInt(itemAmountString);
                 OpenStocksInstance.toCreateItem(M04F02OPIC_SelectedCategoryImage, M04F02OPIC_SelectedCategoryText, itemName, itemAmount, itemUnit);
                 OpenTransactionsInstance.toCreateInventoryTransaction("create", itemName, itemAmount, 0, itemUnit);
+                M04F02OPIC_SelectedCategoryText = "No Category Selected";
                 getActivity().finish();
             }
         }

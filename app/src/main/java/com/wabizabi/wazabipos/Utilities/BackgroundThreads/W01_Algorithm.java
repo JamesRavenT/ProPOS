@@ -27,9 +27,11 @@ public class W01_Algorithm extends Worker {
 
     static RealmResults<TransactionsOfSales> transactionsAll;
 
-    static int totalTranscations;
+
+
+//    static int minFreqThreshold;
+    static int confidence;
     static int minSuppThreshold;
-    static int minFreqThreshold;
     static int counter;
 
     public W01_Algorithm(@NonNull Context context, @NonNull WorkerParameters workerParams) {
@@ -43,9 +45,6 @@ public class W01_Algorithm extends Worker {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         transactionsAll = realm.where(TransactionsOfSales.class).findAll();
-        totalTranscations = transactionsAll.size();
-        minSuppThreshold = calculateMinSupThreshold(totalTranscations);
-        minFreqThreshold = calculateMinFreqThreshold(minSuppThreshold);
         if (!transactionsAll.isEmpty()) {
             List<List<String>> transactions = new ArrayList<>();
             for (int i = counter; i < transactionsAll.size(); i++) {
@@ -55,10 +54,11 @@ public class W01_Algorithm extends Worker {
                 transactions.add(transaction);
                 counter++;
             }
-            FQList.create(transactions, minSuppThreshold, fqItems, fqList);
+            minSuppThreshold = FQList.calculateMinSupp(transactions, fqItems);
+            FQList.create(minSuppThreshold, fqItems, fqList);
             Tree fpTree = Tree.create(transactions, fqList);
             List<List<String>> paths = Tree.mine(fpTree);
-            findFrequentPatterns(paths, fqList, fpList, minFreqThreshold);
+            findFrequentPatterns(paths, fqList, fpList, minSuppThreshold);
         }
         realm.commitTransaction();
         return Result.success();
@@ -67,7 +67,7 @@ public class W01_Algorithm extends Worker {
             List<List<String>> stringPaths,
             Map<String, Integer> fqList,
             Map<String, Map<List<String>, Integer>> fpList,
-            int minFreqThreshold
+            int minSuppThreshold
     ) {
         fpList.clear();
         //Create Frequent Pattern Base
@@ -84,9 +84,9 @@ public class W01_Algorithm extends Worker {
                 frequentPaths.put(item, 1);
             }
         }
-        frequentPaths.values().removeIf(value -> value < minFreqThreshold);
-        stringPaths.clear();
-        stringPaths.addAll(frequentPaths.keySet());
+        frequentPaths.values().removeIf(value -> value < minSuppThreshold);
+//        stringPaths.clear();
+//        stringPaths.addAll(frequentPaths.keySet());
 
         for (Map.Entry<List<String>, Integer> path : frequentPaths.entrySet()) {
             int index = path.getKey().size() - 1;
@@ -95,20 +95,8 @@ public class W01_Algorithm extends Worker {
                 fpList.get(lastItem).put(path.getKey(), path.getValue());
             }
         }
-        fpList.entrySet().removeIf(entry -> entry.getValue().size() == 0 );
+        fpList.entrySet().removeIf(entry -> entry.getValue().size() == 0);
     }
-
-    static Integer calculateMinSupThreshold(int confidence){
-        double minimumSupport = 0.5;
-        double result = minimumSupport * confidence / 10;
-        return (int) result;
-    }
-    static Integer calculateMinFreqThreshold(int minSuppThreshold){
-        double minimumFrequency = minSuppThreshold * 0.50 / 10;
-        return (int) minimumFrequency;
-    }
-
-
 }
 
 

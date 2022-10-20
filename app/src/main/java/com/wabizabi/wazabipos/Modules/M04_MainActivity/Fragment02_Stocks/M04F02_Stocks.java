@@ -42,11 +42,12 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
     public static String M04F02_CurrentItem;
 
     Realm realm;
-    Dialog dialogCategoryCRUD, dialogItemCRUD;
-    ImageButton newCategoryBtn, newItemBtn;
+    Dialog dialogCreateCRUD, dialogCategoryCRUD, dialogItemCRUD;
+    ImageButton createButton;
     RecyclerView stockCategoryRV, stockItemRV;
     RecyclerView.Adapter stockCategoryRVA, stockItemRVA;
     //--DIALOG--//
+    TextView createCategoryText, createItemText;
     TextView categoryNameText, categoryViewText, categoryEditText, categoryDeleteText;
     TextView itemNameText, itemViewText, itemEditText, itemDeleteText;
 
@@ -71,24 +72,29 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
     }
 
     private void init_Views(View v){
-        newCategoryBtn = v.findViewById(R.id.M04F02_NewCategoryButton);
-        newItemBtn = v.findViewById(R.id.M04F02_NewItemButton);
+        createButton = v.findViewById(R.id.M04F02_CreateButton);
         stockCategoryRV = v.findViewById(R.id.M04F02_CategoryRV);
         stockItemRV = v.findViewById(R.id.M04F02_ItemRV);
     }
 
-    private void init_Buttons(){
-        newCategoryBtn.setOnClickListener(v -> {
-            operationForM04F02 = "Create Category";
-            startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
-        });
-        newItemBtn.setOnClickListener(v -> {
-            operationForM04F02 = "Create Item";
-            startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
-        });
-    }
-
     private void init_Dialogs(){
+        //--ADD--//
+        dialogCreateCRUD = new Dialog(getActivity());
+        dialogCreateCRUD.setContentView(R.layout.act04_main_frag02_stocks_operation_crud_popupadd);
+        dialogCreateCRUD.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        createCategoryText = dialogCreateCRUD.findViewById(R.id.M04F02OPDA_CategoryText);
+        createItemText = dialogCreateCRUD.findViewById(R.id.M04F02OPDA_ItemText);
+        createCategoryText.setOnClickListener(v -> {
+            operationForM04F02 = "Create Category";
+            dialogCreateCRUD.dismiss();
+            startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
+        });
+        createItemText.setOnClickListener(v -> {
+            operationForM04F02 = "Create Item";
+            dialogCreateCRUD.dismiss();
+            startActivity(new Intent(getActivity(), M04F02OP_CRUD.class));
+        });
+
         //--CATEGORY--//
         dialogCategoryCRUD = new Dialog(getActivity());
         dialogCategoryCRUD.setContentView(R.layout.act04_main_frag02_stocks_operation_crud_popupcategory);
@@ -109,6 +115,7 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
         });
         categoryDeleteText.setOnClickListener(v -> {
             OpenStocksInstance.toDeleteCategory();
+            M04F02_CurrentCategoryIndex = -1;
             stockCategoryRVA.notifyDataSetChanged();
             stockItemRVA.notifyDataSetChanged();
             dialogCategoryCRUD.dismiss();
@@ -142,6 +149,12 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
 
     }
 
+    private void init_Buttons(){
+        createButton.setOnClickListener(v -> {
+            dialogCreateCRUD.show();
+        });
+    }
+
     private void init_RecyclerViews(){
         //--CATEGORY--//
         LinearLayoutManager categoryLayout = new LinearLayoutManager(getActivity());
@@ -158,12 +171,6 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
         stockItemRVA = new M04F02_ItemRVA(dialogItemCRUD, getActivity(), realm);
         stockItemRV.setLayoutManager(itemLayout);
         stockItemRV.setAdapter(stockItemRVA);
-
-//        //--CURRENT CATEGORY ON START--//
-//        if(!listOfStockCategories.isEmpty()){
-//            StockList category = listOfStockCategories.get(0);
-//            M04F02_CurrentCategory = category.getCategoryName();
-//        }
     }
 
     @Override

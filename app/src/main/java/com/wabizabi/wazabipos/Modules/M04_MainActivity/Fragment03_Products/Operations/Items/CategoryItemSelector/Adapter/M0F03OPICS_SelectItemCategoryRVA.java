@@ -74,28 +74,37 @@ public class M0F03OPICS_SelectItemCategoryRVA extends RecyclerView.Adapter<M0F03
             categoryName.setText(category.getCategoryName());
             switch(category.getCategoryImage()){
                 case 0:
-                    categoryImage.setImageResource(R.drawable.icon_stocks00_default);
+                    categoryImage.setImageResource(R.drawable.icon_products00_default);
                     break;
                 case 1:
-                    categoryImage.setImageResource(R.drawable.icon_stocks01_meat);
+                    categoryImage.setImageResource(R.drawable.icon_products01_carpaccio);
                     break;
                 case 2:
-                    categoryImage.setImageResource(R.drawable.icon_stocks02_fish);
+                    categoryImage.setImageResource(R.drawable.icon_products02_deepfried);
                     break;
                 case 3:
-                    categoryImage.setImageResource(R.drawable.icon_stocks03_fruit);
+                    categoryImage.setImageResource(R.drawable.icon_products03_dessert);
                     break;
                 case 4:
-                    categoryImage.setImageResource(R.drawable.icon_stocks04_vegetable);
+                    categoryImage.setImageResource(R.drawable.icon_products04_donburi);
                     break;
                 case 5:
-                    categoryImage.setImageResource(R.drawable.icon_stocks05_grains);
+                    categoryImage.setImageResource(R.drawable.icon_products05_drinks);
                     break;
                 case 6:
-                    categoryImage.setImageResource(R.drawable.icon_stocks06_spices);
+                    categoryImage.setImageResource(R.drawable.icon_products06_nigiri);
                     break;
                 case 7:
-                    categoryImage.setImageResource(R.drawable.icon_stocks07_japanese);
+                    categoryImage.setImageResource(R.drawable.icon_products07_noodles);
+                    break;
+                case 8:
+                    categoryImage.setImageResource(R.drawable.icon_products08_platter);
+                    break;
+                case 9:
+                    categoryImage.setImageResource(R.drawable.icon_products09_salad);
+                    break;
+                case 10:
+                    categoryImage.setImageResource(R.drawable.icon_products10_sushi);
                     break;
             }
         }

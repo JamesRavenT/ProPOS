@@ -66,6 +66,19 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.092" />
+
+                        <ImageButton
+                            android:id="@+id/M04F02_CreateButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.953"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.894"
+                            app:srcCompat="@drawable/icon_button_add" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -78,22 +91,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="9dp"
+                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/nunito_sans"
                         android:text="種別 Categories"
                         android:textColor="@color/WazabiTheme"
                         android:textSize="25sp" />
 
-                    <ImageButton
-                        android:id="@+id/M04F02_NewCategoryButton"
-                        android:layout_width="25dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_weight="0"
-                        android:background="@null"
-                        app:srcCompat="@drawable/icon_crud_create" />
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -112,22 +115,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="9dp"
+                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/nunito_sans"
                         android:text="製品 Items"
                         android:textColor="@color/WazabiTheme"
                         android:textSize="25sp" />
-
-                    <ImageButton
-                        android:id="@+id/M04F02_NewItemButton"
-                        android:layout_width="25dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_weight="0"
-                        android:background="@null"
-                        app:srcCompat="@drawable/icon_crud_create" />
 
                 </LinearLayout>
 

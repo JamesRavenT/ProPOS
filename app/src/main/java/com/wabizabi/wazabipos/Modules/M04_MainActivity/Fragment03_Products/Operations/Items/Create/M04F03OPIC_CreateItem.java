@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,28 +61,37 @@ public class M04F03OPIC_CreateItem extends Fragment {
         itemCategory.setText(M04F03OPIC_SelectedCategoryText);
         switch(M04F03OPIC_SelectedCategoryImage){
             case 0:
-                itemImage.setImageResource(R.drawable.icon_stocks00_default);
+                itemImage.setImageResource(R.drawable.icon_products00_default);
                 break;
             case 1:
-                itemImage.setImageResource(R.drawable.icon_stocks01_meat);
+                itemImage.setImageResource(R.drawable.icon_products01_carpaccio);
                 break;
             case 2:
-                itemImage.setImageResource(R.drawable.icon_stocks02_fish);
+                itemImage.setImageResource(R.drawable.icon_products02_deepfried);
                 break;
             case 3:
-                itemImage.setImageResource(R.drawable.icon_stocks03_fruit);
+                itemImage.setImageResource(R.drawable.icon_products03_dessert);
                 break;
             case 4:
-                itemImage.setImageResource(R.drawable.icon_stocks04_vegetable);
+                itemImage.setImageResource(R.drawable.icon_products04_donburi);
                 break;
             case 5:
-                itemImage.setImageResource(R.drawable.icon_stocks05_grains);
+                itemImage.setImageResource(R.drawable.icon_products05_drinks);
                 break;
             case 6:
-                itemImage.setImageResource(R.drawable.icon_stocks06_spices);
+                itemImage.setImageResource(R.drawable.icon_products06_nigiri);
                 break;
             case 7:
-                itemImage.setImageResource(R.drawable.icon_stocks07_japanese);
+                itemImage.setImageResource(R.drawable.icon_products07_noodles);
+                break;
+            case 8:
+                itemImage.setImageResource(R.drawable.icon_products08_platter);
+                break;
+            case 9:
+                itemImage.setImageResource(R.drawable.icon_products09_salad);
+                break;
+            case 10:
+                itemImage.setImageResource(R.drawable.icon_products10_sushi);
                 break;
         }
     }
@@ -105,7 +115,10 @@ public class M04F03OPIC_CreateItem extends Fragment {
                 String itemName = itemNameInput.getText().toString();
                 String itemAmountString = itemPriceInput.getText().toString();
 
-                if(listOfItemNames.contains(itemName)){
+                if(M04F03OPIC_SelectedCategoryText.equals("No Category Selected")){
+                    Toast.makeText(getActivity(), "Please select a category", Toast.LENGTH_SHORT).show();
+                }
+                else if(listOfItemNames.contains(itemName)){
                     itemNameInput.setError("Item Name Already Exists");
                 }
                 else if(itemName.equals("")){
@@ -117,6 +130,7 @@ public class M04F03OPIC_CreateItem extends Fragment {
                 else {
                     int itemPrice = Integer.parseInt(itemAmountString);
                     OpenProductsInstance.toCreateItem(M04F03OPIC_SelectedCategoryImage, M04F03OPIC_SelectedCategoryText, itemName, itemPrice);
+                    M04F03OPIC_SelectedCategoryText = "No Category Selected";
                     getActivity().finish();
                 }
             }

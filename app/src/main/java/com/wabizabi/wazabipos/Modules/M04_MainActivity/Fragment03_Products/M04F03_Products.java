@@ -1,5 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products;
 
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.M04F03OP_CRUD.operationForM04F03;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Adapters.M04F03_CategoryRVA.listOfProductCategories;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Adapters.M04F03_ItemRVA.listOfProductItems;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,11 +44,12 @@ public class M04F03_Products extends Fragment implements Update_ProductsItemList
     public static String M04F03_CurrentItem;
 
     Realm realm;
-    Dialog dialogCategoryCRUD, dialogItemCRUD;
-    ImageView addCategoryBtn, addItemBtn;
+    Dialog dialogCreateCRUD, dialogCategoryCRUD, dialogItemCRUD;
+    ImageButton createButton;
     RecyclerView productCategoryRV, productItemRV;
     RecyclerView.Adapter productCategoryRVA, productItemRVA;
     //--DIALOG--//
+    TextView createCategoryText, createItemText;
     TextView categoryNameText, categoryViewText, categoryEditText, categoryDeleteText;
     TextView itemNameText, itemViewText, itemEditText, itemDeleteText;
 
@@ -67,8 +70,7 @@ public class M04F03_Products extends Fragment implements Update_ProductsItemList
     }
 
     private void init_Views(View v){
-        addCategoryBtn = v.findViewById(R.id.M04F03_CreateCategoryButton);
-        addItemBtn = v.findViewById(R.id.M04F03_CreateItemButton);
+        createButton = v.findViewById(R.id.M04F03_CreateButton);
         productCategoryRV = v.findViewById(R.id.M04F03_CategoryRV);
         productItemRV = v.findViewById(R.id.M04F03_ItemRV);
 
@@ -78,18 +80,24 @@ public class M04F03_Products extends Fragment implements Update_ProductsItemList
         realm = Realm.getDefaultInstance();
     }
 
-    private void init_Buttons(){
-        addCategoryBtn.setOnClickListener(v -> {
-            operationForM04F03 = "Create Category";
-            startActivity(new Intent(getActivity(), M04F03OP_CRUD.class));
-        });
-        addItemBtn.setOnClickListener(v -> {
-            operationForM04F03 = "Create Item";
-            startActivity(new Intent(getActivity(), M04F03OP_CRUD.class));
-        });
-    }
-
     private void init_Dialogs(){
+        //--ADD--//
+        dialogCreateCRUD = new Dialog(getActivity());
+        dialogCreateCRUD.setContentView(R.layout.act04_main_frag03_products_operation_crud_popupadd);
+        dialogCreateCRUD.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        createCategoryText = dialogCreateCRUD.findViewById(R.id.M04F03OPDA_CategoryText);
+        createItemText = dialogCreateCRUD.findViewById(R.id.M04F03OPDA_ItemText);
+        createCategoryText.setOnClickListener(v -> {
+            operationForM04F03 = "Create Category";
+            dialogCreateCRUD.dismiss();
+            startActivity(new Intent(getActivity(), M04F03OP_CRUD.class));
+        });
+        createItemText.setOnClickListener(v -> {
+            operationForM04F03 = "Create Item";
+            dialogCreateCRUD.dismiss();
+            startActivity(new Intent(getActivity(), M04F03OP_CRUD.class));
+        });
+
         //--CATEGORY--//
         dialogCategoryCRUD = new Dialog(getActivity());
         dialogCategoryCRUD.setContentView(R.layout.act04_main_frag03_products_operation_crud_popupcategory);
@@ -110,6 +118,9 @@ public class M04F03_Products extends Fragment implements Update_ProductsItemList
         });
         categoryDeleteText.setOnClickListener(v -> {
             OpenProductsInstance.toDeleteCategory();
+            M04F03_CurrentCategoryIndex = -1;
+            productCategoryRVA.notifyDataSetChanged();
+            productItemRVA.notifyDataSetChanged();
             dialogCategoryCRUD.dismiss();
         });
         //--ITEM--//
@@ -122,17 +133,24 @@ public class M04F03_Products extends Fragment implements Update_ProductsItemList
         itemDeleteText = dialogItemCRUD.findViewById(R.id.M04F03OPDI_DeleteText);
         itemViewText.setOnClickListener(v -> {
             operationForM04F03 = "Read Item";
-            dialogCategoryCRUD.dismiss();
+            dialogItemCRUD.dismiss();
             startActivity(new Intent(getActivity(), M04F03OP_CRUD.class));
         });
         itemEditText.setOnClickListener(v -> {
             operationForM04F03 = "Edit Item";
-            dialogCategoryCRUD.dismiss();
+            dialogItemCRUD.dismiss();
             startActivity(new Intent(getActivity(), M04F03OP_CRUD.class));
         });
         itemDeleteText.setOnClickListener(v -> {
             OpenProductsInstance.toDeleteItem();
+            productItemRVA.notifyDataSetChanged();
             dialogItemCRUD.dismiss();
+        });
+    }
+
+    private void init_Buttons(){
+        createButton.setOnClickListener(v -> {
+            dialogCreateCRUD.show();
         });
     }
 
