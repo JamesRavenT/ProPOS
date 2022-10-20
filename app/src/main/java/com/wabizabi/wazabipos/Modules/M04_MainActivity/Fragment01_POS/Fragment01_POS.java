@@ -153,15 +153,12 @@ public class Fragment01_POS extends Fragment implements Update_POSItemList, Upda
             if(fpList.containsKey(item)){
                 List<List<String>> values = new ArrayList<>(fpList.get(item).keySet());
                 List<String> frequentItemSet = values.get(random.nextInt(fpList.get(item).keySet().size()));
-                if(frequentItemSet.size() != 1){
-                    frequentItemSet.remove(frequentItemSet.size()-1);
-                }
                 String fqItemset = frequentItemSet.toString()
                         .replace("[", "・")
                         .replace("]", "")
                         .replace(",", "\n・");
 
-                header1.setText("Frequently Bought Together With");
+                header1.setText("Popular Combinations with ");
                 header2.setText("\"" + item +"\"");
                 header3.setText(fqItemset);
             }

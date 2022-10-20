@@ -12,12 +12,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Variables {
 
     //ALGORITHM
-    public static List<List<String>> filteredTransactions = new ArrayList<>();
+//    public static List<List<String>> filteredTransactions = new ArrayList<>();
     public static Map<String, Integer> fqItems = new TreeMap<>();
     public static Map<String, Integer> fqList = new LinkedHashMap<>();
     public static Map<String, Map<List<String>, Integer>> fpList = new ConcurrentHashMap<>();
-
-    //PRODUCTS
-    public static int currentIndex;
 
 }

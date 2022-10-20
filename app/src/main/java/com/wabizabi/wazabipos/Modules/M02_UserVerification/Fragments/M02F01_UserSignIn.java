@@ -1,7 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenUserInstance;
-import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03A01_LoadResources;
+import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
 import com.wabizabi.wazabipos.R;
 
 public class M02F01_UserSignIn extends Fragment {
@@ -51,7 +50,7 @@ public class M02F01_UserSignIn extends Fragment {
             pinConfirmInput.setError("Passwords do not match.");
         } else {
             OpenUserInstance.toCreateUser(username, password);
-            startActivity(new Intent(getActivity(), M03A01_LoadResources.class));
+            startActivity(new Intent(getActivity(), M03_LoadResources.class));
         }
     }
 }

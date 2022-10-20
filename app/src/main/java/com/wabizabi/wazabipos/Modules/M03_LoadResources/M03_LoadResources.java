@@ -11,7 +11,7 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.BackgroundThreads.WorkOrders;
 
-public class M03A01_LoadResources extends AppCompatActivity {
+public class M03_LoadResources extends AppCompatActivity {
 
     TextView loading;
     Handler zero, one, two, three;

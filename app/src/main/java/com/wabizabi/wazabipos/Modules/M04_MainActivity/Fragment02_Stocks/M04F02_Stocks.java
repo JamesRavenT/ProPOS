@@ -80,7 +80,7 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
     private void init_Dialogs(){
         //--ADD--//
         dialogCreateCRUD = new Dialog(getActivity());
-        dialogCreateCRUD.setContentView(R.layout.act04_main_frag02_stocks_operation_crud_popupadd);
+        dialogCreateCRUD.setContentView(R.layout.act04_main_frag02_stocks_window_adddialog);
         dialogCreateCRUD.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         createCategoryText = dialogCreateCRUD.findViewById(R.id.M04F02OPDA_CategoryText);
         createItemText = dialogCreateCRUD.findViewById(R.id.M04F02OPDA_ItemText);
@@ -97,7 +97,7 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
 
         //--CATEGORY--//
         dialogCategoryCRUD = new Dialog(getActivity());
-        dialogCategoryCRUD.setContentView(R.layout.act04_main_frag02_stocks_operation_crud_popupcategory);
+        dialogCategoryCRUD.setContentView(R.layout.act04_main_frag02_stocks_window_categorydialog);
         dialogCategoryCRUD.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         categoryNameText = dialogCategoryCRUD.findViewById(R.id.M04F02OPCD_CategoryName);
         categoryViewText = dialogCategoryCRUD.findViewById(R.id.M04F02OPCD_ViewText);
@@ -124,7 +124,7 @@ public class M04F02_Stocks extends Fragment implements Update_StocksItemList, Up
 
         //--ITEM--//
         dialogItemCRUD = new Dialog(getActivity());
-        dialogItemCRUD.setContentView(R.layout.act04_main_frag02_stocks_operation_crud_popupitem);
+        dialogItemCRUD.setContentView(R.layout.act04_main_frag02_stocks_window_itemdialog);
         dialogItemCRUD.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         itemNameText = dialogItemCRUD.findViewById(R.id.M04F02OPDI_ItemName);
         itemViewText = dialogItemCRUD.findViewById(R.id.M04F02OPDI_ViewText);

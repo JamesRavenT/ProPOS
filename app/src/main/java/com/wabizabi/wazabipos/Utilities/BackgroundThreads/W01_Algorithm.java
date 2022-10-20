@@ -26,13 +26,7 @@ import io.realm.RealmResults;
 public class W01_Algorithm extends Worker {
 
     static RealmResults<TransactionsOfSales> transactionsAll;
-
-
-
-//    static int minFreqThreshold;
-    static int confidence;
     static int minSuppThreshold;
-    static int counter;
 
     public W01_Algorithm(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -47,12 +41,10 @@ public class W01_Algorithm extends Worker {
         transactionsAll = realm.where(TransactionsOfSales.class).findAll();
         if (!transactionsAll.isEmpty()) {
             List<List<String>> transactions = new ArrayList<>();
-            for (int i = counter; i < transactionsAll.size(); i++) {
-                TransactionsOfSales transactionObject = transactionsAll.get(i);
-                List<String> listOfItemsinTheTransaction = transactionObject.getNameOfEachItem();
+            for (TransactionsOfSales sales : transactionsAll) {
+                List<String> listOfItemsinTheTransaction = sales.getNameOfEachItem();
                 List<String> transaction = new ArrayList<>(listOfItemsinTheTransaction);
                 transactions.add(transaction);
-                counter++;
             }
             minSuppThreshold = FQList.calculateMinSupp(transactions, fqItems);
             FQList.create(minSuppThreshold, fqItems, fqList);
@@ -70,7 +62,6 @@ public class W01_Algorithm extends Worker {
             int minSuppThreshold
     ) {
         fpList.clear();
-        //Create Frequent Pattern Base
         for (Map.Entry<String, Integer> items : fqList.entrySet()) {
             String item = items.getKey();
             fpList.put(item, new ConcurrentHashMap<>());
@@ -84,15 +75,19 @@ public class W01_Algorithm extends Worker {
                 frequentPaths.put(item, 1);
             }
         }
-        frequentPaths.values().removeIf(value -> value < minSuppThreshold);
-//        stringPaths.clear();
-//        stringPaths.addAll(frequentPaths.keySet());
+        frequentPaths.values().removeIf(value -> value < (int) 0.50 * minSuppThreshold);
 
         for (Map.Entry<List<String>, Integer> path : frequentPaths.entrySet()) {
-            int index = path.getKey().size() - 1;
-            String lastItem = path.getKey().get(index);
-            if (fpList.containsKey(lastItem)) {
-                fpList.get(lastItem).put(path.getKey(), path.getValue());
+            List<String> itemset = path.getKey();
+            for(String item : itemset){
+                if(fpList.containsKey(item)){
+                    if(fpList.get(item).containsKey(itemset)){
+                        fpList.get(item).put(itemset, path.getValue() + 1);
+                    } else {
+                        fpList.get(item).put(itemset, path.getValue());
+                    }
+
+                }
             }
         }
         fpList.entrySet().removeIf(entry -> entry.getValue().size() == 0);

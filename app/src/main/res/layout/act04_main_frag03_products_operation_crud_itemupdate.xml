@@ -19,8 +19,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.118"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42" />
+        app:layout_constraintTop_toBottomOf="@+id/M04F03OPIU_ItemNameInput"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/M04F03OPIU_ItemPriceInput"

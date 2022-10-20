@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/WazabiTheme"
     android:id="@+id/M03A01_Layout"
-    tools:context=".Modules.M03_LoadResources.M03A01_LoadResources">
+    tools:context=".Modules.M03_LoadResources.M03_LoadResources">
 
     <TextView
         android:id="@+id/M03A01_LoadingText"

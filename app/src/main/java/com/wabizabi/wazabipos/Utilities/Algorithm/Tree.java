@@ -1,7 +1,4 @@
 package com.wabizabi.wazabipos.Utilities.Algorithm;
-
-import static com.wabizabi.wazabipos.Utilities.Global.Variables.filteredTransactions;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -14,20 +11,21 @@ public class Tree {
 
     public Tree(){}
 
-    public static Tree create(List<List<String>> unfilteredTransactions, Map<String, Integer> fqList) {
-        for(List<String> transact : unfilteredTransactions){
-            filteredTransactions.add(transact);
+    public static Tree create(List<List<String>> listOfTransactions, Map<String, Integer> fqList) {
+        List<List<String>> transactions = new ArrayList<>();
+        for(List<String> transaction : listOfTransactions){
+            transactions.add(transaction);
         }
         Set<String> fqItems = fqList.keySet();
         List<String> filteredItems = new ArrayList<>(fqItems);
-        for (List<String> transactions : filteredTransactions){
-            transactions.removeIf(item -> !filteredItems.contains(item));
-            transactions.sort(Comparator.comparingInt(filteredItems::indexOf));
+        for (List<String> transaction : transactions){
+            transaction.removeIf(item -> !filteredItems.contains(item));
+            transaction.sort(Comparator.comparingInt(filteredItems::indexOf));
         }
-        filteredTransactions.removeIf(List::isEmpty);
+        transactions.removeIf(List::isEmpty);
 
         Tree tree = new Tree();
-        for (List<String> transaction : filteredTransactions) {
+        for (List<String> transaction : transactions) {
             tree.addTransaction(transaction);
         } return tree;
     }

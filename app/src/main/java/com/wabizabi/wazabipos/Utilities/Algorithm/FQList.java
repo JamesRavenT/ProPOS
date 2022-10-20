@@ -19,7 +19,7 @@ public class FQList {
             }
         }
         int confidence = transactionsTB.size();
-        double minimumSupport = 0.5;
+        double minimumSupport = 0.25;
         double minimumSupportThreshold = minimumSupport * confidence / fqItems.size();
         return (int) minimumSupportThreshold;
     }

@@ -1,5 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M02_UserVerification;
 
+import static com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments.M02F02_UserLogIn.operationForM02F02;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -12,7 +14,7 @@ import com.wabizabi.wazabipos.R;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class M02A01_UserVerification extends AppCompatActivity {
+public class M02_UserVerification extends AppCompatActivity {
 
     M02F01_UserSignIn signIn = new M02F01_UserSignIn();
     M02F02_UserLogIn logIn = new M02F02_UserLogIn();
@@ -21,9 +23,9 @@ public class M02A01_UserVerification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act02_userverification);
-        setContentFunctionalities();
+        init_Functionalities();
     }
-    private void setContentFunctionalities(){
+    private void init_Functionalities(){
         checkForUsers();
     }
     private void checkForUsers(){

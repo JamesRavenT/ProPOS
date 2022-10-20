@@ -6,7 +6,7 @@
     android:background="@drawable/bg_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Modules.M02_UserVerification.M02A01_UserVerification">
+    tools:context=".Modules.M02_UserVerification.M02_UserVerification">
 
     <ImageView
         android:id="@+id/M02A01_AppLogo"

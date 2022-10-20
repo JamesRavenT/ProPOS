@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/WazabiTheme"
-    tools:context=".Modules.M01_SplashScreen.M01A01_SplashScreen">
+    tools:context=".Modules.M01_SplashScreen.M01_SplashScreen">
 
     <ImageView
         android:id="@+id/M01A01_AppLogo"

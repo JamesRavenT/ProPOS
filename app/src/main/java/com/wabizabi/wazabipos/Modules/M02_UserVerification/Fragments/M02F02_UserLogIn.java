@@ -1,7 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
-import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03A01_LoadResources;
+import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.M04F04OP_Management;
 import com.wabizabi.wazabipos.R;
 
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 import io.realm.Realm;
 
 public class M02F02_UserLogIn extends Fragment {
+    public static String operationForM02F02 = "Log In";
     List<Integer> pin = new ArrayList<>();
     CardView pin1, pin2, pin3, pin4;
     CardView btn01, btn02, btn03, btn04, btn05, btn06, btn07, btn08, btn09, btn00;
@@ -129,8 +130,16 @@ public class M02F02_UserLogIn extends Fragment {
             if(pass == user.getPassword()){
                 pin.clear();
                 updatePIN();
-                Toast.makeText(getActivity(), "Logged In Successfully!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity(), M03A01_LoadResources.class));
+                if(operationForM02F02.equals("Change Username")){
+                    startActivity(new Intent(getActivity(), M04F04OP_Management.class));
+                    getActivity().finish();
+                }
+                else if(operationForM02F02.equals("Change Password")){
+                    startActivity(new Intent(getActivity(), M04F04OP_Management.class));
+                    getActivity().finish();
+                } else {
+                    startActivity(new Intent(getActivity(), M03_LoadResources.class));
+                }
             } else {
                 pin.clear();
                 updatePIN();

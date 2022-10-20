@@ -14,7 +14,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Fragment01_POS;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.M04F03_Products;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Fragment04_User;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.M04F04_Admin;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_Printer.Fragment05_Printer;
 import com.wabizabi.wazabipos.R;
 
@@ -30,7 +30,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         public static String currentPOSCategory;
     M04F02_Stocks stocks = new M04F02_Stocks();
     M04F03_Products products = new M04F03_Products();
-    Fragment04_User user = new Fragment04_User();
+    M04F04_Admin user = new M04F04_Admin();
     Fragment05_Printer printer = new Fragment05_Printer();
 
     @Override
