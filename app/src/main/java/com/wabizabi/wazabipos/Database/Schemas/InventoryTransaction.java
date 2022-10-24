@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class TransactionsOfInventory extends RealmObject {
+public class InventoryTransaction extends RealmObject {
     @PrimaryKey
     String _id;
     String operation;
@@ -14,9 +14,9 @@ public class TransactionsOfInventory extends RealmObject {
     String itemUnit;
     String time, day, month, year;
 
-    public TransactionsOfInventory(){}
+    public InventoryTransaction(){}
 
-    public TransactionsOfInventory(String _id, String operation, String itemName, int stockIn, int stockOut, String itemUnit, String time, String day, String month, String year) {
+    public InventoryTransaction(String _id, String operation, String itemName, int stockIn, int stockOut, String itemUnit, String time, String day, String month, String year) {
         this._id = _id;
         this.operation = operation;
         this.itemName = itemName;

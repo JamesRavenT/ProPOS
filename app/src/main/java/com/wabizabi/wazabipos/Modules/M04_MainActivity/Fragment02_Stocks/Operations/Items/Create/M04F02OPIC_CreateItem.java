@@ -136,7 +136,7 @@ public class M04F02OPIC_CreateItem extends Fragment {
             else {
                 int itemAmount = Integer.parseInt(itemAmountString);
                 OpenStocksInstance.toCreateItem(M04F02OPIC_SelectedCategoryImage, M04F02OPIC_SelectedCategoryText, itemName, itemAmount, itemUnit);
-                OpenTransactionsInstance.toCreateInventoryTransaction("create", itemName, itemAmount, 0, itemUnit);
+                OpenTransactionsInstance.toUpdateInventory("create", itemName, itemAmount, 0, itemUnit);
                 M04F02OPIC_SelectedCategoryText = "No Category Selected";
                 getActivity().finish();
             }

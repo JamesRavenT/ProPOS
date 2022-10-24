@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/M04F04OPSRDC_Container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:text="Change Display"
+                android:textColor="@color/WazabiTheme"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/M04F04OPSRDC_DailyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Daily"
+                android:textColor="@color/WazabiTheme"
+                android:textSize="17.5sp" />
+
+            <TextView
+                android:id="@+id/M04F04OPSRDC_WeeklyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Weekly"
+                android:textColor="@color/WazabiTheme"
+                android:textSize="17.5sp" />
+
+            <TextView
+                android:id="@+id/M04F04OPSRDC_MonthlyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Monthly"
+                android:textColor="@color/WazabiTheme"
+                android:textSize="17.5sp" />
+
+            <TextView
+                android:id="@+id/M04F04OPSRDC_YearlyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Yearly"
+                android:textColor="@color/WazabiTheme"
+                android:textSize="17.5sp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

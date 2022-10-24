@@ -17,12 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.StockItem;
-import com.wabizabi.wazabipos.Database.Schemas.TransactionsOfInventory;
+import com.wabizabi.wazabipos.Database.Schemas.InventoryTransaction;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Read.Adapter.M04F02OPIR_ReadItemRVA;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class M04F02OPIR_ReadItem extends Fragment {
     Realm realm;
@@ -91,7 +90,7 @@ public class M04F02OPIR_ReadItem extends Fragment {
     private void init_RecyclerView(){
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        listOfAssociatedStockTransactions = realm.where(TransactionsOfInventory.class).equalTo("itemName", M04F02_CurrentItem).findAll();
+        listOfAssociatedStockTransactions = realm.where(InventoryTransaction.class).equalTo("itemName", M04F02_CurrentItem).findAll();
         transactionsRVA = new M04F02OPIR_ReadItemRVA(realm, getActivity());
         transactionsRV.setLayoutManager(layout);
         transactionsRV.setAdapter(transactionsRVA);

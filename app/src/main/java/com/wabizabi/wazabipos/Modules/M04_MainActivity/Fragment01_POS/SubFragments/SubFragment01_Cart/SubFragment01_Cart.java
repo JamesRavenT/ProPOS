@@ -107,16 +107,7 @@ public class SubFragment01_Cart extends Fragment implements Update_Cart {
             }
             double totalPrice = sumOfAllPrices * 0.03;
 
-            DateFormat currentTime = new SimpleDateFormat("h:mm a");
-            DateFormat currentMonth = new SimpleDateFormat("MMM");
-            DateFormat currentDay = new SimpleDateFormat("d");
-            DateFormat currentYear = new SimpleDateFormat("yyyy");
-            String time = currentTime.format(new Date());
-            String month = currentMonth.format(new Date());
-            String day = currentDay.format(new Date());
-            String year = currentYear.format(new Date());
-
-            OpenTransactionsInstance.toCreateSalesTransaction(itemName, itemPrice, itemAmount, totalPrice, time, month, day, year);
+            OpenTransactionsInstance.toCreateSales(itemName, itemPrice, itemAmount, totalPrice);
             Toast.makeText(getActivity(), "Transaction Created!", Toast.LENGTH_SHORT).show();
             cart.clear();
             currentFragment = "POS";

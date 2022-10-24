@@ -12,14 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.StockItem;
-import com.wabizabi.wazabipos.Database.Schemas.TransactionsOfInventory;
+import com.wabizabi.wazabipos.Database.Schemas.InventoryTransaction;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F02OPIR_ReadItemRVA extends RecyclerView.Adapter<M04F02OPIR_ReadItemRVA.ViewHolder> {
-    public static RealmResults<TransactionsOfInventory> listOfAssociatedStockTransactions;
+    public static RealmResults<InventoryTransaction> listOfAssociatedStockTransactions;
     Realm realm;
     Context context;
 
@@ -38,7 +38,7 @@ public class M04F02OPIR_ReadItemRVA extends RecyclerView.Adapter<M04F02OPIR_Read
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TransactionsOfInventory transaction = listOfAssociatedStockTransactions.get(position);
+        InventoryTransaction transaction = listOfAssociatedStockTransactions.get(position);
         holder.showTransactions(transaction, position);
 
     }
@@ -58,7 +58,7 @@ public class M04F02OPIR_ReadItemRVA extends RecyclerView.Adapter<M04F02OPIR_Read
             stockOut = itemView.findViewById(R.id.M04F02OPIR_RVStockOut);
         }
 
-        public void showTransactions(TransactionsOfInventory transaction, int position){
+        public void showTransactions(InventoryTransaction transaction, int position){
             this.position = position;
             StockItem item = realm.where(StockItem.class).equalTo("itemName", M04F02_CurrentItem).findFirst();
             String date = transaction.getMonth() + " " + transaction.getDay() + ", " + transaction.getYear();

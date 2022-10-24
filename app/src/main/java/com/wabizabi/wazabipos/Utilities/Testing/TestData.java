@@ -3,7 +3,7 @@ package com.wabizabi.wazabipos.Utilities.Testing;
 import com.wabizabi.wazabipos.Database.Instances.OpenProductsInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
 import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
-import com.wabizabi.wazabipos.Database.Schemas.TransactionsOfSales;
+import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -147,23 +147,13 @@ public class TestData {
 
     public static void preloadTransactions() {
         try(Realm realm = Realm.getDefaultInstance()){
-            RealmResults<TransactionsOfSales> listOfTransactions = realm.where(TransactionsOfSales.class).findAll();
+            RealmResults<SalesTransaction> listOfTransactions = realm.where(SalesTransaction.class).findAll();
             if (listOfTransactions.size() < 100) {
                 List<List<String>> table = new ArrayList<>();
                 DataSetZ.insertInto(table);
 
                 //TOTAL PRICE
                 double totalPrice = 1000.00;
-
-                //DATE AND TIME
-                DateFormat currentTime = new SimpleDateFormat("h:mm a");
-                DateFormat currentMonth = new SimpleDateFormat("MMM");
-                DateFormat currentDay = new SimpleDateFormat("d");
-                DateFormat currentYear = new SimpleDateFormat("yyyy");
-                String time = currentTime.format(new Date());
-                String month = currentMonth.format(new Date());
-                String day = currentDay.format(new Date());
-                String year = currentYear.format(new Date());
 
                 for (List<String> items : table) {
                     List<Double> price = new ArrayList<>();
@@ -173,7 +163,7 @@ public class TestData {
                         price.add(100.00);
                         amount.add(1);
                     }
-                    OpenTransactionsInstance.toCreateSalesTransaction(items, price, amount, totalPrice, time, month, day, year);
+                    OpenTransactionsInstance.toCreateSales(items, price, amount, totalPrice);
                 }
 
             }

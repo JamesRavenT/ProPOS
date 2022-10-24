@@ -1,5 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments;
 
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.M04F04OP_Management.operationForM04F04;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -131,10 +133,12 @@ public class M02F02_UserLogIn extends Fragment {
                 pin.clear();
                 updatePIN();
                 if(operationForM02F02.equals("Change Username")){
+                    operationForM04F04 = "Change Username";
                     startActivity(new Intent(getActivity(), M04F04OP_Management.class));
                     getActivity().finish();
                 }
                 else if(operationForM02F02.equals("Change Password")){
+                    operationForM04F04 = "Change Password";
                     startActivity(new Intent(getActivity(), M04F04OP_Management.class));
                     getActivity().finish();
                 } else {

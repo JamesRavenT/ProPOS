@@ -136,7 +136,7 @@ public class M04F02OPIT_UpdateItemTransaction extends Fragment {
     private void init_Transaction(){
         confirmTransaction.setOnClickListener(v -> {
             if(stockIn != 0 || stockOut != 0){
-                OpenTransactionsInstance.toCreateInventoryTransaction("Update", M04F02_CurrentItem, stockIn, stockOut, itemUnit);
+                OpenTransactionsInstance.toUpdateInventory("Update", M04F02_CurrentItem, stockIn, stockOut, itemUnit);
                 if(stockIn != 0){
                     OpenStocksInstance.toStockIn(stockIn);
                     stockIn = 0;

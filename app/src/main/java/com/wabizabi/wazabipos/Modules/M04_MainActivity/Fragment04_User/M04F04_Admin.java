@@ -1,6 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User;
 
 import static com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments.M02F02_UserLogIn.operationForM02F02;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.M04F04OP_Management.operationForM04F04;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -17,13 +18,35 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.M02_UserVerification;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.M04F04OP_Management;
 import com.wabizabi.wazabipos.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class M04F04_Admin extends Fragment {
-    Dialog settingsDialog;
+    Realm realm;
     ImageButton settingsBtn;
+    Dialog settingsDialog;
     TextView changeUsername, changePassword;
+    TextView numberOfSales, viewMoreSalesReportButton;
+    TextView recentSales, recentInventory;
+    BarChart chart;
+    String year, month, day;
 
     @Nullable
     @Override
@@ -35,13 +58,22 @@ public class M04F04_Admin extends Fragment {
 
     private void init_FragmentFunctionalities(View v){
         init_Views(v);
+        init_DB();
         init_Dialogs();
+        init_CurrentDate();
+        init_SalesReport();
         init_Buttons();
     }
 
     private void init_Views(View v){
+        numberOfSales = v.findViewById(R.id.M04F04_SalesReportCurrentDateSalesNumber);
         settingsBtn = v.findViewById(R.id.M04F04_SettingsButton);
+        chart = v.findViewById(R.id. M04F04_SalesReportChart);
+        viewMoreSalesReportButton = v.findViewById(R.id.M04F04_SalesReportViewMoreButton);
+    }
 
+    private void init_DB(){
+        realm = Realm.getDefaultInstance();
     }
 
     private void init_Dialogs(){
@@ -61,10 +93,130 @@ public class M04F04_Admin extends Fragment {
             startActivity(new Intent(getActivity(), M02_UserVerification.class));
         });
     }
+    private void init_CurrentDate(){
+        DateFormat currentYear = new SimpleDateFormat("yyyy");
+        DateFormat currentMonth = new SimpleDateFormat("MMM");
+        DateFormat currentDay = new SimpleDateFormat("d");
+        year = currentYear.format(new Date());
+        month = currentMonth.format(new Date());
+        day = currentDay.format(new Date());
+    }
+
+    private void init_SalesReport(){
+        RealmResults<SalesTransaction> transactions = realm.where(SalesTransaction.class)
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .findAll();
+        numberOfSales.setText(String.valueOf(transactions.size()));
+
+        String[] timeSlots = new String[] {
+                "11AM", //0
+                "1PM",  //1
+                "3PM",  //2
+                "5PM",  //3
+                "7PM",  //4
+        };
+
+        RealmResults<SalesTransaction> set01 = realm.where(SalesTransaction.class)
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .and()
+                .equalTo("hour", "11")
+                .or()
+                .equalTo("hour", "12")
+                .findAll();
+        RealmResults<SalesTransaction> set02 = realm.where(SalesTransaction.class)
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .and()
+                .equalTo("hour", "13")
+                .or()
+                .equalTo("hour", "14")
+                .findAll();
+        RealmResults<SalesTransaction> set03 = realm.where(SalesTransaction.class)
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .and()
+                .equalTo("hour", "15")
+                .or()
+                .equalTo("hour", "16")
+                .findAll();
+        RealmResults<SalesTransaction> set04 = realm.where(SalesTransaction.class)
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .and()
+                .equalTo("hour", "17")
+                .or()
+                .equalTo("hour", "18")
+                .findAll();
+        RealmResults<SalesTransaction> set05 = realm.where(SalesTransaction.class)
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .and()
+                .equalTo("hour", "19")
+                .or()
+                .equalTo("hour", "20")
+                .findAll();
+
+        List<BarEntry> dataEntries = new ArrayList<>();
+        dataEntries.add(new BarEntry(0, set01.size()));
+        dataEntries.add(new BarEntry(1, set02.size()));
+        dataEntries.add(new BarEntry(2, set03.size()));
+        dataEntries.add(new BarEntry(3, set04.size()));
+        dataEntries.add(new BarEntry(4, set05.size()));
+
+        BarDataSet dataSet = new BarDataSet(dataEntries, "DailyData");
+        dataSet.setColor(Color.rgb(38, 38, 43));
+        BarData data = new BarData();
+        data.addDataSet(dataSet);
+        chart.setData(data);
+
+        XAxis axis = chart.getXAxis();
+        axis.setValueFormatter(new IndexAxisValueFormatter(timeSlots));
+        axis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        axis.setGranularity(1);
+        axis.setGranularityEnabled(true);
+
+        chart.setDragEnabled(true);
+        chart.setVisibleXRangeMaximum(3);
+
+        chart.getDescription().setEnabled(false);
+        chart.getLegend().setEnabled(false);
+        chart.getXAxis().setDrawGridLines(false);
+        chart.getAxisLeft().setDrawGridLines(false);
+
+        chart.invalidate();
+    }
+
+    private void init_TransactionDetails(){
+
+    }
 
     private void init_Buttons(){
         settingsBtn.setOnClickListener(v -> {
             settingsDialog.show();
+        });
+        viewMoreSalesReportButton.setOnClickListener(v -> {
+            operationForM04F04 = "View Sales Report";
+            startActivity(new Intent(getActivity(), M04F04OP_Management.class));
         });
     }
 }

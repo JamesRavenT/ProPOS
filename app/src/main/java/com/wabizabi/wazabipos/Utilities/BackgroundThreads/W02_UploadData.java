@@ -1,7 +1,7 @@
 package com.wabizabi.wazabipos.Utilities.BackgroundThreads;
 
-import static com.wabizabi.wazabipos.Utilities.Global.Variables.fpList;
-import static com.wabizabi.wazabipos.Utilities.Global.Variables.fqList;
+import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
+import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fqList;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -42,7 +42,7 @@ public class W02_UploadData extends Worker {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
 
         Notification notification = new NotificationCompat.Builder(getApplicationContext(), "CH1")
-                .setSmallIcon(R.drawable.icon_user)
+                .setSmallIcon(R.drawable.icon_profile_createuser)
                 .setContentTitle("Title")
                 .setContentText("FPData Syncing complete")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

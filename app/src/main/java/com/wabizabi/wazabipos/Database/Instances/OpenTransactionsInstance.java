@@ -1,8 +1,8 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
 
-import com.wabizabi.wazabipos.Database.Schemas.TransactionsOfInventory;
-import com.wabizabi.wazabipos.Database.Schemas.TransactionsOfSales;
+import com.wabizabi.wazabipos.Database.Schemas.InventoryTransaction;
+import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
 
 import org.bson.types.ObjectId;
 
@@ -16,17 +16,32 @@ import io.realm.RealmList;
 
 public class OpenTransactionsInstance {
 
-    public static void toCreateSalesTransaction(List<String> itemsetName,
-                                                List<Double> itemsetPrice,
-                                                List<Integer> itemsetQty,
-                                                double totalPrice,
-                                                String time,
-                                                String month,
-                                                String day,
-                                                String year){
+    public static void toCreateSales(List<String> itemsetName,
+                                     List<Double> itemsetPrice,
+                                     List<Integer> itemsetQty,
+                                     double totalPrice){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                TransactionsOfSales transaction = db.createObject(TransactionsOfSales.class, new ObjectId());
+                //DATE AND TIME
+                DateFormat currentTimeStamp = new SimpleDateFormat("yyyyMMdhmmsS");
+                DateFormat currentYear = new SimpleDateFormat("yyyy");
+                DateFormat currentMonth = new SimpleDateFormat("MMMM");
+                DateFormat currentWeek = new SimpleDateFormat("W");
+                DateFormat currentDay = new SimpleDateFormat("d");
+                DateFormat currentDoW = new SimpleDateFormat("EEEE");
+                DateFormat currentTime = new SimpleDateFormat("h:mm a");
+                DateFormat currentHour = new SimpleDateFormat("k");
+                String timestamp = currentTimeStamp.format(new Date());
+                String year = currentYear.format(new Date());
+                String month = currentMonth.format(new Date());
+                String week = currentWeek.format(new Date());
+                String day = currentDay.format(new Date());
+                String dow = currentDoW.format(new Date());
+                String time = currentTime.format(new Date());
+                String hour = currentHour.format(new Date());
+
+                //TRANSACTION
+                SalesTransaction transaction = db.createObject(SalesTransaction.class, new ObjectId());
                 RealmList<String> itemsIDName = new RealmList<>(); itemsIDName.addAll(itemsetName);
                 RealmList<Double> itemsIDPrice = new RealmList<>(); itemsIDPrice.addAll(itemsetPrice);
                 RealmList<Integer> itemsIDAmount = new RealmList<>(); itemsIDAmount.addAll(itemsetQty);
@@ -34,24 +49,29 @@ public class OpenTransactionsInstance {
                 transaction.setPriceOfEachItem(itemsIDPrice);
                 transaction.setAmountOfEachItem(itemsIDAmount);
                 transaction.setPriceOfAllItems(totalPrice);
-                transaction.setTime(time);
-                transaction.setMonth(month);
-                transaction.setDay(day);
+                transaction.setTimestamp(timestamp);
                 transaction.setYear(year);
+                transaction.setMonth(month);
+                transaction.setWeek(week);
+                transaction.setDayNumber(day);
+                transaction.setDayText(dow);
+                transaction.setTime(time);
+                transaction.setHour(hour);
             });
         }
     }
 
-    public static void toCreateInventoryTransaction(String operation,
-                                                    String itemName,
-                                                    int amountAdded,
-                                                    int amountSubtracted,
-                                                    String itemUnit){
+    public static void toUpdateInventory(String operation,
+                                         String itemName,
+                                         int amountAdded,
+                                         int amountSubtracted,
+                                         String itemUnit){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                DateFormat currentDT = new SimpleDateFormat("yyyyMMMdhmmsS");
+                //DATE AND TIME
+                DateFormat currentDT = new SimpleDateFormat("yyyyMMdhmmsS");
                 DateFormat currentTime = new SimpleDateFormat("h:mm a");
-                DateFormat currentMonth = new SimpleDateFormat("MMM");
+                DateFormat currentMonth = new SimpleDateFormat("MMMM");
                 DateFormat currentDay = new SimpleDateFormat("d");
                 DateFormat currentYear = new SimpleDateFormat("yyyy");
                 String dt = currentDT.format(new Date());
@@ -60,7 +80,8 @@ public class OpenTransactionsInstance {
                 String day = currentDay.format(new Date());
                 String year = currentYear.format(new Date());
 
-                TransactionsOfInventory transaction = db.createObject(TransactionsOfInventory.class, dt);
+                //TRANSACTION
+                InventoryTransaction transaction = db.createObject(InventoryTransaction.class, dt);
                 transaction.setOperation(operation);
                 transaction.setItemName(itemName);
                 transaction.setStockIn(amountAdded);
