@@ -9,6 +9,7 @@ import io.realm.annotations.PrimaryKey;
 public class SalesTransaction extends RealmObject {
     @PrimaryKey
     ObjectId _id;
+    String operation;
     RealmList<String> nameOfEachItem;
     RealmList<Double> priceOfEachItem;
     RealmList<Integer> amountOfEachItem;
@@ -24,7 +25,35 @@ public class SalesTransaction extends RealmObject {
 
     public SalesTransaction(){}
 
+    public SalesTransaction(String operation,
+                            RealmList<String> nameOfEachItem,
+                            RealmList<Double> priceOfEachItem,
+                            RealmList<Integer> amountOfEachItem,
+                            double priceOfAllItems,
+                            String timestamp,
+                            String month,
+                            String week,
+                            String dayNumber,
+                            String dayText,
+                            String year,
+                            String time,
+                            String hour) {
+        this.operation = operation;
+        this.nameOfEachItem = nameOfEachItem;
+        this.priceOfEachItem = priceOfEachItem;
+        this.amountOfEachItem = amountOfEachItem;
+        this.priceOfAllItems = priceOfAllItems;
+        this.timestamp = timestamp;
+        this.month = month;
+        this.week = week;
+        this.dayNumber = dayNumber;
+        this.dayText = dayText;
+        this.year = year;
+        this.time = time;
+        this.hour = hour;
+    }
 
+    public String getOperation() { return operation; }
     public String getTimestamp() { return timestamp; }
     public RealmList<String> getNameOfEachItem() { return nameOfEachItem; }
     public RealmList<Double> getPriceOfEachItem() { return priceOfEachItem; }
@@ -38,7 +67,8 @@ public class SalesTransaction extends RealmObject {
     public String getTime() { return time; }
     public String getHour() { return hour; }
 
-    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
+    public void setOperation(String operation) { this.operation = operation; }
+    public void setTimestamp(String timestamp) { this.timestamp = timestamp;}
     public void setNameOfEachItem(RealmList<String> nameOfEachItem) { this.nameOfEachItem = nameOfEachItem; }
     public void setPriceOfEachItem(RealmList<Double> priceOfEachItem) { this.priceOfEachItem = priceOfEachItem; }
     public void setAmountOfEachItem(RealmList<Integer> amountOfEachItem) { this.amountOfEachItem = amountOfEachItem; }

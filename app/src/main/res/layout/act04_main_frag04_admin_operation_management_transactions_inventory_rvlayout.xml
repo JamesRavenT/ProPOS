@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:id="@+id/M04F02OPIR_RVLayout">
+    android:id="@+id/M04F04OPTI_RVLayout">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/M04F02OPIR_RVContainer"
+        android:id="@+id/M04F04OPTI_RVContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="15dp"
@@ -29,7 +29,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/M04F02OPIR_RVItemImage"
+                android:id="@+id/M04F04OPTI_RVImage"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -41,38 +41,52 @@
                 app:srcCompat="@drawable/icon_transaction" />
 
             <TextView
-                android:id="@+id/M04F02OPIR_RVDate"
+                android:id="@+id/M04F04OPTI_RVDate"
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="Date"
                 android:textColor="@color/WazabiTheme"
+
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/M04F02OPIR_RVItemImage"
+                app:layout_constraintHorizontal_bias="0.243"
+                app:layout_constraintStart_toEndOf="@+id/M04F04OPTI_RVImage"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.116" />
 
             <TextView
-                android:id="@+id/M04F02OPIR_RVOperation"
+                android:id="@+id/M04F04OPTI_RVItemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/nunito_sans_light"
-                android:text="Stock In:"
+                android:text="Item name :"
                 android:textColor="@color/WazabiTheme"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/M04F02OPIR_RVItemImage"
-                app:layout_constraintTop_toBottomOf="@+id/M04F02OPIR_RVDate"
-                app:layout_constraintVertical_bias="0.09" />
+                app:layout_constraintHorizontal_bias="0.044"
+                app:layout_constraintStart_toEndOf="@+id/M04F04OPTI_RVImage"
+                app:layout_constraintTop_toBottomOf="@+id/M04F04OPTI_RVDate"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/M04F04OPTI_RVOperation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_light"
+
+                android:text="Operation"
+                android:textColor="@color/WazabiTheme"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.042"
+                app:layout_constraintStart_toEndOf="@+id/M04F04OPTI_RVImage"
+                app:layout_constraintTop_toBottomOf="@+id/M04F04OPTI_RVItemName"
+                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -136,8 +136,8 @@ public class M04F02OPIT_UpdateItemTransaction extends Fragment {
     private void init_Transaction(){
         confirmTransaction.setOnClickListener(v -> {
             if(stockIn != 0 || stockOut != 0){
-                OpenTransactionsInstance.toUpdateInventory("Update", M04F02_CurrentItem, stockIn, stockOut, itemUnit);
                 if(stockIn != 0){
+                    OpenTransactionsInstance.toUpdateInventory("Stock In", M04F02_CurrentItem, stockIn, itemUnit);
                     OpenStocksInstance.toStockIn(stockIn);
                     stockIn = 0;
                     Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
@@ -145,6 +145,7 @@ public class M04F02OPIT_UpdateItemTransaction extends Fragment {
                 }
                 else if(stockOut != 0) {
                     if(itemAmount > stockOut){
+                        OpenTransactionsInstance.toUpdateInventory("Stock Out", M04F02_CurrentItem, stockOut, itemUnit);
                         OpenStocksInstance.toStockOut(stockOut);
                         stockOut = 0;
                         Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();

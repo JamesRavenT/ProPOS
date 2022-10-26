@@ -50,12 +50,11 @@ public class M04F02OPIR_ReadItemRVA extends RecyclerView.Adapter<M04F02OPIR_Read
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
-        TextView transactionDate, stockIn, stockOut;
+        TextView transactionDate, operation;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             transactionDate = itemView.findViewById(R.id.M04F02OPIR_RVDate);
-            stockIn = itemView.findViewById(R.id.M04F02OPIR_RVStockIn);
-            stockOut = itemView.findViewById(R.id.M04F02OPIR_RVStockOut);
+            operation = itemView.findViewById(R.id.M04F02OPIR_RVOperation);
         }
 
         public void showTransactions(InventoryTransaction transaction, int position){
@@ -63,8 +62,9 @@ public class M04F02OPIR_ReadItemRVA extends RecyclerView.Adapter<M04F02OPIR_Read
             StockItem item = realm.where(StockItem.class).equalTo("itemName", M04F02_CurrentItem).findFirst();
             String date = transaction.getMonth() + " " + transaction.getDay() + ", " + transaction.getYear();
             transactionDate.setText(date);
-            stockIn.setText("StockIn : " + transaction.getStockIn() + " " + item.getItemUnit());
-            stockOut.setText("StockOut : " + transaction.getStockOut() + " " + item.getItemUnit());
+            operation.setText(transaction.getOperation() + " : " + transaction.getAmount() + " " + item.getItemUnit());
+
+
         }
     }
 }

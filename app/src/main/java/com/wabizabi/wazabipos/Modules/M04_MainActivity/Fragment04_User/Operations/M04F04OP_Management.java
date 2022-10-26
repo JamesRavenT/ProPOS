@@ -10,12 +10,16 @@ import androidx.appcompat.widget.Toolbar;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Profile.M04F04OPUP_ChangePassword;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Profile.M04F04OPUU_ChangeUsername;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.SalesReport.M04F04OPSR_SalesReport;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Inventory.M04F04OPTI_Inventory;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Sales.M04F04OPTS_Sales;
 import com.wabizabi.wazabipos.R;
 
 public class M04F04OP_Management extends AppCompatActivity {
     public static M04F04OPUU_ChangeUsername changeUsernameFragment = new M04F04OPUU_ChangeUsername();
     public static M04F04OPUP_ChangePassword changePasswordFragment = new M04F04OPUP_ChangePassword();
     public static M04F04OPSR_SalesReport salesReportFragment = new M04F04OPSR_SalesReport();
+    public static M04F04OPTS_Sales transactionSalesFragment = new M04F04OPTS_Sales();
+    public static M04F04OPTI_Inventory transactionInventoryFragment = new M04F04OPTI_Inventory();
     public static String operationForM04F04;
     Toolbar toolbar;
 
@@ -50,12 +54,27 @@ public class M04F04OP_Management extends AppCompatActivity {
             case "View Sales Report":
                 getSupportFragmentManager().beginTransaction().replace(R.id.M04F04OP_FragmentContainer, salesReportFragment).commit();
                 break;
+            case "View Sale Transactions List":
+                getSupportFragmentManager().beginTransaction().replace(R.id.M04F04OP_FragmentContainer, transactionSalesFragment).commit();
+                break;
+            case "View Inventory Transactions List":
+                getSupportFragmentManager().beginTransaction().replace(R.id.M04F04OP_FragmentContainer, transactionInventoryFragment).commit();
+                break;
         }
     }
 
     @Override
     public void onBackPressed() {
-        finish();
+        if(operationForM04F04.equals("View Sale Transaction")){
+            operationForM04F04 = "View Sale Transactions List";
+            getSupportFragmentManager().beginTransaction().replace(R.id.M04F04OP_FragmentContainer, transactionSalesFragment).commit();
+        }
+        else if(operationForM04F04.equals("View Inventory Transaction")){
+            operationForM04F04 = "View Inventory Transactions List";
+            getSupportFragmentManager().beginTransaction().replace(R.id.M04F04OP_FragmentContainer, transactionInventoryFragment).commit();
+        } else {
+            finish();
+        }
     }
 
     @Override

@@ -104,7 +104,6 @@
                 app:cardCornerRadius="25dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/M04F04_SalesReportBarChart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -165,13 +164,16 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/M04F04_SalesReportCurrentDateSalesNumber"
-                        app:layout_constraintVertical_bias="0.495" />
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
                         android:id="@+id/M04F04_SalesReportViewMoreButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_sans_light"
                         android:text="View More"
+                        android:textSize="15sp"
+                        android:textColor="@color/gray"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -193,7 +195,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
@@ -206,37 +208,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/nunito_sans_light"
-                        android:text="Recent Sale"
-                        android:textColor="@color/WazabiTheme"
-                        android:textSize="12.5sp"
+                    <ImageView
+                        android:id="@+id/M04F04_SalesTransactionImage"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.043"
-                        app:layout_constraintStart_toEndOf="@+id/imageView3"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.777" />
-
-                    <TextView
-                        android:id="@+id/textView13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/nunito_sans_light"
-                        android:text=">"
-                        android:textColor="@color/WazabiTheme"
-                        android:textSize="25sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.955"
+                        app:layout_constraintHorizontal_bias="0.054"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.228"
+                        app:srcCompat="@drawable/icon_transaction" />
 
                     <TextView
-                        android:id="@+id/textView6"
+                        android:id="@+id/M04F04_SalesTransactionText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_light"
@@ -245,13 +230,13 @@
                         android:textSize="25sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.341"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.023"
+                        app:layout_constraintStart_toEndOf="@+id/M04F04_SalesTransactionImage"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.239" />
+                        app:layout_constraintVertical_bias="0.136" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/M04F04_SalesTransactionRecentSaleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_light"
@@ -260,33 +245,54 @@
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.045"
-                        app:layout_constraintStart_toEndOf="@+id/imageView3"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.609" />
+                        app:layout_constraintHorizontal_bias="0.025"
+                        app:layout_constraintStart_toEndOf="@+id/M04F04_SalesTransactionImage"
+                        app:layout_constraintTop_toBottomOf="@+id/M04F04_SalesTransactionText"
+                        app:layout_constraintVertical_bias="0.123" />
 
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                    <TextView
+                        android:id="@+id/M04F04_SalesTransactionRecentTransactionText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/nunito_sans_light"
+                        android:text="Recent Transaction"
+                        android:textColor="@color/WazabiTheme"
+                        android:textSize="12.5sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.059"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/M04F04_SalesTransactionImage"
+                        app:layout_constraintTop_toBottomOf="@+id/M04F04_SalesTransactionRecentSaleText"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/M04F04_SalesTransactionViewMoreButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_sans_light"
+                        android:text="View More"
+                        android:textSize="15sp"
+                        android:textColor="@color/gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.48"
-                        app:srcCompat="@drawable/icon_transaction" />
+                        app:layout_constraintTop_toBottomOf="@+id/M04F04_SalesTransactionRecentTransactionText"
+                        app:layout_constraintVertical_bias="0.529" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="5dp"
                 android:elevation="100dp"
                 app:cardCornerRadius="25dp">
 
@@ -294,8 +300,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <ImageView
+                        android:id="@+id/M04F04_InventoryTransactionImage"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.054"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.228"
+                        app:srcCompat="@drawable/icon_transaction" />
+
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/M04F04_InventoryTransactionText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_light"
@@ -304,28 +322,13 @@
                         android:textSize="25sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.398"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.029"
+                        app:layout_constraintStart_toEndOf="@+id/M04F04_InventoryTransactionImage"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.239" />
+                        app:layout_constraintVertical_bias="0.136" />
 
                     <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/nunito_sans_light"
-                        android:text="Recent Inventory"
-                        android:textColor="@color/WazabiTheme"
-                        android:textSize="12.5sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.054"
-                        app:layout_constraintStart_toEndOf="@+id/imageView"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.787" />
-
-                    <TextView
-                        android:id="@+id/textView14"
+                        android:id="@+id/M04F04_InventoryTransactionRecentInventoryText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_light"
@@ -334,36 +337,43 @@
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.061"
-                        app:layout_constraintStart_toEndOf="@+id/imageView"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.619" />
+                        app:layout_constraintHorizontal_bias="0.03"
+                        app:layout_constraintStart_toEndOf="@+id/M04F04_InventoryTransactionImage"
+                        app:layout_constraintTop_toBottomOf="@+id/M04F04_InventoryTransactionText"
+                        app:layout_constraintVertical_bias="0.123" />
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/M04F04_InventoryTransactionRecentTransactionText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/nunito_sans_light"
+                        android:text="Recent Transaction"
+                        android:textColor="@color/WazabiTheme"
+                        android:textSize="12.5sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.04"
+                        app:layout_constraintStart_toEndOf="@+id/M04F04_InventoryTransactionImage"
+                        app:layout_constraintTop_toBottomOf="@+id/M04F04_InventoryTransactionRecentInventoryText"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/M04F04_InventoryTransactionViewMoreButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_light"
-                        android:text=">"
-                        android:textColor="@color/WazabiTheme"
-                        android:textSize="25sp"
+                        android:text="View More"
+                        android:textColor="@color/gray"
+                        android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.955"
+                        app:layout_constraintHorizontal_bias="0.498"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/M04F04_InventoryTransactionRecentTransactionText"
+                        app:layout_constraintVertical_bias="0.529" />
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.054"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.488"
-                        app:srcCompat="@drawable/icon_transaction" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 

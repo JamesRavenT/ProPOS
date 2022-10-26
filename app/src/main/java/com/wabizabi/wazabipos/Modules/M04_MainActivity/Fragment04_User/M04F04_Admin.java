@@ -24,6 +24,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.wabizabi.wazabipos.Database.Schemas.InventoryTransaction;
 import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.M02_UserVerification;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.M04F04OP_Management;
@@ -37,16 +38,22 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class M04F04_Admin extends Fragment {
-    Realm realm;
+    Realm realm = Realm.getDefaultInstance();
+    String year, month, day;
+    //--HEADER--//
     ImageButton settingsBtn;
+    //--SALES REPORT--//
+    TextView numberOfSales, viewMoreSalesReportButton;
+    BarChart chart;
+    //--TRANSACTION--//
+    TextView recentSalesTransactionText, viewMoreSalesTransactionButton;
+    TextView recentInventoryTranscationText, viewMoreInventoryTransactionButton;
+    //--DIALOG--//
     Dialog settingsDialog;
     TextView changeUsername, changePassword;
-    TextView numberOfSales, viewMoreSalesReportButton;
-    TextView recentSales, recentInventory;
-    BarChart chart;
-    String year, month, day;
 
     @Nullable
     @Override
@@ -58,10 +65,10 @@ public class M04F04_Admin extends Fragment {
 
     private void init_FragmentFunctionalities(View v){
         init_Views(v);
-        init_DB();
         init_Dialogs();
         init_CurrentDate();
         init_SalesReport();
+        init_Transactions();
         init_Buttons();
     }
 
@@ -69,11 +76,12 @@ public class M04F04_Admin extends Fragment {
         numberOfSales = v.findViewById(R.id.M04F04_SalesReportCurrentDateSalesNumber);
         settingsBtn = v.findViewById(R.id.M04F04_SettingsButton);
         chart = v.findViewById(R.id. M04F04_SalesReportChart);
-        viewMoreSalesReportButton = v.findViewById(R.id.M04F04_SalesReportViewMoreButton);
-    }
 
-    private void init_DB(){
-        realm = Realm.getDefaultInstance();
+        viewMoreSalesReportButton = v.findViewById(R.id.M04F04_SalesReportViewMoreButton);
+        viewMoreSalesTransactionButton = v.findViewById(R.id.M04F04_SalesTransactionViewMoreButton);
+        viewMoreInventoryTransactionButton = v.findViewById(R.id.M04F04_InventoryTransactionViewMoreButton);
+        recentSalesTransactionText = v.findViewById(R.id.M04F04_SalesTransactionRecentTransactionText);
+        recentInventoryTranscationText = v.findViewById(R.id.M04F04_InventoryTransactionRecentTransactionText);
     }
 
     private void init_Dialogs(){
@@ -95,7 +103,7 @@ public class M04F04_Admin extends Fragment {
     }
     private void init_CurrentDate(){
         DateFormat currentYear = new SimpleDateFormat("yyyy");
-        DateFormat currentMonth = new SimpleDateFormat("MMM");
+        DateFormat currentMonth = new SimpleDateFormat("MMMM");
         DateFormat currentDay = new SimpleDateFormat("d");
         year = currentYear.format(new Date());
         month = currentMonth.format(new Date());
@@ -173,6 +181,12 @@ public class M04F04_Admin extends Fragment {
                 .and()
                 .equalTo("hour", "19")
                 .or()
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .and()
                 .equalTo("hour", "20")
                 .findAll();
 
@@ -206,7 +220,20 @@ public class M04F04_Admin extends Fragment {
         chart.invalidate();
     }
 
-    private void init_TransactionDetails(){
+
+    private void init_Transactions(){
+        SalesTransaction recentSale = realm.where(SalesTransaction.class).sort("timestamp", Sort.DESCENDING).findFirst();
+        InventoryTransaction recentInventory = realm.where(InventoryTransaction.class).sort("timestamp", Sort.DESCENDING).findFirst();
+        if(recentSale != null){
+            recentSalesTransactionText.setText(recentSale.getMonth() + " " + recentSale.getDayNumber() + ", " + recentSale.getYear() + " at " + recentSale.getTime());
+        } else {
+            recentSalesTransactionText.setText("N / A");
+        }
+        if(recentInventory != null){
+            recentInventoryTranscationText.setText(recentInventory.getMonth() + " " + recentInventory.getDay() + ", " + recentInventory.getYear() + " at " + recentInventory.getTime());
+        } else {
+            recentInventoryTranscationText.setText("N / A");
+        }
 
     }
 
@@ -216,6 +243,14 @@ public class M04F04_Admin extends Fragment {
         });
         viewMoreSalesReportButton.setOnClickListener(v -> {
             operationForM04F04 = "View Sales Report";
+            startActivity(new Intent(getActivity(), M04F04OP_Management.class));
+        });
+        viewMoreSalesTransactionButton.setOnClickListener(v -> {
+            operationForM04F04 = "View Sale Transactions List";
+            startActivity(new Intent(getActivity(), M04F04OP_Management.class));
+        });
+        viewMoreInventoryTransactionButton.setOnClickListener(v -> {
+            operationForM04F04 = "View Inventory Transactions List";
             startActivity(new Intent(getActivity(), M04F04OP_Management.class));
         });
     }

@@ -42,6 +42,7 @@ public class OpenTransactionsInstance {
 
                 //TRANSACTION
                 SalesTransaction transaction = db.createObject(SalesTransaction.class, new ObjectId());
+                transaction.setOperation("Sale");
                 RealmList<String> itemsIDName = new RealmList<>(); itemsIDName.addAll(itemsetName);
                 RealmList<Double> itemsIDPrice = new RealmList<>(); itemsIDPrice.addAll(itemsetPrice);
                 RealmList<Integer> itemsIDAmount = new RealmList<>(); itemsIDAmount.addAll(itemsetQty);
@@ -63,8 +64,7 @@ public class OpenTransactionsInstance {
 
     public static void toUpdateInventory(String operation,
                                          String itemName,
-                                         int amountAdded,
-                                         int amountSubtracted,
+                                         int amount,
                                          String itemUnit){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
@@ -81,12 +81,12 @@ public class OpenTransactionsInstance {
                 String year = currentYear.format(new Date());
 
                 //TRANSACTION
-                InventoryTransaction transaction = db.createObject(InventoryTransaction.class, dt);
-                transaction.setOperation(operation);
+                InventoryTransaction transaction = db.createObject(InventoryTransaction.class, new ObjectId());
                 transaction.setItemName(itemName);
-                transaction.setStockIn(amountAdded);
-                transaction.setStockOut(amountSubtracted);
+                transaction.setOperation(operation);
+                transaction.setAmount(amount);
                 transaction.setItemUnit(itemUnit);
+                transaction.setTimestamp(dt);
                 transaction.setTime(time);
                 transaction.setDay(day);
                 transaction.setMonth(month);

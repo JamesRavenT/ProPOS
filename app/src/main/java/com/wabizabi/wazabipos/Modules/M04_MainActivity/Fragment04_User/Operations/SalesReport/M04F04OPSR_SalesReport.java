@@ -1,5 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.SalesReport;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -34,7 +35,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F04OPSR_SalesReport extends Fragment {
-    Realm realm;
+    Realm realm = Realm.getDefaultInstance();
     ImageButton settingsBtn, prevBtn, nextBtn;
     TextView displayText, currentText;
     BarChart chart;
@@ -42,6 +43,8 @@ public class M04F04OPSR_SalesReport extends Fragment {
     String dataToDisplay = "Daily";
     Dialog changeDisplayDialog;
     TextView daily, weekly, monthly, yearly;
+    TextView countTotalSales, countTotalTransactions, countAverageSales, countAverageTransactions;
+    TextView textAverageSales, textAverageTransactions;
 
     @Nullable
     @Override
@@ -53,9 +56,8 @@ public class M04F04OPSR_SalesReport extends Fragment {
 
     private void init_FragmentFunctionalities(View v){
         init_Views(v);
-        init_DBInstance();
-        init_Dialog();
         init_CurrentDate();
+        init_Dialog();
         init_Chart();
         init_Buttons();
     }
@@ -67,18 +69,32 @@ public class M04F04OPSR_SalesReport extends Fragment {
         currentText = v.findViewById(R.id.M04F04OPSR_CurrentChartText);
         nextBtn = v.findViewById(R.id.M04F04OPSR_NextChartButton);
         chart = v.findViewById(R.id.M04F04OPSR_Chart);
+        countTotalSales = v.findViewById(R.id.M04F04OPSR_TotalSalesNo);
+        countTotalTransactions = v.findViewById(R.id.M04F04OPSR_TotalTransactionsNo);
+        countAverageSales = v.findViewById(R.id.M04F04OPSR_AverageSalesNo);
+        countAverageTransactions = v.findViewById(R.id.M04F04OPSR_AverageTransactionsNo);
+        textAverageSales = v.findViewById(R.id.M04F04OPSR_AverageSalesText);
+        textAverageTransactions = v.findViewById(R.id.M04F04OPSR_AverageTransactionsText);
     }
 
-    private void init_DBInstance(){
-        realm = Realm.getDefaultInstance();
+    private void init_CurrentDate(){
+        DateFormat currentYear = new SimpleDateFormat("yyyy");
+        DateFormat currentMonth = new SimpleDateFormat("MMMM");
+        DateFormat currentWeek = new SimpleDateFormat("W");
+        DateFormat currentDay = new SimpleDateFormat("d");
+        year = currentYear.format(new Date());
+        month = currentMonth.format(new Date());
+        week = currentWeek.format(new Date());
+        day = currentDay.format(new Date());
     }
+
 
     private void init_Dialog(){
         changeDisplayDialog = new Dialog(getActivity());
         changeDisplayDialog.setContentView(R.layout.act04_main_frag04_admin_operation_management_salesreport_window_changedialog);
         changeDisplayDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         daily = changeDisplayDialog.findViewById(R.id.M04F04OPSRDC_DailyText);
-        weekly = changeDisplayDialog.findViewById(R.id.M04F04OPSRDC_DailyText);
+        weekly = changeDisplayDialog.findViewById(R.id.M04F04OPSRDC_WeeklyText);
         monthly = changeDisplayDialog.findViewById(R.id.M04F04OPSRDC_MonthlyText);
         yearly = changeDisplayDialog.findViewById(R.id.M04F04OPSRDC_YearlyText);
         daily.setOnClickListener(v -> {
@@ -103,17 +119,6 @@ public class M04F04OPSR_SalesReport extends Fragment {
         });
     }
 
-    private void init_CurrentDate(){
-        DateFormat currentYear = new SimpleDateFormat("yyyy");
-        DateFormat currentMonth = new SimpleDateFormat("MMM");
-        DateFormat currentWeek = new SimpleDateFormat("W");
-        DateFormat currentDay = new SimpleDateFormat("d");
-        year = currentYear.format(new Date());
-        month = currentMonth.format(new Date());
-        week = currentWeek.format(new Date());
-        day = currentDay.format(new Date());
-
-    }
 
     private void init_Chart(){
         switch(dataToDisplay){
@@ -122,29 +127,36 @@ public class M04F04OPSR_SalesReport extends Fragment {
                 displayText.setText("Daily");
                 currentText.setText(month + " " + day + ", " + year);
                 set_DailyChart();
+                set_Report();
                 break;
             case "Weekly":
                 init_CurrentDate();
                 displayText.setText("Weekly");
                 currentText.setText("Week " + week + ", " + month + " " +  year);
                 set_WeeklyChart();
+                set_Report();
                 break;
             case "Monthly":
                 init_CurrentDate();
                 displayText.setText("Monthly");
                 currentText.setText(month + " " + year);
                 set_MonthlyChart();
+                set_Report();
                 break;
             case "Yearly":
                 init_CurrentDate();
                 displayText.setText("Yearly");
                 currentText.setText("Year " + year);
                 set_YearlyChart();
+                set_Report();
                 break;
         }
     }
 
     private void init_Buttons(){
+        settingsBtn.setOnClickListener(v -> {
+            changeDisplayDialog.show();
+        });
         prevBtn.setOnClickListener(v -> {
             int yearNo = Integer.parseInt(year);
             int weekNo = Integer.parseInt(week);
@@ -319,6 +331,7 @@ public class M04F04OPSR_SalesReport extends Fragment {
                     currentText.setText("Year " + year);
                     break;
             }
+            set_Report();
         });
 
         nextBtn.setOnClickListener(v -> {
@@ -537,11 +550,11 @@ public class M04F04OPSR_SalesReport extends Fragment {
                     currentText.setText("Year " + year);
                     break;
             }
+            set_Report();
         });
     }
 
     private void set_DailyChart(){
-
         String[] hours = new String[] {
                 "11AM",
                 "1PM",
@@ -559,6 +572,12 @@ public class M04F04OPSR_SalesReport extends Fragment {
                 .and()
                 .equalTo("hour", "11")
                 .or()
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .and()
                 .equalTo("hour", "12")
                 .findAll();
         RealmResults<SalesTransaction> dailyDataSet02 = realm.where(SalesTransaction.class)
@@ -570,6 +589,12 @@ public class M04F04OPSR_SalesReport extends Fragment {
                 .and()
                 .equalTo("hour", "13")
                 .or()
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .and()
                 .equalTo("hour", "14")
                 .findAll();
         RealmResults<SalesTransaction> dailyDataSet03 = realm.where(SalesTransaction.class)
@@ -581,6 +606,12 @@ public class M04F04OPSR_SalesReport extends Fragment {
                 .and()
                 .equalTo("hour", "15")
                 .or()
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .and()
                 .equalTo("hour", "16")
                 .findAll();
         RealmResults<SalesTransaction> dailyDataSet04 = realm.where(SalesTransaction.class)
@@ -592,6 +623,12 @@ public class M04F04OPSR_SalesReport extends Fragment {
                 .and()
                 .equalTo("hour", "17")
                 .or()
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .and()
                 .equalTo("hour", "18")
                 .findAll();
         RealmResults<SalesTransaction> dailyDataSet05 = realm.where(SalesTransaction.class)
@@ -603,6 +640,12 @@ public class M04F04OPSR_SalesReport extends Fragment {
                 .and()
                 .equalTo("hour", "19")
                 .or()
+                .equalTo("year", year)
+                .and()
+                .equalTo("month", month)
+                .and()
+                .equalTo("dayNumber", day)
+                .and()
                 .equalTo("hour", "20")
                 .findAll();
 
@@ -917,4 +960,108 @@ public class M04F04OPSR_SalesReport extends Fragment {
 
     }
 
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    private void set_Report(){
+        double sales = 0;
+        switch(dataToDisplay){
+            case "Daily":
+                RealmResults<SalesTransaction> dailyTransactions = realm.where(SalesTransaction.class)
+                        .equalTo("year", year)
+                        .and()
+                        .equalTo("month", month)
+                        .and()
+                        .equalTo("dayNumber", day)
+                        .findAll();
+                for(SalesTransaction transaction : dailyTransactions){
+                    sales = sales + transaction.getPriceOfAllItems();
+                }
+
+                countTotalSales.setText("₱" + sales);
+                countTotalTransactions.setText(String.valueOf(dailyTransactions.size()));
+                countAverageSales.setText("₱" + "A");
+                countAverageTransactions.setText(String.valueOf(dailyTransactions.size()/10));
+                textAverageSales.setText("Sales/Hour");
+                textAverageTransactions.setText("Transactions/Hour");
+                break;
+            case "Weekly":
+                RealmResults<SalesTransaction> weeklyTransactions = realm.where(SalesTransaction.class)
+                        .equalTo("year", year)
+                        .and()
+                        .equalTo("month", month)
+                        .and()
+                        .equalTo("week", week)
+                        .findAll();
+                for(SalesTransaction transaction : weeklyTransactions){
+                    sales = sales + transaction.getPriceOfAllItems();
+                }
+                countTotalSales.setText("₱" + sales);
+                countTotalTransactions.setText(String.valueOf(weeklyTransactions.size()));
+                countAverageSales.setText("₱" + String.format("%.2f", sales/7));
+                textAverageSales.setText("Sales/Day");
+                countAverageTransactions.setText(String.valueOf(weeklyTransactions.size()/7));
+                textAverageTransactions.setText("Transactions/Day");
+                break;
+            case "Monthly":
+                RealmResults<SalesTransaction> monthlyTransactions = realm.where(SalesTransaction.class)
+                        .equalTo("year", year)
+                        .and()
+                        .equalTo("month", month)
+                        .findAll();
+                for(SalesTransaction transaction : monthlyTransactions){
+                    sales = sales + transaction.getPriceOfAllItems();
+                }
+
+                switch(month){
+                    case "January":
+                    case "March":
+                    case "May":
+                    case "July":
+                    case "August":
+                    case "October":
+                    case "December":
+                        countTotalSales.setText("₱" + sales);
+                        countTotalTransactions.setText(String.valueOf(monthlyTransactions.size()));
+                        countAverageSales.setText("₱" + String.format("%.2f", sales/31));
+                        textAverageSales.setText("Sales/Month");
+                        countAverageTransactions.setText(String.valueOf(monthlyTransactions.size()/31));
+                        textAverageTransactions.setText("Transactions/Month");
+                        break;
+                    case "April":
+                    case "June":
+                    case "September":
+                    case "November":
+                        countTotalSales.setText("₱" + sales);
+                        countTotalTransactions.setText(String.valueOf(monthlyTransactions.size()));
+                        countAverageSales.setText("₱" + String.format("%.2f", sales/30));
+                        textAverageSales.setText("Sales/Month");
+                        countAverageTransactions.setText(String.valueOf(monthlyTransactions.size()/30));
+                        textAverageTransactions.setText("Transactions/Month");
+                        break;
+                    case "February":
+                        countTotalSales.setText("₱" + sales);
+                        countTotalTransactions.setText(String.valueOf(monthlyTransactions.size()));
+                        countAverageSales.setText("₱" + String.format("%.2f", sales/28));
+                        textAverageSales.setText("Sales/Month");
+                        countAverageTransactions.setText(String.valueOf(monthlyTransactions.size()/28));
+                        textAverageTransactions.setText("Transactions/Month");
+                        break;
+                }
+                break;
+            case "Yearly":
+                RealmResults<SalesTransaction> yearlyTransactions = realm.where(SalesTransaction.class)
+                        .equalTo("year", year)
+                        .findAll();
+                for(SalesTransaction transaction : yearlyTransactions){
+                    sales = sales + transaction.getPriceOfAllItems();
+                }
+                countTotalSales.setText("₱" + sales);
+                countTotalTransactions.setText(String.valueOf(yearlyTransactions.size()));
+                countAverageSales.setText("₱" + String.format("%.2f", sales/12));
+                textAverageSales.setText("Sales/Month");
+                countAverageTransactions.setText(String.valueOf(yearlyTransactions.size()/12));
+                textAverageTransactions.setText("Transactions/Month");
+                break;
+        }
+
+    }
 }
