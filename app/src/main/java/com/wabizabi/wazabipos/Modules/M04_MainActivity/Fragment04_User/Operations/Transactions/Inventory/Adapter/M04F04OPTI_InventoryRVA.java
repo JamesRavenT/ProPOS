@@ -19,6 +19,11 @@ public class M04F04OPTI_InventoryRVA extends RecyclerView.Adapter<M04F04OPTI_Inv
     RealmResults<InventoryTransaction> listOfInventoryTransaction;
     Context context;
 
+    public M04F04OPTI_InventoryRVA(RealmResults<InventoryTransaction> listOfInventoryTransaction, Context context) {
+        this.listOfInventoryTransaction = listOfInventoryTransaction;
+        this.context = context;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,6 +35,7 @@ public class M04F04OPTI_InventoryRVA extends RecyclerView.Adapter<M04F04OPTI_Inv
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         InventoryTransaction transaction = listOfInventoryTransaction.get(position);
+        holder.showTransaction(transaction, position);
     }
 
     @Override
@@ -42,6 +48,23 @@ public class M04F04OPTI_InventoryRVA extends RecyclerView.Adapter<M04F04OPTI_Inv
         TextView transactionDate, transactionItem, transactionOperation;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            transactionDate = itemView.findViewById(R.id.M04F04OPTI_RVDate);
+            transactionItem = itemView.findViewById(R.id.M04F04OPTI_RVItemName);
+            transactionOperation = itemView.findViewById(R.id.M04F04OPTI_RVOperation);
+        }
+
+        public void showTransaction(InventoryTransaction transaction, int position){
+            this.position = position;
+            transactionDate.setText(transaction.getMonth() + " " + transaction.getDay() + ", " + transaction.getYear() + " ; " + transaction.getTime());
+            transactionItem.setText(transaction.getItemName());
+            switch(transaction.getOperation()){
+                case "Stock In":
+                    transactionOperation.setText("Stocked In : " + transaction.getItemName() + " " + transaction.getItemUnit());
+                    break;
+                case "Stock Out":
+                    transactionOperation.setText("Stocked Out : " + transaction.getItemName() + " " + transaction.getItemUnit());
+                    break;
+            }
         }
     }
 }

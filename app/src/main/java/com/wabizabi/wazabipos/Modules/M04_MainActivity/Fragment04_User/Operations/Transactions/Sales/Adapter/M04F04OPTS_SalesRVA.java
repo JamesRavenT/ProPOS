@@ -1,5 +1,9 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Sales.Adapter;
 
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockUpdateCategoryFragment;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.M04F04OP_Management.viewsSaleTransactionFragment;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Sales.M04F04OPTS_SalesView.tid;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
@@ -39,6 +44,7 @@ public class M04F04OPTS_SalesRVA extends RecyclerView.Adapter<M04F04OPTS_SalesRV
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SalesTransaction transaction = listOfSalesTransactions.get(position);
         holder.showSales(transaction, position);
+        holder.onClickViewMore(transaction, position);
     }
 
     @Override
@@ -66,9 +72,15 @@ public class M04F04OPTS_SalesRVA extends RecyclerView.Adapter<M04F04OPTS_SalesRV
             salesPrices.setText("₱" + transaction.getPriceOfAllItems());
         }
 
-        public void viewMore(){
+        public void onClickViewMore(SalesTransaction transaction, int position){
+            this.position = position;
             viewMore.setOnClickListener(v->{
-
+                tid = transaction.getTimestamp();
+                ((FragmentActivity) context)
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.M04F04OP_FragmentContainer, viewsSaleTransactionFragment)
+                        .commit();
             });
         }
     }

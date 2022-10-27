@@ -42,7 +42,7 @@
 
             <TextView
                 android:id="@+id/M04F04OPTI_RVDate"
-                android:layout_width="260dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="Date"
@@ -51,7 +51,7 @@
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.243"
+                app:layout_constraintHorizontal_bias="0.037"
                 app:layout_constraintStart_toEndOf="@+id/M04F04OPTI_RVImage"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.116" />

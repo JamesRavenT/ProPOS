@@ -45,7 +45,7 @@ public class DB {
         int counter = 0;
         for (Map.Entry<String, Map<List<String>, Integer>> entry : fpList.entrySet()) {
             counter++;
-            String documentID = (counter < 9) ? "Item No.0" + counter : "Item No." + counter;
+            String documentID = (counter < 10) ? "Item No.0" + counter : "Item No." + counter;
             Map<String, Object> items = new HashMap<>();
             Map<String, Object> frequentItemSets = new HashMap<>();
             Set<List<String>> keyItemSets = entry.getValue().keySet();
@@ -60,7 +60,35 @@ public class DB {
                     frequentItemSets.put(itemsetPosition, itemset);
                 }
             }
-            items.put("id", String.valueOf(new ObjectId()));
+            switch(entry.getKey()){
+                case "California Deluxe":
+                    items.put("id", "xQ7hWuxMyLSTmCJaUX4b");
+                    break;
+                case "California Maki":
+                    items.put("id", "V9ZuWIrxpljeWQ2CKhsp");
+                    break;
+                case "Katsudon":
+                    items.put("id","nZA0JZ0QkLfTaVnzqL24");
+                    break;
+                case "Krazy Volcano":
+                    items.put("id", "ATRn8sV9DE8aMvvU82m0");
+                    break;
+                case "Salmon sashimi":
+                    items.put("id", "TqRu62Bl1d1PJfyiPmDG");
+                    break;
+                case "Tantan Ramen":
+                    items.put("id", "ndBtCNgV2CTAvoloIh8N");
+                    break;
+                case "Teriyakidon":
+                    items.put("id", "zwVakQO8ZFRmqnpDs955");
+                    break;
+                case "Tonkotsu Ramen":
+                    items.put("id","YXOQwJ9oUyQfks6SQrVg");
+                    break;
+                default:
+                    items.put("id", String.valueOf(new ObjectId()));
+                    break;
+            }
             items.put("itemName", entry.getKey());
             items.put("itemSets", frequentItemSets);
             DocumentReference docu = firestore.collection("WazabiPOSTEST2").document(documentID);

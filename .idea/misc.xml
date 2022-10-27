@@ -107,8 +107,12 @@
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_operation_management_salesreport_window_changedialog.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_operation_management_transactions_inventory.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_operation_management_transactions_inventory_rvlayout.xml" value="0.67" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_operation_management_transactions_inventory_window_searchdialog.xml" value="0.3052586575459598" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_operation_management_transactions_sales.xml" value="0.3180846515604959" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_operation_management_transactions_sales__view_rvlayout.xml" value="0.9" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_operation_management_transactions_sales_rvlayout.xml" value="0.67" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_operation_management_transactions_sales_view.xml" value="0.33" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_operation_management_transactions_sales_view_rvlayout.xml" value="0.3052586575459598" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_operation_management_transactions_sales_window_searchdialog.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_window_operation_management_transactions_sales_searchdialog.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_window_settingsdialog.xml" value="0.3052586575459598" />

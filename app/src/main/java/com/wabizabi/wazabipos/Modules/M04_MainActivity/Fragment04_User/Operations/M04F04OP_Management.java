@@ -12,6 +12,7 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operation
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.SalesReport.M04F04OPSR_SalesReport;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Inventory.M04F04OPTI_Inventory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Sales.M04F04OPTS_Sales;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Sales.M04F04OPTS_SalesView;
 import com.wabizabi.wazabipos.R;
 
 public class M04F04OP_Management extends AppCompatActivity {
@@ -19,6 +20,7 @@ public class M04F04OP_Management extends AppCompatActivity {
     public static M04F04OPUP_ChangePassword changePasswordFragment = new M04F04OPUP_ChangePassword();
     public static M04F04OPSR_SalesReport salesReportFragment = new M04F04OPSR_SalesReport();
     public static M04F04OPTS_Sales transactionSalesFragment = new M04F04OPTS_Sales();
+    public static M04F04OPTS_SalesView viewsSaleTransactionFragment = new M04F04OPTS_SalesView();
     public static M04F04OPTI_Inventory transactionInventoryFragment = new M04F04OPTI_Inventory();
     public static String operationForM04F04;
     Toolbar toolbar;

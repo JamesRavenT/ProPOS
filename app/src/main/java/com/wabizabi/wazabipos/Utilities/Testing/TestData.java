@@ -20,7 +20,7 @@ public class TestData {
         //CATEGORIES
         String[] categories = {
                 "Sashimi and Nigiri",
-                "Deep Fried",
+                "Salad",
                 "Sushi Rolls",
                 "Sushi Platter",
                 "Noodles",
@@ -119,7 +119,7 @@ public class TestData {
                     switch (category) {
                         case "Sashimi and Nigiri": createItem(category, SashimiAndNigiri);
                             break;
-                        case "Deep Fried": createItem(category, DeepFried);
+                        case "Salad": createItem(category, DeepFried);
                             break;
                         case "Sushi Rolls": createItem(category, SushiRolls);
                             break;
@@ -148,10 +148,17 @@ public class TestData {
     public static void preloadTransactions() {
         try(Realm realm = Realm.getDefaultInstance()){
             RealmResults<SalesTransaction> listOfTransactions = realm.where(SalesTransaction.class).findAll();
-            if (listOfTransactions.size() < 100) {
+            if (listOfTransactions.size() < 1500) {
                 List<List<String>> table = new ArrayList<>();
+                DataSetA.insertInto(table);
+                DataSetB.insertInto(table);
+                DataSetC.insertInto(table);
+                DataSetD.insertInto(table);
+                DataSetE.insertInto(table);
+                DataSetF.insertInto(table);
+                DataSetX.insertInto(table);
+                DataSetY.insertInto(table);
                 DataSetZ.insertInto(table);
-
                 //TOTAL PRICE
                 double totalPrice = 1000.00;
 

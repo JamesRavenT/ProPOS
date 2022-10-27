@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/M04F04OPDQI_Container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:text="Change Date"
+                android:textColor="@color/WazabiTheme"
+                android:textSize="25sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/M04F04OPDQI_SubYearBtn"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    app:srcCompat="@drawable/icon_button_arrowleft" />
+
+                <TextView
+                    android:id="@+id/M04F04OPDQI_YearText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="Y e a r"
+                    android:textSize="20sp"
+                    android:textColor="@color/WazabiTheme"/>
+
+                <ImageButton
+                    android:id="@+id/M04F04OPDQI_AddYearBtn"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    app:srcCompat="@drawable/icon_button_arrowright" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/M04F04OPDQI_SubMonthBtn"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    app:srcCompat="@drawable/icon_button_arrowleft" />
+
+                <TextView
+                    android:id="@+id/M04F04OPDQI_MonthText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="M o n t h"
+                    android:textSize="20sp"
+                    android:textColor="@color/WazabiTheme"/>
+
+                <ImageButton
+                    android:id="@+id/M04F04OPDQI_AddMonthBtn"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    app:srcCompat="@drawable/icon_button_arrowright" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/M04F04OPDQI_SubDayBtn"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    app:srcCompat="@drawable/icon_button_arrowleft" />
+
+                <TextView
+                    android:id="@+id/M04F04OPDQI_DayText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="Day"
+                    android:textSize="20sp"
+                    android:textColor="@color/WazabiTheme"/>
+
+                <ImageButton
+                    android:id="@+id/M04F04OPDQI_AddDayBtn"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    app:srcCompat="@drawable/icon_button_arrowright" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/M04F04OPDQI_SearchBtn"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:backgroundTint="@color/WazabiTheme"
+                android:elevation="100dp"
+                app:cardCornerRadius="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_sans_light"
+                        android:text="Confirm"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

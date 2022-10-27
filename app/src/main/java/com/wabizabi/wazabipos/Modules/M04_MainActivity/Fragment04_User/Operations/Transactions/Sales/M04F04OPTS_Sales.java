@@ -317,7 +317,7 @@ public class M04F04OPTS_Sales extends Fragment {
                 .and()
                 .equalTo("month", month)
                 .and()
-                .equalTo("day", day)
+                .equalTo("dayNumber", day)
                 .sort("timestamp", Sort.DESCENDING)
                 .findAll();
         salesRVA = new M04F04OPTS_SalesRVA(listOfSalesTransaction, getActivity());
