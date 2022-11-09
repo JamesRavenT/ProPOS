@@ -73,6 +73,9 @@ public class DB {
                 case "Krazy Volcano":
                     items.put("id", "ATRn8sV9DE8aMvvU82m0");
                     break;
+                case "nigiri salmon":
+                    items.put("id","H6DhREj1NoeKqqVeLEcm");
+                    break;
                 case "Salmon sashimi":
                     items.put("id", "TqRu62Bl1d1PJfyiPmDG");
                     break;
@@ -85,24 +88,32 @@ public class DB {
                 case "Tonkotsu Ramen":
                     items.put("id","YXOQwJ9oUyQfks6SQrVg");
                     break;
+                case "rainbow chirashi":
+                    items.put("id", "hfLpIoMW7modn0jP0WU1");
+                    break;
+                case "test" :
+                    items.put("id", "GPi5D1UxEMc7lm83aoOc");
+                    break;
+                case "Sea weeds Salad":
+                    items.put("id", "dYxTqLbDJszaatYwlTWG");
+                    break;
                 default:
                     items.put("id", String.valueOf(new ObjectId()));
                     break;
             }
             items.put("itemName", entry.getKey());
             items.put("itemSets", frequentItemSets);
-            DocumentReference docu = firestore.collection("WazabiPOSTEST2").document(documentID);
+            DocumentReference docu = firestore.collection("WazabiPOSTEST3").document(entry.getKey());
             docu.get().addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
-                        firestore.collection("WazabiPOSTEST2").document(documentID).update(items);
+                        firestore.collection("WazabiPOSTEST3").document(documentID).update(items);
                     } else {
-                        firestore.collection("WazabiPOSTEST2").document(documentID).set(items);
+                        firestore.collection("WazabiPOSTEST3").document(documentID).set(items);
                     }
                 }
             });
-
         }
     }
     public static void uploadFQListData(Map<String, Integer> fqList) {
@@ -111,9 +122,10 @@ public class DB {
             String itemName = entry.getKey();
             Integer itemFrequency = entry.getValue();
             items.put(itemName, itemFrequency);
+
         }
         firestore = FirebaseFirestore.getInstance();
-        firestore.collection("WazabiPOSTEST").document("FrequentList").set(items);
+        firestore.collection("WazabiPOSTEST4").document("Item Frequency").set(items);
     }
 
 }

@@ -10,9 +10,9 @@ public class SalesTransaction extends RealmObject {
     @PrimaryKey
     ObjectId _id;
     String operation;
-    RealmList<String> nameOfEachItem;
+    RealmList<String> nameOfEachItem; //[item A, item B, item C]
     RealmList<Double> priceOfEachItem;
-    RealmList<Integer> amountOfEachItem;
+    RealmList<Integer> amountOfEachItem; //[1, 2, 3]
     double priceOfAllItems;
     String timestamp;
     String month;

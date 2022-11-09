@@ -5,10 +5,7 @@ import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
 import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
 import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
@@ -26,90 +23,86 @@ public class TestData {
                 "Noodles",
                 "Donburi",
                 "Drinks",
-                "Dessert"
+                "Dessert",
+                "Others"
         };
 
         //ITEMS PER CATEGORY
+        //Sashimi and Nigiri [7]
         String[] SashimiAndNigiri = {
-                "Salmon",
+                "Salmon sashimi",
+                "nigiri salmon",
                 "Tuna",
-                "Shime saba",
                 "Unagi",
                 "Tako",
                 "Ika",
                 "Tamago"
         };
 
-        //Deep fried
-        String[] DeepFried = {
-                "Seaweed Salad",
+        //Salad [4]
+        String[] Salad = {
+                "Sea weeds Salad",
                 "Salad Wrap",
                 "Kani Salad",
                 "Spicy Tuna Salad"
         };
 
-        //Sushi Rolls
+        //Sushi Rolls [9]
         String[] SushiRolls = {
                 "California Maki",
-                "Spicy Shrimp Tempura Roll",
                 "Aburi Salmon",
-                "Salmon Lovers Roll",
                 "Tuna Tataki",
-                "Rainbow Roll",
+                "rainbow chirashi",
                 "Dragon Eel",
-                "Crispy Spicy Tuna",
-                "Crispy Philly",
-                "Fried Futomaki",
                 "California Deluxe",
                 "Krazy Volcano",
-                "Salmon and Shrimp Tempura Roll",
-                "Tuna Salmon Dynamite Roll",
                 "Spicy Maguro Melt",
-                "3 Cheese Crispy Kani Roll",
                 "Yuzu Creamy Salmon"
         };
 
-        //Sushi Platter
+        //Sushi Platter [4]
         String[] SushiPlatter = {
                 "WZ Sushi Platter",
-                "All Fried Sushi Platter",
-                "All California Sushi Platter",
-                "Deluxe Sushi Platter",
+                "California Deluxe",
                 "Nigiri Platter",
                 "Premium Sushi Set"
         };
 
+        //Noodles [5]
         String[] Noodles = {
+                "Beef Yakiudon",
+                "Tantanmen",
                 "Miso Ramen",
                 "Tonkotsu Ramen",
-                "Tantanmen",
-                "Beef Yakiudon"
+                "Tantanmen Ramen"
         };
 
-        //Donburi
+        //Donburi [4]
         String[] Donburi = {
-                "Tendon",
-                "Katsudon",
                 "Gyudon",
+                "Katsudon",
+                "Tendon",
                 "Teriyakidon"
         };
 
-        //Drinks
+        //Drinks [3]
         String[] Drinks = {
-                "Cucumber Lemonade",
-                "Strawberry Red Tea",
                 "Coke",
-                "Coke Zero",
                 "Royal",
-                "Sprite",
-                "Pineapple Juice",
-                "4 Seasons",
-                "Bottled Water"
+                "Sprite"
         };
 
-        //Dessert
+        //Dessert [1]
         String[] Dessert = {
                 "Chocolate Cake"
+        };
+
+        //Others [3]
+        String[] Others = {
+                "sushi rolls",
+                "adsffasdfsdfsdafsdfsdfsdfsad",
+                "test"
+
         };
         try(Realm realm = Realm.getDefaultInstance()){
             RealmResults<ProductsItem> products = realm.where(ProductsItem.class).findAll();
@@ -119,7 +112,7 @@ public class TestData {
                     switch (category) {
                         case "Sashimi and Nigiri": createItem(category, SashimiAndNigiri);
                             break;
-                        case "Salad": createItem(category, DeepFried);
+                        case "Salad": createItem(category, Salad);
                             break;
                         case "Sushi Rolls": createItem(category, SushiRolls);
                             break;
@@ -132,6 +125,8 @@ public class TestData {
                         case "Drinks": createItem(category, Drinks);
                             break;
                         case "Dessert": createItem(category, Dessert);
+                            break;
+                        case "Others": createItem(category, Others);
                             break;
                     }
 
@@ -156,9 +151,9 @@ public class TestData {
                 DataSetD.insertInto(table);
                 DataSetE.insertInto(table);
                 DataSetF.insertInto(table);
-                DataSetX.insertInto(table);
-                DataSetY.insertInto(table);
-                DataSetZ.insertInto(table);
+                DataSetG.insertInto(table);
+                DataSetH.insertInto(table);
+                DataSetI.insertInto(table);
                 //TOTAL PRICE
                 double totalPrice = 1000.00;
 

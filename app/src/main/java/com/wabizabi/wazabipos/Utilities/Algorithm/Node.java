@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-
-    public String data;
-    public int support;
     Node parent;
-    Node edge;
+    public String itemName;
+    public int support;
     public List<Node> children = new ArrayList<>();
 
     //Default Constructor
@@ -16,14 +14,14 @@ public class Node {
 
     //New Node Constructor
     Node(String item, int support, Node parent){
-        this.data = item;
+        this.itemName = item;
         this.support = support;
         this.parent = parent;
     }
 
-    Node getChild(String item){
+    Node checkIfNodeHasAChildNamed(String item){
         for(Node child : children){
-            if(child.data.equals(item)){
+            if(child.itemName.equals(item)){
                 return child;
             }
         }
