@@ -3,17 +3,22 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategory;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSCategory.listOfPOSCategories;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem.listOfPOSItems;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_CategoryRVA.listOfPOSCategories;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA.listOfPOSItems;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart.Adapter.RVA_Cart.cart;
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,14 +29,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
 import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
+import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
 import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSCategory;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_CategoryRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.Update_POS;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.Update_POSItemList;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Objects.CartObject;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart.SubFragment01_Cart;
 import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Utilities.BackgroundThreads.WorkOrders;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,7 +50,7 @@ import java.util.Random;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class Fragment01_POS extends Fragment implements Update_POSItemList, Update_POS {
+public class M04F01_POS extends Fragment implements Update_POSItemList, Update_POS {
 
     SubFragment01_Cart pos_cart = new SubFragment01_Cart();
     Realm realm;
@@ -52,6 +59,15 @@ public class Fragment01_POS extends Fragment implements Update_POSItemList, Upda
     RecyclerView.Adapter posCategoryRVA, posItemRVA;
     CardView goToCartButton;
     TextView goToCartText;
+
+    //--TEMPDIALOG--//
+    ImageView tempButton;
+    Dialog tempDialog;
+    TextView clearTransactions, startAlgorithm;
+
+    //--TEMP RECOMMENDATION--//
+    ImageView recommendBtn;
+    List<String> recommendedCombination = new ArrayList<>();
 
 
     @Nullable
@@ -63,11 +79,38 @@ public class Fragment01_POS extends Fragment implements Update_POSItemList, Upda
         setCartCounter(v);
         setRecyclerview(v);
         setButtons(v);
+        setDialog(v);
         return v;
     }
 
     private void setDBInstance(){
         realm = Realm.getDefaultInstance();
+    }
+
+    private void setDialog (View v){
+        tempButton = v.findViewById(R.id.tempButton);
+        tempButton.setOnClickListener(vi -> {
+            tempDialog.show();
+        });
+        tempDialog = new Dialog(getActivity());
+        tempDialog.setContentView(R.layout.act04_main_frag01_pos_tempdialog);
+        tempDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        clearTransactions = tempDialog.findViewById(R.id.Temp_ClearTransaction);
+        startAlgorithm = tempDialog.findViewById(R.id.Temp_Algorithm);
+        clearTransactions.setOnClickListener(vie -> {
+            realm.executeTransaction(db -> {
+                db.delete(SalesTransaction.class);
+            });
+            Toast.makeText(getActivity(), "Transactions cleared", Toast.LENGTH_SHORT).show();
+            tempDialog.dismiss();
+        });
+        startAlgorithm.setOnClickListener(view -> {
+            WorkOrders.startAlgorithm(getActivity());
+            WorkOrders.storeFPData(getActivity());
+            Toast.makeText(getActivity(), "Algorithm Executed Successfully", Toast.LENGTH_SHORT).show();
+            tempDialog.dismiss();
+        });
+
     }
 
     private void setHeader(View v){
@@ -92,7 +135,7 @@ public class Fragment01_POS extends Fragment implements Update_POSItemList, Upda
         categoryLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         listOfPOSCategories = realm.where(ProductsList.class).sort("categoryName").findAll();
-        posCategoryRVA = new RVA_POSCategory(this, getActivity(), realm);
+        posCategoryRVA = new M04F01_CategoryRVA(this, getActivity(), realm);
         posCategoryRV = v.findViewById(R.id.POS_CategoryRV);
         posCategoryRV.setLayoutManager(categoryLayout);
         posCategoryRV.setAdapter(posCategoryRVA);
@@ -102,13 +145,13 @@ public class Fragment01_POS extends Fragment implements Update_POSItemList, Upda
         itemLayout.setOrientation(LinearLayoutManager.VERTICAL);
         if(currentPOSCategoryIndex == -1){
             listOfPOSItems = realm.where(ProductsItem.class).sort("itemName").findAll();
-            posItemRVA = new RVA_POSItem(this, getActivity(), realm);
+            posItemRVA = new M04F01_ItemRVA(this, getActivity(), realm);
             posItemRV = v.findViewById(R.id.POS_ItemRV);
             posItemRV.setLayoutManager(itemLayout);
             posItemRV.setAdapter(posItemRVA);
         } else {
             listOfPOSItems = realm.where(ProductsItem.class).equalTo("itemCategory", currentPOSCategory).sort("itemName").findAll();
-            posItemRVA = new RVA_POSItem(this, getActivity(), realm);
+            posItemRVA = new M04F01_ItemRVA(this, getActivity(), realm);
             posItemRV = v.findViewById(R.id.POS_ItemRV);
             posItemRV.setLayoutManager(itemLayout);
             posItemRV.setAdapter(posItemRVA);
@@ -125,12 +168,28 @@ public class Fragment01_POS extends Fragment implements Update_POSItemList, Upda
                     .replace(R.id.MainActivityContainer, pos_cart)
                     .commit();
         });
+
+        recommendBtn = v.findViewById(R.id.recommendBtn);
+        recommendBtn.setOnClickListener((b) -> {
+            if(!recommendedCombination.isEmpty()){
+                List<CartObject> items = new ArrayList<>(cart.keySet());
+                CartObject firstItem = items.get(0);
+                for(String item : recommendedCombination){
+                    if(!firstItem.getItemName().equalsIgnoreCase(item)){
+                        cart.put(new CartObject(item, 100.00), 1);
+                    }
+                }
+                Toast.makeText(getActivity(), "Combination Added Succesfully!", Toast.LENGTH_SHORT).show();
+            }
+            recommendItemsIfCartIsNotEmpty();
+        });
+
     }
 
 
     @Override
     public void refreshItemList(int position, RealmResults<ProductsItem> products) {
-        posItemRVA = new RVA_POSItem(this, getActivity(), realm);
+        posItemRVA = new M04F01_ItemRVA(this, getActivity(), realm);
         posItemRVA.notifyDataSetChanged();
         posItemRV.setAdapter(posItemRVA);
     }
@@ -145,25 +204,26 @@ public class Fragment01_POS extends Fragment implements Update_POSItemList, Upda
     }
 
     private void recommendItemsIfCartIsNotEmpty(){
-        if (!cart.isEmpty() && !fpList.isEmpty()){
+        if (cart.size() == 1 && !fpList.isEmpty()){
             Random random = new Random();
             List<CartObject> keys = new ArrayList<>(cart.keySet());
             CartObject firstItem = keys.get(0);
             String item = firstItem.getItemName();
             if(fpList.containsKey(item)){
+                recommendedCombination.clear();
                 List<List<String>> values = new ArrayList<>(fpList.get(item).keySet());
-                List<String> frequentItemSet = values.get(random.nextInt(fpList.get(item).keySet().size()));
-                String fqItemset = frequentItemSet.toString()
+                recommendedCombination = values.get(random.nextInt(fpList.get(item).keySet().size()));
+                String fqItemset = recommendedCombination.toString()
                         .replace("[", "・")
                         .replace("]", "")
                         .replace(",", "\n・");
-
                 header1.setText("Popular Combinations with ");
                 header2.setText("\"" + item +"\"");
                 header3.setText(fqItemset);
             }
 
         } else {
+            recommendedCombination.clear();
             UserProfile user = realm.where(UserProfile.class).findFirst();
             DateFormat currentTime = new SimpleDateFormat("h:mm a");
             DateFormat currentMonth = new SimpleDateFormat("MMM");

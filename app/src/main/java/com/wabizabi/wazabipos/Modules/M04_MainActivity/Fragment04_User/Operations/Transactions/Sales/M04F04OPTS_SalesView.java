@@ -59,11 +59,11 @@ public class M04F04OPTS_SalesView extends Fragment {
                 .where(SalesTransaction.class)
                 .equalTo("timestamp", tid)
                 .findFirst();
-        List<String> itemNames = transaction.getNameOfEachItem();
+        List<String> itemNames = transaction.getName();
         List<String> listItemName = new ArrayList<>(itemNames);
-        List<Integer> itemAmount = transaction.getAmountOfEachItem();
+        List<Integer> itemAmount = transaction.getQuantity();
         List<Integer> listItemAmount = new ArrayList<>(itemAmount);
-        List<Double> itemPrices = transaction.getPriceOfEachItem();
+        List<Double> itemPrices = transaction.getPrice();
         List<Double> listItemPrice = new ArrayList<>(itemPrices);
         double subtotal = listItemPrice.stream().mapToDouble(Double::doubleValue).sum();
         double tax = subtotal * 0.03;

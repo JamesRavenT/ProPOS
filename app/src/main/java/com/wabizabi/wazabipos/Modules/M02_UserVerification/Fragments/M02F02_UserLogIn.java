@@ -38,11 +38,12 @@ public class M02F02_UserLogIn extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.act02_userverification_frag02_login, container, false);
-        setContentFunctionalities(v);
+        init_FragmentFunctionalities(v);
         return v;
     }
-    //--PORTRAIT METHODS--//
-    private void setContentFunctionalities(View v){
+
+
+    private void init_FragmentFunctionalities(View v){
         pin1 = v.findViewById(R.id.M02F02_PIN1);
         pin2 = v.findViewById(R.id.M02F02_PIN2);
         pin3 = v.findViewById(R.id.M02F02_PIN3);
@@ -61,25 +62,24 @@ public class M02F02_UserLogIn extends Fragment {
 
         updatePIN();
 
-        btn00.setOnClickListener((btn) -> insertEntry(0));
-        btn01.setOnClickListener((btn) -> insertEntry(1));
-        btn02.setOnClickListener((btn) -> insertEntry(2));
-        btn03.setOnClickListener((btn) -> insertEntry(3));
-        btn04.setOnClickListener((btn) -> insertEntry(4));
-        btn05.setOnClickListener((btn) -> insertEntry(5));
-        btn06.setOnClickListener((btn) -> insertEntry(6));
-        btn07.setOnClickListener((btn) -> insertEntry(7));
-        btn08.setOnClickListener((btn) -> insertEntry(8));
-        btn09.setOnClickListener((btn) -> insertEntry(9));
-        btnBackspace.setOnClickListener((btn) -> deleteEntry());
+        btn00.setOnClickListener(btn -> insertEntry(0));
+        btn01.setOnClickListener(btn -> insertEntry(1));
+        btn02.setOnClickListener(btn -> insertEntry(2));
+        btn03.setOnClickListener(btn -> insertEntry(3));
+        btn04.setOnClickListener(btn -> insertEntry(4));
+        btn05.setOnClickListener(btn -> insertEntry(5));
+        btn06.setOnClickListener(btn -> insertEntry(6));
+        btn07.setOnClickListener(btn -> insertEntry(7));
+        btn08.setOnClickListener(btn -> insertEntry(8));
+        btn09.setOnClickListener(btn -> insertEntry(9));
+        btnBackspace.setOnClickListener(btn -> deleteEntry());
     }
-    //--MAIN METHODS--//
+
     private void insertEntry(int number){
         if(pin.size() == 3){
             pin.add(number);
             updatePIN();
             verify();
-
         } else {
             pin.add(number);
             updatePIN();

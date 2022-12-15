@@ -1,5 +1,7 @@
 package com.wabizabi.wazabipos.Utilities.Algorithm;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,14 +14,15 @@ public class FQList {
      * If item is already an entry in the map, +1 for the support of the item.
      * Else, create new entry.
      * **/
-    public static void create(List<List<String>> transactionsTB,
-                              Map<String, Integer> fqItems){
-        for (List<String> transaction : transactionsTB) {
+    public static void create(List<List<String>> listOfTransactions,
+                              Map<String, Integer> fqItemsets){
+        fqItemsets.clear();
+        for (List<String> transaction : listOfTransactions) {
             for (String item : transaction) {
-                if (fqItems.containsKey(item)) {
-                    fqItems.put(String.valueOf(item), fqItems.get(item) + 1);
+                if (fqItemsets.containsKey(item)) {
+                    fqItemsets.put(String.valueOf(item), fqItemsets.get(item) + 1);
                 } else {
-                    fqItems.put(String.valueOf(item), 1);
+                    fqItemsets.put(String.valueOf(item), 1);
                 }
             }
         }
@@ -36,27 +39,27 @@ public class FQList {
     /** STEP 1.3 : CALCULATE THE MINIMUM SUPPORT THRESHOLD
      * Get the MST with formula of.. 0.25 * listOfTransactions.size() / f-list.size()
      * **/
-    public static Integer calculateMinSupp(List<List<String>> transactionsTB,
-                                           Map<String, Integer> fqItems){
+    public static Integer calculateMinSupp(List<List<String>> listOfTransactions,
+                                           Map<String, Integer> fqItemsets){
         //-- GET THE MINIMUM SUPPORT THRESHOLD --//
-        int confidence = transactionsTB.size();
+        int confidence = listOfTransactions.size();
         double minimumSupport = 0.25;
-        double minimumSupportThreshold = minimumSupport * confidence / fqItems.size();
+        double minimumSupportThreshold = minimumSupport * confidence / fqItemsets.size();
         return (int) minimumSupportThreshold;
     }
     /** STEP 1.4 : SORT AND FILTER THE F-LIST
      * Remove the entries in the TreeMap who'se values is below the MST
-     * Copy the contents of the TreeMap to a LinkedHashMap to sort the list
-     * Sort the entries in the LinkedHashMap from the Highest to Lowest Value in descending order
+     * Copy the contents of the TreeMap to an Arraylist in order to sort them
+     * Sort the entries in the Arraylist from the Highest to Lowest Value in descending order
+     * Copy the contents of the Arraylist in the LinkedHashMap
      * **/
-    public static void filter(int minSuppThreshold,
-                              Map<String, Integer> fqItems,
-                              Map<String, Integer> fqList) {
+    public static void filterandsort(int minSuppThreshold,
+                                     Map<String, Integer> fqItemsets,
+                                     Map<String, Integer> fqList) {
         //-- FILTER THE F-LIST --//
-        fqItems.values().removeIf(value -> value < minSuppThreshold);
+        fqItemsets.values().removeIf(value -> value < minSuppThreshold);
         //-- SORT THE F-LIST --//
-        fqList.putAll(fqItems);
-        List<Map.Entry<String, Integer>> fqListEntry = new ArrayList<>(fqList.entrySet());
+        List<Map.Entry<String, Integer>> fqListEntry = new ArrayList<>(fqItemsets.entrySet());
         fqListEntry.sort((highestVal, lowestVal) -> lowestVal.getValue().compareTo(highestVal.getValue()));
         fqList.clear();
         for (Map.Entry<String, Integer> map : fqListEntry) {
@@ -66,6 +69,18 @@ public class FQList {
 
     //-- F-LIST SAMPLE --//
     // Let MST = 3
+    //
+    //--BEFORE
+    //
+    // Item     |   Frequency
+    // Item A           4
+    // Item B           5
+    // Item C           2
+    // Item D           4
+    // Item E           1
+    //
+    //--AFTER
+    //
     // Item     |   Frequency
     // Item B           5
     // Item A           4

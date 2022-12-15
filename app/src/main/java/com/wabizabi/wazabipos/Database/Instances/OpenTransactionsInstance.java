@@ -46,9 +46,9 @@ public class OpenTransactionsInstance {
                 RealmList<String> itemsIDName = new RealmList<>(); itemsIDName.addAll(itemsetName);
                 RealmList<Double> itemsIDPrice = new RealmList<>(); itemsIDPrice.addAll(itemsetPrice);
                 RealmList<Integer> itemsIDAmount = new RealmList<>(); itemsIDAmount.addAll(itemsetQty);
-                transaction.setNameOfEachItem(itemsIDName);
-                transaction.setPriceOfEachItem(itemsIDPrice);
-                transaction.setAmountOfEachItem(itemsIDAmount);
+                transaction.setName(itemsIDName);
+                transaction.setPrice(itemsIDPrice);
+                transaction.setQuantity(itemsIDAmount);
                 transaction.setPriceOfAllItems(totalPrice);
                 transaction.setTimestamp(timestamp);
                 transaction.setYear(year);

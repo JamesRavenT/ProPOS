@@ -21,67 +21,64 @@ public class TestData {
                 "Sushi Rolls",
                 "Sushi Platter",
                 "Noodles",
+                "Deep fried",
                 "Donburi",
                 "Drinks",
-                "Dessert",
-                "Others"
+                "Dessert"
         };
 
         //ITEMS PER CATEGORY
-        //Sashimi and Nigiri [7]
+        //Sashimi and Nigiri [4]
         String[] SashimiAndNigiri = {
-                "Salmon sashimi",
+                "California Maki",
                 "nigiri salmon",
-                "Tuna",
-                "Unagi",
-                "Tako",
-                "Ika",
-                "Tamago"
+                "Salmon sashimi",
+                "Tuna Sashimi"
         };
 
-        //Salad [4]
+        //Salad [3]
         String[] Salad = {
-                "Sea weeds Salad",
-                "Salad Wrap",
                 "Kani Salad",
-                "Spicy Tuna Salad"
+                "Salad Wrap",
+                "Sea weeds Salad"
         };
 
         //Sushi Rolls [9]
         String[] SushiRolls = {
-                "California Maki",
-                "Aburi Salmon",
-                "Tuna Tataki",
-                "rainbow chirashi",
-                "Dragon Eel",
-                "California Deluxe",
-                "Krazy Volcano",
-                "Spicy Maguro Melt",
-                "Yuzu Creamy Salmon"
+                "3 Cheese Crispy Kani Roll",
+                "Aburi Salmon Roll",
+                "Crispy Philly Roll",
+                "Fried Futomaki Roll",
+                "Salmon & Shrimp Tempura Roll",
+                "Salmon Lovers Roll",
+                "Tuna Salmon Dynamite Roll",
+                "Tuna Tataki Roll",
+                "Yuzu Creamy Salmon Roll"
         };
 
         //Sushi Platter [4]
         String[] SushiPlatter = {
-                "WZ Sushi Platter",
-                "California Deluxe",
-                "Nigiri Platter",
+                "All Fried Sushi Platter",
+                "Chef's Special Sushi Platter",
+                "Deluxe Sushi Platter",
                 "Premium Sushi Set"
         };
 
-        //Noodles [5]
+        //Noodles [6]
         String[] Noodles = {
-                "Beef Yakiudon",
-                "Tantanmen",
+                "Beef Yaki Udon",
+                "Gyudon",
+                "Katsudon",
                 "Miso Ramen",
-                "Tonkotsu Ramen",
-                "Tantanmen Ramen"
+                "Tantan Ramen",
+                "Tonkotsu Ramen"
         };
 
         //Donburi [4]
         String[] Donburi = {
-                "Gyudon",
-                "Katsudon",
-                "Tendon",
+                "California Deluxe",
+                "Krazy Volcano",
+                "rainbow chirashi",
                 "Teriyakidon"
         };
 
@@ -99,9 +96,8 @@ public class TestData {
 
         //Others [3]
         String[] Others = {
-                "sushi rolls",
-                "adsffasdfsdfsdafsdfsdfsdfsad",
-                "test"
+                "Shrimp & Vegetable Tempura",
+                "Shrimp Tempura"
 
         };
         try(Realm realm = Realm.getDefaultInstance()){
@@ -126,7 +122,7 @@ public class TestData {
                             break;
                         case "Dessert": createItem(category, Dessert);
                             break;
-                        case "Others": createItem(category, Others);
+                        case "Deep fried": createItem(category, Others);
                             break;
                     }
 

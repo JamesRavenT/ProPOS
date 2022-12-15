@@ -24,7 +24,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class RVA_POSItem extends RecyclerView.Adapter<RVA_POSItem.RVH_POSItem>{
+public class M04F01_ItemRVA extends RecyclerView.Adapter<M04F01_ItemRVA.RVH_POSItem>{
 
     public static RealmResults<ProductsItem> listOfPOSItems;
     Update_POS updateCartCount;
@@ -32,7 +32,7 @@ public class RVA_POSItem extends RecyclerView.Adapter<RVA_POSItem.RVH_POSItem>{
     Realm realm;
 
 
-    public RVA_POSItem(Update_POS updateCartCount, Context context, Realm realm) {
+    public M04F01_ItemRVA(Update_POS updateCartCount, Context context, Realm realm) {
         this.updateCartCount = updateCartCount;
         this.context = context;
         this.realm = realm;

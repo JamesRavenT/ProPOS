@@ -10,9 +10,9 @@ public class SalesTransaction extends RealmObject {
     @PrimaryKey
     ObjectId _id;
     String operation;
-    RealmList<String> nameOfEachItem; //[item A, item B, item C]
-    RealmList<Double> priceOfEachItem;
-    RealmList<Integer> amountOfEachItem; //[1, 2, 3]
+    RealmList<String> name; //[item A, item B, item C]
+    RealmList<Double> price; //[P100, P200, P300]
+    RealmList<Integer> quantity; //[1, 2, 3]
     double priceOfAllItems;
     String timestamp;
     String month;
@@ -39,9 +39,9 @@ public class SalesTransaction extends RealmObject {
                             String time,
                             String hour) {
         this.operation = operation;
-        this.nameOfEachItem = nameOfEachItem;
-        this.priceOfEachItem = priceOfEachItem;
-        this.amountOfEachItem = amountOfEachItem;
+        this.name = nameOfEachItem;
+        this.price = priceOfEachItem;
+        this.quantity = amountOfEachItem;
         this.priceOfAllItems = priceOfAllItems;
         this.timestamp = timestamp;
         this.month = month;
@@ -55,9 +55,9 @@ public class SalesTransaction extends RealmObject {
 
     public String getOperation() { return operation; }
     public String getTimestamp() { return timestamp; }
-    public RealmList<String> getNameOfEachItem() { return nameOfEachItem; }
-    public RealmList<Double> getPriceOfEachItem() { return priceOfEachItem; }
-    public RealmList<Integer> getAmountOfEachItem() { return amountOfEachItem; }
+    public RealmList<String> getName() { return name; }
+    public RealmList<Double> getPrice() { return price; }
+    public RealmList<Integer> getQuantity() { return quantity; }
     public double getPriceOfAllItems() { return priceOfAllItems; }
     public String getMonth() { return month; }
     public String getWeek() { return week; }
@@ -69,9 +69,9 @@ public class SalesTransaction extends RealmObject {
 
     public void setOperation(String operation) { this.operation = operation; }
     public void setTimestamp(String timestamp) { this.timestamp = timestamp;}
-    public void setNameOfEachItem(RealmList<String> nameOfEachItem) { this.nameOfEachItem = nameOfEachItem; }
-    public void setPriceOfEachItem(RealmList<Double> priceOfEachItem) { this.priceOfEachItem = priceOfEachItem; }
-    public void setAmountOfEachItem(RealmList<Integer> amountOfEachItem) { this.amountOfEachItem = amountOfEachItem; }
+    public void setName(RealmList<String> name) { this.name = name; }
+    public void setPrice(RealmList<Double> price) { this.price = price; }
+    public void setQuantity(RealmList<Integer> quantity) { this.quantity = quantity; }
     public void setPriceOfAllItems(double priceOfAllItems) { this.priceOfAllItems = priceOfAllItems; }
     public void setMonth(String month) { this.month = month; }
     public void setWeek(String week) { this.week = week; }

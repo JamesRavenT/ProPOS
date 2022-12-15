@@ -1,8 +1,7 @@
 package com.wabizabi.wazabipos.Utilities.BackgroundThreads;
 
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
-import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fqItems;
-import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fqList;
+import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fqListItemsets;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -26,8 +25,8 @@ public class W02_UploadData extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        if(!fqItems.isEmpty() && !fpList.isEmpty()){
-            DB.uploadFQListData(fqItems);
+        if(!fqListItemsets.isEmpty() && !fpList.isEmpty()){
+            DB.uploadFQListData(fqListItemsets);
             DB.uploadFPListData(fpList);
             createNotification();
         }

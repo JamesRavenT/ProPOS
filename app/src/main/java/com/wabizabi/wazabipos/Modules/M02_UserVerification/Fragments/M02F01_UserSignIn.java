@@ -23,11 +23,10 @@ public class M02F01_UserSignIn extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.act02_userverification_frag01_signin, container, false);
-        setContentFunctionalities(v);
+        init_FragmentFunctionalities(v);
         return v;
     }
-
-    private void setContentFunctionalities(View v){
+    private void init_FragmentFunctionalities(View v){
         userInput = v.findViewById(R.id.M02F01_UsernameInput);
         pinInput = v.findViewById(R.id.M02F01_PasswordInput);
         pinConfirmInput = v.findViewById(R.id.M02F01_PasswordConfirmInput);
@@ -38,7 +37,6 @@ public class M02F01_UserSignIn extends Fragment {
         String username = userInput.getText().toString();
         String password = pinInput.getText().toString();
         String passwordconfirm = pinConfirmInput.getText().toString();
-
         if(username.equals("")) {
             userInput.setError("Please input a username.");
         }

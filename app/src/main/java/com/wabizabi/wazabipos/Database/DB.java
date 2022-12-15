@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -61,14 +62,83 @@ public class DB {
                 }
             }
             switch(entry.getKey()){
+                case "3 Cheese Crispy Kani Roll":
+                    items.put("id", "0kng9kE1uBAmqYRyIngs");
+                    break;
+                case "All Fried Sushi Platter":
+                    items.put("id",  "7L50djQmJFHtJg4vJYQV");
+                    break;
+                case "Salmon & Shrimp Tempura Roll":
+                    items.put("id", "7zXORUbGKKNmHmykYowT");
+                    break;
+                case "Aburi Salmon Roll":
+                    items.put("id", "BWv5lQS0f3XCJq1vvElY");
+                    break;
+                case "All California Sushi Platter":
+                    items.put("id", "DfX7psgV2tBNBE2jwD3R");
+                    break;
+                case "Yuzu Creamy Salmon Roll":
+                    items.put("id", "E9MK5mrfyjgnLWCzUDtc");
+                    break;
+                case "Chef's Special Sushi Platter":
+                    items.put("id", "FKxS1zC9iPI0ZgbwWy8c");
+                    break;
+                case "Salad Wrap":
+                    items.put("id", "KCCjnrIcHLKrvjxpubzF");
+                    break;
+                case "Shrimp & Vegetable Tempura":
+                    items.put("id", "KU1qtVtRMKD5fAYU3ngK");
+                    break;
+                case "Shrimp Tempura":
+                    items.put("id", "Shrimp Tempura");
+                    break;
+                case "Salmon Lovers Roll":
+                    items.put("id", "Rvn8NT0ralv5vQBAbQct");
+                    break;
+                case "Beef Yaki Udon":
+                    items.put("id", "SE6PKDkjULesexAzBHm0");
+                    break;
+                case "Premium Sushi Set":
+                    items.put("id", "UspEShIxLliA7iht5Qtb");
+                    break;
+                case "Gyudon":
+                    items.put("id", "VPIwOHxedfalbsP1gtRO");
+                    break;
+                case "Deluxe Sushi Platter":
+                    items.put("id", "W8RX4MtSO4WiKwlQhfcR");
+                    break;
+                case "Kani Salad":
+                    items.put("id", "X8WUbmIsQF0rKUTv6EU6");
+                    break;
+                case "Katsudon":
+                    items.put("id", "XCWxjBKiXtO6oL9wptRG");
+                    break;
+                case "Tuna Sashimi":
+                    items.put("id", "cJDTInjSHpCdqqDqsScQ");
+                    break;
+                case "Fried Futomaki Roll":
+                    items.put("id", "erHlQwlgcx7TPgWBDfSN");
+                    break;
+                case "Crispy Spicy Tuna":
+                    items.put("id", "exzOCdymq6yrAYvhhnEW");
+                    break;
+                case "Tuna Tataki Roll":
+                    items.put("id", "jMkwgZuxeU76WbF8u6tN");
+                    break;
+                case "Crispy Philly Roll":
+                    items.put("id", "t7ELrhdh2SXmQohOZomR");
+                    break;
+                case "Tuna Salmon Dynamite Roll":
+                    items.put("id", "xYLyR2JQzneEbMYfmlag");
+                    break;
+                case "Miso Ramen":
+                    items.put("id", "y0Z58xY17yB9iZm6bvGf");
+                    break;
                 case "California Deluxe":
                     items.put("id", "xQ7hWuxMyLSTmCJaUX4b");
                     break;
                 case "California Maki":
                     items.put("id", "V9ZuWIrxpljeWQ2CKhsp");
-                    break;
-                case "Katsudon":
-                    items.put("id","nZA0JZ0QkLfTaVnzqL24");
                     break;
                 case "Krazy Volcano":
                     items.put("id", "ATRn8sV9DE8aMvvU82m0");

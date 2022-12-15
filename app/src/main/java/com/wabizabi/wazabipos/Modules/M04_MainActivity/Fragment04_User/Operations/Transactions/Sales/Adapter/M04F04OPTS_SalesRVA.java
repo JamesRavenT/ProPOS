@@ -1,10 +1,8 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Sales.Adapter;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockUpdateCategoryFragment;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.M04F04OP_Management.viewsSaleTransactionFragment;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Sales.M04F04OPTS_SalesView.tid;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
 import com.wabizabi.wazabipos.R;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class M04F04OPTS_SalesRVA extends RecyclerView.Adapter<M04F04OPTS_SalesRVA.ViewHolder> {
@@ -68,7 +64,7 @@ public class M04F04OPTS_SalesRVA extends RecyclerView.Adapter<M04F04OPTS_SalesRV
             this.position = position;
             salesDate.setText(transaction.getMonth() + " " + transaction.getDayNumber() + ", " + transaction.getYear() + " ; " + transaction.getTime());
             salesOperation.setText(transaction.getOperation());
-            salesItems.setText("Sold " + transaction.getNameOfEachItem().size() + " items");
+            salesItems.setText("Sold " + transaction.getName().size() + " items");
             salesPrices.setText("₱" + transaction.getPriceOfAllItems());
         }
 

@@ -19,23 +19,23 @@ public class M01_SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act01_splashscreen);
-        setContentFunctionalities();
+        init_Functionalities();
     }
 
-    private void setContentFunctionalities(){
-        initDB();
-        loadTestData();
-        loadNextModule();
+    private void init_Functionalities(){
+        init_DB();
+        load_TestData();
+        load_NextModule();
     }
-    private void initDB(){
+    private void init_DB(){
         Realm.init(this);
         DB.init();
     }
-    private void loadTestData(){
+    private void load_TestData(){
         TestData.preloadProducts();
         TestData.preloadTransactions();
     }
-    private void loadNextModule(){
+    private void load_NextModule(){
         Handler splashScreen = new Handler();
         splashScreen.postDelayed(()->{
             startActivity(new Intent(this, M02_UserVerification.class));

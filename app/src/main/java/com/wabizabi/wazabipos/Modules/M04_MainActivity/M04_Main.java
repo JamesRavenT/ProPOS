@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Fragment01_POS;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.M04F03_Products;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.M04F04_Admin;
@@ -25,7 +25,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     public static String currentFragment;
 
     public static
-    Fragment01_POS pos = new Fragment01_POS();
+    M04F01_POS pos = new M04F01_POS();
         public static int currentPOSCategoryIndex = -1;
         public static String currentPOSCategory;
     M04F02_Stocks stocks = new M04F02_Stocks();

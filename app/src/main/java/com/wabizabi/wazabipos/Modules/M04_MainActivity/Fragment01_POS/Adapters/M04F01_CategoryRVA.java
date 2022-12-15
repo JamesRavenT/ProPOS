@@ -2,7 +2,7 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategory;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.RVA_POSItem.listOfPOSItems;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA.listOfPOSItems;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -23,7 +23,7 @@ import com.wabizabi.wazabipos.R;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class RVA_POSCategory extends RecyclerView.Adapter<RVA_POSCategory.RVH_POSCategory> {
+public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.RVH_POSCategory> {
 
     public static RealmResults<ProductsList> listOfPOSCategories;
     Update_POSItemList updatePOSitemList;
@@ -31,7 +31,7 @@ public class RVA_POSCategory extends RecyclerView.Adapter<RVA_POSCategory.RVH_PO
     Realm realm;
 
 
-    public RVA_POSCategory(Update_POSItemList updatePOS, Context context, Realm realm) {
+    public M04F01_CategoryRVA(Update_POSItemList updatePOS, Context context, Realm realm) {
         this.updatePOSitemList = updatePOS;
         this.context = context;
         this.realm = realm;
