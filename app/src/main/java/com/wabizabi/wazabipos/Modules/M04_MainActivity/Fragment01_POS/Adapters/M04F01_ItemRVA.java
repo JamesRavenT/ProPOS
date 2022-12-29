@@ -1,6 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart.Adapter.RVA_Cart.cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.RVA_Cart.cart;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,8 +14,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.Update_POS;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Objects.CartObject;
+import com.wabizabi.wazabipos.Utilities.Interfaces.Update_POS;
+import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
 import com.wabizabi.wazabipos.R;
 
 import java.util.ArrayList;
@@ -95,7 +95,7 @@ public class M04F01_ItemRVA extends RecyclerView.Adapter<M04F01_ItemRVA.RVH_POSI
                 CartObject itemkey = object.get(0);
                 cart.put(itemkey, cart.get(itemkey) + 1);
             } else {
-                cart.put(new CartObject(name, price), 1);
+                cart.put(new CartObject(0, name, price), 1);
             }
             updateCartCount.refreshCartCount(context);
             Toast.makeText(context, "Item added to Cart!", Toast.LENGTH_SHORT).show();

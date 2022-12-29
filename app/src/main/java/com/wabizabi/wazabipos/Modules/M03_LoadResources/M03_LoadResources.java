@@ -19,9 +19,9 @@ public class M03_LoadResources extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act03_loadresources);
-        setContentFunctionalities();
+        init_Functionalities();
     }
-    private void setContentFunctionalities() {
+    private void init_Functionalities() {
         loading = findViewById(R.id.M03A01_LoadingText);
         initBackgroundResources();
     }

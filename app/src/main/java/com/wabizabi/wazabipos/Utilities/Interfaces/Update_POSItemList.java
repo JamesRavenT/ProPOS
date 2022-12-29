@@ -1,4 +1,4 @@
-package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces;
+package com.wabizabi.wazabipos.Utilities.Interfaces;
 
 import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
 

@@ -9,10 +9,8 @@ public class Node {
     public int support;
     public List<Node> children = new ArrayList<>();
 
-    //Default Constructor
     Node(){}
 
-    //New Node Constructor
     Node(String item, int support, Node parent){
         this.itemName = item;
         this.support = support;

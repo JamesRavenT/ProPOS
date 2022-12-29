@@ -1,24 +1,24 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategoryIndex;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_CategoryRVA.listOfPOSCategories;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA.listOfPOSItems;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart.Adapter.RVA_Cart.cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.RVA_Cart.cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategory;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategoryIndex;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.pos_cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.pos_header;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.pos_recommendation;
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,21 +29,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
 import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
-import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
-import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_CategoryRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.Update_POS;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Interfaces.Update_POSItemList;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Objects.CartObject;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Cart.SubFragment01_Cart;
+import com.wabizabi.wazabipos.Utilities.Interfaces.Update_POS;
+import com.wabizabi.wazabipos.Utilities.Interfaces.Update_POSItemList;
 import com.wabizabi.wazabipos.R;
-import com.wabizabi.wazabipos.Utilities.BackgroundThreads.WorkOrders;
+import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -51,92 +44,101 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F01_POS extends Fragment implements Update_POSItemList, Update_POS {
-
-    SubFragment01_Cart pos_cart = new SubFragment01_Cart();
-    Realm realm;
-    TextView header1, header2, header3;
+    //--DATABASE--//
+    Realm realm = Realm.getDefaultInstance();
+    //--RECYCLERVIEWS--//
     RecyclerView posCategoryRV, posItemRV;
     RecyclerView.Adapter posCategoryRVA, posItemRVA;
-    CardView goToCartButton;
     TextView goToCartText;
 
-    //--TEMPDIALOG--//
-    ImageView tempButton;
-    Dialog tempDialog;
-    TextView clearTransactions, startAlgorithm;
+    //--BUTTONS--//
+    CardView goToCartButton;
 
     //--TEMP RECOMMENDATION--//
-    ImageView recommendBtn;
-    List<String> recommendedCombination = new ArrayList<>();
+
+
+    //--PHONE EXCLUSIVE VARIABLES--//
+
+
+
+    //--TABLET EXCLUSIVE VARIABLES--//
+
+    ImageView toggleOrientationBtn;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.act04_main_frag01_pos, container, false);
-        setDBInstance();
-        setHeader(v);
-        setCartCounter(v);
-        setRecyclerview(v);
-        setButtons(v);
-        setDialog(v);
+        init_FragmentFunctionalities(v);
         return v;
     }
 
-    private void setDBInstance(){
-        realm = Realm.getDefaultInstance();
+
+
+    private void init_FragmentFunctionalities(View v){
+        posCategoryRV = v.findViewById(R.id.M04F01_CategoryRV);
+        posItemRV = v.findViewById(R.id.M04F01_ItemsRV);
+
+        toggleOrientationBtn = v.findViewById(R.id.M04F01_OrientationToggleBtn);
+        goToCartText = v.findViewById(R.id.POS_CartCounterTxt);
+
+
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            load_PortraitFunctionalities();
+        } else {
+            load_LandscapeFunctionalities();
+        }
     }
 
-    private void setDialog (View v){
-        tempButton = v.findViewById(R.id.tempButton);
-        tempButton.setOnClickListener(vi -> {
-            tempDialog.show();
-        });
-        tempDialog = new Dialog(getActivity());
-        tempDialog.setContentView(R.layout.act04_main_frag01_pos_tempdialog);
-        tempDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        clearTransactions = tempDialog.findViewById(R.id.Temp_ClearTransaction);
-        startAlgorithm = tempDialog.findViewById(R.id.Temp_Algorithm);
-        clearTransactions.setOnClickListener(vie -> {
-            realm.executeTransaction(db -> {
-                db.delete(SalesTransaction.class);
-            });
-            Toast.makeText(getActivity(), "Transactions cleared", Toast.LENGTH_SHORT).show();
-            tempDialog.dismiss();
-        });
-        startAlgorithm.setOnClickListener(view -> {
-            WorkOrders.startAlgorithm(getActivity());
-            WorkOrders.storeFPData(getActivity());
-            Toast.makeText(getActivity(), "Algorithm Executed Successfully", Toast.LENGTH_SHORT).show();
-            tempDialog.dismiss();
-        });
+    private void load_PortraitFunctionalities(){
+        load_Header();
+        load_RecyclerViews();
+    }
+
+    private void load_LandscapeFunctionalities(){
 
     }
 
-    private void setHeader(View v){
-        header1 = v.findViewById(R.id.POS_HeaderText);
-        header2 = v.findViewById(R.id.POS_HeaderText2);
-        header3 = v.findViewById(R.id.POS_HeaderText3);
-        recommendItemsIfCartIsNotEmpty();
+    private void load_Header(){
+        if(cart.size() == 1){
+            List<CartObject> keys = new ArrayList<>(cart.keySet());
+            CartObject firstItem = keys.get(0);
+            String item = firstItem.getItemName();
+            if(fpList.containsKey(item)){
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.M04F01_HeaderFragmentContainer, pos_recommendation)
+                    .commit();
+            }
+        } else {
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.M04F01_HeaderFragmentContainer, pos_header)
+                    .commit();
+        }
 
     }
 
     private void setCartCounter(View v){
-        goToCartText = v.findViewById(R.id.POS_CartCounterTxt);
+
         if(!cart.isEmpty()){
             String cartsize = String.valueOf(cart.size());
             goToCartText.setText("C a r t (" + cartsize + ")");
         }
     }
 
-    private void setRecyclerview(View v){
+    private void load_RecyclerViews(){
+
         //--CATEGORY--//
         LinearLayoutManager categoryLayout = new LinearLayoutManager(getActivity());
         categoryLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
-
         listOfPOSCategories = realm.where(ProductsList.class).sort("categoryName").findAll();
         posCategoryRVA = new M04F01_CategoryRVA(this, getActivity(), realm);
-        posCategoryRV = v.findViewById(R.id.POS_CategoryRV);
+
         posCategoryRV.setLayoutManager(categoryLayout);
         posCategoryRV.setAdapter(posCategoryRVA);
 
@@ -146,13 +148,11 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Update_P
         if(currentPOSCategoryIndex == -1){
             listOfPOSItems = realm.where(ProductsItem.class).sort("itemName").findAll();
             posItemRVA = new M04F01_ItemRVA(this, getActivity(), realm);
-            posItemRV = v.findViewById(R.id.POS_ItemRV);
             posItemRV.setLayoutManager(itemLayout);
             posItemRV.setAdapter(posItemRVA);
         } else {
             listOfPOSItems = realm.where(ProductsItem.class).equalTo("itemCategory", currentPOSCategory).sort("itemName").findAll();
             posItemRVA = new M04F01_ItemRVA(this, getActivity(), realm);
-            posItemRV = v.findViewById(R.id.POS_ItemRV);
             posItemRV.setLayoutManager(itemLayout);
             posItemRV.setAdapter(posItemRVA);
         }
@@ -169,23 +169,8 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Update_P
                     .commit();
         });
 
-        recommendBtn = v.findViewById(R.id.recommendBtn);
-        recommendBtn.setOnClickListener((b) -> {
-            if(!recommendedCombination.isEmpty()){
-                List<CartObject> items = new ArrayList<>(cart.keySet());
-                CartObject firstItem = items.get(0);
-                for(String item : recommendedCombination){
-                    if(!firstItem.getItemName().equalsIgnoreCase(item)){
-                        cart.put(new CartObject(item, 100.00), 1);
-                    }
-                }
-                Toast.makeText(getActivity(), "Combination Added Succesfully!", Toast.LENGTH_SHORT).show();
-            }
-            recommendItemsIfCartIsNotEmpty();
-        });
 
     }
-
 
     @Override
     public void refreshItemList(int position, RealmResults<ProductsItem> products) {
@@ -200,45 +185,21 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Update_P
             String cartsize = String.valueOf(cart.size());
             goToCartText.setText("C a r t (" + cartsize + ")");
         }
-        recommendItemsIfCartIsNotEmpty();
+        load_Header();
     }
 
-    private void recommendItemsIfCartIsNotEmpty(){
-        if (cart.size() == 1 && !fpList.isEmpty()){
-            Random random = new Random();
-            List<CartObject> keys = new ArrayList<>(cart.keySet());
-            CartObject firstItem = keys.get(0);
-            String item = firstItem.getItemName();
-            if(fpList.containsKey(item)){
-                recommendedCombination.clear();
-                List<List<String>> values = new ArrayList<>(fpList.get(item).keySet());
-                recommendedCombination = values.get(random.nextInt(fpList.get(item).keySet().size()));
-                String fqItemset = recommendedCombination.toString()
-                        .replace("[", "・")
-                        .replace("]", "")
-                        .replace(",", "\n・");
-                header1.setText("Popular Combinations with ");
-                header2.setText("\"" + item +"\"");
-                header3.setText(fqItemset);
-            }
 
-        } else {
-            recommendedCombination.clear();
-            UserProfile user = realm.where(UserProfile.class).findFirst();
-            DateFormat currentTime = new SimpleDateFormat("h:mm a");
-            DateFormat currentMonth = new SimpleDateFormat("MMM");
-            DateFormat currentDay = new SimpleDateFormat("d");
-            DateFormat currentYear = new SimpleDateFormat("yyyy");
-            String time = currentTime.format(new Date());
-            String month = currentMonth.format(new Date());
-            String day = currentDay.format(new Date());
-            String year = currentYear.format(new Date());
-            String owner = user.getUserName();
 
-            header1.setText(month + " " + day + " " + year + ", " + time);
-            header2.setText("Greetings," + owner);
-            header3.setText("");
-        }
-    }
 
+
+
+
+
+//    int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+//        if (screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+//        Toast.makeText(getActivity(), "Landscape mode is only available for Tablets", Toast.LENGTH_SHORT).show();
+//    } else {
+//        getActivity().setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//    }
+//});
 }

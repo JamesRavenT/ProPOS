@@ -1,7 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M02_UserVerification;
 
-import static com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments.M02F02_UserLogIn.operationForM02F02;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -32,16 +30,16 @@ public class M02_UserVerification extends AppCompatActivity {
         try(Realm realm = Realm.getDefaultInstance()){
             RealmResults<UserProfile> userlist = realm.where(UserProfile.class).findAll();
             if(userlist.isEmpty()){
-                initFragment01();
+                init_SignInFragment();
             } else {
-                initFragment02();
+                init_LogInFragment();
             }
         }
     }
-    private void initFragment01(){
+    private void init_SignInFragment(){
         getSupportFragmentManager().beginTransaction().replace(R.id.M02A01_FragContainer, signIn).commit();
     }
-    private void initFragment02(){
+    private void init_LogInFragment(){
         getSupportFragmentManager().beginTransaction().replace(R.id.M02A01_FragContainer, logIn).commit();
     }
 

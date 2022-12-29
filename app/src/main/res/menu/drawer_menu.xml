@@ -2,10 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_Home"
-            android:title="Home"/>
+    <group android:checkableBehavior="none">
+        <item android:title="WaZabiPOS">
+            <menu>
+                <item
+                    android:id="@+id/nav_POS"
+                    android:title="POS"/>
+
+            </menu>
+        </item>
 
         <item android:title="Inventory Management">
             <menu>

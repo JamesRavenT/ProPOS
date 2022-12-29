@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.R;
 
-public class Fragment05_Printer extends Fragment {
+public class M04F05_Printer extends Fragment {
 
     @Nullable
     @Override

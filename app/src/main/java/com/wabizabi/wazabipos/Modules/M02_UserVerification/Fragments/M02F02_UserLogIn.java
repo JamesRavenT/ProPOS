@@ -42,7 +42,6 @@ public class M02F02_UserLogIn extends Fragment {
         return v;
     }
 
-
     private void init_FragmentFunctionalities(View v){
         pin1 = v.findViewById(R.id.M02F02_PIN1);
         pin2 = v.findViewById(R.id.M02F02_PIN2);
@@ -151,6 +150,5 @@ public class M02F02_UserLogIn extends Fragment {
             }
         }
     }
-
 
 }

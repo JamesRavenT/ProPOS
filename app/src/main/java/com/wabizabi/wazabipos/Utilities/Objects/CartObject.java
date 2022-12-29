@@ -1,11 +1,14 @@
-package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Objects;
+package com.wabizabi.wazabipos.Utilities.Objects;
 
 public class CartObject {
+    int itemImage;
     String itemName;
     double itemPrice;
 
+
     public CartObject(){}
-    public CartObject(String itemName, double itemPrice) {
+    public CartObject(int itemImage, String itemName, double itemPrice) {
+        this.itemImage = itemImage;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
     }
