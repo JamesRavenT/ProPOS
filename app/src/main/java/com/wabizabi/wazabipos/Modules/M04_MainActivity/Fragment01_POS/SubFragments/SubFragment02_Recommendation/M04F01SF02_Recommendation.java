@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation.Adapters.M04F01SF02_RecommendationRVA;
 import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentContentUpdater;
 import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class M04F01SF02_Recommendation extends Fragment {
     RecyclerView.Adapter recommendedItemsRVA;
     List<String> recommendedItemsListString = new ArrayList<>();
     List<CartObject> recommendedItemsListObject = new ArrayList<>();
+    FragmentContentUpdater onclick;
 
     @Nullable
     @Override
@@ -49,6 +52,7 @@ public class M04F01SF02_Recommendation extends Fragment {
         recommendedItemsRV = v.findViewById(R.id.M04F01SF02_RecommendedRV);
         addtoCartBtn = v.findViewById(R.id.M04F01SF02_AddToCartBtn);
         load_Recommendations();
+        load_Buttons();
     }
 
 
@@ -62,7 +66,7 @@ public class M04F01SF02_Recommendation extends Fragment {
             recommendedItemsListObject.clear();
             List<List<String>> values = new ArrayList<>(fpList.get(item).keySet());
             recommendedItemsListString = values.get(random.nextInt(fpList.get(item).keySet().size()));
-            for(String singleItem : recommendedItemsListString){
+            for(String singleItem : recommendedItemsListString) {
                 try(Realm realm = Realm.getDefaultInstance()){
                     ProductsItem product = realm.where(ProductsItem.class).equalTo("itemName", singleItem).findFirst();
                     CartObject cartItem = new CartObject(product.getItemImage(), product.getItemName(), product.getItemPrice());
@@ -73,6 +77,7 @@ public class M04F01SF02_Recommendation extends Fragment {
             itemQuantity.setText("(" + recommendedItemsListString.size() + ") Items");
             load_RecyclerViews();
         }
+
     }
 
     private void load_RecyclerViews(){
@@ -81,6 +86,23 @@ public class M04F01SF02_Recommendation extends Fragment {
         recommendedItemsRVA = new M04F01SF02_RecommendationRVA(getActivity(), recommendedItemsListObject);
         recommendedItemsRV.setLayoutManager(recommendedItemsLayout);
         recommendedItemsRV.setAdapter(recommendedItemsRVA);
+    }
+
+    private void load_Buttons(){
+        addtoCartBtn.setOnClickListener(add -> {
+            List<CartObject> keys = new ArrayList<>(cart.keySet());
+            CartObject firstItem = keys.get(0);
+            for(CartObject item : recommendedItemsListObject){
+                String name = item.getItemName();
+                if(name.equals(firstItem.getItemName())){
+                    recommendedItemsListObject.remove(item);
+                } else {
+                    cart.put(item, 1);
+                }
+            }
+            Toast.makeText(getActivity(), "Items Added Into Cart!", Toast.LENGTH_SHORT).show();
+            onclick.updateFragment();
+        });
     }
 }
 

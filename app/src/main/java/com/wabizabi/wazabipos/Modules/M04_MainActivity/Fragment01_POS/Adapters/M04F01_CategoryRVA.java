@@ -9,6 +9,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,7 @@ import com.wabizabi.wazabipos.R;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.RVH_POSCategory> {
+public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.ViewHolder> {
 
     public static RealmResults<ProductsList> listOfPOSCategories;
     Update_POSItemList updatePOSitemList;
@@ -41,21 +42,23 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
 
     @NonNull
     @Override
-    public RVH_POSCategory onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.act04_main_frag01_pos_category_rvlayout, parent, false);
-        RVH_POSCategory categoryVH = new RVH_POSCategory(viewLayout);
+        ViewHolder categoryVH = new ViewHolder(viewLayout);
         return categoryVH;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RVH_POSCategory holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ProductsList category = listOfPOSCategories.get(position);
         holder.getPOSCategory(category, position);
-        holder.layout.setOnClickListener((v) -> updateItemsRV(holder, position));
+        holder.categoryLayout.setOnClickListener((v) -> updateItemsRV(holder, position));
         if(currentPOSCategoryIndex == position){
-            holder.layout.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
+            holder.categoryLayout.setCardBackgroundColor(ContextCompat.getColor(context, R.color.WazabiTheme));
+            holder.categoryName.setTextColor(ContextCompat.getColor(context, R.color.white));
         } else {
-            holder.layout.setCardBackgroundColor(ContextCompat.getColor(context, R.color.gray));
+            holder.categoryLayout.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
+            holder.categoryName.setTextColor(ContextCompat.getColor(context, R.color.WazabiTheme));
         }
 
     }
@@ -65,26 +68,62 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
         return listOfPOSCategories.size();
     }
 
-    public class RVH_POSCategory extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
-        private CardView layout;
-        private TextView categoryName;
-        public RVH_POSCategory(@NonNull View itemView) {
+        private final CardView categoryLayout;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            layout = itemView.findViewById(R.id.POS_CategoryContainer);
-            categoryName = itemView.findViewById(R.id.POS_CategoryNameTxt);
+            categoryLayout = itemView.findViewById(R.id.M04F01_CRVContainer);
+            categoryImage = itemView.findViewById(R.id.M04F01_CRVCategoryImage);
+            categoryName = itemView.findViewById(R.id.M04F01_CRVCategoryNameTxt);
         }
 
         public void getPOSCategory(ProductsList category, int position){
             this.position = position;
             categoryName.setText(category.getCategoryName());
+            switch(category.getCategoryImage()){
+                case 0:
+                    categoryImage.setImageResource(R.drawable.icon_products00_default);
+                    break;
+                case 1:
+                    categoryImage.setImageResource(R.drawable.icon_products01_deepfried);
+                    break;
+                case 2:
+                    categoryImage.setImageResource(R.drawable.icon_products02_desserts);
+                    break;
+                case 3:
+                    categoryImage.setImageResource(R.drawable.icon_products03_donburi);
+                    break;
+                case 4:
+                    categoryImage.setImageResource(R.drawable.icon_products04_drinks);
+                    break;
+                case 5:
+                    categoryImage.setImageResource(R.drawable.icon_products05_nigiri);
+                    break;
+                case 6:
+                    categoryImage.setImageResource(R.drawable.icon_products06_noodles);
+                    break;
+                case 7:
+                    categoryImage.setImageResource(R.drawable.icon_products07_salad);
+                    break;
+                case 8:
+                    categoryImage.setImageResource(R.drawable.icon_products08_sashimi);
+                    break;
+                case 9:
+                    categoryImage.setImageResource(R.drawable.icon_products09_sushi);
+                    break;
+                case 10:
+                    categoryImage.setImageResource(R.drawable.icon_products10_sushirolls);
+                    break;
+            }
         }
     }
 
-    private void updateItemsRV(@NonNull RVH_POSCategory holder, int position){
+    private void updateItemsRV(@NonNull ViewHolder holder, int position){
         currentPOSCategoryIndex = holder.getAdapterPosition();
         notifyDataSetChanged();
-
         RealmResults<ProductsList> categories = realm.where(ProductsList.class).sort("categoryName").findAll();
         ProductsList currentIndex = categories.get(currentPOSCategoryIndex);
         currentPOSCategory = currentIndex.getCategoryName();

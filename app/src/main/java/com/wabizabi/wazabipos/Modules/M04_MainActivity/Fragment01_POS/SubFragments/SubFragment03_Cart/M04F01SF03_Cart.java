@@ -4,6 +4,7 @@ import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFr
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.RVA_Cart.cart;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.pos_cart;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,47 +31,56 @@ import java.util.List;
 import java.util.Map;
 
 public class M04F01SF03_Cart extends Fragment implements Update_Cart {
-
-    TextView cartCount;
-    CardView confirmBtn;
+    //--RECYCLER VIEW--//
     RecyclerView cartRV;
     RecyclerView.Adapter cartRVA;
-    TextView itemAllPrice, itemTax, itemFinalPrice;
+    //--DISCOUNT DISPLAY--//
+    CardView discountBtn;
+    TextView discountText;
+    //--ORDER DETAILS--//
+    TextView cartTotalPrice, cartTax, cartFinal;
+    //--CONFIRM ORDERS BUTTON--//
+    CardView confirmOrdersBtn;
+    //--CONFIRMATION DIALOG--//
+    Dialog confirmOrdersDG;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.act04_main_frag01_pos_subfrag01_cart, container, false);
-        setViews(v);
-        setRecyclerView();
-        setContent();
+        init_FragmentFunctionalities(v);
         return v;
     }
 
-    private void setViews(View v){
-        cartCount = v.findViewById(R.id.POS_CartTxt);
-        cartRV = v.findViewById(R.id.POS_CartRV);
-        itemAllPrice = v.findViewById(R.id.POS_CartTotalPriceNo);
-        itemTax = v.findViewById(R.id.POS_CartTotalTaxNo);
-        itemFinalPrice = v.findViewById(R.id.POS_CartFinalNo);
-        confirmBtn = v.findViewById(R.id.POS_CartCheckOutBtn);
+    private void init_FragmentFunctionalities(View v){
+        cartRV = v.findViewById(R.id.M04F01SF03_RecyclerView);
+        cartTotalPrice = v.findViewById(R.id.M04F01SF03_TotalNo);
+        cartTax = v.findViewById(R.id.M04F01SF03_TaxNo);
+        cartFinal = v.findViewById(R.id.M04F01SF03_FinalNo);
+        confirmOrdersBtn = v.findViewById(R.id.M04F01SF03_CheckOutBtn);
+
+        init_Dialogs();
+        load_RecyclerView();
+        load_OrderDetails();
+        load_Buttons();
+
     }
 
-    private void setContent(){
-        setCartCount();
-        setPrices();
-        confirmBtn.setOnClickListener((v)-> createTransaction());
+    private void init_Dialogs(){
+        confirmOrdersDG = new Dialog(getActivity());
+
+
     }
-    private void setCartCount(){
-        cartCount.setText("屋台Cart ( " + cart.size() + " )");
-    }
-    private void setRecyclerView(){
+
+    private void load_RecyclerView(){
         LinearLayoutManager cartLayout = new LinearLayoutManager(getActivity());
         cartLayout.setOrientation(LinearLayoutManager.VERTICAL);
         cartRVA = new RVA_Cart(getActivity(), this);
         cartRV.setAdapter(cartRVA);
         cartRV.setLayoutManager(cartLayout);
     }
-    private void setPrices(){
+
+    private void load_OrderDetails(){
         double allprice = 0.00;
         for(Map.Entry<CartObject, Integer> basket : cart.entrySet()){
             CartObject item = basket.getKey();
@@ -82,10 +92,17 @@ public class M04F01SF03_Cart extends Fragment implements Update_Cart {
 
         double tax = allprice * 0.03;
         double finalprice = allprice + tax;
-        itemAllPrice.setText("₱" + String.valueOf(allprice));
-        itemTax.setText("₱" + String.valueOf(tax));
-        itemFinalPrice.setText("₱" + String.valueOf(finalprice));
+        cartTotalPrice.setText("₱" + allprice);
+        cartTax.setText("₱" + tax);
+        cartFinal.setText("₱" + finalprice);
     }
+
+    private void load_Buttons(){
+        confirmOrdersBtn.setOnClickListener(confirm -> {
+            confirmOrdersDG.show();
+        });
+    }
+
     private void createTransaction(){
         if(!cart.isEmpty()){
             List<String> itemName = new ArrayList<>();
@@ -118,7 +135,6 @@ public class M04F01SF03_Cart extends Fragment implements Update_Cart {
 
     @Override
     public void refreshCart(Context context) {
-        setCartCount();
-        setPrices();
+        load_OrderDetails();
     }
 }
