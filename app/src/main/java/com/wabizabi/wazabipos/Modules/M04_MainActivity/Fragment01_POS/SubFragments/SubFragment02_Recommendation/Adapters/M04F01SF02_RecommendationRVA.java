@@ -27,7 +27,7 @@ public class M04F01SF02_RecommendationRVA extends RecyclerView.Adapter<M04F01SF0
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.act04_main_frag01_pos_caption_recommendation_rvlayout, parent, false);
+        View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.act04_main_frag01_pos_subfrag02_recommendation_rvlayout, parent, false);
         ViewHolder rvLayout = new ViewHolder(layout);
         return rvLayout;
     }

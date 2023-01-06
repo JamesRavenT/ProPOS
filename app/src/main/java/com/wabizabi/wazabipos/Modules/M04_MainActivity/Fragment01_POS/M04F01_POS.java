@@ -5,7 +5,7 @@ import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Ada
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_CategoryRVA.listOfPOSCategories;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA.listOfPOSItems;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.RVA_Cart.cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategory;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategoryIndex;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.pos_cart;
@@ -62,7 +62,7 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Fragment
     int itemQtyCount = 1;
     TextView itemName, itemPrice, itemQty;
     ImageView itemImage, itemSubBtn, itemAddBtn;
-    CardView addToCartBtn, closeDialogBtn;
+    CardView addToCartBtn;
 
 
 
@@ -102,7 +102,7 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Fragment
 
     private void init_Dialogs() {
         addItemDG = new Dialog(getActivity());
-        addItemDG.setContentView(R.layout.act04_main_frag01_pos_dialog);
+        addItemDG.setContentView(R.layout.act04_main_frag01_pos_dg_additem);
         addItemDG.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         itemImage = addItemDG.findViewById(R.id.M04F01D_ItemImage);
         itemPrice = addItemDG.findViewById(R.id.M04F01D_ItemPrice);
@@ -111,7 +111,6 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Fragment
         itemSubBtn = addItemDG.findViewById(R.id.M04F01D_SubBtn);
         itemAddBtn = addItemDG.findViewById(R.id.M04F01D_AddBtn);
         addToCartBtn = addItemDG.findViewById(R.id.M04F01D_AddToCartBtn);
-        closeDialogBtn = addItemDG.findViewById(R.id.M04F01D_CloseDialogBtn);
 
         itemSubBtn.setOnClickListener(dec -> {
             if(itemQtyCount > 1) {
@@ -143,10 +142,6 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Fragment
             }
             load_Header();
             itemQtyCount = 1;
-            addItemDG.dismiss();
-        });
-
-        closeDialogBtn.setOnClickListener(close -> {
             addItemDG.dismiss();
         });
     }

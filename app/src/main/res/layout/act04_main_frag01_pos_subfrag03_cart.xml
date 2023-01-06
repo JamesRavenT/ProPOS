@@ -201,11 +201,11 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DiscountDisplayText"
+                        android:id="@+id/M04F01SF03_DiscountDisplayText"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:fontFamily="@font/nunito_sans"
-                        android:text="+"
+                        android:text=" "
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"

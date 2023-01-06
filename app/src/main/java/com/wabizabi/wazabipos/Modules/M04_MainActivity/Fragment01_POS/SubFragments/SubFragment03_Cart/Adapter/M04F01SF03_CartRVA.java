@@ -20,27 +20,27 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RVA_Cart extends RecyclerView.Adapter<RVA_Cart.RVH_Cart> {
+public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.ViewHolder> {
 
     public static Map<CartObject, Integer> cart = new LinkedHashMap<>();
     Context context;
     Update_Cart updateCart;
 
-    public RVA_Cart(Context context, Update_Cart updateCart) {
+    public M04F01SF03_CartRVA(Context context, Update_Cart updateCart) {
         this.context = context;
         this.updateCart = updateCart;
     }
 
     @NonNull
     @Override
-    public RVH_Cart onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.act04_main_frag01_pos_subfrag01_cart_rvlayout, parent, false);
-        RVH_Cart cartLayout = new RVH_Cart(viewLayout);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View viewLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.act04_main_frag01_pos_subfrag03_cart_rvlayout, parent, false);
+        ViewHolder cartLayout = new ViewHolder(viewLayout);
         return cartLayout;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RVH_Cart holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         List<CartObject> items = new ArrayList<>(cart.keySet());
         List<Integer> quantities = new ArrayList<>(cart.values());
         CartObject item = items.get(position);
@@ -48,7 +48,7 @@ public class RVA_Cart extends RecyclerView.Adapter<RVA_Cart.RVH_Cart> {
         holder.getCart(item, quantity, position);
         holder.addQtyBtn.setOnClickListener((v) -> addQuantity(item));
         holder.subQtyBtn.setOnClickListener((v) -> subQuantity(item));
-        holder.removeItemBtn.setOnClickListener((v) -> removeItem(item));
+
 
     }
 
@@ -57,20 +57,18 @@ public class RVA_Cart extends RecyclerView.Adapter<RVA_Cart.RVH_Cart> {
         return cart.size();
     }
 
-    public class RVH_Cart extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
         private TextView itemName, itemIDPrice, itemQty, itemTotalPrice;
-        private CardView removeItemBtn;
         private ImageButton addQtyBtn, subQtyBtn;
-        public RVH_Cart(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemName = itemView.findViewById(R.id.POS_CRTItemName);
-            itemIDPrice = itemView.findViewById(R.id.POS_CRTIndividualItemPrice);
-            itemQty = itemView.findViewById(R.id.POS_CRTItemQty);
-            itemTotalPrice = itemView.findViewById(R.id.POS_CRTSumOfAllItemPrice);
-            addQtyBtn = itemView.findViewById(R.id.POS_CRTItemQtyAddBtn);
-            subQtyBtn = itemView.findViewById(R.id.POS_CRTItemQtySubBtn);
-            removeItemBtn = itemView.findViewById(R.id.POS_CRTRemoveItemBtn);
+            itemName = itemView.findViewById(R.id.M04F01SF03_RVItemName);
+            itemIDPrice = itemView.findViewById(R.id.M04F01SF03_RVIndividualItemPrice);
+            itemQty = itemView.findViewById(R.id.M04F01SF03_RVItemQty);
+            itemTotalPrice = itemView.findViewById(R.id.M04F01SF03_RVTotalPrice);
+            addQtyBtn = itemView.findViewById(R.id.M04F01SF03_RVQtyAddBtn);
+            subQtyBtn = itemView.findViewById(R.id.M04F01SF03_RVQtySubBtn);
         }
 
         public void getCart(CartObject item, int quantity, int position){

@@ -74,34 +74,34 @@ public class M04F03OPCIS_CategoryIconsRVA extends RecyclerView.Adapter<M04F03OPC
                     iconImage.setImageResource(R.drawable.icon_products00_default);
                     break;
                 case 1:
-                    iconImage.setImageResource(R.drawable.icon_products01_carpaccio);
+                    iconImage.setImageResource(R.drawable.icon_products01_deepfried);
                     break;
                 case 2:
-                    iconImage.setImageResource(R.drawable.icon_products02_deepfried);
+                    iconImage.setImageResource(R.drawable.icon_products02_desserts);
                     break;
                 case 3:
-                    iconImage.setImageResource(R.drawable.icon_products03_dessert);
+                    iconImage.setImageResource(R.drawable.icon_products03_donburi);
                     break;
                 case 4:
-                    iconImage.setImageResource(R.drawable.icon_products04_donburi);
+                    iconImage.setImageResource(R.drawable.icon_products04_drinks);
                     break;
                 case 5:
-                    iconImage.setImageResource(R.drawable.icon_products05_drinks);
+                    iconImage.setImageResource(R.drawable.icon_products05_nigiri);
                     break;
                 case 6:
-                    iconImage.setImageResource(R.drawable.icon_products06_nigiri);
+                    iconImage.setImageResource(R.drawable.icon_products06_noodles);
                     break;
                 case 7:
-                    iconImage.setImageResource(R.drawable.icon_products07_noodles);
+                    iconImage.setImageResource(R.drawable.icon_products07_salad);
                     break;
                 case 8:
-                    iconImage.setImageResource(R.drawable.icon_products08_platter);
+                    iconImage.setImageResource(R.drawable.icon_products08_sashimi);
                     break;
                 case 9:
-                    iconImage.setImageResource(R.drawable.icon_products09_salad);
+                    iconImage.setImageResource(R.drawable.icon_products09_sushi);
                     break;
                 case 10:
-                    iconImage.setImageResource(R.drawable.icon_products10_sushi);
+                    iconImage.setImageResource(R.drawable.icon_products10_sushirolls);
                     break;
             }
         }

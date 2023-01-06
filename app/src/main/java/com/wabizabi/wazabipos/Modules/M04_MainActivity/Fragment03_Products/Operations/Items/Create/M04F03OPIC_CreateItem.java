@@ -64,34 +64,34 @@ public class M04F03OPIC_CreateItem extends Fragment {
                 itemImage.setImageResource(R.drawable.icon_products00_default);
                 break;
             case 1:
-                itemImage.setImageResource(R.drawable.icon_products01_carpaccio);
+                itemImage.setImageResource(R.drawable.icon_products01_deepfried);
                 break;
             case 2:
-                itemImage.setImageResource(R.drawable.icon_products02_deepfried);
+                itemImage.setImageResource(R.drawable.icon_products02_desserts);
                 break;
             case 3:
-                itemImage.setImageResource(R.drawable.icon_products03_dessert);
+                itemImage.setImageResource(R.drawable.icon_products03_donburi);
                 break;
             case 4:
-                itemImage.setImageResource(R.drawable.icon_products04_donburi);
+                itemImage.setImageResource(R.drawable.icon_products04_drinks);
                 break;
             case 5:
-                itemImage.setImageResource(R.drawable.icon_products05_drinks);
+                itemImage.setImageResource(R.drawable.icon_products05_nigiri);
                 break;
             case 6:
-                itemImage.setImageResource(R.drawable.icon_products06_nigiri);
+                itemImage.setImageResource(R.drawable.icon_products06_noodles);
                 break;
             case 7:
-                itemImage.setImageResource(R.drawable.icon_products07_noodles);
+                itemImage.setImageResource(R.drawable.icon_products07_salad);
                 break;
             case 8:
-                itemImage.setImageResource(R.drawable.icon_products08_platter);
+                itemImage.setImageResource(R.drawable.icon_products08_sashimi);
                 break;
             case 9:
-                itemImage.setImageResource(R.drawable.icon_products09_salad);
+                itemImage.setImageResource(R.drawable.icon_products09_sushi);
                 break;
             case 10:
-                itemImage.setImageResource(R.drawable.icon_products10_sushi);
+                itemImage.setImageResource(R.drawable.icon_products10_sushirolls);
                 break;
         }
     }

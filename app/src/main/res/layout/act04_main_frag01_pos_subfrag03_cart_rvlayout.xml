@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/M04F01SF03_RVLayout"
+    android:layout_width="match_parent"
+    android:layout_height="175dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/M04F01SF03_RVContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="15dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/M04F01SF03_RVContainerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/M04F01SF03_RVItemNo"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:fontFamily="@font/nunito_sans"
+                android:gravity="center"
+                android:text="Item No."
+                android:textColor="@color/WazabiTheme"
+                android:textSize="15sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/M04F01SF03_RVDivider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:gravity="center"
+                android:text="|\n|\n|\n|\n|"
+                android:textColor="@color/gray"
+                android:textSize="15sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVItemNo"
+                app:layout_constraintVertical_bias="0.416" />
+
+            <ImageView
+                android:id="@+id/M04F01SF03_RVItemImage"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
+                app:layout_constraintHorizontal_bias="0.13"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.352"
+                app:srcCompat="@drawable/icon_testimg" />
+
+            <TextView
+                android:id="@+id/M04F01SF03_RVItemName"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:text="ItemName"
+                android:textColor="@color/WazabiTheme"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
+                app:layout_constraintHorizontal_bias="0.888"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVItemImage"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/M04F01SF03_RVIndividualItemPrice"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_light"
+                android:text="₱ 0.00"
+                android:textColor="@color/WazabiTheme"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
+                app:layout_constraintHorizontal_bias="0.888"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVItemName"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/M04F01SF03_RVTotalPrice"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="₱0.00"
+                android:textColor="@color/WazabiTheme"
+                android:textSize="35sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.84"
+                app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVDivider"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.275" />
+
+            <ImageButton
+                android:id="@+id/M04F01SF03_RVQtySubBtn"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:backgroundTintMode="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVItemQty"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVDivider"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVTotalPrice"
+                app:layout_constraintVertical_bias="0.588"
+                app:srcCompat="@drawable/icon_button_arrowleft" />
+
+            <TextView
+                android:id="@+id/M04F01SF03_RVItemQty"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="x1"
+                android:textColor="@color/WazabiTheme"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.53"
+                app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVDivider"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVTotalPrice"
+                app:layout_constraintVertical_bias="0.588" />
+
+            <ImageButton
+                android:id="@+id/M04F01SF03_RVQtyAddBtn"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVItemQty"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVTotalPrice"
+                app:layout_constraintVertical_bias="0.588"
+                app:srcCompat="@drawable/icon_button_arrowright" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

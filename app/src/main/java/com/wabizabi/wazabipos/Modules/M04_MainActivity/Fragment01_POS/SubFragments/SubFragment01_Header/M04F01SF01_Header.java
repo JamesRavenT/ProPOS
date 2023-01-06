@@ -22,7 +22,7 @@ public class M04F01SF01_Header extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.act04_main_frag01_pos_caption_text, container, false);
+        View v = inflater.inflate(R.layout.act04_main_frag01_pos_subfrag01_header, container, false);
         init_FragmentFunctionalities(v);
         return v;
     }
