@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,9 +26,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS;
 import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Interfaces.Update_Cart;
+import com.wabizabi.wazabipos.Utilities.Interfaces.Update_Cart;
 import com.wabizabi.wazabipos.R;
 
 import java.util.ArrayList;
@@ -39,11 +41,17 @@ public class M04F01SF03_Cart extends Fragment implements Update_Cart {
     RecyclerView cartRV;
     RecyclerView.Adapter cartRVA;
     //--DISCOUNT DISPLAY--//
-    public static List<Double> discountApplied;
+    public static List<Double> discountApplied = new ArrayList<>();
     CardView discountBtn;
     TextView discountText;
     //--ORDER DETAILS--//
-    TextView cartTotal, cartTax, cartFinal;
+    TextView cartNo, cartTotal, cartTax, cartFinal;
+    //--SELECT DISCOUNT DIALOG--//
+    Dialog selectDiscountDG;
+    RecyclerView selectDiscountRV;
+    CardView confirmDiscountSelectionBtn;
+    //--CREATE DISCOUNT DIALOG--//
+    Dialog createDiscountDG;
     //--CONFIRM ORDERS BUTTON--//
     CardView confirmOrdersBtn;
     //--CONFIRMATION DIALOG--//
@@ -74,11 +82,16 @@ public class M04F01SF03_Cart extends Fragment implements Update_Cart {
     }
 
     private void init_Dialogs(){
+        //A dialog that will appear upon touching the select discount button
+        selectDiscountDG = new Dialog(getActivity());
+
+
+        //A dialog that will appear upon touching the confirm button
         confirmOrdersDG = new Dialog(getActivity());
         confirmOrdersDG.setContentView(R.layout.act04_main_frag01_pos_subfrag03_cart_dg_confirmorder);
         confirmOrdersDG.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        yesBtn = confirmOrdersBtn.findViewById(R.id.M04F01SF03D_YesBtn);
-        noBtn = confirmOrdersBtn.findViewById(R.id.M04F01SF03D_NoBtn);
+        yesBtn = confirmOrdersDG.findViewById(R.id.M04F01SF03D_YesBtn);
+        noBtn = confirmOrdersDG.findViewById(R.id.M04F01SF03D_NoBtn);
 
         yesBtn.setOnClickListener(yes -> {
             if(!cart.isEmpty()){
@@ -115,8 +128,9 @@ public class M04F01SF03_Cart extends Fragment implements Update_Cart {
                 getActivity()
                         .getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.MainActivityContainer, pos_cart)
+                        .replace(R.id.MainActivityContainer, new M04F01_POS())
                         .commit();
+                confirmOrdersDG.dismiss();
 
             } else {
                 //Closes the dialog and displays the error message.
@@ -137,9 +151,14 @@ public class M04F01SF03_Cart extends Fragment implements Update_Cart {
         cartRVA = new M04F01SF03_CartRVA(getActivity(), this);
         cartRV.setAdapter(cartRVA);
         cartRV.setLayoutManager(cartLayout);
+        cartRVA.notifyDataSetChanged();
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(cartRV);
     }
 
     private void load_OrderDetails(){
+        //Checks if there's a discount applied
         double discount = 0.00;
         if(discountApplied.isEmpty()){
             discountText.setText("+");
@@ -153,6 +172,7 @@ public class M04F01SF03_Cart extends Fragment implements Update_Cart {
             discountText.setGravity(Gravity.END);
         }
 
+        //Order Details
         double allprice = 0.00;
         for(Map.Entry<CartObject, Integer> basket : cart.entrySet()){
             CartObject item = basket.getKey();
@@ -175,20 +195,27 @@ public class M04F01SF03_Cart extends Fragment implements Update_Cart {
     }
 
     @Override
-    public void refreshCart(Context context) {
+    public void refreshCart() {
+        load_RecyclerView();
         load_OrderDetails();
     }
 
-    ItemTouchHelper.SimpleCallback swipeToDelete = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+    ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+
         @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-           return false;
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            return false;
         }
 
         @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            cart.remove(viewHolder.getAdapterPosition());
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+            //Remove swiped item from list and notify the RecyclerView
+            int position = viewHolder.getAdapterPosition();
+            List<CartObject> items = new ArrayList<>(cart.keySet());
+            CartObject item = items.get(position);
+            cart.remove(item);
             cartRVA.notifyDataSetChanged();
+            load_OrderDetails();
         }
     };
 }

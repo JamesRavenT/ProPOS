@@ -5,14 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Interfaces.Update_Cart;
+import com.wabizabi.wazabipos.Utilities.Interfaces.Update_Cart;
 import com.wabizabi.wazabipos.R;
 
 import java.util.ArrayList;
@@ -48,8 +48,6 @@ public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.
         holder.getCart(item, quantity, position);
         holder.addQtyBtn.setOnClickListener((v) -> addQuantity(item));
         holder.subQtyBtn.setOnClickListener((v) -> subQuantity(item));
-
-
     }
 
     @Override
@@ -59,10 +57,13 @@ public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
-        private TextView itemName, itemIDPrice, itemQty, itemTotalPrice;
+        private ImageView itemImage;
+        private TextView itemNo, itemName, itemIDPrice, itemQty, itemTotalPrice;
         private ImageButton addQtyBtn, subQtyBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemNo = itemView.findViewById(R.id.M04F01SF03_RVItemNo);
+            itemImage = itemView.findViewById(R.id.M04F01SF03_RVItemImage);
             itemName = itemView.findViewById(R.id.M04F01SF03_RVItemName);
             itemIDPrice = itemView.findViewById(R.id.M04F01SF03_RVIndividualItemPrice);
             itemQty = itemView.findViewById(R.id.M04F01SF03_RVItemQty);
@@ -73,11 +74,52 @@ public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.
 
         public void getCart(CartObject item, int quantity, int position){
             this.position = position;
+            int counter = position + 1;
+            if(position < 10) {
+                itemNo.setText("Item No.0" + counter);
+            } else {
+                itemNo.setText("Item No." + counter);
+            }
             String totalPrice = String.valueOf(item.getItemPrice() * quantity);
             itemName.setText(item.getItemName());
             itemIDPrice.setText("₱" + item.getItemPrice());
             itemQty.setText(String.valueOf(quantity));
             itemTotalPrice.setText("₱" + totalPrice);
+            switch(item.getItemImage()){
+                case 0:
+                    itemImage.setImageResource(R.drawable.icon_products00_default);
+                    break;
+                case 1:
+                    itemImage.setImageResource(R.drawable.icon_products01_deepfried);
+                    break;
+                case 2:
+                    itemImage.setImageResource(R.drawable.icon_products02_desserts);
+                    break;
+                case 3:
+                    itemImage.setImageResource(R.drawable.icon_products03_donburi);
+                    break;
+                case 4:
+                    itemImage.setImageResource(R.drawable.icon_products04_drinks);
+                    break;
+                case 5:
+                    itemImage.setImageResource(R.drawable.icon_products05_nigiri);
+                    break;
+                case 6:
+                    itemImage.setImageResource(R.drawable.icon_products06_noodles);
+                    break;
+                case 7:
+                    itemImage.setImageResource(R.drawable.icon_products07_salad);
+                    break;
+                case 8:
+                    itemImage.setImageResource(R.drawable.icon_products08_sashimi);
+                    break;
+                case 9:
+                    itemImage.setImageResource(R.drawable.icon_products09_sushi);
+                    break;
+                case 10:
+                    itemImage.setImageResource(R.drawable.icon_products10_sushirolls);
+                    break;
+            }
         }
     }
 
@@ -86,7 +128,7 @@ public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.
             cart.put(item, cart.get(item) +1);
         }
         notifyDataSetChanged();
-        updateCart.refreshCart(context);
+        updateCart.refreshCart();
     }
 
     public void subQuantity(CartObject item){
@@ -96,12 +138,7 @@ public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.
             }
         }
         notifyDataSetChanged();
-        updateCart.refreshCart(context);
+        updateCart.refreshCart();
     }
 
-    public void removeItem(CartObject item){
-        cart.remove(item);
-        notifyDataSetChanged();
-        updateCart.refreshCart(context);
-    }
 }

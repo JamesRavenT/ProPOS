@@ -15,6 +15,7 @@ public class CartObject {
 
     public String getItemName() { return itemName; }
     public double getItemPrice() { return itemPrice; }
+    public int getItemImage() { return itemImage; }
 
     public void setItemName(String itemName) { this.itemName = itemName; }
     public void setItemPrice(double itemPrice) { this.itemPrice = itemPrice; }

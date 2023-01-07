@@ -35,6 +35,7 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Header.M04F01SF01_Header;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation.M04F01SF02_Recommendation;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogContentLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogContentUpdater;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentContentUpdater;
@@ -94,6 +95,7 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Fragment
         load_Header();
         load_RecyclerViews();
         load_ButtonFunctions();
+        load_CartCount();
     }
 
     private void load_LandscapeFunctionalities(){
@@ -152,11 +154,17 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Fragment
             CartObject firstItem = keys.get(0);
             String item = firstItem.getItemName();
             if(fpList.containsKey(item)){
-            getActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.M04F01_HeaderFragmentContainer, new M04F01SF02_Recommendation())
-                    .commit();
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.M04F01_HeaderFragmentContainer, new M04F01SF02_Recommendation())
+                        .commit();
+            } else {
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.M04F01_HeaderFragmentContainer, new M04F01SF01_Header())
+                        .commit();
             }
         } else {
             getActivity()
@@ -197,11 +205,18 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Fragment
             getActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.MainActivityContainer, pos_cart)
+                    .replace(R.id.MainActivityContainer, new M04F01SF03_Cart())
                     .commit();
         });
     }
 
+    private void load_CartCount(){
+        if(!cart.isEmpty()){
+            String cartsize = String.valueOf(cart.size());
+            goToCartText.setText("C a r t (" + cartsize + ")");
+        }
+
+    }
     @Override
     public void refreshItemList(int position, RealmResults<ProductsItem> products) {
         posItemRVA = new M04F01_ItemRVA(addItemDG,this, getActivity(), realm);

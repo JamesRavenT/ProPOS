@@ -1,6 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 
 import android.os.Bundle;
@@ -18,7 +19,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation.Adapters.M04F01SF02_RecommendationRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentContentUpdater;
 import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
@@ -36,7 +39,6 @@ public class M04F01SF02_Recommendation extends Fragment {
     RecyclerView.Adapter recommendedItemsRVA;
     List<String> recommendedItemsListString = new ArrayList<>();
     List<CartObject> recommendedItemsListObject = new ArrayList<>();
-    FragmentContentUpdater onclick;
 
     @Nullable
     @Override
@@ -101,7 +103,11 @@ public class M04F01SF02_Recommendation extends Fragment {
                 }
             }
             Toast.makeText(getActivity(), "Items Added Into Cart!", Toast.LENGTH_SHORT).show();
-            onclick.updateFragment();
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.MainActivityContainer, new M04F01_POS())
+                    .commit();
         });
     }
 }

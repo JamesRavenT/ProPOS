@@ -129,6 +129,5 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
         currentPOSCategory = currentIndex.getCategoryName();
         listOfPOSItems = realm.where(ProductsItem.class).equalTo("itemCategory", currentPOSCategory).sort("itemName").findAll();
         updatePOSitemList.refreshItemList(position, listOfPOSItems);
-
     }
 }

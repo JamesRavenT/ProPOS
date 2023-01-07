@@ -64,34 +64,34 @@ public class M04F03OPCR_ReadCategory extends Fragment {
                 categoryImage.setImageResource(R.drawable.icon_products00_default);
                 break;
             case 1:
-                categoryImage.setImageResource(R.drawable.icon_products01_carpaccio);
+                categoryImage.setImageResource(R.drawable.icon_products01_deepfried);
                 break;
             case 2:
-                categoryImage.setImageResource(R.drawable.icon_products02_deepfried);
+                categoryImage.setImageResource(R.drawable.icon_products02_desserts);
                 break;
             case 3:
-                categoryImage.setImageResource(R.drawable.icon_products03_dessert);
+                categoryImage.setImageResource(R.drawable.icon_products03_donburi);
                 break;
             case 4:
-                categoryImage.setImageResource(R.drawable.icon_products04_donburi);
+                categoryImage.setImageResource(R.drawable.icon_products04_drinks);
                 break;
             case 5:
-                categoryImage.setImageResource(R.drawable.icon_products05_drinks);
+                categoryImage.setImageResource(R.drawable.icon_products05_nigiri);
                 break;
             case 6:
-                categoryImage.setImageResource(R.drawable.icon_products06_nigiri);
+                categoryImage.setImageResource(R.drawable.icon_products06_noodles);
                 break;
             case 7:
-                categoryImage.setImageResource(R.drawable.icon_products07_noodles);
+                categoryImage.setImageResource(R.drawable.icon_products07_salad);
                 break;
             case 8:
-                categoryImage.setImageResource(R.drawable.icon_products08_platter);
+                categoryImage.setImageResource(R.drawable.icon_products08_sashimi);
                 break;
             case 9:
-                categoryImage.setImageResource(R.drawable.icon_products09_salad);
+                categoryImage.setImageResource(R.drawable.icon_products09_sushi);
                 break;
             case 10:
-                categoryImage.setImageResource(R.drawable.icon_products10_sushi);
+                categoryImage.setImageResource(R.drawable.icon_products10_sushirolls);
                 break;
         }
     }
