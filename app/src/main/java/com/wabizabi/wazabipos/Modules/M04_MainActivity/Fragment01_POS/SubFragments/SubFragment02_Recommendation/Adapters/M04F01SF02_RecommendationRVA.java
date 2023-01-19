@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class M04F01SF02_RecommendationRVA extends RecyclerView.Adapter<M04F01SF02_RecommendationRVA.ViewHolder> {
 
-    Context context;
     List<CartObject> recommendedItems;
 
-    public M04F01SF02_RecommendationRVA(Context context, List<CartObject> recommendedItems){
-        this.context = context;
+    public M04F01SF02_RecommendationRVA(List<CartObject> recommendedItems){
         this.recommendedItems = recommendedItems;
     }
     @NonNull
@@ -56,8 +56,12 @@ public class M04F01SF02_RecommendationRVA extends RecyclerView.Adapter<M04F01SF0
 
         public void getRecommendedItems(CartObject item, int position){
             this.position = position;
-            itemName.setText(item.getItemName());
-            itemPrice.setText(String.valueOf(item.getItemPrice()));
+            if(item.getItemName().length() < 25) {
+                itemName.setText(item.getItemName());
+            } else {
+                itemName.setText(item.getItemName().substring(0, Math.min(item.getItemName().length(), 20)) + "...");
+            }
+            itemPrice.setText("₱" + new BigDecimal(item.getItemPrice()).setScale(2, RoundingMode.HALF_UP).toString());
             switch(item.getItemImage()){
                 case 0:
                     itemImage.setImageResource(R.drawable.icon_products00_default);

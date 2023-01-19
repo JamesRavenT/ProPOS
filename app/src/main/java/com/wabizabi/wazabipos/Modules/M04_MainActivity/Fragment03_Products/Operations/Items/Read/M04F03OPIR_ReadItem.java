@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.Items.Read.Adapter.M04F03OPIR_ReadItemRVA;
 import com.wabizabi.wazabipos.R;
 
@@ -59,7 +59,7 @@ public class M04F03OPIR_ReadItem extends Fragment {
     }
 
     private void init_ItemDetails(){
-        ProductsItem item = realm.where(ProductsItem.class).equalTo("itemName", M04F03_CurrentItem).findFirst();
+        RealmMenuItem item = realm.where(RealmMenuItem.class).equalTo("itemName", M04F03_CurrentItem).findFirst();
         itemName.setText(item.getItemName());
         switch(item.getItemImage()){
             case 0:

@@ -34,7 +34,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="ItemName"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="25sp" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="View"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="17.5sp" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Edit"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="17.5sp" />
 
             <TextView
@@ -74,7 +74,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Delete"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="17.5sp" />
 
         </LinearLayout>

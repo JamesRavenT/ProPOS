@@ -1,7 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Inventory.Adapter;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.InventoryTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.InventoryTransaction;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.RealmResults;

@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.SalesTransaction;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.RealmResults;

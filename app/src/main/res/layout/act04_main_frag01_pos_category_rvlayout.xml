@@ -4,13 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F01_CRVLayout"
     android:layout_width="120dp"
-    android:layout_height="120dp">
+    android:layout_height="110dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F01_CRVContainer"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:cardCornerRadius="10dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="5dp"
         android:elevation="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,21 +34,21 @@
                 android:layout_height="65dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.514"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.057"
-                app:srcCompat="@drawable/icon_testimg" />
+                app:layout_constraintVertical_bias="0.22000003"
+                app:srcCompat="@drawable/icon_products00_default" />
 
             <TextView
                 android:id="@+id/M04F01_CRVCategoryNameTxt"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
                 android:text="Category Name"
-                android:textSize="14sp"
 
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

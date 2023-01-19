@@ -16,16 +16,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.Categories.Read.Adapter.M04F03OPCR_ReadCategoryRVA;
 import com.wabizabi.wazabipos.R;
 
-import io.realm.Realm;
-
 public class M04F03OPCR_ReadCategory extends Fragment {
 
-    Realm realm;
+    io.realm.Realm realm;
     ImageView categoryImage;
     TextView categoryName;
     RecyclerView associatedItemsRV;
@@ -53,11 +51,11 @@ public class M04F03OPCR_ReadCategory extends Fragment {
     }
 
     private void init_DB(){
-        realm = Realm.getDefaultInstance();
+        realm = io.realm.Realm.getDefaultInstance();
     }
 
     private void init_CategoryDetails(){
-        ProductsList category = realm.where(ProductsList.class).equalTo("categoryName", M04F03_CurrentCategory).findFirst();
+        RealmMenuCategory category = realm.where(RealmMenuCategory.class).equalTo("categoryName", M04F03_CurrentCategory).findFirst();
         categoryName.setText(category.getCategoryName());
         switch(category.getCategoryImage()){
             case 0:
@@ -99,7 +97,7 @@ public class M04F03OPCR_ReadCategory extends Fragment {
     private void init_RecyclerView(){
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        listOfAssociatedProductItems = realm.where(ProductsItem.class).equalTo("itemCategory", M04F03_CurrentCategory).sort("itemName").findAll();
+        listOfAssociatedProductItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", M04F03_CurrentCategory).sort("itemName").findAll();
         associatedItemsRVA = new M04F03OPCR_ReadCategoryRVA(getActivity());
         associatedItemsRV.setLayoutManager(layout);
         associatedItemsRV.setAdapter(associatedItemsRVA);

@@ -1,9 +1,10 @@
 package com.wabizabi.wazabipos.Utilities.Testing;
 
+import com.wabizabi.wazabipos.Database.Instances.OpenDiscountInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenProductsInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
-import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.SalesTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +102,7 @@ public class TestData {
 
         };
         try(Realm realm = Realm.getDefaultInstance()){
-            RealmResults<ProductsItem> products = realm.where(ProductsItem.class).findAll();
+            RealmResults<RealmMenuItem> products = realm.where(RealmMenuItem.class).findAll();
             if(products.isEmpty()){
                 for (String category : categories) {
                     OpenProductsInstance.toCreateCategory(0, category);
@@ -168,6 +169,11 @@ public class TestData {
 
         }
 
+    }
+
+    public static void preloadDiscounts(){
+        OpenDiscountInstance.toCreateDiscount("Senior Citizen", 20);
+        OpenDiscountInstance.toCreateDiscount("Junior Citizen", 10);
     }
 
 }

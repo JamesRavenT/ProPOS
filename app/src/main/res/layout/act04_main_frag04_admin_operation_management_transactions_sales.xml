@@ -46,7 +46,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nunito_sans_light"
                             android:text="SALES"
-                            android:textColor="@color/WazabiTheme"
+                            android:textColor="@color/wabizabi"
                             android:textSize="50sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +60,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nunito_sans_light"
                             android:text="Transactions"
-                            android:textColor="@color/WazabiTheme"
+                            android:textColor="@color/wabizabi"
                             android:textSize="20sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +95,7 @@
                     android:layout_marginBottom="15dp"
                     android:fontFamily="@font/nunito_sans"
                     android:text="Today"
-                    android:textColor="@color/WazabiTheme"
+                    android:textColor="@color/wabizabi"
                     android:textSize="25sp" />
 
                 <androidx.recyclerview.widget.RecyclerView

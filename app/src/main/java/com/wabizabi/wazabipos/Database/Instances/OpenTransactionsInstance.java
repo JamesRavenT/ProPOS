@@ -1,8 +1,8 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
 
-import com.wabizabi.wazabipos.Database.Schemas.InventoryTransaction;
-import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.InventoryTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.SalesTransaction;
 
 import org.bson.types.ObjectId;
 

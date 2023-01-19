@@ -4,10 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
@@ -18,17 +16,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
-import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
+import com.wabizabi.wazabipos.Database.RealmSchemas.UserProfile;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Header.M04F01SF01_Header;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation.M04F01SF02_Recommendation;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Orders.M04F01SF03_Orders;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.M04F03_Products;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.M04F04_Admin;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_Printer.M04F05_Printer;
 import com.wabizabi.wazabipos.R;
-import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentContentUpdater;
 
 import io.realm.Realm;
 
@@ -51,7 +46,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     M04F04_Admin user = new M04F04_Admin();
     M04F05_Printer printer = new M04F05_Printer();
     //--SUBFRAGMENTS--//
-    public static M04F01SF03_Cart pos_cart = new M04F01SF03_Cart();
+    public static M04F01SF03_Orders pos_cart = new M04F01SF03_Orders();
     //--GLOBAL VARIABLES--//
     public static String currentFragment;
     public static int currentPOSCategoryIndex = -1;
@@ -79,8 +74,11 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     private void init_Toolbar(){
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+            toolbar.setVisibility(View.VISIBLE);
+            drawer.setVisibility(View.VISIBLE);
+            navigation.setVisibility(View.VISIBLE);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle("");
 //        if(orientation == Configuration.ORIENTATION_LANDSCAPE && currentFragment.equals("Cart")) {
 //            getSupportActionBar().setBackgroundDrawable();
 //        }

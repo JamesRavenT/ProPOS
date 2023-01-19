@@ -3,9 +3,8 @@ package com.wabizabi.wazabipos.Database.Instances;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentCategory;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks.M04F02_CurrentItem;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
-import com.wabizabi.wazabipos.Database.Schemas.StockItem;
-import com.wabizabi.wazabipos.Database.Schemas.StockList;
+import com.wabizabi.wazabipos.Database.RealmSchemas.StockItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.StockList;
 
 import org.bson.types.ObjectId;
 

@@ -47,7 +47,7 @@
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="ItemName"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
 

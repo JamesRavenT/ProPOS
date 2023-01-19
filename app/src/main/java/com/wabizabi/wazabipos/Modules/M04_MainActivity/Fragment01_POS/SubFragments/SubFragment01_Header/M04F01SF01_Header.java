@@ -52,6 +52,6 @@ public class M04F01SF01_Header extends Fragment {
         DateFormat currentTime = new SimpleDateFormat("h:mm a");
         String time = currentTime.format(new Date());
 
-        timeText.setText(time);
+        timeText.setText("Greetings!");
     }
 }

@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/WazabiTheme"
+            android:backgroundTint="@color/wabizabi"
             app:cardCornerRadius="25dp"
             app:cardElevation="10dp">
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,7 +91,7 @@
                 android:fontFamily="@font/nunito_sans"
                 android:text="Sales Report"
                 android:textSize="25sp"
-                android:textColor="@color/WazabiTheme"/>
+                android:textColor="@color/wabizabi"/>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                         android:layout_marginEnd="15dp"
                         android:fontFamily="@font/nunito_sans_light"
                         android:text="Today"
-                        android:textColor="@color/WazabiTheme"
+                        android:textColor="@color/wabizabi"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -130,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_light"
                         android:text="Total Sales"
-                        android:textColor="@color/WazabiTheme"
+                        android:textColor="@color/wabizabi"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_light"
                         android:text="0"
-                        android:textColor="@color/WazabiTheme"
+                        android:textColor="@color/wabizabi"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -191,7 +191,7 @@
                 android:fontFamily="@font/nunito_sans"
                 android:text="Transactions"
                 android:textSize="25sp"
-                android:textColor="@color/WazabiTheme"/>
+                android:textColor="@color/wabizabi"/>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -226,7 +226,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_light"
                         android:text="Sales"
-                        android:textColor="@color/WazabiTheme"
+                        android:textColor="@color/wabizabi"
                         android:textSize="25sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -241,7 +241,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_light"
                         android:text="Recent Sale"
-                        android:textColor="@color/WazabiTheme"
+                        android:textColor="@color/wabizabi"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -258,7 +258,7 @@
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/nunito_sans_light"
                         android:text="Recent Transaction"
-                        android:textColor="@color/WazabiTheme"
+                        android:textColor="@color/wabizabi"
                         android:textSize="12.5sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -318,7 +318,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_light"
                         android:text="Inventory"
-                        android:textColor="@color/WazabiTheme"
+                        android:textColor="@color/wabizabi"
                         android:textSize="25sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -333,7 +333,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_sans_light"
                         android:text="Recent Inventory"
-                        android:textColor="@color/WazabiTheme"
+                        android:textColor="@color/wabizabi"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -350,7 +350,7 @@
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/nunito_sans_light"
                         android:text="Recent Transaction"
-                        android:textColor="@color/WazabiTheme"
+                        android:textColor="@color/wabizabi"
                         android:textSize="12.5sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

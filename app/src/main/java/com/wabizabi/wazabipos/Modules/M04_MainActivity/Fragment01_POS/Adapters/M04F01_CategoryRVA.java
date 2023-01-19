@@ -1,9 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters;
 
-
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA.listOfPOSItems;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategoryIndex;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentCategoryIndex;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentCategoryName;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,27 +15,36 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
-import com.wabizabi.wazabipos.Utilities.Interfaces.Update_POSItemList;
+import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
+import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
+import com.wabizabi.wazabipos.Utilities.Interfaces.RecyclerViewLoader;
 import com.wabizabi.wazabipos.R;
+
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.ViewHolder> {
 
-    public static RealmResults<ProductsList> listOfPOSCategories;
-    Update_POSItemList updatePOSitemList;
     Context context;
     Realm realm;
+    RecyclerViewLoader rvLoader;
+    List<MenuCategory> listOfCategories;
+    List<MenuItem> listOfItems;
 
-
-    public M04F01_CategoryRVA(Update_POSItemList updatePOS, Context context, Realm realm) {
-        this.updatePOSitemList = updatePOS;
+    public M04F01_CategoryRVA(Context context,
+                              io.realm.Realm realm,
+                              List<MenuCategory> listOfCategories,
+                              List<MenuItem> listOfItems,
+                              RecyclerViewLoader rvLoader) {
         this.context = context;
         this.realm = realm;
-
+        this.listOfCategories = listOfCategories;
+        this.listOfItems = listOfItems;
+        this.rvLoader = rvLoader;
     }
 
     @NonNull
@@ -50,39 +57,35 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ProductsList category = listOfPOSCategories.get(position);
+        MenuCategory category = listOfCategories.get(position);
         holder.getPOSCategory(category, position);
-        holder.categoryLayout.setOnClickListener((v) -> updateItemsRV(holder, position));
-        if(currentPOSCategoryIndex == position){
-            holder.categoryLayout.setCardBackgroundColor(ContextCompat.getColor(context, R.color.WazabiTheme));
-            holder.categoryName.setTextColor(ContextCompat.getColor(context, R.color.white));
-        } else {
-            holder.categoryLayout.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
-            holder.categoryName.setTextColor(ContextCompat.getColor(context, R.color.WazabiTheme));
-        }
-
+        holder.onClick(holder, position);
     }
 
     @Override
     public int getItemCount() {
-        return listOfPOSCategories.size();
+        return listOfCategories.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
-        private final CardView categoryLayout;
+        private final CardView categoryContainer;
         private final ImageView categoryImage;
         private final TextView categoryName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            categoryLayout = itemView.findViewById(R.id.M04F01_CRVContainer);
+            categoryContainer = itemView.findViewById(R.id.M04F01_CRVContainer);
             categoryImage = itemView.findViewById(R.id.M04F01_CRVCategoryImage);
             categoryName = itemView.findViewById(R.id.M04F01_CRVCategoryNameTxt);
         }
 
-        public void getPOSCategory(ProductsList category, int position){
+        public void getPOSCategory(MenuCategory category, int position){
             this.position = position;
-            categoryName.setText(category.getCategoryName());
+            if(category.getCategoryName().length() < 14) {
+                categoryName.setText(category.getCategoryName());
+            } else {
+                categoryName.setText(category.getCategoryName().substring(0, Math.min(category.getCategoryName().length(), 10)) + "...");
+            }
             switch(category.getCategoryImage()){
                 case 0:
                     categoryImage.setImageResource(R.drawable.icon_products00_default);
@@ -119,15 +122,30 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
                     break;
             }
         }
+        public void onClick(ViewHolder holder, int position){
+            this.position = position;
+            categoryContainer.setOnClickListener(onselect -> updateItems(holder, position));
+            if(currentCategoryIndex == position){
+                categoryContainer.setCardBackgroundColor(ContextCompat.getColor(context, R.color.wabizabi));
+                categoryName.setTextColor(ContextCompat.getColor(context, R.color.white));
+            } else {
+                categoryContainer.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
+                categoryName.setTextColor(ContextCompat.getColor(context, R.color.wabizabi));
+            }
+        }
     }
 
-    private void updateItemsRV(@NonNull ViewHolder holder, int position){
-        currentPOSCategoryIndex = holder.getAdapterPosition();
+    private void updateItems(@NonNull ViewHolder holder, int position){
+        currentCategoryIndex = holder.getAdapterPosition();
         notifyDataSetChanged();
-        RealmResults<ProductsList> categories = realm.where(ProductsList.class).sort("categoryName").findAll();
-        ProductsList currentIndex = categories.get(currentPOSCategoryIndex);
-        currentPOSCategory = currentIndex.getCategoryName();
-        listOfPOSItems = realm.where(ProductsItem.class).equalTo("itemCategory", currentPOSCategory).sort("itemName").findAll();
-        updatePOSitemList.refreshItemList(position, listOfPOSItems);
+        RealmResults<RealmMenuCategory> categories = realm.where(RealmMenuCategory.class).sort("categoryName").findAll();
+        RealmMenuCategory currentIndex = categories.get(currentCategoryIndex);
+        currentCategoryName = currentIndex.getCategoryName();
+        RealmResults<RealmMenuItem> query = realm.where(RealmMenuItem.class).equalTo("itemCategory", currentCategoryName).sort("itemName").findAll();
+        listOfItems.clear();
+        for(RealmMenuItem queriedItem : query){
+            listOfItems.add(new MenuItem(queriedItem.getItemImage(), queriedItem.getItemName(), queriedItem.getItemPrice()));
+        }
+        rvLoader.load_RVContents(position, listOfItems);
     }
 }

@@ -3,20 +3,19 @@ package com.wabizabi.wazabipos.Database.Instances;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.M04F03_Products.M04F03_CurrentCategory;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.M04F03_Products.M04F03_CurrentItem;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 
 import org.bson.types.ObjectId;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class OpenProductsInstance {
 
     public static void toCreateCategory(int image, String categoryName){
-        try(Realm realm = Realm.getDefaultInstance()){
+        try(io.realm.Realm realm = io.realm.Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                ProductsList category = db.createObject(ProductsList.class, new ObjectId());
+                RealmMenuCategory category = db.createObject(RealmMenuCategory.class, new ObjectId());
                 category.setCategoryImage(image);
                 category.setCategoryName(categoryName);
             });
@@ -24,12 +23,12 @@ public class OpenProductsInstance {
     }
 
     public static void toEditCategory(int image, String categoryName){
-        try(Realm realm = Realm.getDefaultInstance()){
+        try(io.realm.Realm realm = io.realm.Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                ProductsList category = db.where(ProductsList.class).equalTo("categoryName", M04F03_CurrentCategory).findFirst();
-                RealmResults<ProductsItem> items = db.where(ProductsItem.class).equalTo("itemCategory", M04F03_CurrentCategory).findAll();
+                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", M04F03_CurrentCategory).findFirst();
+                RealmResults<RealmMenuItem> items = db.where(RealmMenuItem.class).equalTo("itemCategory", M04F03_CurrentCategory).findAll();
                 if(!items.isEmpty()){
-                    for(ProductsItem item : items){
+                    for(RealmMenuItem item : items){
                         item.setItemImage(image);
                         item.setItemCategory(categoryName);
                     }
@@ -41,10 +40,10 @@ public class OpenProductsInstance {
     }
 
     public static void toDeleteCategory(){
-        try(Realm realm = Realm.getDefaultInstance()){
+        try(io.realm.Realm realm = io.realm.Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                ProductsList category = db.where(ProductsList.class).equalTo("categoryName", M04F03_CurrentCategory).findFirst();
-                RealmResults<ProductsItem> items = db.where(ProductsItem.class).equalTo("itemCategory", M04F03_CurrentCategory).findAll();
+                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", M04F03_CurrentCategory).findFirst();
+                RealmResults<RealmMenuItem> items = db.where(RealmMenuItem.class).equalTo("itemCategory", M04F03_CurrentCategory).findAll();
                 items.deleteAllFromRealm();
                 category.deleteFromRealm();
             });
@@ -52,9 +51,9 @@ public class OpenProductsInstance {
     }
 
     public static void toCreateItem(int image, String category, String name, double price){
-        try(Realm realm = Realm.getDefaultInstance()){
+        try(io.realm.Realm realm = io.realm.Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                ProductsItem product = db.createObject(ProductsItem.class, new ObjectId());
+                RealmMenuItem product = db.createObject(RealmMenuItem.class, new ObjectId());
                 product.setItemImage(image);
                 product.setItemCategory(category);
                 product.setItemName(name);
@@ -64,9 +63,9 @@ public class OpenProductsInstance {
     }
 
     public static void toEditItem(String name, double price){
-        try(Realm realm = Realm.getDefaultInstance()){
+        try(io.realm.Realm realm = io.realm.Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                ProductsItem item = db.where(ProductsItem.class).equalTo("itemName", M04F03_CurrentItem).findFirst();
+                RealmMenuItem item = db.where(RealmMenuItem.class).equalTo("itemName", M04F03_CurrentItem).findFirst();
                 item.setItemName(name);
                 item.setItemPrice(price);
             });
@@ -74,9 +73,9 @@ public class OpenProductsInstance {
     }
 
     public static void toDeleteItem(){
-        try(Realm realm = Realm.getDefaultInstance()){
+        try(io.realm.Realm realm = io.realm.Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
-                ProductsItem item = db.where(ProductsItem.class).equalTo("itemName", M04F03_CurrentItem).findFirst();
+                RealmMenuItem item = db.where(RealmMenuItem.class).equalTo("itemName", M04F03_CurrentItem).findFirst();
                 item.deleteFromRealm();
             });
         }

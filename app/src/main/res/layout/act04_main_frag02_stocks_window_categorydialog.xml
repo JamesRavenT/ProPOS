@@ -35,7 +35,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="CategoryName"
                 android:textSize="25sp"
-                android:textColor="@color/WazabiTheme"/>
+                android:textColor="@color/wabizabi"/>
 
             <TextView
                 android:id="@+id/M04F02OPCD_ViewText"
@@ -48,7 +48,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="View"
                 android:textSize="17.5sp"
-                android:textColor="@color/WazabiTheme" />
+                android:textColor="@color/wabizabi" />
 
             <TextView
                 android:id="@+id/M04F02OPCD_EditText"
@@ -61,7 +61,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="Edit"
                 android:textSize="17.5sp"
-                android:textColor="@color/WazabiTheme" />
+                android:textColor="@color/wabizabi" />
 
             <TextView
                 android:id="@+id/M04F02OPCD_DeleteText"
@@ -75,7 +75,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="Delete"
                 android:textSize="17.5sp"
-                android:textColor="@color/WazabiTheme" />
+                android:textColor="@color/wabizabi" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

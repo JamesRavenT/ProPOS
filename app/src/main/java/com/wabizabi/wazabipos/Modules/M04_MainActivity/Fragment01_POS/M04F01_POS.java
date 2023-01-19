@@ -1,14 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA.M04F01_CurrentItemName;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA.M04F01_CurrentItemPrice;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_CategoryRVA.listOfPOSCategories;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA.listOfPOSItems;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategory;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentPOSCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.pos_cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Orders.Adapter.M04F01SF03_CartRVA.cart;
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 
 import android.app.Dialog;
@@ -26,46 +19,61 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
+import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
+import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_CategoryRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Header.M04F01SF01_Header;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation.M04F01SF02_Recommendation;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
-import com.wabizabi.wazabipos.Utilities.Interfaces.DialogContentLoader;
-import com.wabizabi.wazabipos.Utilities.Interfaces.DialogContentUpdater;
-import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentContentUpdater;
-import com.wabizabi.wazabipos.Utilities.Interfaces.Update_POSItemList;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Orders.M04F01SF03_Orders;
+import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
+import com.wabizabi.wazabipos.Utilities.Interfaces.RecyclerViewLoader;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class M04F01_POS extends Fragment implements Update_POSItemList, FragmentContentUpdater, DialogContentLoader, DialogContentUpdater{
+public class M04F01_POS extends Fragment implements RecyclerViewLoader, DialogLoader {
     //--DATABASE--//
     Realm realm = Realm.getDefaultInstance();
+
     //--RECYCLER VIEW(S)--//
-    RecyclerView posCategoryRV, posItemRV;
-    RecyclerView.Adapter posCategoryRVA, posItemRVA;
+    //Category RV
+    RecyclerView posCategoryRV;
+    RecyclerView.Adapter posCategoryRVA;
+    TextView currentCategoryText;
+    public static int currentCategoryIndex = -1;
+    public static String currentCategoryName;
+
+    //Item RV
+    RecyclerView posItemRV;
+    RecyclerView.Adapter posItemRVA;
+    public static int currentItemImage;
+    public static String currentItemName;
+    public static double currentItemPrice;
+
     //--GO TO CART BUTTON--//
     CardView goToCartButton;
     TextView goToCartText;
     //--ADD ITEM DIALOG--//
-    Dialog addItemDG;
+    Dialog posDG01;
     int itemQtyCount = 1;
-    TextView itemName, itemPrice, itemQty;
-    ImageView itemImage, itemSubBtn, itemAddBtn;
-    CardView addToCartBtn;
-
-
+    TextView posDG01_ItemName, posDG01_ItemPrice, posDG01_ItemQty;
+    ImageView posDG01_ItemImage, posDG01_ItemSubBtn, posDG01_ItemAddBtn;
+    CardView posDG01_AddToCartBtn;
+    ImageView posDG01_CloseDGBtn;
 
     @Nullable
     @Override
@@ -78,10 +86,10 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Fragment
     private void init_FragmentFunctionalities(View v){
         posCategoryRV = v.findViewById(R.id.M04F01_CategoryRV);
         posItemRV = v.findViewById(R.id.M04F01_ItemsRV);
-        goToCartText = v.findViewById(R.id.M04F01_CartCounterText);
-        goToCartButton = v.findViewById(R.id.M04F01_CheckOutBtn);
+        currentCategoryText = v.findViewById(R.id.M04F01_ItemText);
+        goToCartText = v.findViewById(R.id.M04F01_OrdersBtnText);
+        goToCartButton = v.findViewById(R.id.M04F01_OrdersBtn);
 
-//        toggleOrientationBtn = v.findViewById(R.id.M04F01_OrientationToggleBtn);
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             load_PortraitFunctionalities();
@@ -94,66 +102,20 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Fragment
         init_Dialogs();
         load_Header();
         load_RecyclerViews();
+        load_OrderSize();
         load_ButtonFunctions();
-        load_CartCount();
     }
 
     private void load_LandscapeFunctionalities(){
 
     }
 
-    private void init_Dialogs() {
-        addItemDG = new Dialog(getActivity());
-        addItemDG.setContentView(R.layout.act04_main_frag01_pos_dg_additem);
-        addItemDG.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        itemImage = addItemDG.findViewById(R.id.M04F01D_ItemImage);
-        itemPrice = addItemDG.findViewById(R.id.M04F01D_ItemPrice);
-        itemName = addItemDG.findViewById(R.id.M04F01D_ItemName);
-        itemQty = addItemDG.findViewById(R.id.M04F01D_ItemQty);
-        itemSubBtn = addItemDG.findViewById(R.id.M04F01D_SubBtn);
-        itemAddBtn = addItemDG.findViewById(R.id.M04F01D_AddBtn);
-        addToCartBtn = addItemDG.findViewById(R.id.M04F01D_AddToCartBtn);
-
-        itemSubBtn.setOnClickListener(dec -> {
-            if(itemQtyCount > 1) {
-                itemQtyCount--;
-                updateDialog();
-            }
-        });
-        itemAddBtn.setOnClickListener(inc -> {
-            itemQtyCount++;
-            updateDialog();
-        });
-        addToCartBtn.setOnClickListener(add -> {
-            List<CartObject> items = new ArrayList<>(cart.keySet());
-            List<CartObject> basket = new ArrayList<>();
-            for(CartObject cartItem : items){
-                if(cartItem.getItemName().equalsIgnoreCase(M04F01_CurrentItemName)){
-                    basket.add(cartItem);
-                }
-            }
-            if(!basket.isEmpty()){
-                CartObject itemkey = basket.get(0);
-                cart.put(itemkey, cart.get(itemkey) + 1);
-            } else {
-                cart.put(new CartObject(0, M04F01_CurrentItemName, M04F01_CurrentItemPrice), itemQtyCount);
-            }
-            if(!cart.isEmpty()){
-                String cartsize = String.valueOf(cart.size());
-                goToCartText.setText("C a r t (" + cartsize + ")");
-            }
-            load_Header();
-            itemQtyCount = 1;
-            addItemDG.dismiss();
-        });
-    }
-
     private void load_Header(){
-        if(cart.size() == 1){
+        if(!cart.isEmpty()){
             List<CartObject> keys = new ArrayList<>(cart.keySet());
             CartObject firstItem = keys.get(0);
             String item = firstItem.getItemName();
-            if(fpList.containsKey(item)){
+            if(fpList.containsKey(item)) {
                 getActivity()
                         .getSupportFragmentManager()
                         .beginTransaction()
@@ -175,77 +137,132 @@ public class M04F01_POS extends Fragment implements Update_POSItemList, Fragment
         }
     }
 
-    private void load_RecyclerViews(){
-        //--CATEGORY--//
+    private void load_RecyclerViews() {
+        //Initialize the List of Categories to be displayed
+        List<MenuCategory> listOfCategories = new ArrayList<>();
+        RealmResults<RealmMenuCategory> queriedCategoryList = realm.where(RealmMenuCategory.class).sort("categoryName").findAll();
+        for(RealmMenuCategory queriedCategory : queriedCategoryList){
+            listOfCategories.add(new MenuCategory(queriedCategory.getCategoryImage(), queriedCategory.getCategoryName()));
+        }
+        //Initialize the List of Items to be displayed
+        List<MenuItem> listOfItems = new ArrayList<>();
+        if(currentCategoryIndex == -1){
+            RealmResults<RealmMenuItem> queriedItemList = realm.where(RealmMenuItem.class).sort("itemName").findAll();
+            for(RealmMenuItem queriedItem : queriedItemList){
+                listOfItems.add(new MenuItem(queriedItem.getItemImage(), queriedItem.getItemName(), queriedItem.getItemPrice()));
+            }
+        } else {
+            RealmResults<RealmMenuItem> queriedItemList = realm.where(RealmMenuItem.class).equalTo("itemCategory", currentCategoryName).sort("itemName").findAll();
+            for(RealmMenuItem queriedItem : queriedItemList){
+                listOfItems.add(new MenuItem(queriedItem.getItemImage(), queriedItem.getItemName(), queriedItem.getItemPrice()));
+            }
+        }
+
+        //Set the Layout and the Adapter of the Category RecyclerView
         LinearLayoutManager categoryLayout = new LinearLayoutManager(getActivity());
         categoryLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
-        listOfPOSCategories = realm.where(ProductsList.class).sort("categoryName").findAll();
-        posCategoryRVA = new M04F01_CategoryRVA(this, getActivity(), realm);
+        posCategoryRVA = new M04F01_CategoryRVA(getActivity(), realm, listOfCategories, listOfItems, this);
         posCategoryRV.setLayoutManager(categoryLayout);
         posCategoryRV.setAdapter(posCategoryRVA);
-        //--ITEM--//
-        LinearLayoutManager itemLayout = new LinearLayoutManager(getActivity());
-        itemLayout.setOrientation(LinearLayoutManager.VERTICAL);
-        if(currentPOSCategoryIndex == -1){
-            listOfPOSItems = realm.where(ProductsItem.class).sort("itemName").findAll();
-            posItemRVA = new M04F01_ItemRVA(    addItemDG,this, getActivity(), realm);
-            posItemRV.setLayoutManager(itemLayout);
-            posItemRV.setAdapter(posItemRVA);
-        } else {
-            listOfPOSItems = realm.where(ProductsItem.class).equalTo("itemCategory", currentPOSCategory).sort("itemName").findAll();
-            posItemRVA = new M04F01_ItemRVA(addItemDG,this, getActivity(), realm);
-            posItemRV.setLayoutManager(itemLayout);
-            posItemRV.setAdapter(posItemRVA);
-        }
+
+        //Set the Layout and the Adapter of the Item RecyclerView
+        GridLayoutManager itemLayout = new GridLayoutManager(getActivity(), 2);
+        itemLayout.setOrientation(GridLayoutManager.VERTICAL);
+        posItemRVA = new M04F01_ItemRVA(getActivity(), realm, listOfItems, posDG01,this);;
+        posItemRV.setLayoutManager(itemLayout);
+        posItemRV.setAdapter(posItemRVA);
     }
 
+    private void load_OrderSize(){
+        goToCartText.setText("Orders [" + cart.size() + "]");
+    }
     private void load_ButtonFunctions(){
         goToCartButton.setOnClickListener((btn) -> {
             currentFragment = "Cart";
             getActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.MainActivityContainer, new M04F01SF03_Cart())
+                    .replace(R.id.MainActivityContainer, new M04F01SF03_Orders())
                     .commit();
         });
     }
 
-    private void load_CartCount(){
-        if(!cart.isEmpty()){
-            String cartsize = String.valueOf(cart.size());
-            goToCartText.setText("C a r t (" + cartsize + ")");
-        }
-
+    private void init_Dialogs() {
+        //--DG01 ADD ITEM DIALOG--//
+        posDG01 = new Dialog(getActivity());
+        posDG01.setContentView(R.layout.act04_main_frag01_pos_dg01_additem);
+        posDG01.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        posDG01_ItemImage = posDG01.findViewById(R.id.M04F01D01_ItemImage);
+        posDG01_ItemPrice = posDG01.findViewById(R.id.M04F01D01_ItemPrice);
+        posDG01_ItemName = posDG01.findViewById(R.id.M04F01D01_ItemName);
+        posDG01_ItemQty = posDG01.findViewById(R.id.M04F01D01_ItemQty);
+        posDG01_ItemSubBtn = posDG01.findViewById(R.id.M04F01D01_SubBtn);
+        posDG01_ItemAddBtn = posDG01.findViewById(R.id.M04F01D01_AddBtn);
+        posDG01_AddToCartBtn = posDG01.findViewById(R.id.M04F01D01_AddToCartBtn);
+        posDG01_CloseDGBtn = posDG01.findViewById(R.id.M04F01D01_CloseDGBtn);
     }
+
+    private void load_DG01Functionalities(){
+        posDG01_ItemSubBtn.setOnClickListener(dec -> {
+            if(itemQtyCount > 1) {
+                itemQtyCount--;
+                load_DGContents(currentItemImage, currentItemName, currentItemPrice);
+            }
+        });
+        posDG01_ItemAddBtn.setOnClickListener(inc -> {
+            itemQtyCount++;
+            load_DGContents(currentItemImage, currentItemName, currentItemPrice);
+        });
+        posDG01_AddToCartBtn.setOnClickListener(add -> {
+            List<CartObject> items = new ArrayList<>(cart.keySet());
+            List<CartObject> basket = new ArrayList<>();
+            for(CartObject cartItem : items){
+                if(cartItem.getItemName().equalsIgnoreCase(currentItemName)){
+                    basket.add(cartItem);
+                }
+            }
+            if(!basket.isEmpty()){
+                CartObject itemkey = basket.get(0);
+                cart.put(itemkey, cart.get(itemkey) + 1);
+            } else {
+                cart.put(new CartObject(currentItemImage, currentItemName, currentItemPrice), itemQtyCount);
+            }
+            load_Header();
+            load_RecyclerViews();
+            load_OrderSize();
+            itemQtyCount = 1;
+            posDG01.dismiss();
+        });
+
+        posDG01_CloseDGBtn.setOnClickListener(close -> {
+            posDG01.dismiss();
+        });
+    }
+
     @Override
-    public void refreshItemList(int position, RealmResults<ProductsItem> products) {
-        posItemRVA = new M04F01_ItemRVA(addItemDG,this, getActivity(), realm);
+    public void load_RVContents(int position, List<MenuItem> products) {
+        posItemRVA = new M04F01_ItemRVA(getActivity(), realm, products, posDG01, this);
         posItemRVA.notifyDataSetChanged();
         posItemRV.setAdapter(posItemRVA);
     }
 
     @Override
-    public void updateFragment(){
-        if(!cart.isEmpty()){
-            String cartsize = String.valueOf(cart.size());
-            goToCartText.setText("C a r t (" + cartsize + ")");
+    public void load_DGContents(int image, String name, double price) {
+        load_DG01Functionalities();
+        posDG01_ItemPrice.setText("₱" + new BigDecimal(currentItemPrice).setScale(2, RoundingMode.HALF_UP).toString());
+        if(currentItemName.length() < 18) {
+            posDG01_ItemName.setText(currentItemName);
+        } else {
+            posDG01_ItemName.setText(currentItemName.substring(0, Math.min(currentItemName.length(), 14)) + "...");
         }
+        posDG01_ItemQty.setText(String.valueOf(itemQtyCount));
     }
 
+    //--UNUSED INTERFACES--//
     @Override
-    public void loadDialog(){
-        itemPrice.setText("₱" + M04F01_CurrentItemPrice);
-        itemName.setText(M04F01_CurrentItemName);
-        itemQty.setText(String.valueOf(itemQtyCount));
-    }
-
+    public void load_DGContents() {}
     @Override
-    public void updateDialog(){
-        itemQty.setText(String.valueOf(itemQtyCount));
-    }
-
-
-
+    public void load_DGContents(int dialogNo) {}
 
 //    int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
 //        if (screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_NORMAL) {

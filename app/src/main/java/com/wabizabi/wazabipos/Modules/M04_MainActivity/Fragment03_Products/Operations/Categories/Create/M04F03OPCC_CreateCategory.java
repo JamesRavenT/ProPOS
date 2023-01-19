@@ -1,6 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.Categories.Create;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockCategorySelectIconFragment;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.M04F03OP_CRUD.operationForM04F03;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.M04F03OP_CRUD.productCategorySelectIconFragment;
 
@@ -17,13 +16,12 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenProductsInstance;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F03OPCC_CreateCategory extends Fragment {
@@ -101,10 +99,10 @@ public class M04F03OPCC_CreateCategory extends Fragment {
         });
 
         confirmCreatitonBtn.setOnClickListener(v -> {
-            try(Realm realm = Realm.getDefaultInstance()){
-                RealmResults<ProductsList> listOfProductsList = realm.where(ProductsList.class).findAll();
+            try(io.realm.Realm realm = io.realm.Realm.getDefaultInstance()){
+                RealmResults<RealmMenuCategory> listOfProductsList = realm.where(RealmMenuCategory.class).findAll();
                 List<String> listOfProductsListName = new ArrayList<>();
-                for(ProductsList category : listOfProductsList){
+                for(RealmMenuCategory category : listOfProductsList){
                     listOfProductsListName.add(category.getCategoryName());
                 }
 

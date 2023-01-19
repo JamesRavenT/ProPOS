@@ -17,12 +17,9 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.work.impl.background.systemalarm.SystemAlarmScheduler;
 
-import com.wabizabi.wazabipos.Database.Schemas.InventoryTransaction;
-import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.InventoryTransaction;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Inventory.Adapter.M04F04OPTI_InventoryRVA;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Sales.Adapter.M04F04OPTS_SalesRVA;
 import com.wabizabi.wazabipos.R;
 
 import java.text.DateFormat;

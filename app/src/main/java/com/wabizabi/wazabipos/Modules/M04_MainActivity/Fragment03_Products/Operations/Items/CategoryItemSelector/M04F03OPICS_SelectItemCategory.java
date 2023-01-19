@@ -11,17 +11,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.Items.CategoryItemSelector.Adapter.M0F03OPICS_SelectItemCategoryRVA;
 import com.wabizabi.wazabipos.R;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F03OPICS_SelectItemCategory extends Fragment {
-    RealmResults<ProductsList> listOfProductsCategories;
+    RealmResults<RealmMenuCategory> listOfProductsCategories;
     RecyclerView selectItemCategoryRV;
-    Realm realm;
+    io.realm.Realm realm;
     RecyclerView.Adapter selectItemCategoryRVA;
 
     @Nullable
@@ -41,12 +40,12 @@ public class M04F03OPICS_SelectItemCategory extends Fragment {
         selectItemCategoryRV = v.findViewById(R.id.M04F03OPICS_RecyclerView);
     }
     private void init_DB(){
-        realm = Realm.getDefaultInstance();
+        realm = io.realm.Realm.getDefaultInstance();
     }
     private void init_RecyclerView(){
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        listOfProductsCategories = realm.where(ProductsList.class).findAll();
+        listOfProductsCategories = realm.where(RealmMenuCategory.class).findAll();
         selectItemCategoryRVA = new M0F03OPICS_SelectItemCategoryRVA(listOfProductsCategories, getActivity());
         selectItemCategoryRV.setLayoutManager(layout);
         selectItemCategoryRV.setAdapter(selectItemCategoryRVA);

@@ -16,8 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.StockItem;
-import com.wabizabi.wazabipos.Database.Schemas.InventoryTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.StockItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.InventoryTransaction;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Read.Adapter.M04F02OPIR_ReadItemRVA;
 import com.wabizabi.wazabipos.R;
 

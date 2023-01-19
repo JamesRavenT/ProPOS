@@ -10,13 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.RealmResults;
 
 public class M04F03OPCR_ReadCategoryRVA extends RecyclerView.Adapter<M04F03OPCR_ReadCategoryRVA.ViewHolder> {
-    public static RealmResults<ProductsItem> listOfAssociatedProductItems;
+    public static RealmResults<RealmMenuItem> listOfAssociatedProductItems;
     Context context;
 
     public M04F03OPCR_ReadCategoryRVA(Context context) {
@@ -33,7 +33,7 @@ public class M04F03OPCR_ReadCategoryRVA extends RecyclerView.Adapter<M04F03OPCR_
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ProductsItem item = listOfAssociatedProductItems.get(position);
+        RealmMenuItem item = listOfAssociatedProductItems.get(position);
         holder.showItems(item, position);
     }
 
@@ -53,7 +53,7 @@ public class M04F03OPCR_ReadCategoryRVA extends RecyclerView.Adapter<M04F03OPCR_
             itemPrice = itemView.findViewById(R.id.M04F03OPCR_RVItemPrice);
         }
 
-        public void showItems(ProductsItem item, int position){
+        public void showItems(RealmMenuItem item, int position){
             this.position = position;
             itemName.setText(item.getItemName());
             switch(item.getItemImage()){

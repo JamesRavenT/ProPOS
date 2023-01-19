@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenStocksInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
-import com.wabizabi.wazabipos.Database.Schemas.StockItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.StockItem;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;

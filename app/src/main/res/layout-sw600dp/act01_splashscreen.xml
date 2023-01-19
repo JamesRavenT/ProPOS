@@ -5,7 +5,7 @@
     android:id="@+id/M01A01_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/WazabiTheme"
+    android:background="@color/wabizabi"
     tools:context=".Modules.M01_SplashScreen.M01_SplashScreen">
 
     <ImageView

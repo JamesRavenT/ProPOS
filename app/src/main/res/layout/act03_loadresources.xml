@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/WazabiTheme"
+    android:background="@color/wabizabi"
     android:id="@+id/M03A01_Layout"
     tools:context=".Modules.M03_LoadResources.M03_LoadResources">
 

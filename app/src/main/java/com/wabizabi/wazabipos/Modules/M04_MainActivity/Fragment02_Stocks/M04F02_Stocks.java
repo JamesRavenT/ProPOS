@@ -23,8 +23,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenStocksInstance;
-import com.wabizabi.wazabipos.Database.Schemas.StockItem;
-import com.wabizabi.wazabipos.Database.Schemas.StockList;
+import com.wabizabi.wazabipos.Database.RealmSchemas.StockItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.StockList;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.M04F02_CategoryRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Adapters.M04F02_ItemRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Interfaces.Update_StocksCurrentCategory;

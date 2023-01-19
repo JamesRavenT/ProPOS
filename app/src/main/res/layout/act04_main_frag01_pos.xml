@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F01_Layout"
+    android:background="@color/dirtywhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/M04F01_HeaderLayout"
         android:layout_width="0dp"
-        android:layout_height="270dp"
+        android:layout_height="230dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -48,41 +49,45 @@
             <LinearLayout
                 android:id="@+id/M04F01_GroupLinearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/M04F01_CategoryText"
+                    android:id="@+id/m04F01_ItemText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="9dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="0dp"
                     android:fontFamily="@font/nunito_sans"
-                    android:text="種別 Categories"
-                    android:textColor="@color/WazabiTheme"
-                    android:textSize="25sp" />
+                    android:text="「  C A T E G O R I E S  」"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="15sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/M04F01_CategoryRV"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="115dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+
+                    android:layout_gravity="center"/>
 
                 <TextView
                     android:id="@+id/M04F01_ItemText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="9dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="0dp"
                     android:fontFamily="@font/nunito_sans"
-                    android:text="製品 Items"
-                    android:textColor="@color/WazabiTheme"
-                    android:textSize="25sp" />
+                    android:text="「  I T E M S 」"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="15sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/M04F01_ItemsRV"
-                    android:layout_width="match_parent"
-                    android:layout_height="346dp"
-                    android:layout_marginTop="5dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="450dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp" />
 
             </LinearLayout>
         </ScrollView>
@@ -93,17 +98,18 @@
         android:id="@+id/M04F01_FooterLayout"
         android:layout_width="409dp"
         android:layout_height="75dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/M04F01_CheckOutBtn"
+            android:id="@+id/M04F01_OrdersBtn"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:backgroundTint="@color/WazabiTheme"
+            android:backgroundTint="@color/wabizabi"
             android:elevation="10dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -112,22 +118,25 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M04F01_CheckOutBtnLayout"
+                android:id="@+id/M04F01_OrdersBtnLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/M04F01_CartCounterText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/M04F01_OrdersBtnText"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:fontFamily="@font/nunito_sans"
-                    android:text="C a r t ( 0 )"
+                    android:gravity="center"
+                    android:text="Orders [ 0 ]"
                     android:textColor="@color/white"
                     android:textSize="25sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.SalesTransaction;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.Transactions.Sales.Adapter.M04F040OPTS_SalesViewRVA;
 import com.wabizabi.wazabipos.R;
 

@@ -18,24 +18,23 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Interfaces.Update_ProductsCurrentCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Interfaces.Update_ProductsItemList;
 import com.wabizabi.wazabipos.R;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F03_CategoryRVA extends RecyclerView.Adapter<M04F03_CategoryRVA.RVH_ProductCategory> {
-    public static RealmResults<ProductsList> listOfProductCategories;
+    public static RealmResults<RealmMenuCategory> listOfProductCategories;
     Update_ProductsCurrentCategory updateCurrentProduct;
     Update_ProductsItemList updateProducts;
     Dialog categoryDialog;
     Context context;
-    Realm realm;
+    io.realm.Realm realm;
 
-    public M04F03_CategoryRVA(Update_ProductsCurrentCategory updateCurrentProduct, Update_ProductsItemList updateProducts, Dialog categoryDialog, Context context, Realm realm) {
+    public M04F03_CategoryRVA(Update_ProductsCurrentCategory updateCurrentProduct, Update_ProductsItemList updateProducts, Dialog categoryDialog, Context context, io.realm.Realm realm) {
         this.updateCurrentProduct = updateCurrentProduct;
         this.updateProducts = updateProducts;
         this.categoryDialog = categoryDialog;
@@ -53,7 +52,7 @@ public class M04F03_CategoryRVA extends RecyclerView.Adapter<M04F03_CategoryRVA.
 
     @Override
     public void onBindViewHolder(@NonNull RVH_ProductCategory holder, int position) {
-        ProductsList category = listOfProductCategories.get(position);
+        RealmMenuCategory category = listOfProductCategories.get(position);
         holder.showCategory(category, position);
         holder.onClick(position);
         holder.onHold(category, position);
@@ -77,7 +76,7 @@ public class M04F03_CategoryRVA extends RecyclerView.Adapter<M04F03_CategoryRVA.
             categoryName = itemView.findViewById(R.id.M04F03_RVCategoryName);
         }
 
-        public void showCategory(ProductsList category, int position){
+        public void showCategory(RealmMenuCategory category, int position){
             this.position  = position;
             categoryName.setText(category.getCategoryName());
             switch(category.getCategoryImage()){
@@ -121,15 +120,15 @@ public class M04F03_CategoryRVA extends RecyclerView.Adapter<M04F03_CategoryRVA.
             categoryLayout.setOnClickListener(v -> {
                 M04F03_CurrentCategoryIndex = position;
                 notifyDataSetChanged();
-                RealmResults<ProductsList> categories = realm.where(ProductsList.class).sort("categoryName").findAll();
-                ProductsList currentIndex = categories.get(M04F03_CurrentCategoryIndex);
+                RealmResults<RealmMenuCategory> categories = realm.where(RealmMenuCategory.class).sort("categoryName").findAll();
+                RealmMenuCategory currentIndex = categories.get(M04F03_CurrentCategoryIndex);
                 M04F03_CurrentCategory = currentIndex.getCategoryName();
-                listOfProductItems = realm.where(ProductsItem.class).equalTo("itemCategory", M04F03_CurrentCategory).sort("itemName").findAll();
+                listOfProductItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", M04F03_CurrentCategory).sort("itemName").findAll();
                 updateProducts.refreshItemList(position, listOfProductItems);
             });
         }
 
-        public void onHold(ProductsList category, int position){
+        public void onHold(RealmMenuCategory category, int position){
             categoryLayout.setOnLongClickListener(v -> {
                 M04F03_CurrentCategoryIndex = position;
                 M04F03_CurrentCategory = category.getCategoryName();

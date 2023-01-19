@@ -15,7 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenProductsInstance;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
@@ -53,7 +53,7 @@ public class M04F03OPIU_UpdateItem extends Fragment {
     }
 
     private void init_ItemDetails(){
-        ProductsItem item = realm.where(ProductsItem.class).equalTo("itemName", M04F03_CurrentItem).findFirst();
+        RealmMenuItem item = realm.where(RealmMenuItem.class).equalTo("itemName", M04F03_CurrentItem).findFirst();
         itemNameInput.setHint(item.getItemName());
         itemPriceInput.setHint(String.valueOf(item.getItemPrice()));
         switch(item.getItemImage()){

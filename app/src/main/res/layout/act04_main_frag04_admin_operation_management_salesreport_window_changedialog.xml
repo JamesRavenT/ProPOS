@@ -33,7 +33,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="Change Display"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="25sp" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Daily"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="17.5sp" />
 
             <TextView
@@ -61,7 +61,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Weekly"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="17.5sp" />
 
             <TextView
@@ -75,7 +75,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Monthly"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="17.5sp" />
 
             <TextView
@@ -89,7 +89,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Yearly"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="17.5sp" />
 
         </LinearLayout>

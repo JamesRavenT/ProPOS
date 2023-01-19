@@ -13,7 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenUserInstance;
-import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
+import com.wabizabi.wazabipos.Database.RealmSchemas.UserProfile;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;

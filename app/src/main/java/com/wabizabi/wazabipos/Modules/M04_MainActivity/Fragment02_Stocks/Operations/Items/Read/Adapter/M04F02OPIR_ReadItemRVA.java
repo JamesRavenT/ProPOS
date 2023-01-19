@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.StockItem;
-import com.wabizabi.wazabipos.Database.Schemas.InventoryTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.StockItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.InventoryTransaction;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;

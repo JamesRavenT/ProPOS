@@ -1,9 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.Items.CategoryItemSelector.Adapter;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create.M04F02OPIC_CreateItem.M04F02OPIC_SelectedCategoryImage;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.Create.M04F02OPIC_CreateItem.M04F02OPIC_SelectedCategoryText;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.operationForM04F02;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.M04F02OP_CRUD.stockCreateItemFragment;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.Items.Create.M04F03OPIC_CreateItem.M04F03OPIC_SelectedCategoryImage;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.Items.Create.M04F03OPIC_CreateItem.M04F03OPIC_SelectedCategoryText;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.M04F03OP_CRUD.operationForM04F03;
@@ -21,17 +17,16 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
-import com.wabizabi.wazabipos.Database.Schemas.StockList;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.RealmResults;
 
 public class M0F03OPICS_SelectItemCategoryRVA extends RecyclerView.Adapter<M0F03OPICS_SelectItemCategoryRVA.ViewHolder> {
-    RealmResults<ProductsList> listOfProductsList;
+    RealmResults<RealmMenuCategory> listOfProductsList;
     Context context;
 
-    public M0F03OPICS_SelectItemCategoryRVA(RealmResults<ProductsList> listOfProductsList, Context context) {
+    public M0F03OPICS_SelectItemCategoryRVA(RealmResults<RealmMenuCategory> listOfProductsList, Context context) {
         this.listOfProductsList = listOfProductsList;
         this.context = context;
     }
@@ -46,7 +41,7 @@ public class M0F03OPICS_SelectItemCategoryRVA extends RecyclerView.Adapter<M0F03
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ProductsList itemCategory = listOfProductsList.get(position);
+        RealmMenuCategory itemCategory = listOfProductsList.get(position);
         holder.showCategories(itemCategory, position);
         holder.onClickSelectButton(itemCategory);
 
@@ -69,7 +64,7 @@ public class M0F03OPICS_SelectItemCategoryRVA extends RecyclerView.Adapter<M0F03
             selectButton = itemView.findViewById(R.id.M04F03OPICS_RVSelectButton);
         }
 
-        public void showCategories(ProductsList category, int position){
+        public void showCategories(RealmMenuCategory category, int position){
             this.position = position;
             categoryName.setText(category.getCategoryName());
             switch(category.getCategoryImage()){
@@ -109,7 +104,7 @@ public class M0F03OPICS_SelectItemCategoryRVA extends RecyclerView.Adapter<M0F03
             }
         }
 
-        public void onClickSelectButton(ProductsList category){
+        public void onClickSelectButton(RealmMenuCategory category){
             selectButton.setOnClickListener(v -> {
                 if(operationForM04F03.equals("Select Category for Item Creation")){
                     M04F03OPIC_SelectedCategoryImage = category.getCategoryImage();

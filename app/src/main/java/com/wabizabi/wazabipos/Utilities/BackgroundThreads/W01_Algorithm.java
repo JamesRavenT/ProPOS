@@ -8,7 +8,7 @@ import androidx.work.WorkerParameters;
 
 import com.wabizabi.wazabipos.Utilities.Algorithm.FQList;
 import com.wabizabi.wazabipos.Utilities.Algorithm.Tree;
-import com.wabizabi.wazabipos.Database.Schemas.SalesTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.SalesTransaction;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

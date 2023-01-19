@@ -17,7 +17,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenStocksInstance;
-import com.wabizabi.wazabipos.Database.Schemas.StockList;
+import com.wabizabi.wazabipos.Database.RealmSchemas.StockList;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;

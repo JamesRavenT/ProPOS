@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="400dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:padding="5dp">
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/M04F01SF03D05_Container"-->
+<!--        android:layout_width="380dp"-->
+<!--        android:layout_height="280dp"-->
+<!--        android:layout_margin="5dp"-->
+<!--        android:elevation="15dp"-->
+<!--        app:cardCornerRadius="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/M04F01SF03D05_ContainerLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            tools:layout_editor_absoluteX="9dp"-->
+<!--            tools:layout_editor_absoluteY="-48dp">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/M04F01SF03D05_WabisabiText"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:fontFamily="@font/nunito_sans_extralight"-->
+<!--                android:gravity="center"-->
+<!--                android:paddingBottom="0dp"-->
+<!--                android:text="侘寂"-->
+<!--                android:textColor="@color/WazabiTheme"-->
+<!--                android:textSize="15sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.0" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/M04F01SF03D05_CreateADiscountText"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:fontFamily="@font/nunito_sans_light"-->
+<!--                android:paddingBottom="0dp"-->
+<!--                android:text="Edit"-->
+<!--                android:textColor="@color/WazabiTheme"-->
+<!--                android:textSize="20sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D05_WabisabiText"-->
+<!--                app:layout_constraintVertical_bias="0.0" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/M04F01SF03D05_DiscountNameText"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:fontFamily="@font/nunito_sans_light"-->
+<!--                android:paddingBottom="0dp"-->
+<!--                android:text="Name : "-->
+<!--                android:textColor="@color/WazabiTheme"-->
+<!--                android:textSize="20sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.051"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D05_CreateADiscountText"-->
+<!--                app:layout_constraintVertical_bias="0.0" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/M04F01SF03D05_DiscountNameInput"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="22dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                android:ems="10"-->
+<!--                android:fontFamily="@font/nunito_sans"-->
+<!--                android:inputType="textPersonName"-->
+<!--                android:textSize="20sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/M04F01SF03D05_DiscountNameText"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D05_CreateADiscountText"-->
+<!--                app:layout_constraintVertical_bias="0.0" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/M04F01SF03D05_DiscountAmountText"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:fontFamily="@font/nunito_sans_light"-->
+<!--                android:paddingBottom="0dp"-->
+<!--                android:text="Amount to be Deducted (in %) :"-->
+<!--                android:textColor="@color/WazabiTheme"-->
+<!--                android:textSize="20sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.158"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D05_DiscountNameText"-->
+<!--                app:layout_constraintVertical_bias="0.089" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/M04F01SF03D05_DiscountAmountInput"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="9dp"-->
+<!--                android:ems="10"-->
+<!--                android:fontFamily="@font/nunito_sans"-->
+<!--                android:gravity="center"-->
+<!--                android:inputType="number"-->
+<!--                android:maxLength="2"-->
+<!--                android:textSize="20sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/M04F01SF03D05_DiscountAmountText"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D05_DiscountNameInput"-->
+<!--                app:layout_constraintVertical_bias="0.0" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/M04F01SF03D05_AmountInputPercentage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                android:fontFamily="@font/nunito_sans_light"-->
+<!--                android:paddingBottom="0dp"-->
+<!--                android:text="%"-->
+<!--                android:textColor="@color/WazabiTheme"-->
+<!--                android:textSize="20sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/M04F01SF03D05_DiscountAmountInput"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D05_DiscountNameText"-->
+<!--                app:layout_constraintVertical_bias="0.089" />-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/M04F01SF03D05_ConfirmBtn"-->
+<!--                android:layout_width="300dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:backgroundTint="@color/WazabiTheme"-->
+<!--                android:elevation="10dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.562"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D05_DiscountAmountText"-->
+<!--                app:layout_constraintVertical_bias="0.777">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/M04F01SF03D05_ConfirmBtnLayout"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/M04F01SF03D05_ConfirmBtnText"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/nunito_sans_light"-->
+<!--                        android:paddingBottom="0dp"-->
+<!--                        android:text="Confirm"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="20sp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintVertical_bias="0.521" />-->
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

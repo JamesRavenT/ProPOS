@@ -16,7 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
+import com.wabizabi.wazabipos.Database.RealmSchemas.UserProfile;
 import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.M04F04OP_Management;
 import com.wabizabi.wazabipos.R;
@@ -99,28 +99,28 @@ public class M02F02_UserLogIn extends Fragment {
                 pin4.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.gray));
                 break;
             case 1:
-                pin1.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.WazabiTheme));
+                pin1.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
                 pin2.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.gray));
                 pin3.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.gray));
                 pin4.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.gray));
                 break;
             case 2:
-                pin1.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.WazabiTheme));
-                pin2.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.WazabiTheme));
+                pin1.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+                pin2.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
                 pin3.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.gray));
                 pin4.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.gray));
                 break;
             case 3:
-                pin1.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.WazabiTheme));
-                pin2.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.WazabiTheme));
-                pin3.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.WazabiTheme));
+                pin1.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+                pin2.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+                pin3.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
                 pin4.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.gray));
                 break;
             case 4:
-                pin1.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.WazabiTheme));
-                pin2.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.WazabiTheme));
-                pin3.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.WazabiTheme));
-                pin4.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.WazabiTheme));
+                pin1.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+                pin2.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+                pin3.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+                pin4.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
                 break;
         }
     }

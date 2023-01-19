@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="Date"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
 
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="Items sold : 0"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="15sp"
 
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -79,7 +79,7 @@
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="Sale"
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
 
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -97,7 +97,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="TotalPrice : 0"
 
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -113,7 +113,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="View More >"
 
-                android:textColor="@color/WazabiTheme"
+                android:textColor="@color/wabizabi"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

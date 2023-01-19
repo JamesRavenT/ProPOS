@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.WaZabiPOS" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/WazabiTheme</item>
+        <item name="colorPrimary">@color/wabizabi</item>
         <item name="colorPrimaryVariant">@color/dirtywhite</item>
-        <item name="colorOnPrimary">@color/WazabiTheme</item>
+        <item name="colorOnPrimary">@color/wabizabi</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/WazabiTheme</item>
-        <item name="colorSecondaryVariant">@color/WazabiTheme</item>
-        <item name="colorOnSecondary">@color/WazabiTheme</item>
+        <item name="colorSecondary">@color/wabizabi</item>
+        <item name="colorSecondaryVariant">@color/wabizabi</item>
+        <item name="colorOnSecondary">@color/wabizabi</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="android:windowLightStatusBar">true</item>
@@ -17,21 +17,21 @@
 
     <style name="Theme.WaZabiPOSOpening" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/WazabiTheme</item>
-        <item name="colorPrimaryVariant">@color/WazabiTheme</item>
-        <item name="colorOnPrimary">@color/WazabiTheme</item>
+        <item name="colorPrimary">@color/wabizabi</item>
+        <item name="colorPrimaryVariant">@color/wabizabi</item>
+        <item name="colorOnPrimary">@color/wabizabi</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/white</item>
-        <item name="colorSecondaryVariant">@color/white</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">@color/dirtywhite</item>
+        <item name="colorSecondaryVariant">@color/dirtywhite</item>
+        <item name="colorOnSecondary">@color/dirtywhite</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="ToolbarStyle">
-        <item name="android:textColorPrimary">@color/WazabiTheme</item>
-        <item name="android:textColorSecondary">@color/WazabiTheme</item>
-        <item name="actionMenuTextColor">@color/WazabiTheme</item>
+        <item name="android:textColorPrimary">@color/wabizabi</item>
+        <item name="android:textColorSecondary">@color/wabizabi</item>
+        <item name="actionMenuTextColor">@color/wabizabi</item>
     </style>
 </resources>

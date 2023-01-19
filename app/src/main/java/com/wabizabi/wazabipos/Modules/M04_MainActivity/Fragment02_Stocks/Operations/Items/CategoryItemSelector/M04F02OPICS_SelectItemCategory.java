@@ -11,11 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.StockList;
+import com.wabizabi.wazabipos.Database.RealmSchemas.StockList;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.Operations.Items.CategoryItemSelector.Adapter.M04F02OPICS_ItemCategoriesRVA;
 import com.wabizabi.wazabipos.R;
-
-import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

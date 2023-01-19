@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
+import com.wabizabi.wazabipos.Database.RealmSchemas.UserProfile;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments.M02F01_UserSignIn;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments.M02F02_UserLogIn;
 import com.wabizabi.wazabipos.R;

@@ -22,8 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenProductsInstance;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Adapters.M04F03_CategoryRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Adapters.M04F03_ItemRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Interfaces.Update_ProductsCurrentCategory;
@@ -31,7 +31,6 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Inter
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.Operations.M04F03OP_CRUD;
 import com.wabizabi.wazabipos.R;
 
-import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F03_Products extends Fragment implements Update_ProductsItemList, Update_ProductsCurrentCategory {
@@ -40,7 +39,7 @@ public class M04F03_Products extends Fragment implements Update_ProductsItemList
     public static String M04F03_CurrentCategory;
     public static String M04F03_CurrentItem;
 
-    Realm realm;
+    io.realm.Realm realm;
     Dialog addDialog, categoryDialog, itemDialog;
     ImageButton createButton;
     RecyclerView productCategoryRV, productItemRV;
@@ -74,7 +73,7 @@ public class M04F03_Products extends Fragment implements Update_ProductsItemList
     }
 
     private void init_DBInstance(){
-        realm = Realm.getDefaultInstance();
+        realm = io.realm.Realm.getDefaultInstance();
     }
 
     private void init_Dialogs(){
@@ -155,21 +154,21 @@ public class M04F03_Products extends Fragment implements Update_ProductsItemList
         //--CATEGORY--//
         LinearLayoutManager categoryLayout = new LinearLayoutManager(getActivity());
         categoryLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
-        listOfProductCategories = realm.where(ProductsList.class).sort("categoryName").findAll();
+        listOfProductCategories = realm.where(RealmMenuCategory.class).sort("categoryName").findAll();
         productCategoryRVA = new M04F03_CategoryRVA(this, this, categoryDialog, getActivity(), realm);
         productCategoryRV.setLayoutManager(categoryLayout);
         productCategoryRV.setAdapter(productCategoryRVA);
         //--ITEM--//
         LinearLayoutManager itemLayout = new LinearLayoutManager(getActivity());
         itemLayout.setOrientation(LinearLayoutManager.VERTICAL);
-        listOfProductItems = realm.where(ProductsItem.class).equalTo("itemCategory", M04F03_CurrentCategory).sort("itemName").findAll();
+        listOfProductItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", M04F03_CurrentCategory).sort("itemName").findAll();
         productItemRVA = new M04F03_ItemRVA(itemDialog, getActivity(), realm);
         productItemRV.setLayoutManager(itemLayout);
         productItemRV.setAdapter(productItemRVA);
     }
 
     @Override
-    public void refreshItemList(int position, RealmResults<ProductsItem> products) {
+    public void refreshItemList(int position, RealmResults<RealmMenuItem> products) {
         productItemRVA = new M04F03_ItemRVA(itemDialog, getActivity(), realm);
         productItemRVA.notifyDataSetChanged();
         productItemRV.setAdapter(productItemRVA);

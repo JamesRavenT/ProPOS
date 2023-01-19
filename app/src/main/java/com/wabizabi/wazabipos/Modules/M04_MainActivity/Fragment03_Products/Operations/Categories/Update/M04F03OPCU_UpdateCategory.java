@@ -17,15 +17,13 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenProductsInstance;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsList;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.R;
-
-import io.realm.Realm;
 
 public class M04F03OPCU_UpdateCategory extends Fragment {
     public static int M04F03OPCU_CategoryImage;
     public static int M04F03OPCU_IsEdited;
-    Realm realm;
+    io.realm.Realm realm;
     ImageView categoryImage;
     EditText categoryNameInput;
     CardView categorySelectImage, categoryConfirmChanges;
@@ -53,11 +51,11 @@ public class M04F03OPCU_UpdateCategory extends Fragment {
     }
 
     private void init_DB(){
-        realm = Realm.getDefaultInstance();
+        realm = io.realm.Realm.getDefaultInstance();
     }
 
     private void init_CategoryDetails(){
-        ProductsList category = realm.where(ProductsList.class).equalTo("categoryName", M04F03_CurrentCategory).findFirst();
+        RealmMenuCategory category = realm.where(RealmMenuCategory.class).equalTo("categoryName", M04F03_CurrentCategory).findFirst();
         categoryNameInput.setHint(category.getCategoryName());
         if(M04F03OPCU_IsEdited == 0){
             M04F03OPCU_CategoryImage = category.getCategoryImage();

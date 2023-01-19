@@ -18,7 +18,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenProductsInstance;
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.R;
 
 import java.util.ArrayList;
@@ -107,9 +107,9 @@ public class M04F03OPIC_CreateItem extends Fragment {
         });
         confirmCreationButton.setOnClickListener(v -> {
             try(Realm realm = Realm.getDefaultInstance()){
-                RealmResults<ProductsItem> items = realm.where(ProductsItem.class).findAll();
+                RealmResults<RealmMenuItem> items = realm.where(RealmMenuItem.class).findAll();
                 List<String> listOfItemNames = new ArrayList<>();
-                for(ProductsItem item : items){
+                for(RealmMenuItem item : items){
                     listOfItemNames.add(item.getItemName());
                 }
                 String itemName = itemNameInput.getText().toString();

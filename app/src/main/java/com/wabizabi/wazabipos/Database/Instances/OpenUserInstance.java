@@ -1,8 +1,6 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
-import com.google.firebase.firestore.auth.User;
-import com.wabizabi.wazabipos.Database.DB;
-import com.wabizabi.wazabipos.Database.Schemas.UserProfile;
+import com.wabizabi.wazabipos.Database.RealmSchemas.UserProfile;
 
 import org.bson.types.ObjectId;
 

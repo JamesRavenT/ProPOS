@@ -15,14 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Schemas.ProductsItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class M04F03_ItemRVA extends RecyclerView.Adapter<M04F03_ItemRVA.RVH_ProductItem> {
-    public static RealmResults<ProductsItem> listOfProductItems;
+    public static RealmResults<RealmMenuItem> listOfProductItems;
     Dialog itemDialog;
     Context context;
     Realm realm;
@@ -44,7 +44,7 @@ public class M04F03_ItemRVA extends RecyclerView.Adapter<M04F03_ItemRVA.RVH_Prod
 
     @Override
     public void onBindViewHolder(@NonNull RVH_ProductItem holder, int position) {
-        ProductsItem item = listOfProductItems.get(position);
+        RealmMenuItem item = listOfProductItems.get(position);
         holder.showItems(item, position);
         holder.onHold(item, position);
 
@@ -68,7 +68,7 @@ public class M04F03_ItemRVA extends RecyclerView.Adapter<M04F03_ItemRVA.RVH_Prod
             itemPrice = itemView.findViewById(R.id.M04F03_RVItemPrice);
         }
 
-        public void showItems(ProductsItem item, int position){
+        public void showItems(RealmMenuItem item, int position){
             this.position = position;
             itemName.setText(item.getItemName());
             itemPrice.setText("₱" + item.getItemPrice() + "0");
@@ -109,7 +109,7 @@ public class M04F03_ItemRVA extends RecyclerView.Adapter<M04F03_ItemRVA.RVH_Prod
             }
         }
 
-        public void onHold(ProductsItem item, int position){
+        public void onHold(RealmMenuItem item, int position){
             itemLayout.setOnLongClickListener(v -> {
                 M04F03_CurrentItemIndex = position;
                 M04F03_CurrentItem = item.getItemName();
