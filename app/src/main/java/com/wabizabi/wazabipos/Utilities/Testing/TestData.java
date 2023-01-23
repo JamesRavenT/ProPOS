@@ -1,7 +1,8 @@
 package com.wabizabi.wazabipos.Utilities.Testing;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenDiscountInstance;
-import com.wabizabi.wazabipos.Database.Instances.OpenProductsInstance;
+import com.wabizabi.wazabipos.Database.Instances.OpenMenuInstance;
+import com.wabizabi.wazabipos.Database.Instances.OpenTableInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Database.RealmSchemas.SalesTransaction;
@@ -105,7 +106,7 @@ public class TestData {
             RealmResults<RealmMenuItem> products = realm.where(RealmMenuItem.class).findAll();
             if(products.isEmpty()){
                 for (String category : categories) {
-                    OpenProductsInstance.toCreateCategory(0, category);
+                    OpenMenuInstance.toCreateCategory(0, category);
                     switch (category) {
                         case "Sashimi and Nigiri": createItem(category, SashimiAndNigiri);
                             break;
@@ -133,7 +134,7 @@ public class TestData {
     }
     public static void createItem(String category, String[] items){
         for(String item : items){
-            OpenProductsInstance.toCreateItem(0, category, item, 100.00);
+            OpenMenuInstance.toCreateItem(0, category, item, 100.00);
         }
     }
 
@@ -174,6 +175,16 @@ public class TestData {
     public static void preloadDiscounts(){
         OpenDiscountInstance.toCreateDiscount("Senior Citizen", 20);
         OpenDiscountInstance.toCreateDiscount("Junior Citizen", 10);
+        OpenDiscountInstance.toCreateDiscount("Less Tax", 3);
+    }
+
+    public static void preloadTables(){
+        OpenTableInstance.toCreateTable("Table", 1);
+        OpenTableInstance.toCreateTable("Table", 2);
+        OpenTableInstance.toCreateTable("Table", 3);
+        OpenTableInstance.toCreateTable("Table", 4);
+        OpenTableInstance.toCreateTable("Table", 5);
+
     }
 
 }

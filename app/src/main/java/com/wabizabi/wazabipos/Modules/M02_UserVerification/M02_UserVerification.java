@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.wabizabi.wazabipos.Database.RealmSchemas.UserProfile;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments.M02F01_UserSignIn;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments.M02F02_UserLogIn;
 import com.wabizabi.wazabipos.R;
@@ -28,7 +28,7 @@ public class M02_UserVerification extends AppCompatActivity {
     }
     private void checkForUsers(){
         try(Realm realm = Realm.getDefaultInstance()){
-            RealmResults<UserProfile> userlist = realm.where(UserProfile.class).findAll();
+            RealmResults<RealmUser> userlist = realm.where(RealmUser.class).findAll();
             if(userlist.isEmpty()){
                 init_SignInFragment();
             } else {

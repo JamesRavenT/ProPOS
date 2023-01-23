@@ -25,7 +25,7 @@
             android:id="@+id/M04F01SF03D03_ContainerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_shape_rectangle_stroke_dialog_dark">
+            android:background="@drawable/bg_shape_rectangle_stroke_dark_marg12p">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/M04F01SF03D03_CloseDGBtnLayout"
@@ -33,7 +33,7 @@
                 android:layout_height="25dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_shape_rectangle_stroke_dialog_red"
+                android:background="@drawable/bg_shape_rectangle_stroke_red_marg00p"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -60,7 +60,7 @@
                 android:gravity="center"
                 android:text="Select Order Type"
                 android:textColor="@color/wabizabi"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -87,7 +87,7 @@
                     android:id="@+id/M04F01SF03D03_DineInButtonLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_shape_rectangle_stroke">
+                    android:background="@drawable/bg_shape_rectangle_stroke_white_marg07p">
 
                     <TextView
                         android:id="@+id/M04F01SF03D03_DineInButtonTextJp"
@@ -98,7 +98,7 @@
                         android:gravity="center"
                         android:text="店\n内"
                         android:textColor="@color/white"
-                        android:textSize="30sp"
+                        android:textSize="30dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +114,7 @@
                         android:gravity="center"
                         android:text="Dine In"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -145,7 +145,7 @@
                     android:id="@+id/M04F01SF03D03_TakeOutButtonLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_shape_rectangle_stroke">
+                    android:background="@drawable/bg_shape_rectangle_stroke_white_marg07p">
 
                     <TextView
                         android:id="@+id/M04F01SF03D03_TakeOutButtonTextJp"
@@ -156,7 +156,7 @@
                         android:gravity="center"
                         android:text="持\nち\n帰\nり"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.504"
@@ -173,7 +173,7 @@
                         android:gravity="center"
                         android:text="Take Out"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -204,7 +204,7 @@
                     android:id="@+id/M04F01SF03D03_DeliveryButtonLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_shape_rectangle_stroke">
+                    android:background="@drawable/bg_shape_rectangle_stroke_white_marg07p">
 
                     <TextView
                         android:id="@+id/M04F01SF03D03_DeliveryButtonTextJp"
@@ -215,7 +215,7 @@
                         android:gravity="center"
                         android:text="出\n前"
                         android:textColor="@color/white"
-                        android:textSize="30sp"
+                        android:textSize="30dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -231,7 +231,7 @@
                         android:gravity="center"
                         android:text="Delivery"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -262,7 +262,7 @@
                     android:id="@+id/M04F01SF03D03_PickUpButtonLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_shape_rectangle_stroke">
+                    android:background="@drawable/bg_shape_rectangle_stroke_white_marg07p">
 
                     <TextView
                         android:id="@+id/M04F01SF03D03_PickUpButtonTextJp"
@@ -273,7 +273,7 @@
                         android:gravity="center"
                         android:text="拾\nう"
                         android:textColor="@color/white"
-                        android:textSize="30sp"
+                        android:textSize="30dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.494"
@@ -290,7 +290,7 @@
                         android:gravity="center"
                         android:text="Pick Up"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"

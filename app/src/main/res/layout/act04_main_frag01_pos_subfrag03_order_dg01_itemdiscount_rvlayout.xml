@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F01SF03D01_RVLayout"
-    android:layout_width="320dp"
+    android:layout_width="300dp"
     android:layout_height="52dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/M04F01SF03D01_RVContainer"
-        android:layout_width="310dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
-        android:background="@drawable/bg_shape_rectangle_stroke_recylerview_dark_single"
+        android:background="@drawable/bg_shape_rectangle_stroke_dark_marg50n_tlr"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,12 +20,12 @@
 
         <TextView
             android:id="@+id/M04F01SF03D01_RVDiscountName"
-            android:layout_width="250dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans_light"
             android:text="Discount Name"
             android:textColor="@color/wabizabi"
-            android:textSize="15sp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
@@ -35,12 +35,12 @@
 
         <TextView
             android:id="@+id/M04F01SF03D01_RVDiscountPercentage"
-            android:layout_width="250dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans_light"
             android:text="0% Discount"
             android:textColor="@color/wabizabi"
-            android:textSize="12sp"
+            android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"

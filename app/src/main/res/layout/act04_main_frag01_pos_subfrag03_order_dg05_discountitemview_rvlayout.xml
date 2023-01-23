@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F01SF03D05_RVLayout"
-    android:layout_width="320dp"
+    android:layout_width="300dp"
     android:layout_height="67dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/M04F01SF03D05_RVContainer"
-        android:layout_width="310dp"
+        android:layout_width="300dp"
         android:layout_height="65dp"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
-        android:background="@drawable/bg_shape_rectangle_stroke_recylerview_dark_single"
+        android:background="@drawable/bg_shape_rectangle_stroke_dark_marg50n_tlr"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/M04F01SF03D05_RVItemName"
-            android:layout_width="250dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans_light"
             android:text="Item Name"
@@ -35,7 +35,7 @@
 
         <TextView
             android:id="@+id/M04F01SF03D05_RVPriceBeforeText"
-            android:layout_width="125dp"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans_light"
             android:text="Before"
@@ -50,7 +50,7 @@
 
         <TextView
             android:id="@+id/M04F01SF03D05_RVPriceBeforeNo"
-            android:layout_width="125dp"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans_light"
             android:text="₱0.00"
@@ -65,7 +65,7 @@
 
         <TextView
             android:id="@+id/M04F01SF03D05_RVPriceAfterText"
-            android:layout_width="125dp"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans_light"
             android:text="After"
@@ -80,7 +80,7 @@
 
         <TextView
             android:id="@+id/M04F01SF03D05_RVPriceAfterNo"
-            android:layout_width="125dp"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans_light"
             android:text="₱0.00"
@@ -88,7 +88,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.708"
+            app:layout_constraintHorizontal_bias="0.654"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D05_RVPriceBeforeText"
             app:layout_constraintVertical_bias="0.0" />

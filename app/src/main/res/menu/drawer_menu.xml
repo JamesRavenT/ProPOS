@@ -12,22 +12,37 @@
             </menu>
         </item>
 
-        <item android:title="Inventory Management">
+        <item android:title="Management">
             <menu>
                 <item
-                    android:id="@+id/nav_Stocks"
-                    android:title="Stocks"/>
+                    android:id="@+id/nav_Menu"
+                    android:title="Menu"/>
                 <item
-                    android:id="@+id/nav_Products"
-                    android:title="Products"/>
+                    android:id="@+id/nav_Tables"
+                    android:title="Tables"/>
+                <item
+                    android:id="@+id/nav_Discounts"
+                    android:title="Discounts"/>
+                <item
+                    android:id="@+id/nav_PaymentMethods"
+                    android:title="Payment Methods"/>
+                <item
+                    android:id="@+id/nav_Inventory"
+                    android:title="Ingredients / Stocks"/>
             </menu>
         </item>
 
-        <item android:title="BackOffice">
+        <item android:title="Admin">
             <menu>
                 <item
-                    android:id="@+id/nav_User"
-                    android:title="Admin"/>
+                    android:id="@+id/nav_Profile"
+                    android:title="Profile"/>
+                <item
+                    android:id="@+id/nav_SalesReport"
+                    android:title="Sales Report"/>
+                <item
+                    android:id="@+id/nav_TransactionHistory"
+                    android:title="Transaction History"/>
             </menu>
         </item>
 

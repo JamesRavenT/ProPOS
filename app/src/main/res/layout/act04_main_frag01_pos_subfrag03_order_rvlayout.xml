@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F01SF03_RVLayout"
     android:layout_width="match_parent"
-    android:layout_height="175dp">
+    android:layout_height="150dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F01SF03_RVContainer"
@@ -14,9 +14,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/wabizabi"
         android:elevation="15dp"
         app:cardCornerRadius="5dp"
-        android:backgroundTint="@color/wabizabi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,53 +25,44 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/M04F01SF03_RVContainerLayout"
-            android:background="@drawable/bg_shape_rectangle_stroke_recylerview_white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/M04F01SF03_RVItemImage"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="25dp"
-                android:background="@drawable/bg_shape_rectangle_whole"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.258"
-                app:srcCompat="@drawable/icon_products00_default" />
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_shape_rectangle_stroke_white_marg10p">
 
             <ImageView
                 android:id="@+id/M04F01SF03_RVDiscountsAppliedImg"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="22sp"
+                android:layout_height="24sp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
-                app:layout_constraintHorizontal_bias="0.177"
-                app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVItemImage"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVTaxImg"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVTaxNo"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVIndividualItemPrice"
                 app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/icon_button_discount_gray" />
 
             <ImageView
                 android:id="@+id/M04F01SF03_RVTaxImg"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="22sp"
+                android:layout_height="24dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
-                app:layout_constraintHorizontal_bias="0.177"
-                app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVItemImage"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.168"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVIndividualItemPrice"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/icon_button_tax_red" />
 
             <TextView
                 android:id="@+id/M04F01SF03_RVDiscountsAppliedNo"
-                android:layout_width="40dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="1dp"
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
                 android:text="0%"
@@ -81,14 +72,15 @@
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVDiscountsAppliedImg"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVTaxNo"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVIndividualItemPrice"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/M04F01SF03_RVTaxNo"
-                android:layout_width="40dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="1dp"
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
                 android:text="3%"
@@ -97,36 +89,39 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVDiscountsAppliedImg"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.168" />
+                app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVTaxImg"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVIndividualItemPrice"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/M04F01SF03_RVItemName"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="1dp"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="5dp"
                 android:fontFamily="@font/nunito_sans_light"
+                android:gravity="start|center"
                 android:text="ItemName"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVItemImage"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.181" />
 
             <TextView
                 android:id="@+id/M04F01SF03_RVIndividualItemPrice"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="₱ 0.00"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -140,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_extralight"
                 android:gravity="center"
-                android:text="|\n|\n|\n|\n|\n|"
+                android:text="|\n|\n|\n|\n|"
                 android:textColor="@color/dirtywhite"
                 android:textSize="15sp"
 
@@ -154,7 +149,7 @@
             <TextView
                 android:id="@+id/M04F01SF03_RVTotalPrice"
                 android:layout_width="170dp"
-                android:layout_height="wrap_content"
+                android:layout_height="42dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
                 android:text="₱0.00"
@@ -165,12 +160,13 @@
                 app:layout_constraintHorizontal_bias="0.333"
                 app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.292" />
+                app:layout_constraintVertical_bias="0.181" />
 
             <ImageButton
                 android:id="@+id/M04F01SF03_RVQtySubBtn"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
+                android:layout_marginTop="5dp"
                 android:background="@null"
                 android:backgroundTintMode="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -178,36 +174,38 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVTotalPrice"
-                app:layout_constraintVertical_bias="0.257"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/icon_button_arrowleft_white" />
 
             <TextView
                 android:id="@+id/M04F01SF03_RVItemQty"
-                android:layout_width="45dp"
+                android:layout_width="80dp"
                 android:layout_height="45dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
-                android:text="x1"
+                android:text="x0"
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintHorizontal_bias="0.47"
                 app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVTotalPrice"
-                app:layout_constraintVertical_bias="0.26" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageButton
                 android:id="@+id/M04F01SF03_RVQtyAddBtn"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
+                android:layout_marginTop="5dp"
                 android:background="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVItemQty"
                 app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVTotalPrice"
-                app:layout_constraintVertical_bias="0.257"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/icon_button_arrowright_white" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -216,7 +214,7 @@
                 android:layout_height="25dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_shape_rectangle_stroke_dialog_red"
+                android:background="@drawable/bg_shape_rectangle_stroke_red_marg00p"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"

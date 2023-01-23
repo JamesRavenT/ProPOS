@@ -1,7 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.M04F04OP_Management.operationForM04F04;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,9 +14,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.wabizabi.wazabipos.Database.RealmSchemas.UserProfile;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.Operations.M04F04OP_Management;
 import com.wabizabi.wazabipos.R;
 
 import java.util.ArrayList;
@@ -126,23 +123,12 @@ public class M02F02_UserLogIn extends Fragment {
     }
     private void verify(){
         try(Realm realm = Realm.getDefaultInstance()){
-            UserProfile user = realm.where(UserProfile.class).findFirst();
+            RealmUser user = realm.where(RealmUser.class).findFirst();
             int pass = Integer.parseInt(pin.stream().map(String::valueOf).collect(Collectors.joining("")));
             if(pass == user.getPassword()){
                 pin.clear();
                 updatePIN();
-                if(operationForM02F02.equals("Change Username")){
-                    operationForM04F04 = "Change Username";
-                    startActivity(new Intent(getActivity(), M04F04OP_Management.class));
-                    getActivity().finish();
-                }
-                else if(operationForM02F02.equals("Change Password")){
-                    operationForM04F04 = "Change Password";
-                    startActivity(new Intent(getActivity(), M04F04OP_Management.class));
-                    getActivity().finish();
-                } else {
-                    startActivity(new Intent(getActivity(), M03_LoadResources.class));
-                }
+                startActivity(new Intent(getActivity(), M03_LoadResources.class));
             } else {
                 pin.clear();
                 updatePIN();

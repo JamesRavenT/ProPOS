@@ -15,7 +15,7 @@
         android:fontFamily="@font/nunito_sans_light"
         android:text="Welcome!"
         android:textColor="@color/wabizabi"
-        android:textSize="30sp"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.108"

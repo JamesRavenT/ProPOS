@@ -25,7 +25,7 @@
             android:id="@+id/M04F01SF03D06_ContainerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_shape_rectangle_stroke_dialog_dark">
+            android:background="@drawable/bg_shape_rectangle_stroke_dark_marg12p">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/M04F01SF03D06_CloseDGBtnLayout"
@@ -33,7 +33,7 @@
                 android:layout_height="25dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_shape_rectangle_stroke_dialog_red"
+                android:background="@drawable/bg_shape_rectangle_stroke_red_marg00p"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="350dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_shape_rectangle_stroke_dialogrecylerview_dark"
+                android:background="@drawable/bg_shape_rectangle_stroke_dark_marg50n_lrb"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

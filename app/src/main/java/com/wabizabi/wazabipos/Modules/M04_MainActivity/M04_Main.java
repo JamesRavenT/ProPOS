@@ -16,13 +16,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
-import com.wabizabi.wazabipos.Database.RealmSchemas.UserProfile;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Orders.M04F01SF03_Orders;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Stocks.M04F02_Stocks;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Products.M04F03_Products;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_User.M04F04_Admin;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_Printer.M04F05_Printer;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
@@ -40,13 +36,8 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     View navi;
     TextView username;
     //--FRAGMENTS--//
-    M04F01_POS pos = new M04F01_POS();
-    M04F02_Stocks stocks = new M04F02_Stocks();
-    M04F03_Products products = new M04F03_Products();
-    M04F04_Admin user = new M04F04_Admin();
-    M04F05_Printer printer = new M04F05_Printer();
     //--SUBFRAGMENTS--//
-    public static M04F01SF03_Orders pos_cart = new M04F01SF03_Orders();
+    public static M04F01SF03_Cart pos_cart = new M04F01SF03_Cart();
     //--GLOBAL VARIABLES--//
     public static String currentFragment;
     public static int currentPOSCategoryIndex = -1;
@@ -61,7 +52,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         init_Functionalities();
         if(savedInstanceState == null) {
             currentFragment = "POS";
-            getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, pos).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, new M04F01_POS()).commit();
         }
     }
 
@@ -93,7 +84,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         //--USERNAME IN DRAWER--//
         navi = navigation.getHeaderView(0);
         username = navi.findViewById(R.id.nav_username);
-        UserProfile user = realm.where(UserProfile.class).findFirst();
+        RealmUser user = realm.where(RealmUser.class).findFirst();
         username.setText(user.getUserName());
     }
 
@@ -102,53 +93,13 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.nav_POS:
-                currentFragment = "WaZabiPOS";
+                currentFragment = "POS";
                 if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 }
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.MainActivityContainer, pos)
-                        .commit();
-                break;
-            case R.id.nav_Stocks:
-                currentFragment = "Stocks";
-                if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                }
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.MainActivityContainer, stocks)
-                        .commit();
-                break;
-            case R.id.nav_Products:
-                currentFragment = "Products";
-                if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                }
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.MainActivityContainer, products)
-                        .commit();
-                break;
-            case R.id.nav_User:
-                currentFragment = "User";
-                if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                }
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.MainActivityContainer, user)
-                        .commit();
-                break;
-            case R.id.nav_Printer:
-                currentFragment = "Printer";
-                if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                }
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.MainActivityContainer, printer)
+                        .replace(R.id.MainActivityContainer, new M04F01_POS())
                         .commit();
                 break;
         }
@@ -166,7 +117,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
             currentFragment = "POS";
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.MainActivityContainer, pos)
+                    .replace(R.id.MainActivityContainer, new M04F01_POS())
                     .commit();
         } else if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

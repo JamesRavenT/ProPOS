@@ -1,9 +1,9 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentItemImage;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentItemName;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentItemPrice;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Orders.Adapter.M04F01SF03_CartRVA.cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentPOSItemImage;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentPOSItemName;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentPOSItemPrice;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -145,10 +145,10 @@ public class M04F01_ItemRVA extends RecyclerView.Adapter<M04F01_ItemRVA.ViewHold
         public void onClick(MenuItem item, int position){
             this.position = position;
             itemContainer.setOnClickListener(select -> {
-                currentItemImage = item.getItemImage();
-                currentItemName = item.getItemName();
-                currentItemPrice = item.getItemPrice();
-                load.load_DGContents(currentItemImage, currentItemName, currentItemPrice);
+                currentPOSItemImage = item.getItemImage();
+                currentPOSItemName = item.getItemName();
+                currentPOSItemPrice = item.getItemPrice();
+                load.load_DGContents(currentPOSItemImage, currentPOSItemName, currentPOSItemPrice);
                 addItemDG.show();
             });
         }

@@ -1,7 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Orders.Adapter.M04F01SF03_CartRVA.cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 
 import android.app.Dialog;
@@ -31,7 +31,7 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Header.M04F01SF01_Header;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation.M04F01SF02_Recommendation;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Orders.M04F01SF03_Orders;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.RecyclerViewLoader;
 import com.wabizabi.wazabipos.R;
@@ -54,15 +54,15 @@ public class M04F01_POS extends Fragment implements RecyclerViewLoader, DialogLo
     RecyclerView posCategoryRV;
     RecyclerView.Adapter posCategoryRVA;
     TextView currentCategoryText;
-    public static int currentCategoryIndex = -1;
-    public static String currentCategoryName;
+    public static int currentPOSCategoryIndex = -1;
+    public static String currentPOSCategoryName;
 
     //Item RV
     RecyclerView posItemRV;
     RecyclerView.Adapter posItemRVA;
-    public static int currentItemImage;
-    public static String currentItemName;
-    public static double currentItemPrice;
+    public static int currentPOSItemImage;
+    public static String currentPOSItemName;
+    public static double currentPOSItemPrice;
 
     //--GO TO CART BUTTON--//
     CardView goToCartButton;
@@ -146,13 +146,13 @@ public class M04F01_POS extends Fragment implements RecyclerViewLoader, DialogLo
         }
         //Initialize the List of Items to be displayed
         List<MenuItem> listOfItems = new ArrayList<>();
-        if(currentCategoryIndex == -1){
+        if(currentPOSCategoryIndex == -1){
             RealmResults<RealmMenuItem> queriedItemList = realm.where(RealmMenuItem.class).sort("itemName").findAll();
             for(RealmMenuItem queriedItem : queriedItemList){
                 listOfItems.add(new MenuItem(queriedItem.getItemImage(), queriedItem.getItemName(), queriedItem.getItemPrice()));
             }
         } else {
-            RealmResults<RealmMenuItem> queriedItemList = realm.where(RealmMenuItem.class).equalTo("itemCategory", currentCategoryName).sort("itemName").findAll();
+            RealmResults<RealmMenuItem> queriedItemList = realm.where(RealmMenuItem.class).equalTo("itemCategory", currentPOSCategoryName).sort("itemName").findAll();
             for(RealmMenuItem queriedItem : queriedItemList){
                 listOfItems.add(new MenuItem(queriedItem.getItemImage(), queriedItem.getItemName(), queriedItem.getItemPrice()));
             }
@@ -176,13 +176,14 @@ public class M04F01_POS extends Fragment implements RecyclerViewLoader, DialogLo
     private void load_OrderSize(){
         goToCartText.setText("Orders [" + cart.size() + "]");
     }
+
     private void load_ButtonFunctions(){
         goToCartButton.setOnClickListener((btn) -> {
             currentFragment = "Cart";
             getActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.MainActivityContainer, new M04F01SF03_Orders())
+                    .replace(R.id.MainActivityContainer, new M04F01SF03_Cart())
                     .commit();
         });
     }
@@ -206,18 +207,18 @@ public class M04F01_POS extends Fragment implements RecyclerViewLoader, DialogLo
         posDG01_ItemSubBtn.setOnClickListener(dec -> {
             if(itemQtyCount > 1) {
                 itemQtyCount--;
-                load_DGContents(currentItemImage, currentItemName, currentItemPrice);
+                load_DGContents(currentPOSItemImage, currentPOSItemName, currentPOSItemPrice);
             }
         });
         posDG01_ItemAddBtn.setOnClickListener(inc -> {
             itemQtyCount++;
-            load_DGContents(currentItemImage, currentItemName, currentItemPrice);
+            load_DGContents(currentPOSItemImage, currentPOSItemName, currentPOSItemPrice);
         });
         posDG01_AddToCartBtn.setOnClickListener(add -> {
             List<CartObject> items = new ArrayList<>(cart.keySet());
             List<CartObject> basket = new ArrayList<>();
             for(CartObject cartItem : items){
-                if(cartItem.getItemName().equalsIgnoreCase(currentItemName)){
+                if(cartItem.getItemName().equalsIgnoreCase(currentPOSItemName)){
                     basket.add(cartItem);
                 }
             }
@@ -225,7 +226,7 @@ public class M04F01_POS extends Fragment implements RecyclerViewLoader, DialogLo
                 CartObject itemkey = basket.get(0);
                 cart.put(itemkey, cart.get(itemkey) + 1);
             } else {
-                cart.put(new CartObject(currentItemImage, currentItemName, currentItemPrice), itemQtyCount);
+                cart.put(new CartObject(currentPOSItemName, currentPOSItemPrice), itemQtyCount);
             }
             load_Header();
             load_RecyclerViews();
@@ -249,13 +250,50 @@ public class M04F01_POS extends Fragment implements RecyclerViewLoader, DialogLo
     @Override
     public void load_DGContents(int image, String name, double price) {
         load_DG01Functionalities();
-        posDG01_ItemPrice.setText("₱" + new BigDecimal(currentItemPrice).setScale(2, RoundingMode.HALF_UP).toString());
-        if(currentItemName.length() < 18) {
-            posDG01_ItemName.setText(currentItemName);
+        posDG01_ItemPrice.setText("₱" + new BigDecimal(currentPOSItemPrice).setScale(2, RoundingMode.HALF_UP).toString());
+        if(currentPOSItemName.length() < 18) {
+            posDG01_ItemName.setText(currentPOSItemName);
         } else {
-            posDG01_ItemName.setText(currentItemName.substring(0, Math.min(currentItemName.length(), 14)) + "...");
+            posDG01_ItemName.setText(currentPOSItemName.substring(0, Math.min(currentPOSItemName.length(), 14)) + "...");
         }
         posDG01_ItemQty.setText(String.valueOf(itemQtyCount));
+
+        switch(image) {
+            case 0:
+                posDG01_ItemImage.setImageResource(R.drawable.icon_products00_default);
+                break;
+            case 1:
+                posDG01_ItemImage.setImageResource(R.drawable.icon_products01_deepfried);
+                break;
+            case 2:
+                posDG01_ItemImage.setImageResource(R.drawable.icon_products02_desserts);
+                break;
+            case 3:
+                posDG01_ItemImage.setImageResource(R.drawable.icon_products03_donburi);
+                break;
+            case 4:
+                posDG01_ItemImage.setImageResource(R.drawable.icon_products04_drinks);
+                break;
+            case 5:
+                posDG01_ItemImage.setImageResource(R.drawable.icon_products05_nigiri);
+                break;
+            case 6:
+                posDG01_ItemImage.setImageResource(R.drawable.icon_products06_noodles);
+                break;
+            case 7:
+                posDG01_ItemImage.setImageResource(R.drawable.icon_products07_salad);
+                break;
+            case 8:
+                posDG01_ItemImage.setImageResource(R.drawable.icon_products08_sashimi);
+                break;
+            case 9:
+                posDG01_ItemImage.setImageResource(R.drawable.icon_products09_sushi);
+                break;
+            case 10:
+                posDG01_ItemImage.setImageResource(R.drawable.icon_products10_sushirolls);
+                break;
+
+        }
     }
 
     //--UNUSED INTERFACES--//

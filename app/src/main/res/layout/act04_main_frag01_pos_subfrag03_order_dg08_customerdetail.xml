@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/M04F01SF03D08_Layout"
+    android:layout_width="400dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    android:padding="5dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/M04F01SF03D08_Container"
+        android:layout_width="350dp"
+        android:layout_height="325dp"
+        android:layout_margin="5dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/M04F01SF03D08_ContainerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_shape_rectangle_stroke_dark_marg12p">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/M04F01SF03D08_CloseDGBtnLayout"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_shape_rectangle_stroke_red_marg00p"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageView
+                    android:id="@+id/M04F01SF03D08_CloseDGBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_button_close_red" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/M04F01SF03D08_EnterCustomerDetailsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Please Enter Customer Details"
+                android:textColor="@color/wabizabi"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.107" />
+
+            <TextView
+                android:id="@+id/M04F01SF03D08_CustomerNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_light"
+                android:paddingBottom="0dp"
+                android:text="Name : "
+                android:textColor="@color/wabizabi"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.088"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D08_EnterCustomerDetailsText"
+                app:layout_constraintVertical_bias="0.071" />
+
+            <EditText
+                android:id="@+id/M04F01SF03D08_CustomerNameInput"
+                android:layout_width="237dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_shape_thinline_dark"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans_light"
+                android:hint="e.g.Sushi Master"
+                android:inputType="textPersonName"
+                android:maxLength="25"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F01SF03D08_CustomerNameText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D08_EnterCustomerDetailsText"
+                app:layout_constraintVertical_bias="0.053" />
+
+            <TextView
+                android:id="@+id/M04F01SF03D08_OrderDetailsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_light"
+                android:paddingBottom="0dp"
+                android:text="Order Details"
+                android:textColor="@color/wabizabi"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.506"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D08_CustomerNameText"
+                app:layout_constraintVertical_bias="0.038" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/M04F01SF03D08_OrderDetailsLayout"
+                android:layout_width="275dp"
+                android:layout_height="100dp"
+                android:background="@drawable/bg_shape_rectangle_stroke_dark_marg00p"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.525"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D08_OrderDetailsText"
+                app:layout_constraintVertical_bias="0.039">
+
+                <EditText
+                    android:id="@+id/M04F01SF03D08_OrderDetailsInput"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/nunito_sans_light"
+                    android:gravity="top"
+                    android:hint="Click to enter text..."
+                    android:inputType="textPersonName"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/M04F01SF03D08_ConfirmBtn"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/wabizabi"
+                android:elevation="10dp"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D08_OrderDetailsLayout"
+                app:layout_constraintVertical_bias="0.307" >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/M04F01SF03D08_ConfirmBtnLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/M04F01SF03D088_ConfirmBtnText"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/nunito_sans"
+                        android:gravity="center"
+                        android:text="Confirm"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

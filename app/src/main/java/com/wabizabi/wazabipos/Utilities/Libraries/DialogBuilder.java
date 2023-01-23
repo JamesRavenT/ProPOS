@@ -12,6 +12,7 @@ public abstract class DialogBuilder {
         dialog.setContentView(resource);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setDimAmount(0.5f);
+        dialog.setCanceledOnTouchOutside(false);
         return dialog;
 
     }

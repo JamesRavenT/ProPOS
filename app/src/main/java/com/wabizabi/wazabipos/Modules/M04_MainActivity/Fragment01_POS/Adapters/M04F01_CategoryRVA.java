@@ -1,7 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentCategoryIndex;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentCategoryName;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentPOSCategoryIndex;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS.currentPOSCategoryName;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -125,7 +125,7 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
         public void onClick(ViewHolder holder, int position){
             this.position = position;
             categoryContainer.setOnClickListener(onselect -> updateItems(holder, position));
-            if(currentCategoryIndex == position){
+            if(currentPOSCategoryIndex == position){
                 categoryContainer.setCardBackgroundColor(ContextCompat.getColor(context, R.color.wabizabi));
                 categoryName.setTextColor(ContextCompat.getColor(context, R.color.white));
             } else {
@@ -136,12 +136,12 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
     }
 
     private void updateItems(@NonNull ViewHolder holder, int position){
-        currentCategoryIndex = holder.getAdapterPosition();
+        currentPOSCategoryIndex = holder.getAdapterPosition();
         notifyDataSetChanged();
         RealmResults<RealmMenuCategory> categories = realm.where(RealmMenuCategory.class).sort("categoryName").findAll();
-        RealmMenuCategory currentIndex = categories.get(currentCategoryIndex);
-        currentCategoryName = currentIndex.getCategoryName();
-        RealmResults<RealmMenuItem> query = realm.where(RealmMenuItem.class).equalTo("itemCategory", currentCategoryName).sort("itemName").findAll();
+        RealmMenuCategory currentIndex = categories.get(currentPOSCategoryIndex);
+        currentPOSCategoryName = currentIndex.getCategoryName();
+        RealmResults<RealmMenuItem> query = realm.where(RealmMenuItem.class).equalTo("itemCategory", currentPOSCategoryName).sort("itemName").findAll();
         listOfItems.clear();
         for(RealmMenuItem queriedItem : query){
             listOfItems.add(new MenuItem(queriedItem.getItemImage(), queriedItem.getItemName(), queriedItem.getItemPrice()));

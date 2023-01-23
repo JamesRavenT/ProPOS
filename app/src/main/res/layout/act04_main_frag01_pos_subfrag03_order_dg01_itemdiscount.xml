@@ -25,7 +25,7 @@
             android:id="@+id/M04F01SF03D01_ContainerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_shape_rectangle_stroke_dialog_dark">
+            android:background="@drawable/bg_shape_rectangle_stroke_dark_marg12p">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/M04F01SF03D01_CloseDGBtnLayout"
@@ -33,7 +33,7 @@
                 android:layout_height="25dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_shape_rectangle_stroke_dialog_red"
+                android:background="@drawable/bg_shape_rectangle_stroke_red_marg00p"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -60,7 +60,7 @@
                 android:gravity="center"
                 android:text="Discounts Applied To"
                 android:textColor="@color/wabizabi"
-                android:textSize="15sp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -77,7 +77,7 @@
                 android:gravity="center"
                 android:text="Item Name"
                 android:textColor="@color/wabizabi"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="350dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/bg_shape_rectangle_stroke_dialogrecylerview_dark"
+                android:background="@drawable/bg_shape_rectangle_stroke_dark_marg50n_lrb"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +123,7 @@
                         android:gravity="center"
                         android:text="Apply New Discount"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

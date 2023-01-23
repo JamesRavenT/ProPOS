@@ -61,7 +61,7 @@
                     android:fontFamily="@font/nunito_sans"
                     android:text="「  C A T E G O R I E S  」"
                     android:textColor="@color/wabizabi"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/M04F01_CategoryRV"
@@ -80,7 +80,7 @@
                     android:fontFamily="@font/nunito_sans"
                     android:text="「  I T E M S 」"
                     android:textColor="@color/wabizabi"
-                    android:textSize="15sp" />
+                    android:textSize="15dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/M04F01_ItemsRV"
