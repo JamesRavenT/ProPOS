@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F06D06_Layout"
     android:layout_width="400dp"
-    android:layout_height="455dp"
+    android:layout_height="475dp"
     android:layout_gravity="center"
     android:padding="5dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F06D06_Container"
         android:layout_width="350dp"
-        android:layout_height="405dp"
+        android:layout_height="425dp"
         android:layout_margin="5dp"
         android:elevation="10dp"
         app:cardCornerRadius="10dp"
@@ -221,6 +221,24 @@
                 app:layout_constraintVertical_bias="0.045"
                 app:srcCompat="@drawable/icon_button_arrowright" />
 
+            <TextView
+                android:id="@+id/M04F06D06_UnitOfMeasurement"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Unit"
+                android:textColor="@color/wabizabi"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F06D06_ItemQty"
+                app:layout_constraintVertical_bias="0.0" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/M04F06D06_UpdateBtn"
                 android:layout_width="300dp"
@@ -231,9 +249,10 @@
                 app:cardCornerRadius="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.52"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F06D06_ItemQty"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintTop_toBottomOf="@+id/M04F06D06_UnitOfMeasurement"
+                app:layout_constraintVertical_bias="0.0" >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/M04F06D06_UpdateBtnLayout"

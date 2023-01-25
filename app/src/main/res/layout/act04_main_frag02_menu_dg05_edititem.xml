@@ -113,7 +113,7 @@
             <EditText
                 android:id="@+id/M04F02D05_ItemNameInput"
                 android:layout_width="230dp"
-                android:layout_height="wrap_content"
+                android:layout_height="32.5dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_shape_thinline_dark"
                 android:ems="10"
@@ -149,7 +149,7 @@
             <EditText
                 android:id="@+id/M04F02D05_ItemPriceInput"
                 android:layout_width="230dp"
-                android:layout_height="wrap_content"
+                android:layout_height="32.5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/bg_shape_thinline_dark"
                 android:ems="10"
@@ -206,7 +206,7 @@
                 android:id="@+id/M04F02D05_DeleteBtn"
                 android:layout_width="145dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginEnd="25dp"
                 android:backgroundTint="@color/wabizabi"
                 android:elevation="10dp"
@@ -215,7 +215,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F02D05_ItemPriceInput"
+                app:layout_constraintTop_toBottomOf="@+id/M04F02D05_ItemPriceText"
                 app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout

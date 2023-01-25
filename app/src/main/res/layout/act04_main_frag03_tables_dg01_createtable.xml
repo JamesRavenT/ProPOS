@@ -117,7 +117,7 @@
             <EditText
                 android:id="@+id/M04F03D01_TableNameInput"
                 android:layout_width="230dp"
-                android:layout_height="wrap_content"
+                android:layout_height="32.5dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_shape_thinline_dark"
                 android:ems="10"

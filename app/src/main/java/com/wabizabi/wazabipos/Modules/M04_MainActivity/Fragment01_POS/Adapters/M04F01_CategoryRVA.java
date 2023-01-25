@@ -19,7 +19,7 @@ import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
-import com.wabizabi.wazabipos.Utilities.Interfaces.RecyclerViewLoader;
+import com.wabizabi.wazabipos.Utilities.Interfaces.RVMenuLoader;
 import com.wabizabi.wazabipos.R;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
 
     Context context;
     Realm realm;
-    RecyclerViewLoader rvLoader;
+    RVMenuLoader rvLoader;
     List<MenuCategory> listOfCategories;
     List<MenuItem> listOfItems;
 
@@ -39,7 +39,7 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
                               io.realm.Realm realm,
                               List<MenuCategory> listOfCategories,
                               List<MenuItem> listOfItems,
-                              RecyclerViewLoader rvLoader) {
+                              RVMenuLoader rvLoader) {
         this.context = context;
         this.realm = realm;
         this.listOfCategories = listOfCategories;
@@ -146,6 +146,6 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
         for(RealmMenuItem queriedItem : query){
             listOfItems.add(new MenuItem(queriedItem.getItemImage(), queriedItem.getItemName(), queriedItem.getItemPrice()));
         }
-        rvLoader.load_RVContents(position, listOfItems);
+        rvLoader.load_RVContents(listOfItems);
     }
 }

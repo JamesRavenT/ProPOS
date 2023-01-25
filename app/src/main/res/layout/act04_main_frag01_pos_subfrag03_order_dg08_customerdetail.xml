@@ -88,7 +88,7 @@
             <EditText
                 android:id="@+id/M04F01SF03D08_CustomerNameInput"
                 android:layout_width="237dp"
-                android:layout_height="wrap_content"
+                android:layout_height="32.5dp"
                 android:background="@drawable/bg_shape_thinline_dark"
                 android:ems="10"
                 android:fontFamily="@font/nunito_sans_light"

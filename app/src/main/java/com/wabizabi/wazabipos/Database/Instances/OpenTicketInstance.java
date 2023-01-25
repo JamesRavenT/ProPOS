@@ -14,8 +14,6 @@ import io.realm.RealmList;
 
 public class OpenTicketInstance {
 
-
-
     public static void toCreateTicket(String cashier,
                                      String ordertype,
                                      String tableName,
@@ -31,7 +29,7 @@ public class OpenTicketInstance {
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 //Date And Time
-                DateFormat currentTimeStamp = new SimpleDateFormat("yyyyMMddhmmsS");
+                DateFormat currentTimeStamp = new SimpleDateFormat("yyMMddHH-mmss");
                 DateFormat currentDateAndTime = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a");
                 String ticketID = currentTimeStamp.format(new Date());
                 String dateAndTime = currentDateAndTime.format(new Date());

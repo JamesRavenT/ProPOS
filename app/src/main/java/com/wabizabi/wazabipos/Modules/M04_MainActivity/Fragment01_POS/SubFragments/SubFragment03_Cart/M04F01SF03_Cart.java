@@ -111,7 +111,6 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     ImageView cartDG04_CloseBtn;
 
     //--DG05 VIEW ITEMS APPLIED WITH SELECTED DISCOUNT--//
-    public static String currentCartDiscount;
     Dialog cartDG05;
     TextView cartDG05_DiscountName;
     RecyclerView cartDG05_RecyclerView;
@@ -570,34 +569,31 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     }
 
     //DG to display the Items Applied with the Selected Discount
-    private void load_DG05Functionalities(){
-        //check if currentDiscount if null to prevent crash
-        if(currentCartDiscount != null){
-            //Set Discount Name
-            cartDG05_DiscountName.setText(currentCartDiscount);
+    private void load_DG05Functionalities(String discount){
+        //Set Discount Name
+        cartDG05_DiscountName.setText(discount);
 
-            //Initialize RecyclerView Items
-            List<CartObject> itemsAppliedWithCurrentDiscount = new ArrayList<>();
-            for(CartObject cartItem : cart.keySet()){
-                if(cartItem.getItemDiscounts().containsKey(currentCartDiscount)){
-                    itemsAppliedWithCurrentDiscount.add(cartItem);
-                }
+        //Initialize RecyclerView Items
+        List<CartObject> itemsAppliedWithCurrentDiscount = new ArrayList<>();
+        for(CartObject cartItem : cart.keySet()){
+            if(cartItem.getItemDiscounts().containsKey(discount)){
+                itemsAppliedWithCurrentDiscount.add(cartItem);
             }
-
-            //Initialize RecyclerView
-            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-            layout.setOrientation(LinearLayoutManager.VERTICAL);
-            cartDG05_RecyclerViewAdapter = new M04F01SF03D05_ViewItemsOfCurrentDiscountRVA(getActivity(), realm, cartDG05, itemsAppliedWithCurrentDiscount, this, this);
-            cartDG05_RecyclerView.setAdapter(cartDG05_RecyclerViewAdapter);
-            cartDG05_RecyclerView.setLayoutManager(layout);
-
-            //On Close
-            cartDG05_CloseBtn.setOnClickListener(close -> {
-                load_DG04Functionalities();
-                cartDG05.dismiss();
-                cartDG04.show();
-            });
         }
+
+        //Initialize RecyclerView
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        cartDG05_RecyclerViewAdapter = new M04F01SF03D05_ViewItemsOfCurrentDiscountRVA(getActivity(), realm, discount, cartDG05, itemsAppliedWithCurrentDiscount, this, this);
+        cartDG05_RecyclerView.setAdapter(cartDG05_RecyclerViewAdapter);
+        cartDG05_RecyclerView.setLayoutManager(layout);
+
+        //On Close
+        cartDG05_CloseBtn.setOnClickListener(close -> {
+            load_DG04Functionalities();
+            cartDG05.dismiss();
+            cartDG04.show();
+        });
     }
 
     //DG to display the Selectable Discounts to Apply to All Items
@@ -936,33 +932,21 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     }
 
     @Override
-    public void load_DGContents(int dialogNo) {
+    public void load_DGContents(int dialogNo, int image, String name) {
         switch(dialogNo){
             case 1:
                 load_DG01Functionalities();
                 cartDG01.show();
-                break;
-            case 2:
-                load_DG02Functionalities();
-                cartDG02.show();
-                break;
-            case 3:
-                load_DG03Functionalities();
-                cartDG03.show();
-                break;
             case 4:
                 load_DG04Functionalities();
                 cartDG04.show();
                 break;
             case 5:
-                load_DG05Functionalities();
+                load_DG05Functionalities(name);
                 cartDG05.show();
                 break;
-            case 6:
-                load_DG06Functionalities();
-                cartDG06.show();
-                break;
         }
+
     }
 
     //--SLIDE TO DELETE--//
@@ -984,10 +968,4 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
 
         }
     };
-
-    //--UNUSED OVERLOADED INTERFACES--//
-    @Override
-    public void load_DGContents() {}
-    @Override
-    public void load_DGContents(int image, String name, double price) {}
 }

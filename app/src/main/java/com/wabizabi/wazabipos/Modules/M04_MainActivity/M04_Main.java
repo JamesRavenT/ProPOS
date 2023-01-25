@@ -19,6 +19,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.M04F02_Menu;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Tables.M04F03_Tables;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_Discount.M04F04_Discounts;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_PaymentMethods.M04F05_PaymentMethods;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStock.M04F06_IngredientStock;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;
@@ -102,6 +107,56 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                         .replace(R.id.MainActivityContainer, new M04F01_POS())
                         .commit();
                 break;
+            case R.id.nav_Menu:
+                currentFragment = "Menu01";
+                if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F02_Menu())
+                        .commit();
+                break;
+            case R.id.nav_Tables:
+                currentFragment = "Table";
+                if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F03_Tables())
+                        .commit();
+                break;
+            case R.id.nav_Discounts:
+                currentFragment = "Discount";
+                if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F04_Discounts())
+                        .commit();
+                break;
+            case R.id.nav_PaymentMethods:
+                currentFragment = "PaymentMethod";
+                if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F05_PaymentMethods())
+                        .commit();
+                break;
+            case R.id.nav_Inventory:
+                currentFragment = "Stock01";
+                if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F06_IngredientStock())
+                        .commit();
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -119,6 +174,20 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                     .beginTransaction()
                     .replace(R.id.MainActivityContainer, new M04F01_POS())
                     .commit();
+        } else if(currentFragment == "Menu02") {
+            currentFragment = "Menu01";
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.MainActivityContainer, new M04F02_Menu())
+                    .commit();
+
+        } else if(currentFragment == "Stock02") {
+            currentFragment = "Stock02";
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.MainActivityContainer, new M04F06_IngredientStock())
+                    .commit();
+
         } else if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else {

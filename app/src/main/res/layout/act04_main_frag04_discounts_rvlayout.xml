@@ -122,7 +122,7 @@
                 app:srcCompat="@drawable/bg_shape_triangle_dark_upper" />
 
             <TextView
-                android:id="@+id/M04F04_RVDiscountQtyText"
+                android:id="@+id/M04F04_RVDiscountPercentageText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"

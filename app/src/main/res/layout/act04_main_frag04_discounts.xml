@@ -108,7 +108,7 @@
                 android:id="@+id/M04F04_SearchBarContainerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_shape_rectangle_stroke_dark_marg03p">
+                android:background="@drawable/bg_shape_rectangle_stroke_dark_marg05p">
 
                 <EditText
                     android:id="@+id/M04F04_SearchBarInput"
@@ -117,6 +117,8 @@
                     android:layout_marginStart="10dp"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/nunito_sans_light"
+                    android:focusedByDefault="false"
+                    android:cursorVisible="false"
                     android:hint="Search . . ."
                     android:textColor="@color/wabizabi"
                     android:textSize="20dp"
@@ -151,43 +153,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/M04F04_HeaderLayout">
 
-        <ScrollView
-            android:id="@+id/M04F04_GroupScrollLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/M04F04_RecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_gravity="center"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:id="@+id/M04F04_GroupLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/M04F04_RecyclerViewItemText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="0dp"
-                    android:fontFamily="@font/nunito_sans"
-                    android:text="「  TABLES 」"
-                    android:textColor="@color/wabizabi"
-                    android:textSize="20dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/M04F04_RecyclerView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="550dp"
-                    android:layout_gravity="center"
-
-                    android:layout_marginTop="5dp" />
-
-            </LinearLayout>
-        </ScrollView>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -179,11 +179,11 @@ public class TestData {
     }
 
     public static void preloadTables(){
-        OpenTableInstance.toCreateTable("Table", 1);
-        OpenTableInstance.toCreateTable("Table", 2);
-        OpenTableInstance.toCreateTable("Table", 3);
-        OpenTableInstance.toCreateTable("Table", 4);
-        OpenTableInstance.toCreateTable("Table", 5);
+//        OpenTableInstance.toCreateTable("Table", 1);
+//        OpenTableInstance.toCreateTable("Table", 2);
+//        OpenTableInstance.toCreateTable("Table", 3);
+//        OpenTableInstance.toCreateTable("Table", 4);
+//        OpenTableInstance.toCreateTable("Table", 5);
 
     }
 

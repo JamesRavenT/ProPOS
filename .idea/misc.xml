@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3725" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/bg_rectangle_dark.xml" value="0.3645" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/bg_shape_fpicons.xml" value="0.3515" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/bg_shape_rectangle_solid_dark_m04f01sf02rvtxt.xml" value="0.363" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/bg_shape_rectangle_solid_dialog_white_border.xml" value="0.363" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/bg_shape_rectangle_solid_red.xml" value="0.2805" />
@@ -211,19 +212,22 @@
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag01_pos_subfrag03_order_dg14_transactioncomplete.xml" value="0.9" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag01_pos_subfrag03_order_rvlayout.xml" value="0.5" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag01_pos_tempdialog.xml" value="0.3052586575459598" />
-        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu.xml" value="0.33" />
-        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_category_rvlayout.xml" value="0.5" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu.xml" value="0.5" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_category_rvlayout.xml" value="0.75" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg01_selecticon.xml" value="0.33" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg01_selecticon_rvlayout.xml" value="0.9" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg01_selecticons.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg02_createcategory.xml" value="0.5" />
-        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg03_createitem.xml" value="0.8631090487238979" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg03_createitem.xml" value="0.67" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg03_managecategory.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg03_manageitem.xml" value="0.5" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg04_editcategory.xml" value="0.67" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg05_edititem.xml" value="0.5" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg06_viewitem.xml" value="0.5" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg06_viewitem_rvlayout.xml" value="1.1" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg07_deletecategory.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg07_deleteitem.xml" value="0.67" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_dg08_deleteitem.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_item_rvlayout.xml" value="0.5" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_menu_item_rvlayout2.xml" value="0.9" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag02_stocks.xml" value="0.5" />
@@ -279,7 +283,7 @@
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag03_products_operation_crud_popupitem.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag03_products_window_itemdialog.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag03_table_dg01_deletetable.xml" value="0.9" />
-        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag03_tables.xml" value="0.3180846515604959" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag03_tables.xml" value="0.33" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag03_tables_dg01_createtable.xml" value="0.67" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag03_tables_dg02_edittable.xml" value="0.75" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag03_tables_dg03_deletetable.xml" value="0.3180846515604959" />
@@ -303,9 +307,9 @@
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_window_operation_management_transactions_sales_searchdialog.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_admin_window_settingsdialog.xml" value="0.3052586575459598" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_backoffice.xml" value="0.29585292860196666" />
-        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_discounts.xml" value="0.3180846515604959" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_discounts.xml" value="0.33" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_discounts_dg01_creatediscount.xml" value="0.67" />
-        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_discounts_dg02_editdiscount.xml" value="0.33" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_discounts_dg02_editdiscount.xml" value="0.67" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_discounts_dg03_deletediscount.xml" value="0.67" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_discounts_rvlayout.xml" value="0.75" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag04_user.xml" value="0.5" />
@@ -313,6 +317,7 @@
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag05_paymentmethod_dg01_createpaymentmethod.xml" value="0.75" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag05_paymentmethods.xml" value="0.33" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag05_paymentmethods_dg01_createpaymentmethod.xml" value="0.3180846515604959" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag05_paymentmethods_dg02_editpaymentmethod.xml" value="0.9" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag05_paymentmethods_dg02_editpaymentmethods.xml" value="0.75" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag05_paymentmethods_dg03_deletepaymentmethod.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag05_paymentmethods_rvlayout.xml" value="0.75" />
@@ -321,16 +326,19 @@
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_ingredients.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_menu_dg02_createcategory.xml" value="0.33" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_salesreport.xml" value="0.29585292860196666" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_category_rvlayout.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg01_selecticon.xml" value="0.1" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg01_selecticon_rvlayout.xml" value="1.1" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg02_createcategory.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg03_createitem.xml" value="0.67" />
-        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg04_editcategory.xml" value="0.3180846515604959" />
-        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg05_edititem.xml" value="0.9" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg04_editcategory.xml" value="0.75" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg05_edititem.xml" value="0.5" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg06_viewitem.xml" value="0.5152354570637119" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg07_deletecategory.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg07_deleteitem.xml" value="0.3180846515604959" />
-        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_item_rvlayout.xml" value="0.33" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_dg08_deleteitem.xml" value="0.3180846515604959" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag06_stocks_item_rvlayout.xml" value="0.9" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act04_main_frag07_printer.xml" value="0.29585292860196666" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act05_crud.xml" value="0.3052586575459598" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/act05_crud_frag03_viewproducts.xml" value="0.3052586575459598" />
@@ -342,6 +350,7 @@
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/dump2.xml" value="0.3180846515604959" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/fragment_act02_frag01_signin.xml" value="0.3052586575459598" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/menu_navigationlayout.xml" value="0.33" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/test.xml" value="0.75" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/toolbar_customactionbar.xml" value="0.2877297990594271" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/menu/drawer_menu.xml" value="0.33" />
       </map>

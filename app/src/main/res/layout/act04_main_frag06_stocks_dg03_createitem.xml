@@ -11,7 +11,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F06D03_Container"
         android:layout_width="350dp"
-        android:layout_height="300dp"
+        android:layout_height="340dp"
         android:layout_margin="5dp"
         android:elevation="10dp"
         app:cardCornerRadius="10dp"
@@ -112,12 +112,12 @@
             <EditText
                 android:id="@+id/M04F06D03_ItemNameInput"
                 android:layout_width="230dp"
-                android:layout_height="wrap_content"
+                android:layout_height="32.5dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_shape_thinline_dark"
                 android:ems="10"
                 android:fontFamily="@font/nunito_sans_light"
-                android:hint="Item Name"
+                android:hint=" Item Name"
                 android:inputType="textPersonName"
                 android:maxLength="25"
                 android:textSize="20dp"
@@ -128,8 +128,44 @@
                 app:layout_constraintTop_toBottomOf="@+id/M04F06D03_CategoryImageLayout"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <TextView
+                android:id="@+id/M04F06D03_ItemMeasurementText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:paddingBottom="0dp"
+                android:text="Unit Of Measurement :"
+                android:textColor="@color/wabizabi"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.174"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F06D03_ItemNameText"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/M04F06D03_ItemMeasurementInput"
+                android:layout_width="95dp"
+                android:layout_height="32.5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/bg_shape_thinline_dark"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans_light"
+                android:hint="  e.g. kilo"
+                android:inputType="textPersonName"
+                android:maxLength="25"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F06D03_ItemMeasurementText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F06D03_ItemNameInput"
+                app:layout_constraintVertical_bias="0.021" />
+
             <androidx.cardview.widget.CardView
-                android:id="@+id/M04F03D06_ConfirmBtn"
+                android:id="@+id/M04F06D03_ConfirmBtn"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
@@ -139,16 +175,16 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F06D03_ItemNameInput"
+                app:layout_constraintTop_toBottomOf="@+id/M04F06D03_ItemMeasurementText"
                 app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/M04F06D06_ConfirmBtnLayout"
+                    android:id="@+id/M04F06D03_ConfirmBtnLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/M04F06D06_ConfirmBtnText"
+                        android:id="@+id/M04F06D03_ConfirmBtnText"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:fontFamily="@font/nunito_sans"

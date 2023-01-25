@@ -11,6 +11,8 @@ public class RealmTable extends RealmObject {
     int tableNo;
     String tableName;
     String tableStatus;
+    String lastUpdatedID;
+    String lastUpdatedText;
 
     public RealmTable(){}
     public RealmTable(String tableName, int tableNo){
@@ -20,8 +22,13 @@ public class RealmTable extends RealmObject {
     public int getTableNo() { return tableNo; }
     public String getTableName() { return tableName; }
     public String getTableStatus() { return tableStatus; }
+    public String getLastUpdatedID() { return lastUpdatedID; }
+    public String getLastUpdatedText() { return lastUpdatedText; }
+
     public void setTableNo(int tableNo) { this.tableNo = tableNo; }
     public void setTableName(String tableName) { this.tableName = tableName; }
     public void setTableStatus(String tableStatus) { this.tableStatus = tableStatus; }
+    public void setLastUpdatedID(String lastUpdatedID) { this.lastUpdatedID = lastUpdatedID; }
+    public void setLastUpdatedText(String lastUpdatedText) { this.lastUpdatedText = lastUpdatedText; }
 
 }

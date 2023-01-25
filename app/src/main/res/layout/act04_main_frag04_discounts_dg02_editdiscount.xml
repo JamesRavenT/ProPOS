@@ -151,7 +151,7 @@
             <EditText
                 android:id="@+id/M04F04D02_DiscountNameInput"
                 android:layout_width="230dp"
-                android:layout_height="wrap_content"
+                android:layout_height="32.5dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_shape_thinline_dark"
                 android:ems="10"
@@ -170,7 +170,7 @@
             <EditText
                 android:id="@+id/M04F04D02_DiscountPercentageInput"
                 android:layout_width="35dp"
-                android:layout_height="wrap_content"
+                android:layout_height="32.5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/bg_shape_thinline_dark"
                 android:ems="10"

@@ -1,7 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart.currentCartDiscount;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -97,9 +96,8 @@ public class M04F01SF03D04_ViewAppliedDiscountsRVA extends RecyclerView.Adapter<
         public void onClickDiscount(String name, int position){
             this.position = position;
             discountContainer.setOnClickListener(select -> {
-                currentCartDiscount = name;
                 currentDialog.dismiss();
-                dialogLoader.load_DGContents(5);
+                dialogLoader.load_DGContents(5, -1 , name);
             });
         }
 

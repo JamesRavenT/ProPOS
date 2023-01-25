@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/M04F06D07_Layout"
+    android:id="@+id/M04F02D08_Layout"
     android:layout_width="400dp"
     android:layout_height="230dp"
     android:layout_gravity="center"
     android:padding="5dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/M04F06D07_Container"
+        android:id="@+id/M04F02D08_Container"
         android:layout_width="350dp"
         android:layout_height="180dp"
         android:layout_margin="5dp"
@@ -22,13 +22,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/M04F06D07_ContainerLayout"
+            android:id="@+id/M04F02D08_ContainerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_shape_rectangle_stroke_dark_marg12p">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M04F06D07_CloseDGBtnLayout"
+                android:id="@+id/M04F02D08_CloseDGBtnLayout"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginTop="5dp"
@@ -42,7 +42,7 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <ImageView
-                    android:id="@+id/M04F06D07_CloseDGBtn"
+                    android:id="@+id/M04F02D08_CloseDGBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +53,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/M04F06D07_ConfirmToDeleteText"
+                android:id="@+id/M04F02D08_ConfirmToDeleteText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -66,11 +66,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F06D07_CloseDGBtnLayout"
+                app:layout_constraintTop_toBottomOf="@+id/M04F02D08_CloseDGBtnLayout"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/M04F06D07_ItemNameText"
+                android:id="@+id/M04F02D08_ItemNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
@@ -82,11 +82,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F06D07_ConfirmToDeleteText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F02D08_ConfirmToDeleteText"
                 app:layout_constraintVertical_bias="0.0" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/M04F06D07_YesBtn"
+                android:id="@+id/M04F02D08_YesBtn"
                 android:layout_width="145dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="25dp"
@@ -98,16 +98,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F06D07_ItemNameText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F02D08_ItemNameText"
                 app:layout_constraintVertical_bias="0.0" >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/M04F06D07_YesBtnLayout"
+                    android:id="@+id/M04F02D08_YesBtnLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/M04F06D07_YesBtnText"
+                        android:id="@+id/M04F02D08_YesBtnText"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:fontFamily="@font/nunito_sans"
@@ -123,7 +123,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/M04F06D07_NoBtn"
+                android:id="@+id/M04F02D08_NoBtn"
                 android:layout_width="145dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
@@ -135,16 +135,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F06D07_ItemNameText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F02D08_ItemNameText"
                 app:layout_constraintVertical_bias="0.0" >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/M04F06D07_NoBtnLayout"
+                    android:id="@+id/M04F02D08_NoBtnLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/M04F06D07_NoBtnText"
+                        android:id="@+id/M04F02D08_NoBtnText"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:fontFamily="@font/nunito_sans"

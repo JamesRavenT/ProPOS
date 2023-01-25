@@ -33,8 +33,9 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragmen
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation.M04F01SF02_Recommendation;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Interfaces.RecyclerViewLoader;
+import com.wabizabi.wazabipos.Utilities.Interfaces.RVMenuLoader;
 import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Utilities.Libraries.IconLoader;
 import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
 
 import java.math.BigDecimal;
@@ -45,7 +46,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class M04F01_POS extends Fragment implements RecyclerViewLoader, DialogLoader {
+public class M04F01_POS extends Fragment implements RVMenuLoader, DialogLoader {
     //--DATABASE--//
     Realm realm = Realm.getDefaultInstance();
 
@@ -203,22 +204,36 @@ public class M04F01_POS extends Fragment implements RecyclerViewLoader, DialogLo
         posDG01_CloseDGBtn = posDG01.findViewById(R.id.M04F01D01_CloseDGBtn);
     }
 
-    private void load_DG01Functionalities(){
+    private void load_DG01Functionalities(String name){
+        //Get Item
+        RealmMenuItem item = realm.where(RealmMenuItem.class).equalTo("itemName", name).findFirst();
+
+        //Set Views
+        String itemName = (name.length() < 25) ? name : name.substring(0, Math.min(item.getItemName().length(), 20)) + "...";
+        IconLoader.setMenuIcon(posDG01_ItemImage, item.getItemImage());
+        posDG01_ItemName.setText(itemName);
+        posDG01_ItemPrice.setText("₱" + new BigDecimal(item.getItemPrice()).setScale(2, RoundingMode.HALF_UP).toString());
+
+        //On Sub Btn
         posDG01_ItemSubBtn.setOnClickListener(dec -> {
             if(itemQtyCount > 1) {
                 itemQtyCount--;
-                load_DGContents(currentPOSItemImage, currentPOSItemName, currentPOSItemPrice);
+                posDG01_ItemQty.setText(String.valueOf(itemQtyCount));
             }
         });
+
+        //On Add Btn
         posDG01_ItemAddBtn.setOnClickListener(inc -> {
             itemQtyCount++;
-            load_DGContents(currentPOSItemImage, currentPOSItemName, currentPOSItemPrice);
+            posDG01_ItemQty.setText(String.valueOf(itemQtyCount));
         });
+
+        //On Add To Cart Btn
         posDG01_AddToCartBtn.setOnClickListener(add -> {
             List<CartObject> items = new ArrayList<>(cart.keySet());
             List<CartObject> basket = new ArrayList<>();
             for(CartObject cartItem : items){
-                if(cartItem.getItemName().equalsIgnoreCase(currentPOSItemName)){
+                if(cartItem.getItemName().equalsIgnoreCase(name)){
                     basket.add(cartItem);
                 }
             }
@@ -226,7 +241,7 @@ public class M04F01_POS extends Fragment implements RecyclerViewLoader, DialogLo
                 CartObject itemkey = basket.get(0);
                 cart.put(itemkey, cart.get(itemkey) + 1);
             } else {
-                cart.put(new CartObject(currentPOSItemName, currentPOSItemPrice), itemQtyCount);
+                cart.put(new CartObject(name, item.getItemPrice()), itemQtyCount);
             }
             load_Header();
             load_RecyclerViews();
@@ -235,72 +250,25 @@ public class M04F01_POS extends Fragment implements RecyclerViewLoader, DialogLo
             posDG01.dismiss();
         });
 
+        //On Close Btn
         posDG01_CloseDGBtn.setOnClickListener(close -> {
             posDG01.dismiss();
         });
     }
 
     @Override
-    public void load_RVContents(int position, List<MenuItem> products) {
-        posItemRVA = new M04F01_ItemRVA(getActivity(), realm, products, posDG01, this);
+    public void load_RVContents(List<MenuItem> listOfItems) {
+        posItemRVA = new M04F01_ItemRVA(getActivity(), realm, listOfItems, posDG01, this);
         posItemRVA.notifyDataSetChanged();
         posItemRV.setAdapter(posItemRVA);
     }
 
     @Override
-    public void load_DGContents(int image, String name, double price) {
-        load_DG01Functionalities();
-        posDG01_ItemPrice.setText("₱" + new BigDecimal(currentPOSItemPrice).setScale(2, RoundingMode.HALF_UP).toString());
-        if(currentPOSItemName.length() < 18) {
-            posDG01_ItemName.setText(currentPOSItemName);
-        } else {
-            posDG01_ItemName.setText(currentPOSItemName.substring(0, Math.min(currentPOSItemName.length(), 14)) + "...");
-        }
-        posDG01_ItemQty.setText(String.valueOf(itemQtyCount));
-
-        switch(image) {
-            case 0:
-                posDG01_ItemImage.setImageResource(R.drawable.icon_products00_default);
-                break;
-            case 1:
-                posDG01_ItemImage.setImageResource(R.drawable.icon_products01_deepfried);
-                break;
-            case 2:
-                posDG01_ItemImage.setImageResource(R.drawable.icon_products02_desserts);
-                break;
-            case 3:
-                posDG01_ItemImage.setImageResource(R.drawable.icon_products03_donburi);
-                break;
-            case 4:
-                posDG01_ItemImage.setImageResource(R.drawable.icon_products04_drinks);
-                break;
-            case 5:
-                posDG01_ItemImage.setImageResource(R.drawable.icon_products05_nigiri);
-                break;
-            case 6:
-                posDG01_ItemImage.setImageResource(R.drawable.icon_products06_noodles);
-                break;
-            case 7:
-                posDG01_ItemImage.setImageResource(R.drawable.icon_products07_salad);
-                break;
-            case 8:
-                posDG01_ItemImage.setImageResource(R.drawable.icon_products08_sashimi);
-                break;
-            case 9:
-                posDG01_ItemImage.setImageResource(R.drawable.icon_products09_sushi);
-                break;
-            case 10:
-                posDG01_ItemImage.setImageResource(R.drawable.icon_products10_sushirolls);
-                break;
-
-        }
+    public void load_DGContents(int dialogNo, int image, String name) {
+        load_DG01Functionalities(name);
+        posDG01.show();
     }
 
-    //--UNUSED INTERFACES--//
-    @Override
-    public void load_DGContents() {}
-    @Override
-    public void load_DGContents(int dialogNo) {}
 
 //    int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
 //        if (screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_NORMAL) {

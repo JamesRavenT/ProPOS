@@ -4,6 +4,6 @@ import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
 
 import java.util.List;
 
-public interface RecyclerViewLoader {
-    void load_RVContents(int position, List<MenuItem> products);
+public interface RVMenuLoader {
+    void load_RVContents(List<MenuItem> listOfItems);
 }

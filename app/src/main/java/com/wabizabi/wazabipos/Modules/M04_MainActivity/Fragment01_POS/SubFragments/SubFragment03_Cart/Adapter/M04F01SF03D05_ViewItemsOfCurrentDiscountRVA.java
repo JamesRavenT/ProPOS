@@ -1,7 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart.currentCartDiscount;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -27,14 +25,16 @@ import io.realm.Realm;
 public class M04F01SF03D05_ViewItemsOfCurrentDiscountRVA extends RecyclerView.Adapter<M04F01SF03D05_ViewItemsOfCurrentDiscountRVA.ViewHolder> {
     Context context;
     Realm realm;
+    String currentDiscount;
     Dialog dialog;
     List<CartObject> listOfItemsWithDiscount;
     FragmentLoader fragmentLoader;
     DialogLoader dialogLoader;
 
-    public M04F01SF03D05_ViewItemsOfCurrentDiscountRVA(Context context, Realm realm, Dialog dialog, List<CartObject> listOfItemsWithDiscount, FragmentLoader fragmentLoader, DialogLoader dialogLoader) {
+    public M04F01SF03D05_ViewItemsOfCurrentDiscountRVA(Context context, Realm realm, String currentDiscount, Dialog dialog, List<CartObject> listOfItemsWithDiscount, FragmentLoader fragmentLoader, DialogLoader dialogLoader) {
         this.context = context;
         this.realm = realm;
+        this.currentDiscount = currentDiscount;
         this.dialog = dialog;
         this.listOfItemsWithDiscount = listOfItemsWithDiscount;
         this.fragmentLoader = fragmentLoader;
@@ -75,7 +75,7 @@ public class M04F01SF03D05_ViewItemsOfCurrentDiscountRVA extends RecyclerView.Ad
 
         public void loadDetails(CartObject item, int position){
             this.position = position;
-            int discountInPercentage = item.getItemDiscounts().get(currentCartDiscount);
+            int discountInPercentage = item.getItemDiscounts().get(currentDiscount);
             double discountInDecimal = (double) discountInPercentage / 100;
             double tax = item.getItemPrice() * 0.03;
             double subtotal = item.getItemPrice() + tax;
@@ -91,11 +91,11 @@ public class M04F01SF03D05_ViewItemsOfCurrentDiscountRVA extends RecyclerView.Ad
             this.position = position;
             deleteBtn.setOnClickListener(delete -> {
                 listOfItemsWithDiscount.remove(position);
-                item.getItemDiscounts().remove(currentCartDiscount);
+                item.getItemDiscounts().remove(currentDiscount);
                 notifyDataSetChanged();
                 fragmentLoader.load_FGContents();
                 dialog.dismiss();
-                dialogLoader.load_DGContents(4);
+                dialogLoader.load_DGContents(4, -1, currentDiscount);
             });
 
         }

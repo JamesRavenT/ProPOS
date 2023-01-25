@@ -130,7 +130,7 @@ public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.
             this.position = position;
             itemContainer.setOnClickListener(discounts -> {
                 currentCartItem = item;
-                dialogLoader.load_DGContents(1);
+                dialogLoader.load_DGContents(1, -1, "N/A");
                 dialog.show();
             });
         }
