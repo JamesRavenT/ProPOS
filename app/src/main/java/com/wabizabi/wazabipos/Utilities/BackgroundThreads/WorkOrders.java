@@ -5,7 +5,6 @@ import android.content.Context;
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
@@ -24,15 +23,20 @@ public class WorkOrders {
                     .build();
     static PeriodicWorkRequest uploadToCloudDatabase =
             new PeriodicWorkRequest
-                    .Builder(W02_UploadData.class, 20, TimeUnit.MINUTES)
+                    .Builder(W02_UploadResultsToCloud.class, 20, TimeUnit.MINUTES)
                     .setConstraints(network)
                     .build();
 
     public static void startAlgorithm(Context context){
-        WorkManager.getInstance(context).enqueueUniquePeriodicWork("Algorithm", ExistingPeriodicWorkPolicy.REPLACE, algorithm);
+        WorkManager
+                .getInstance(context)
+                .enqueueUniquePeriodicWork("Algorithm", ExistingPeriodicWorkPolicy.REPLACE, algorithm);
     }
 
     public static void storeFPData(Context context){
-        WorkManager.getInstance(context).enqueueUniquePeriodicWork("FPData", ExistingPeriodicWorkPolicy.REPLACE, uploadToCloudDatabase);
+        WorkManager
+                .getInstance(context)
+                .enqueueUniquePeriodicWork("FPData", ExistingPeriodicWorkPolicy.REPLACE, uploadToCloudDatabase);
     }
+
 }

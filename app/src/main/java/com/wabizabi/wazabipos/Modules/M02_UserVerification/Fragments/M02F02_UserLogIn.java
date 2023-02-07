@@ -1,5 +1,8 @@
 package com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments;
 
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +19,8 @@ import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.M04F07_Admin;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main;
 import com.wabizabi.wazabipos.R;
 
 import java.util.ArrayList;
@@ -25,7 +30,6 @@ import java.util.stream.Collectors;
 import io.realm.Realm;
 
 public class M02F02_UserLogIn extends Fragment {
-    public static String operationForM02F02 = "Log In";
     List<Integer> pin = new ArrayList<>();
     CardView pin1, pin2, pin3, pin4;
     CardView btn01, btn02, btn03, btn04, btn05, btn06, btn07, btn08, btn09, btn00;
@@ -128,7 +132,14 @@ public class M02F02_UserLogIn extends Fragment {
             if(pass == user.getPassword()){
                 pin.clear();
                 updatePIN();
-                startActivity(new Intent(getActivity(), M03_LoadResources.class));
+                if(currentFragment != null){
+                    currentFragment = "Admin";
+                    startActivity(new Intent(getActivity(), M04_Main.class));
+                    getActivity().finish();
+                } else {
+                    startActivity(new Intent(getActivity(), M03_LoadResources.class));
+                    getActivity().finish();
+                }
             } else {
                 pin.clear();
                 updatePIN();

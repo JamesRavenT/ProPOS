@@ -1,7 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart.currentCartItem;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
-import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
 import com.wabizabi.wazabipos.R;
 
 import java.math.BigDecimal;
@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.ViewHolder> {
 
-    public static Map<CartObject, Integer> cart = new LinkedHashMap<>();
+    public static Map<CartItem, Integer> cart = new LinkedHashMap<>();
     Context context;
     Dialog dialog;
     FragmentLoader fragmentLoader;
@@ -53,15 +53,11 @@ public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        List<CartObject> items = new ArrayList<>(cart.keySet());
+        List<CartItem> items = new ArrayList<>(cart.keySet());
         List<Integer> quantities = new ArrayList<>(cart.values());
-        CartObject item = items.get(position);
+        CartItem item = items.get(position);
         int quantity = quantities.get(position);
-        holder.getCart(item, quantity, position);
-        holder.onClickItem(item, position);
-        holder.addQtyBtn.setOnClickListener((v) -> addQuantity(item));
-        holder.subQtyBtn.setOnClickListener((v) -> subQuantity(item));
-        holder.onClickDeleteButton(item, position);
+        holder.loadFunctionalities(item, quantity, position);
     }
 
     @Override
@@ -90,17 +86,17 @@ public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.
             deleteBtn = itemView.findViewById(R.id.M04F01SF03_RVRemoveItemBtn);
         }
 
-        public void getCart(CartObject item, int quantity, int position){
-            this.position = position;
+        public void loadFunctionalities(CartItem item, int quantity, int position){
+            //Load Details
             double subTotal = item.getItemPrice() * quantity;
-            double tax = subTotal * 0.03;
-            double total = subTotal + tax;
-            if(item.getItemName().length() < 25) {
-                itemName.setText(item.getItemName());
-            } else {
-                itemName.setText(item.getItemName().substring(0, Math.min(item.getItemName().length(), 20)) + "...");
-            }
+            String name = StringHelper.limitDisplay(item.getItemPOSName(), 0, 18, 15);
+            String discountsApplied = (!item.getItemDiscounts().isEmpty()) ? item.getItemDiscounts().size() + " Discounts Applied" : "0 Discounts Applied";
+
+            //Set Views
+            this.position = position;
+            itemName.setText(name);
             itemIDPrice.setText("₱" + new BigDecimal(item.getItemPrice()).setScale(2, RoundingMode.HALF_UP).toString());
+            itemDiscountsTxt.setText(discountsApplied);
             itemQty.setText("x" + quantity);
 
             //Discount Percentage
@@ -111,55 +107,48 @@ public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.
                 }
                 itemDiscountsImg.setImageResource(R.drawable.icon_button_discount_green);
                 itemDiscountsTxt.setTextColor(ContextCompat.getColor(context, R.color.green));
-                itemDiscountsTxt.setText(percent + "%");
                 double discountInDecimal = (double) percent / 100;
-                double discount = total * discountInDecimal;
-                double finalPrice = total - discount;
-                itemTotalPrice.setText("₱" + new BigDecimal(finalPrice).setScale(2, RoundingMode.HALF_UP).toString());
+                double discount = subTotal * discountInDecimal;
+                double total = subTotal - discount;
+                itemTotalPrice.setText("₱" + new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).toString());
             } else {
                 itemDiscountsImg.setImageResource(R.drawable.icon_button_discount_gray);
                 itemDiscountsTxt.setTextColor(ContextCompat.getColor(context, R.color.gray));
-                itemDiscountsTxt.setText("0%");
-
-                itemTotalPrice.setText("₱" + new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).toString());
+                itemTotalPrice.setText("₱" + new BigDecimal(subTotal).setScale(2, RoundingMode.HALF_UP).toString());
             }
 
-        }
-
-        public void onClickItem(CartObject item, int position){
-            this.position = position;
+            //On Select
             itemContainer.setOnClickListener(discounts -> {
-                currentCartItem = item;
-                dialogLoader.load_DGContents(1, -1, "N/A");
+                dialogLoader.load_DGContents(new DialogBundle(1, item));
                 dialog.show();
             });
-        }
 
-        public void onClickDeleteButton(CartObject item, int position){
-            this.position = position;
+            //On Delete
             deleteBtn.setOnClickListener(remove -> {
                 cart.remove(item);
                 notifyDataSetChanged();
+                fragmentLoader.load_FGContents();
+            });
+
+            //On Add
+            addQtyBtn.setOnClickListener(add -> {
+                if(cart.containsKey(item)){
+                    cart.put(item, cart.get(item) +1);
+                }
+                notifyDataSetChanged();
+                fragmentLoader.load_FGContents();
+            });
+
+            //On Sub
+            subQtyBtn.setOnClickListener(sub -> {
+                if(cart.containsKey(item)){
+                    if(cart.get(item)!= 1){
+                        cart.put(item, cart.get(item) -1);
+                    }
+                }
+                notifyDataSetChanged();
+                fragmentLoader.load_FGContents();
             });
         }
     }
-
-    public void addQuantity(CartObject item){
-        if(cart.containsKey(item)){
-            cart.put(item, cart.get(item) +1);
-        }
-        notifyDataSetChanged();
-    }
-
-    public void subQuantity(CartObject item){
-        if(cart.containsKey(item)){
-            if(cart.get(item)!= 1){
-                cart.put(item, cart.get(item) -1);
-            }
-        }
-        notifyDataSetChanged();
-    }
-
-
-
 }

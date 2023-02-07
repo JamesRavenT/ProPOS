@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F06_IRVLayout"
     android:layout_width="190dp"
-    android:layout_height="210dp">
+    android:layout_height="200dp">
 
 
     <androidx.cardview.widget.CardView
@@ -35,7 +35,7 @@
                 android:layout_height="16dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_light"
-                android:text="In Stock :"
+                android:text="In Stock"
                 android:textColor="@color/wabizabi"
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"

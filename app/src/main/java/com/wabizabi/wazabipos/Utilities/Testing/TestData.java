@@ -2,10 +2,9 @@ package com.wabizabi.wazabipos.Utilities.Testing;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenDiscountInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenMenuInstance;
-import com.wabizabi.wazabipos.Database.Instances.OpenTableInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
-import com.wabizabi.wazabipos.Database.RealmSchemas.SalesTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,13 +133,13 @@ public class TestData {
     }
     public static void createItem(String category, String[] items){
         for(String item : items){
-            OpenMenuInstance.toCreateItem(0, category, item, 100.00);
+            OpenMenuInstance.toCreateItem(0, category, item, item, 100.00);
         }
     }
 
     public static void preloadTransactions() {
         try(Realm realm = Realm.getDefaultInstance()){
-            RealmResults<SalesTransaction> listOfTransactions = realm.where(SalesTransaction.class).findAll();
+            RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
             if (listOfTransactions.size() < 1500) {
                 List<List<String>> table = new ArrayList<>();
                 DataSetA.insertInto(table);
@@ -163,7 +162,7 @@ public class TestData {
                         price.add(100.00);
                         amount.add(1);
                     }
-                    OpenTransactionsInstance.toCreateSales(items, price, amount, totalPrice);
+                    OpenTransactionsInstance.toCreateTestSales(items, price, amount, totalPrice);
                 }
 
             }

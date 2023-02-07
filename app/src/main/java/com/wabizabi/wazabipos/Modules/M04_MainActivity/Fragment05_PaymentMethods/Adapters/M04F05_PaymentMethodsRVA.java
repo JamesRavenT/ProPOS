@@ -1,6 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_PaymentMethods.Adapters;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.PaymentMethod;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.LayoutBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 
 import java.util.List;
 
@@ -24,19 +24,19 @@ public class M04F05_PaymentMethodsRVA extends RecyclerView.Adapter<M04F05_Paymen
     Context context;
     Realm realm;
     List<PaymentMethod> listOfPaymentMethods;
-    DialogLoader dialogLoader;
+    DialogLoader dialog;
 
-    public M04F05_PaymentMethodsRVA(Context context, Realm realm, List<PaymentMethod> listOfPaymentMethods, DialogLoader dialogLoader) {
+    public M04F05_PaymentMethodsRVA(Context context, Realm realm, List<PaymentMethod> listOfPaymentMethods, DialogLoader dialog) {
         this.context = context;
         this.realm = realm;
         this.listOfPaymentMethods = listOfPaymentMethods;
-        this.dialogLoader = dialogLoader;
+        this.dialog = dialog;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutBuilder.inflate(parent, R.layout.act04_main_frag05_paymentmethods_rvlayout);
+        View view = LayoutHelper.inflateRV(parent, R.layout.act04_main_frag05_paymentmethods_rvlayout);
         ViewHolder layout = new ViewHolder(view);
         return layout;
     }
@@ -73,7 +73,7 @@ public class M04F05_PaymentMethodsRVA extends RecyclerView.Adapter<M04F05_Paymen
         public void onClickEditBtn(PaymentMethod method, int position){
             this.position = position;
             editBtn.setOnClickListener(edit -> {
-                dialogLoader.load_DGContents(2, -1, method.getMethodName());
+                dialog.load_DGContents(new DialogBundle(2, method));
             });
         }
     }

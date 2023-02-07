@@ -1,7 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStock.Adapters;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.M04F02_Menu.currentMenuRV;
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStock.M04F06_IngredientStock.currentStockRV;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 
 import android.content.Context;
 import android.view.View;
@@ -14,21 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockItem;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmStockItem;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Interfaces.RVMenuLoader;
-import com.wabizabi.wazabipos.Utilities.Interfaces.RVStockLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.LayoutBuilder;
+import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class M04F06_CategoryRVA extends RecyclerView.Adapter<M04F06_CategoryRVA.ViewHolder> {
 
@@ -36,22 +33,22 @@ public class M04F06_CategoryRVA extends RecyclerView.Adapter<M04F06_CategoryRVA.
     Realm realm;
     EditText searchbar;
     List<StockCategory> listOfCategories;
-    RVStockLoader recyclerViewLoader;
+    RVLoader itemRV;
     DialogLoader dialogLoader;
 
-    public M04F06_CategoryRVA(Context context, Realm realm, EditText searchbar, List<StockCategory> listOfCategories, RVStockLoader recyclerViewLoader, DialogLoader dialogLoader) {
+    public M04F06_CategoryRVA(Context context, Realm realm, EditText searchbar, List<StockCategory> listOfCategories, RVLoader recyclerViewLoader, DialogLoader dialogLoader) {
         this.context = context;
         this.realm = realm;
         this.searchbar = searchbar;
         this.listOfCategories = listOfCategories;
-        this.recyclerViewLoader = recyclerViewLoader;
+        this.itemRV = recyclerViewLoader;
         this.dialogLoader = dialogLoader;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutBuilder.inflate(parent, R.layout.act04_main_frag06_stocks_category_rvlayout);
+        View view = LayoutHelper.inflateRV(parent, R.layout.act04_main_frag06_stocks_category_rvlayout);
         ViewHolder layout = new ViewHolder(view);
         return layout;
     }
@@ -60,8 +57,6 @@ public class M04F06_CategoryRVA extends RecyclerView.Adapter<M04F06_CategoryRVA.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         StockCategory category = listOfCategories.get(position);
         holder.loadDetails(category, position);
-        holder.onClickEditButton(category, position);
-        holder.onClickViewButton(category, position);
     }
 
     @Override
@@ -84,29 +79,25 @@ public class M04F06_CategoryRVA extends RecyclerView.Adapter<M04F06_CategoryRVA.
         }
 
         public void loadDetails(StockCategory category, int position){
+            //Load Details
+            String name = category.getCategoryName();
+            String recentChanges = category.getLastUpdatedText();
+
+            //SetViews
             this.position = position;
             categoryName.setText(category.getCategoryName());
             lastUpdate.setText(category.getLastUpdatedText());
-        }
 
-        public void onClickViewButton(StockCategory category, int position){
-            this.position = position;
-            viewBtn.setOnClickListener(open -> {
-                List<StockItem> listOfItems = new ArrayList<>();
-                RealmResults<RealmStockItem> queriedItems = realm.where(RealmStockItem.class).equalTo("itemCategory", category.getCategoryName()).sort("itemName").findAll();
-                for(RealmStockItem query : queriedItems){
-                    listOfItems.add(new StockItem(query.getItemImage(), query.getItemCategory(), query.getItemName(), query.getItemAmount(), query.getUnitOfMeasurement()));
-                }
-                currentStockRV = category.getCategoryName();
-                searchbar.setText("");
-                recyclerViewLoader.load_RVContents(listOfItems);
-            });
-        }
-
-        public void onClickEditButton(StockCategory category, int position){
-            this.position = position;
+            //On Edit Btn
             editBtn.setOnClickListener(edit -> {
-                dialogLoader.load_DGContents(4, 0, category.getCategoryName());
+                dialogLoader.load_DGContents(new DialogBundle(4, category));
+            });
+
+            //On View Btn
+            viewBtn.setOnClickListener(click -> {
+                currentFragment = "Stock02";
+                List<StockItem> listOfItems = RVHelper.getStockItems(realm, name);
+                itemRV.load_RVContents(new RVBundle(listOfItems, name));
             });
         }
 

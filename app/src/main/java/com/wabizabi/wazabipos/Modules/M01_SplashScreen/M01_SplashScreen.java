@@ -1,8 +1,14 @@
 package com.wabizabi.wazabipos.Modules.M01_SplashScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -10,6 +16,7 @@ import com.wabizabi.wazabipos.Database.DB;
 
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.M02_UserVerification;
 import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogCat;
 import com.wabizabi.wazabipos.Utilities.Testing.TestData;
 
 import io.realm.Realm;
@@ -32,7 +39,7 @@ public class M01_SplashScreen extends AppCompatActivity {
         DB.init();
     }
     private void load_TestData(){
-        TestData.preloadProducts();
+//        TestData.preloadProducts();
         TestData.preloadTransactions();
 //        TestData.preloadDiscounts();
 //        TestData.preloadTables();
@@ -41,6 +48,7 @@ public class M01_SplashScreen extends AppCompatActivity {
         Handler splashScreen = new Handler();
         splashScreen.postDelayed(()->{
             startActivity(new Intent(this, M02_UserVerification.class));
+            finish();
         }, 3000);
     }
 }

@@ -32,17 +32,11 @@
             </menu>
         </item>
 
-        <item android:title="Admin">
+        <item android:title="BackOffice">
             <menu>
                 <item
-                    android:id="@+id/nav_Profile"
-                    android:title="Profile"/>
-                <item
-                    android:id="@+id/nav_SalesReport"
-                    android:title="Sales Report"/>
-                <item
-                    android:id="@+id/nav_TransactionHistory"
-                    android:title="Transaction History"/>
+                    android:id="@+id/nav_Admin"
+                    android:title="Admin" />
             </menu>
         </item>
 

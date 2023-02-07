@@ -14,8 +14,8 @@ public class OpenDiscountInstance {
 
     public static void toCreateDiscount(String name, int amount){
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
-        DateFormat currentDateAndTime = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a");
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a").format(new Date());
+        DateFormat currentDateAndTime = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a");
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 RealmDiscount discount = db.createObject(RealmDiscount.class, new ObjectId());
@@ -29,7 +29,7 @@ public class OpenDiscountInstance {
 
     public static void toEditDiscount(String oldName, String name, int percent){
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a").format(new Date());
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 RealmDiscount discount = db.where(RealmDiscount.class).equalTo("discountName", oldName).findFirst();

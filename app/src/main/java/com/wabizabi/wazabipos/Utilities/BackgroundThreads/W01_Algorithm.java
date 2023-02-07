@@ -6,9 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.wabizabi.wazabipos.Utilities.Algorithm.FQList;
-import com.wabizabi.wazabipos.Utilities.Algorithm.Tree;
-import com.wabizabi.wazabipos.Database.RealmSchemas.SalesTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
+import com.wabizabi.wazabipos.Utilities.Libraries.Algorithm.FQList;
+import com.wabizabi.wazabipos.Utilities.Libraries.Algorithm.Tree;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -21,7 +21,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class W01_Algorithm extends Worker {
-    public static Map<String, Integer> fqListItemsets = new TreeMap<>();
+    public static Map<String, Integer> unfilteredfqList = new TreeMap<>();
     public static Map<String, Integer> fqList = new LinkedHashMap<>();
     public static Map<String, Map<List<String>, Integer>> fpList = new ConcurrentHashMap<>();
     static int minSuppThreshold;
@@ -35,16 +35,16 @@ public class W01_Algorithm extends Worker {
         Realm.init(getApplicationContext());
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        RealmResults<SalesTransaction> queriedTransactions = realm.where(SalesTransaction.class).findAll();
+        RealmResults<RealmSalesTransaction> queriedTransactions = realm.where(RealmSalesTransaction.class).findAll();
         if (!queriedTransactions.isEmpty()) {
             List<List<String>> listOfTransactions = new ArrayList<>();
-            for(SalesTransaction sales : queriedTransactions) {
-                List<String> transaction = new ArrayList<>(sales.getName());
+            for(RealmSalesTransaction sales : queriedTransactions) {
+                List<String> transaction = new ArrayList<>(sales.getItemWebName());
                 listOfTransactions.add(transaction);
             }
-            FQList.create(listOfTransactions, fqListItemsets);
-            minSuppThreshold = FQList.calculateMinSupp(listOfTransactions, fqListItemsets);
-            FQList.filterandsort(minSuppThreshold, fqListItemsets, fqList);
+            FQList.create(listOfTransactions, unfilteredfqList);
+            minSuppThreshold = FQList.calculateMinSupp(listOfTransactions, unfilteredfqList);
+            FQList.filterandsort(minSuppThreshold, unfilteredfqList, fqList);
             Tree fpTree = Tree.create(listOfTransactions, fqList);
             Tree.mineToFindFrequentPatterns(fpTree, minSuppThreshold, fqList, fpList);
         }

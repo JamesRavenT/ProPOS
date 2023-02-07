@@ -1,7 +1,5 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmStockCategory;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmStockItem;
 
@@ -21,7 +19,7 @@ public class OpenStocksInstance {
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 RealmStockCategory category = db.createObject(RealmStockCategory.class, new ObjectId());
-                category.setCategoryImage(image);
+                category.setCategoryIcon(image);
                 category.setCategoryName(name);
                 category.setLastUpdatedID(logID);
                 category.setLastUpdatedText(logTxt);
@@ -36,7 +34,7 @@ public class OpenStocksInstance {
             realm.executeTransaction(db -> {
                 RealmStockCategory category = db.where(RealmStockCategory.class).equalTo("categoryName", oldCategoryName).findFirst();
                 RealmResults<RealmStockItem> listOfItems = db.where(RealmStockItem.class).equalTo("itemCategory", oldCategoryName).findAll();
-                category.setCategoryImage(image);
+                category.setCategoryIcon(image);
                 category.setCategoryName(name);
                 for(RealmStockItem item : listOfItems){
                     item.setItemCategory(name);

@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Discount;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.LayoutBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 
 import java.util.List;
 
@@ -22,19 +23,19 @@ public class M04F04_DiscountsRVA extends RecyclerView.Adapter<M04F04_DiscountsRV
     Context context;
     Realm realm;
     List<Discount> listOfDiscounts;
-    DialogLoader dialogLoader;
+    DialogLoader dialog;
 
-    public M04F04_DiscountsRVA(Context context, Realm realm, List<Discount> listOfDiscounts, DialogLoader dialogLoader) {
+    public M04F04_DiscountsRVA(Context context, Realm realm, List<Discount> listOfDiscounts, DialogLoader dialog) {
         this.context = context;
         this.realm = realm;
         this.listOfDiscounts = listOfDiscounts;
-        this.dialogLoader = dialogLoader;
+        this.dialog = dialog;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutBuilder.inflate(parent, R.layout.act04_main_frag04_discounts_rvlayout);
+        View view = LayoutHelper.inflateRV(parent, R.layout.act04_main_frag04_discounts_rvlayout);
         ViewHolder layout = new ViewHolder(view);
         return layout;
     }
@@ -42,8 +43,7 @@ public class M04F04_DiscountsRVA extends RecyclerView.Adapter<M04F04_DiscountsRV
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Discount discount = listOfDiscounts.get(position);
-        holder.loadDetails(discount, position);
-        holder.onClickEditBtn(discount, position);
+        holder.loadFunctionalities(discount, position);
     }
 
     @Override
@@ -63,17 +63,16 @@ public class M04F04_DiscountsRVA extends RecyclerView.Adapter<M04F04_DiscountsRV
             editBtn = itemView.findViewById(R.id.M04F04_RVEditBtn);
         }
 
-        public void loadDetails(Discount discount, int position){
+        public void loadFunctionalities(Discount discount, int position){
+            //Load Details
             this.position = position;
             discountName.setText(discount.getDiscountName());
             discountPercentage.setText(discount.getDiscountInPercentage() + "%");
             lastUpdatedText.setText(discount.getLastUpdatedText());
-        }
 
-        public void onClickEditBtn(Discount discount, int position){
-            this.position = position;
+            //On Edit Btn
             editBtn.setOnClickListener(edit -> {
-                dialogLoader.load_DGContents(2 , -1, discount.getDiscountName());
+                dialog.load_DGContents(new DialogBundle(2, discount));
             });
         }
     }

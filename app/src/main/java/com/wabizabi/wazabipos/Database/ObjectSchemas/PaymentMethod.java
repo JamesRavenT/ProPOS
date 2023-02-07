@@ -6,6 +6,10 @@ public class PaymentMethod {
     String lastUpdatedID;
     String lastUpdatedText;
 
+    public PaymentMethod(String methodName) {
+        this.methodName = methodName;
+    }
+
     public PaymentMethod(String methodName, String lastUpdatedID, String lastUpdatedText) {
         this.methodName = methodName;
         this.lastUpdatedID = lastUpdatedID;

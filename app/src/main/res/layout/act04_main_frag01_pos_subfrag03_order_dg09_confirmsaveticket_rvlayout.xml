@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F01SF03D09_RVLayout"
     android:layout_width="300dp"
-    android:layout_height="52dp">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/M04F01SF03D09_RVContainer"
         android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_shape_rectangle_stroke_dark_marg50n_tlr"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,34 +18,88 @@
 
         <TextView
             android:id="@+id/M04F01SF03D09_RVItemQty"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/nunito_sans_light"
             android:gravity="center"
             android:text="x0"
             android:textColor="@color/wabizabi"
-            android:textSize="25sp"
+            android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/M04F01SF03D09_RVItemName"
-            android:layout_width="150dp"
+            android:layout_width="139dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/nunito_sans_light"
             android:text="ItemName"
             android:textColor="@color/wabizabi"
-            android:textSize="15sp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/M04F01SF03D09_RVItemQty"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.166" />
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/M04F01SF03D09_RVDiscountName"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/nunito_sans_light"
+            android:text="・Senior Citizen"
+            android:textColor="@color/wabizabi"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/M04F01SF03D09_RVItemQty"
+            app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D09_RVItemPrice"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/M04F01SF03D09_RVDiscountPercentage"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/nunito_sans_light"
+            android:gravity="center"
+            android:text="(20%)"
+            android:textColor="@color/wabizabi"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/M04F01SF03D09_RVDiscountName"
+            app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D09_RVItemPrice"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/M04F01SF03D09_RVDiscountAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/nunito_sans_light"
+            android:gravity="end"
+            android:text="less ₱0.00"
+            android:textColor="@color/wabizabi"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/M04F01SF03D09_RVDiscountPercentage"
+            app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D09_RVItemTotalPrice"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/M04F01SF03D09_RVItemPrice"
@@ -57,7 +109,7 @@
             android:gravity="center|start"
             android:text="₱0.00"
             android:textColor="@color/wabizabi"
-            android:textSize="12sp"
+            android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -65,82 +117,23 @@
             app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D09_RVItemName"
             app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/M04F01SF03D09_RVTaxImg"
-            android:layout_width="18sp"
-            android:layout_height="20sp"
-            android:layout_marginStart="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/M04F01SF03D09_RVItemPrice"
-            app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D09_RVItemName"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/icon_button_tax_red" />
-
-        <TextView
-            android:id="@+id/M04F01SF03D09_RVTaxNo"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
-            android:layout_marginStart="2dp"
-            android:fontFamily="@font/nunito_sans_light"
-            android:gravity="center"
-            android:text="3%"
-            android:textColor="@color/red"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/M04F01SF03D09_RVTaxImg"
-            app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D09_RVItemName"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <ImageView
-            android:id="@+id/M04F01SF03D09_RVDiscountsAppliedImg"
-            android:layout_width="18sp"
-            android:layout_height="20sp"
-            android:layout_marginStart="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/M04F01SF03D09_RVTaxNo"
-            app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D09_RVItemName"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/icon_button_discount_gray" />
-
-        <TextView
-            android:id="@+id/M04F01SF03D09_RVDiscountsAppliedNo"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
-            android:layout_marginStart="2dp"
-            android:fontFamily="@font/nunito_sans_light"
-            android:gravity="center"
-            android:text="0%"
-            android:textColor="@color/gray"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/M04F01SF03D09_RVDiscountsAppliedImg"
-            app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D09_RVItemName"
-            app:layout_constraintVertical_bias="0.0" />
-
         <TextView
             android:id="@+id/M04F01SF03D09_RVItemTotalPrice"
-            android:layout_width="75dp"
-            android:layout_height="35dp"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:fontFamily="@font/nunito_sans_light"
             android:gravity="center|end"
             android:text="₱0.00"
             android:textColor="@color/wabizabi"
-            android:textSize="20sp"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/M04F01SF03D09_RVItemName"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.533" />
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

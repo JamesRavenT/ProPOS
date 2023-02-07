@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 
 import java.util.List;
 
@@ -24,18 +26,16 @@ public class M04F02D01_SelectIconRVA extends RecyclerView.Adapter<M04F02D01_Sele
 
     Context context;
     Realm realm;
-    String operation;
-    String categoryName;
     Dialog dialog;
+    DialogBundle bundle;
     List<Integer> listOfIcons;
     DialogLoader dialogLoader;
 
-    public M04F02D01_SelectIconRVA(Context context, Realm realm, String operation, String categoryName, Dialog dialog, List<Integer> listOfIcons, DialogLoader dialogLoader) {
+    public M04F02D01_SelectIconRVA(Context context, Realm realm, Dialog dialog, DialogBundle bundle, List<Integer> listOfIcons, DialogLoader dialogLoader) {
         this.context = context;
         this.realm = realm;
-        this.operation = operation;
-        this.categoryName = categoryName;
         this.dialog = dialog;
+        this.bundle = bundle;
         this.listOfIcons = listOfIcons;
         this.dialogLoader = dialogLoader;
     }
@@ -43,7 +43,7 @@ public class M04F02D01_SelectIconRVA extends RecyclerView.Adapter<M04F02D01_Sele
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.act04_main_frag02_menu_dg01_selecticon_rvlayout, parent, false);
+        View view = LayoutHelper.inflateRV(parent, R.layout.act04_main_frag02_menu_dg01_selecticon_rvlayout);
         ViewHolder layout = new ViewHolder(view);
         return layout;
     }
@@ -51,8 +51,7 @@ public class M04F02D01_SelectIconRVA extends RecyclerView.Adapter<M04F02D01_Sele
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int icon = listOfIcons.get(position);
-        holder.loadDetails(icon, position);
-        holder.onClickSelectButton(icon, position);
+        holder.loadFunctionalities(icon, position);
     }
 
     @Override
@@ -72,20 +71,18 @@ public class M04F02D01_SelectIconRVA extends RecyclerView.Adapter<M04F02D01_Sele
             selectBtn = itemView.findViewById(R.id.M04F02D01_RVSelectBtn);
         }
 
-        public void loadDetails(int icon, int position){
+        public void loadFunctionalities(int icon, int position){
+            //Set Views
             this.position = position;
             IconLoader.setMenuIconSelection(iconImage, iconName, icon);
-        }
-        public void onClickSelectButton(int icon, int position){
-            this.position = position;
+
+            //On Select Btn
             selectBtn.setOnClickListener(select -> {
-                switch(operation){
-                    case "Create Category":
-                        dialogLoader.load_DGContents(2, icon, categoryName);
-                        dialog.dismiss();
-                        break;
-                    case "Edit Category":
-                        dialogLoader.load_DGContents(44, icon, categoryName);
+                switch(bundle.getDialogDestinationNo()){
+                    case 2:
+                    case 4:
+                        bundle.getMenuCategory().setCategoryImage(icon);
+                        dialogLoader.load_DGContents(bundle);
                         dialog.dismiss();
                         break;
                 }

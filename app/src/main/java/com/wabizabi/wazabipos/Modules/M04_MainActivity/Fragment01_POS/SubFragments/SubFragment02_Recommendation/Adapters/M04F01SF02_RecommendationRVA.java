@@ -1,6 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation.Adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.R;
-import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
+import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -19,9 +18,9 @@ import java.util.List;
 
 public class M04F01SF02_RecommendationRVA extends RecyclerView.Adapter<M04F01SF02_RecommendationRVA.ViewHolder> {
 
-    List<CartObject> recommendedItems;
+    List<CartItem> recommendedItems;
 
-    public M04F01SF02_RecommendationRVA(List<CartObject> recommendedItems){
+    public M04F01SF02_RecommendationRVA(List<CartItem> recommendedItems){
         this.recommendedItems = recommendedItems;
     }
     @NonNull
@@ -34,7 +33,7 @@ public class M04F01SF02_RecommendationRVA extends RecyclerView.Adapter<M04F01SF0
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CartObject recommendedItem = recommendedItems.get(position);
+        CartItem recommendedItem = recommendedItems.get(position);
         holder.getRecommendedItems(recommendedItem, position);
     }
 
@@ -54,12 +53,12 @@ public class M04F01SF02_RecommendationRVA extends RecyclerView.Adapter<M04F01SF0
             itemPrice = itemView.findViewById(R.id.M04F01SF02_RVItemPrice);
         }
 
-        public void getRecommendedItems(CartObject item, int position){
+        public void getRecommendedItems(CartItem item, int position){
             this.position = position;
-            if(item.getItemName().length() < 25) {
-                itemName.setText(item.getItemName());
+            if(item.getItemPOSName().length() < 25) {
+                itemName.setText(item.getItemPOSName());
             } else {
-                itemName.setText(item.getItemName().substring(0, Math.min(item.getItemName().length(), 20)) + "...");
+                itemName.setText(item.getItemPOSName().substring(0, Math.min(item.getItemPOSName().length(), 20)) + "...");
             }
             itemPrice.setText("₱" + new BigDecimal(item.getItemPrice()).setScale(2, RoundingMode.HALF_UP).toString());
             switch(item.getItemImage()){

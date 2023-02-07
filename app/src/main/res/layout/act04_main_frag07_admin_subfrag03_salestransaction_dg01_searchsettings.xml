@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/M04F07SF03D01_Layout"
+    android:layout_width="400dp"
+    android:layout_height="505dp"
+    android:layout_gravity="center"
+    android:padding="5dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/M04F07SF03D01_Container"
+        android:layout_width="350dp"
+        android:layout_height="465dp"
+        android:layout_margin="5dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/M04F07SF03D01_ContainerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_shape_rectangle_stroke_dark_marg12p">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/M04F07SF03D01_CloseDGBtnLayout"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_shape_rectangle_stroke_red_marg00p"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageView
+                    android:id="@+id/M04F07SF03D01_CloseDGBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_button_close_red" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_SearchBarText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Displayed Items Settings"
+                android:textColor="@color/wabizabi"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_CloseDGBtnLayout"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_SortItemsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Sort Items"
+                android:textColor="@color/wabizabi"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_SearchBarText"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/M04F07SF03D01_AscendingBtn"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="55dp"
+                android:backgroundTint="@color/wabizabi"
+                android:elevation="10dp"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_SortItemsText"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/M04F07SF03D01_AscendingBtnLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_shape_rectangle_stroke_white_marg03p">
+
+                    <TextView
+                        android:id="@+id/M04F07SF03D01_AscendingBtnText"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/nunito_sans_light"
+                        android:gravity="center"
+                        android:text="Ascending"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/M04F07SF03D01_DescendingBtn"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="45dp"
+                android:backgroundTint="@color/wabizabi"
+                android:elevation="10dp"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_SortItemsText"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/M04F07SF03D01_DescendingBtnLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_shape_rectangle_stroke_white_marg03p">
+
+                    <TextView
+                        android:id="@+id/M04F07SF03D01_DescendingBtnText"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/nunito_sans_light"
+                        android:gravity="center"
+                        android:text="Descending"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_FilterItemsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Filter Items"
+                android:textColor="@color/wabizabi"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_AscendingBtn"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_TransactionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="start"
+                android:text="Transaction Type : "
+                android:textColor="@color/wabizabi"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_FilterItemsText"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/M04F07SF03D01_TransactionSubBtn"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="-10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/M04F07SF03D01_TransactionInput"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_FilterItemsText"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/icon_button_arrowleft" />
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_TransactionInput"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Any"
+                android:textColor="@color/wabizabi"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintStart_toEndOf="@+id/M04F07SF03D01_TransactionText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_FilterItemsText"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/M04F07SF03D01_TransactionAddBtn"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F07SF03D01_TransactionInput"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_FilterItemsText"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/icon_button_arrowright" />
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_OrderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="start"
+                android:text="Order Type :"
+                android:textColor="@color/wabizabi"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_TransactionText"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/M04F07SF03D01_OrderSubBtn"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="-10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/M04F07SF03D01_OrderInput"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_TransactionSubBtn"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/icon_button_arrowleft" />
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_OrderInput"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Any"
+                android:textColor="@color/wabizabi"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintStart_toEndOf="@+id/M04F07SF03D01_TransactionText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_TransactionInput"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/M04F07SF03D01_OrderAddBtn"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F07SF03D01_TransactionInput"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_TransactionAddBtn"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/icon_button_arrowright" />
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_YearText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="start"
+                android:text="Year :"
+                android:textColor="@color/wabizabi"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_OrderText"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/M04F07SF03D01_YearSubBtn"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="-10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/M04F07SF03D01_YearInput"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_OrderSubBtn"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/icon_button_arrowleft" />
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_YearInput"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Any"
+                android:textColor="@color/wabizabi"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintStart_toEndOf="@+id/M04F07SF03D01_TransactionText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_OrderInput"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/M04F07SF03D01_YearAddBtn"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F07SF03D01_TransactionInput"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_OrderAddBtn"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/icon_button_arrowright" />
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_MonthText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="start"
+                android:text="Month  : "
+                android:textColor="@color/wabizabi"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.003"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_YearText"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/M04F07SF03D01_MonthSubBtn"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="-10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/M04F07SF03D01_YearInput"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_YearSubBtn"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/icon_button_arrowleft" />
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_MonthInput"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Any"
+                android:textColor="@color/wabizabi"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintStart_toEndOf="@+id/M04F07SF03D01_TransactionText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_YearInput"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/M04F07SF03D01_MonthAddBtn"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F07SF03D01_TransactionInput"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_YearAddBtn"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/icon_button_arrowright" />
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_DayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="start"
+                android:text="Day  : "
+                android:textColor="@color/wabizabi"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.003"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_MonthText"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/M04F07SF03D01_DaySubBtn"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="-10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/M04F07SF03D01_YearInput"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_MonthSubBtn"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/icon_button_arrowleft" />
+
+            <TextView
+                android:id="@+id/M04F07SF03D01_DayInput"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Any"
+                android:textColor="@color/wabizabi"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintStart_toEndOf="@+id/M04F07SF03D01_TransactionText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_MonthInput"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/M04F07SF03D01_DayAddBtn"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F07SF03D01_TransactionInput"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_MonthAddBtn"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/icon_button_arrowright" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/M04F07SF03D01_ConfirmBtn"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="25dp"
+                android:backgroundTint="@color/wabizabi"
+                android:elevation="10dp"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D01_DayText"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/M04F07SF03D01_ConfirmBtnLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/M04F07SF03D01_ConfirmBtnText"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/nunito_sans_light"
+                        android:gravity="center"
+                        android:text="Confirm"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

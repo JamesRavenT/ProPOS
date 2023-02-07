@@ -1,6 +1,7 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmTable;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogCat;
 
 import org.bson.types.ObjectId;
 
@@ -15,7 +16,7 @@ public class OpenTableInstance {
 
     public static void toCreateTable(String name){
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a").format(new Date());
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 RealmTable table = db.createObject(RealmTable.class, new ObjectId());
@@ -30,7 +31,7 @@ public class OpenTableInstance {
 
     public static void toAddTableCount(String name){
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a").format(new Date());
         try(Realm realm = Realm.getDefaultInstance()){
             RealmResults<RealmTable> listOfTables = realm.where(RealmTable.class).equalTo("tableName", name).sort("tableNo").findAll();
             int number = listOfTables.size() + 1;
@@ -39,8 +40,11 @@ public class OpenTableInstance {
                 table.setTableName(name);
                 table.setTableNo(number);
                 table.setTableStatus("Free");
-                table.setLastUpdatedID(logID);
-                table.setLastUpdatedText(logTxt);
+                RealmResults<RealmTable> updatedListOfTables = realm.where(RealmTable.class).equalTo("tableName", name).sort("tableNo").findAll();
+                for(RealmTable updatedTable : updatedListOfTables){
+                    updatedTable.setLastUpdatedID(logID);
+                    updatedTable.setLastUpdatedText(logTxt);
+                }
             });
         }
     }
@@ -48,7 +52,7 @@ public class OpenTableInstance {
     public static void toSubTableCount(String name){
         try(Realm realm = Realm.getDefaultInstance()){
             String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-            String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
+            String logTxt = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a").format(new Date());
             RealmResults<RealmTable> listOfTables = realm.where(RealmTable.class).equalTo("tableName", name).sort("tableNo").findAll();
             int number = listOfTables.size();
             realm.executeTransaction(db -> {
@@ -65,7 +69,7 @@ public class OpenTableInstance {
 
     public static void toSetTableStatusToOccupied(String name, int number){
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a").format(new Date());
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 RealmTable table = db.where(RealmTable.class).equalTo("tableName", name).and().equalTo("tableNo", number).findFirst();
@@ -78,7 +82,7 @@ public class OpenTableInstance {
 
     public static void toSetTableStatusToFree(String name, int number){
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a").format(new Date());
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 RealmTable table = db.where(RealmTable.class).equalTo("tableName", name).and().equalTo("tableNo", number).findFirst();
@@ -91,7 +95,7 @@ public class OpenTableInstance {
 
     public static void toEditTable(String oldName, String name){
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a").format(new Date());
         try(Realm realm = Realm.getDefaultInstance()) {
             RealmResults<RealmTable> listOfTables = realm.where(RealmTable.class).equalTo("tableName", oldName).findAll();
             realm.executeTransaction(db -> {

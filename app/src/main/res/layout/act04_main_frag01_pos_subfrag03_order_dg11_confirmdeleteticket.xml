@@ -53,41 +53,41 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/M04F01SF03D11_ConfirmToDeleteTicketText"
+                android:id="@+id/M04F01SF03D11_ConfirmToDeleteText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
-                android:text="Confirm to Delete"
+                android:text="Confirm To Delete"
                 android:textColor="@color/wabizabi"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.202" />
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D11_CloseDGBtnLayout"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/M04F01SF03D11_TicketDetail"
+                android:id="@+id/M04F01SF03D11_TicketNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
-                android:text="&quot;Ticket&quot; ?"
+                android:text="&quot;Category Name&quot;?"
                 android:textColor="@color/wabizabi"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D11_ConfirmToDeleteTicketText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D11_ConfirmToDeleteText"
                 app:layout_constraintVertical_bias="0.0" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/M04F01SF03D11_YesBtn"
-                android:layout_width="140dp"
+                android:layout_width="145dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="15dp"
@@ -98,8 +98,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D11_TicketDetail"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D11_TicketNameText"
+                app:layout_constraintVertical_bias="0.0" >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/M04F01SF03D11_YesBtnLayout"
@@ -114,7 +114,7 @@
                         android:gravity="center"
                         android:text="Yes"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/M04F01SF03D11_NoBtn"
-                android:layout_width="140dp"
+                android:layout_width="145dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="25dp"
@@ -135,8 +135,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D11_TicketDetail"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D11_TicketNameText"
+                app:layout_constraintVertical_bias="0.0" >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/M04F01SF03D11_NoBtnLayout"
@@ -151,7 +151,7 @@
                         android:gravity="center"
                         android:text="No"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

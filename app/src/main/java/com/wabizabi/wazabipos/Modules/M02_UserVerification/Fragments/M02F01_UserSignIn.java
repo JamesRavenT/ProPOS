@@ -49,6 +49,7 @@ public class M02F01_UserSignIn extends Fragment {
         } else {
             OpenUserInstance.toCreateUser(username, password);
             startActivity(new Intent(getActivity(), M03_LoadResources.class));
+            getActivity().finish();
         }
     }
 }

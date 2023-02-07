@@ -3,22 +3,19 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragme
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.R;
-import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
-import java.util.Map;
 
 import io.realm.Realm;
 
@@ -26,9 +23,9 @@ public class M04F01SF03D09_SaveTicketRVA extends RecyclerView.Adapter<M04F01SF03
 
     Context context;
     Realm realm;
-    List<CartObject> listOfItems;
+    List<CartItem> listOfItems;
 
-    public M04F01SF03D09_SaveTicketRVA(Context context, Realm realm, List<CartObject> listOfItems) {
+    public M04F01SF03D09_SaveTicketRVA(Context context, Realm realm, List<CartItem> listOfItems) {
         this.context = context;
         this.realm = realm;
         this.listOfItems = listOfItems;
@@ -37,16 +34,16 @@ public class M04F01SF03D09_SaveTicketRVA extends RecyclerView.Adapter<M04F01SF03
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.act04_main_frag01_pos_subfrag03_order_dg09_confirmsaveticket_rvlayout, parent, false);
+        View view = LayoutHelper.inflateRV(parent, R.layout.act04_main_frag01_pos_subfrag03_order_dg09_confirmsaveticket_rvlayout);
         ViewHolder layout = new ViewHolder(view);
         return layout;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CartObject cartItem = listOfItems.get(position);
+        CartItem cartItem = listOfItems.get(position);
         int quantity = cart.get(cartItem);
-        holder.loadDetails(cartItem, quantity, position);
+        holder.loadFunctionalities(cartItem, quantity, position);
     }
 
     @Override
@@ -56,38 +53,37 @@ public class M04F01SF03D09_SaveTicketRVA extends RecyclerView.Adapter<M04F01SF03
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
-        private TextView itemQty, itemName, itemPrice, itemDiscountPercentage, itemTotal;
-        private ImageView itemDiscount;
+        private TextView itemQty, itemName, itemPrice, itemDiscount, itemDiscountPercentage, itemDiscountPrice, itemTotal;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemQty = itemView.findViewById(R.id.M04F01SF03D09_RVItemQty);
             itemName = itemView.findViewById(R.id.M04F01SF03D09_RVItemName);
             itemPrice = itemView.findViewById(R.id.M04F01SF03D09_RVItemPrice);
-            itemDiscount = itemView.findViewById(R.id.M04F01SF03D09_RVDiscountsAppliedImg);
-            itemDiscountPercentage = itemView.findViewById(R.id.M04F01SF03D09_RVDiscountsAppliedNo);
+            itemDiscount = itemView.findViewById(R.id.M04F01SF03D09_RVDiscountName);
+            itemDiscountPercentage = itemView.findViewById(R.id.M04F01SF03D09_RVDiscountPercentage);
+            itemDiscountPrice = itemView.findViewById(R.id.M04F01SF03D09_RVDiscountAmount);
             itemTotal = itemView.findViewById(R.id.M04F01SF03D09_RVItemTotalPrice);
         }
 
-        public void loadDetails(CartObject item, int qty, int position){
-            itemQty.setText("x" + qty);
-            itemName.setText(item.getItemName());
-            itemPrice.setText(new BigDecimal(item.getItemPrice()).setScale(2,  RoundingMode.HALF_UP).toString());
-            //Calculate the Discount Percentage
-            int discountPercent = 0;
-            for(Map.Entry<String, Integer> discount : item.getItemDiscounts().entrySet()){
-                discountPercent += discount.getValue();
-            }
-            itemDiscountPercentage.setText(discountPercent + "%");
+        public void loadFunctionalities(CartItem item, int qty, int position){
+            //Load Details
+            String quantity = "x" + qty;
+            String name = item.getItemPOSName();
+            String price = StringHelper.convertToCurrency(item.getItemPrice());
+            String discountName = StringHelper.getDiscountNames(item);
+            String discountPercent = StringHelper.getDiscountPercentage(item);
+            String discountPrice = StringHelper.getDiscountAmount(item, qty);
+            String finalPrice = StringHelper.getDiscountedTotal(item, qty);
 
-            //Calculate the Total
-            double tax = item.getItemPrice() * 0.03;
-            double taxedPrice = item.getItemPrice() + tax;
-            double discountInDecimal = (double) discountPercent / 100;
-            double discount = taxedPrice * discountInDecimal;
-            double discountedPrice = taxedPrice - discount;
-            double totalPrice = discountedPrice * qty;
-
-            itemTotal.setText("₱" + new BigDecimal(totalPrice).setScale(2, RoundingMode.HALF_UP).toString());
+            //Set Views
+            this.position = position;
+            itemQty.setText(quantity);
+            itemName.setText(name);
+            itemPrice.setText(price);
+            itemDiscount.setText(discountName);
+            itemDiscountPercentage.setText(discountPercent);
+            itemDiscountPrice.setText(discountPrice);
+            itemTotal.setText(finalPrice);
         }
     }
 }

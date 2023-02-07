@@ -1,8 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Adapters;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.IconLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.LayoutBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 import io.realm.Realm;
@@ -41,7 +40,7 @@ public class M04F02_ItemRVA extends RecyclerView.Adapter<M04F02_ItemRVA.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutBuilder.inflate(parent, R.layout.act04_main_frag02_menu_item_rvlayout);
+        View view = LayoutHelper.inflateRV(parent, R.layout.act04_main_frag02_menu_item_rvlayout);
         ViewHolder layout = new ViewHolder(view);
         return layout;
     }
@@ -49,8 +48,7 @@ public class M04F02_ItemRVA extends RecyclerView.Adapter<M04F02_ItemRVA.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MenuItem item = listOfItems.get(position);
-        holder.loadDetails(item, position);
-        holder.onClickContainer(item, position);
+        holder.loadFunctionalities(item, position);
     }
 
     @Override
@@ -71,17 +69,21 @@ public class M04F02_ItemRVA extends RecyclerView.Adapter<M04F02_ItemRVA.ViewHold
             itemPrice = itemView.findViewById(R.id.M04F02_IRVItemPrice);
         }
 
-        public void loadDetails(MenuItem item, int position){
-            this.position = position;
-            IconLoader.setMenuIcon(itemImage, item.getItemImage());
-            itemName.setText(item.getItemName());
-            itemPrice.setText("₱" + new BigDecimal(item.getItemPrice()).setScale(2, RoundingMode.HALF_UP));
-        }
+        public void loadFunctionalities(MenuItem item, int position){
+            //Load Details
+            int image = item.getItemIcon();
+            String name = StringHelper.limitDisplay(item.getItemPOSName(), 0, 18, 15);
+            String price = StringHelper.convertToCurrency(item.getItemPrice());
 
-        public void onClickContainer(MenuItem item, int position){
+            //Set Views
             this.position = position;
+            IconLoader.setMenuIcon(itemImage, image);
+            itemName.setText(name);
+            itemPrice.setText("₱" + price);
+
+            //On Container
             itemContainer.setOnClickListener(click -> {
-                dialogLoader.load_DGContents(6, item.getItemImage(), item.getItemName());
+                dialogLoader.load_DGContents(new DialogBundle(6, item, new RVBundle(item.getItemCategory(), listOfItems)));
             });
         }
     }

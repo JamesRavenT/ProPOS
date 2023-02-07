@@ -24,13 +24,14 @@ import com.wabizabi.wazabipos.Database.RealmSchemas.RealmDiscount;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_Discount.Adapters.M04F04_DiscountsRVA;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.DialogBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.ListBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -121,14 +122,8 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
     }
 
     private void load_RecyclerView(){
-        //Initialize RecyclerView Items
-        listOfDiscounts = new ArrayList<>();
-        RealmResults<RealmDiscount> queriedDiscounts = realm.where(RealmDiscount.class).sort("discountName").findAll();
-        for(RealmDiscount query : queriedDiscounts){
-            listOfDiscounts.add(new Discount(query.getDiscountName(), query.getDiscountPercentage(), query.getLastUpdatedID(), query.getLastUpdatedText()));
-        }
-
         //Initialize RecyclerView
+        listOfDiscounts = RVHelper.getDiscounts(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         discountsRVA = new M04F04_DiscountsRVA(getActivity(), realm, listOfDiscounts, this);
@@ -137,15 +132,8 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
     }
 
     private void load_FilteredRecyclerView(String input){
-        //Initialize Filtered RecyclerView Items
-        List<Discount> filteredDiscounts = new ArrayList<>();
-        for(Discount discount : listOfDiscounts){
-            if(discount.getDiscountName().toLowerCase().contains(input.toLowerCase())){
-                filteredDiscounts.add(discount);
-            }
-        }
-
         //Initialize RecyclerView
+        List<Discount> filteredDiscounts = RVHelper.getFilteredDiscounts(listOfDiscounts, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         discountsRVA = new M04F04_DiscountsRVA(getActivity(), realm, filteredDiscounts, this);
@@ -185,16 +173,20 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
 
         //On Confirm Button
         discountDG01_ConfirmBtn.setOnClickListener(confirm -> {
-            String input01 = discountDG01_NameInput.getText().toString();
-            String input02 = discountDG01_percentInput.getText().toString();
-            List<String> listOfAllDiscounts = ListBuilder.getDiscountNames(realm);
-            if(listOfAllDiscounts.contains(input01)){
+            String nameInput = discountDG01_NameInput.getText().toString();
+            String percentInput = discountDG01_percentInput.getText().toString();
+            List<String> listOfAllDiscounts = ListHelper.getDiscountNames(realm);
+            if(listOfAllDiscounts.contains(nameInput)){
                 discountDG01_NameInput.setError("Name already exists");
+            } else if(Integer.parseInt(percentInput) > 100) {
+                discountDG02_PercentInput.setError("Value cannot be greater than 100%");
             } else {
-                OpenDiscountInstance.toCreateDiscount(input01, Integer.parseInt(input02));
+                OpenDiscountInstance.toCreateDiscount(nameInput, Integer.parseInt(percentInput));
                 load_RecyclerView();
                 discountDG01_NameInput.setText("");
                 discountDG01_percentInput.setText("");
+                discountDG01_NameInput.setError(null);
+                discountDG02_PercentInput.setError(null);
                 discountDG01.dismiss();
             }
         });
@@ -206,42 +198,57 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
     }
 
     //Edit Discount
-    private void load_DG02Functionalities(String name){
+    private void load_DG02Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        Discount discount = bundle.getDiscount();
+
         //Set Text
-        RealmDiscount discount = realm.where(RealmDiscount.class).equalTo("discountName", name).findFirst();
         discountDG02_NameInput.setText(discount.getDiscountName());
-        discountDG02_PercentInput.setText(String.valueOf(discount.getDiscountPercentage()));
+        discountDG02_PercentInput.setText(String.valueOf(discount.getDiscountInPercentage()));
+        int focus = discountDG02_NameInput.getText().toString().length();
+        discountDG02_NameInput.requestFocus();
+        discountDG02_NameInput.setSelection(focus);
 
         //On Apply Button
         discountDG02_ApplyBtn.setOnClickListener(apply -> {
-            String input01 = discountDG02_NameInput.getText().toString();
-            String input02 = discountDG02_PercentInput.getText().toString();
-            List<String> listOfAllDiscounts = ListBuilder.getDiscountNames(realm);
-            if(name.equals(input01) && discount.getDiscountPercentage() == Integer.parseInt(input02)){
+            String nameInput = discountDG02_NameInput.getText().toString();
+            String percentInput = discountDG02_PercentInput.getText().toString();
+            String dcName = discount.getDiscountName();
+            int dcPercent = discount.getDiscountInPercentage();
+            List<String> listOfAllDiscounts = ListHelper.getDiscountNames(realm);
+            if(listOfAllDiscounts.contains(dcName)){
+                listOfAllDiscounts.remove(dcName);
+            }
+            if(dcName.equals(nameInput) && dcPercent == Integer.parseInt(percentInput)){
                 ToastMessage.show(getActivity(), "No changes were made");
                 discountDG02_NameInput.setText("");
                 discountDG02_PercentInput.setText("");
                 discountDG02.dismiss();
-            } else if (name.equals(input01) && discount.getDiscountPercentage() == Integer.parseInt(input02)){
-                OpenDiscountInstance.toEditDiscount(name, input01, Integer.parseInt(input02));
+            } else if (dcName.equals(nameInput) && dcPercent != Integer.parseInt(percentInput)){
+                OpenDiscountInstance.toEditDiscount(discount.getDiscountName(), nameInput, Integer.parseInt(percentInput));
                 load_RecyclerView();
                 discountDG02_NameInput.setText("");
                 discountDG02_PercentInput.setText("");
                 discountDG02.dismiss();
-            } else if (listOfAllDiscounts.contains(input01)){
+            } else if (listOfAllDiscounts.contains(nameInput)){
                 discountDG02_NameInput.setError("Name already exists");
+            } else if(Integer.parseInt(percentInput) > 100) {
+                discountDG02_PercentInput.setError("Value cannot be greater than 100%");
             } else {
-                OpenDiscountInstance.toEditDiscount(name, input01, Integer.parseInt(input02));
+                OpenDiscountInstance.toEditDiscount(discount.getDiscountName(), nameInput, Integer.parseInt(percentInput));
                 load_RecyclerView();
                 discountDG02_NameInput.setText("");
                 discountDG02_PercentInput.setText("");
+                discountDG02_NameInput.setError(null);
+                discountDG02_PercentInput.setError(null);
                 discountDG02.dismiss();
             }
         });
 
         //On Delete Button
         discountDG02_DeleteBtn.setOnClickListener(delete -> {
-            load_DG03Functionalities(name);
+            bundle.setDialogDestinationNo(3);
+            load_DG03Functionalities(bundle);
             discountDG02.dismiss();
             discountDG03.show();
         });
@@ -254,35 +261,38 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
     }
 
     //Delete Discount
-    private void load_DG03Functionalities(String name){
+    private void load_DG03Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        String discount = bundle.getDiscount().getDiscountName();
         //Set Discount Name
-        discountDG03_discountName.setText(name);
+        discountDG03_discountName.setText(discount + "?");
 
         //On Yes Btn
         discountDG03_YesBtn.setOnClickListener(yes -> {
-            OpenDiscountInstance.toDeleteDiscount(name);
+            OpenDiscountInstance.toDeleteDiscount(discount);
             load_RecyclerView();
             discountDG03.dismiss();
         });
 
         //On No Btn
         discountDG03_NoBtn.setOnClickListener(no -> {
-            load_DG02Functionalities(name);
+            bundle.setDialogDestinationNo(2);
+            load_DG02Functionalities(bundle);
             discountDG03.dismiss();
             discountDG02.show();
         });
 
         //On Close Btn
         closeDG03Btn.setOnClickListener(close -> {
-            load_DG02Functionalities(name);
+            load_DG02Functionalities(bundle);
             discountDG03.dismiss();
             discountDG02.show();
         });
     }
 
     @Override
-    public void load_DGContents(int dialogNo, int image, String name) {
-        load_DG02Functionalities(name);
+    public void load_DGContents(DialogBundle bundle) {
+        load_DG02Functionalities(bundle);
         discountDG02.show();
     }
 }

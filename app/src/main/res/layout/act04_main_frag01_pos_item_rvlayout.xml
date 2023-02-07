@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F01_IRVLayout"
-    android:layout_width="190dp"
-    android:layout_height="180dp">
-
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F01_IRVContainer"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
-        android:elevation="15dp"
+
         app:cardCornerRadius="5dp"
+        app:cardBackgroundColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,64 +25,114 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/M04F01_IRVContainerLayout"
-            android:background="@drawable/bg_shape_rectangle_stroke_dark_marg10p"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_shape_rectangle_stroke_dark_marg10p"
+            tools:layout_editor_absoluteX="-16dp"
+            tools:layout_editor_absoluteY="-8dp">
 
-            <TextView
-                android:id="@+id/M04F01_IRVItemPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="16dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/nunito_sans_light"
-                android:text="₱100.00"
-                android:textColor="@color/wabizabi"
-                android:textSize="12dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/M04F01_IRVImageLayout"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/bg_shape_rectangle_stroke_dark_marg03p"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01_IRVItemImage"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/M04F01_IRVItemImage"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_products00_default" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/M04F01_IRVItemName"
-                android:layout_width="0dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/nunito_sans_light"
-                android:gravity="center"
+                android:gravity="start|center"
                 android:text="Item Name"
+                android:textColor="@color/wabizabi"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F01_IRVImageLayout"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/M04F01_IRVItemPrice"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:text="₱0.00"
                 android:textColor="@color/wabizabi"
                 android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01_IRVItemPrice"
+                app:layout_constraintStart_toEndOf="@+id/M04F01_IRVImageLayout"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01_IRVItemName"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/M04F01_IRVItemImage"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_marginTop="5dp"
-
+            <androidx.cardview.widget.CardView
+                android:id="@+id/M04F01_IRVAddToCartBtn"
+                android:layout_width="75dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/wabizabi"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.146"
-                app:srcCompat="@drawable/icon_products00_default" />
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F01_IRVItemName"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/M04F01_IRVAddToCartBtnLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/M04F01_IRVAddToCartBtnText"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/nunito_sans"
+                        android:gravity="center"
+                        android:text="Add"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M04F01_IRVStatusLayout"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:id="@+id/M04F01_IRVStatus"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="5dp"
                 android:background="@drawable/bg_shape_circle_red"
+                android:elevation="10dp"
+                android:rotation="-25"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -92,40 +142,49 @@
 
                 <TextView
                     android:id="@+id/M04F01_IRVStatusText01"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:fontFamily="@font/nunito_sans_extralight"
-                    android:gravity="center"
-                    android:paddingBottom="0dp"
+                    android:fontFamily="@font/nunito_sans_light"
                     android:text="有"
                     android:textColor="@color/red"
                     android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/M04F01_IRVStatusText02"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_sans_extralight"
-                    android:gravity="center"
-                    android:paddingBottom="0dp"
+                    android:fontFamily="@font/nunito_sans_light"
                     android:text="る"
                     android:textColor="@color/red"
                     android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/M04F01_IRVStatusText01"
-                    app:layout_constraintVertical_bias="0.2" />
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01_IRVStatusCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_sans_light"
+                    android:text=" In Cart : 0"
+                    android:textColor="@color/red"
+                    android:textSize="9dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01_IRVStatusText02"
+                    app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

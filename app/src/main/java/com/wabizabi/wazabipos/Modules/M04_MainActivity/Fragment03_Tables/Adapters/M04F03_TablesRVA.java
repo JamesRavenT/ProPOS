@@ -15,8 +15,9 @@ import com.wabizabi.wazabipos.Database.RealmSchemas.RealmTable;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmTicket;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.LayoutBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
 
 import java.util.List;
 
@@ -28,19 +29,19 @@ public class M04F03_TablesRVA extends RecyclerView.Adapter<M04F03_TablesRVA.View
     Context context;
     Realm realm;
     List<String> listOfTables;
-    DialogLoader dialogLoader;
+    DialogLoader dialog;
 
-    public M04F03_TablesRVA(Context context, Realm realm, List<String> listOfTables, DialogLoader dialogLoader) {
+    public M04F03_TablesRVA(Context context, Realm realm, List<String> listOfTables, DialogLoader dialog) {
         this.context = context;
         this.realm = realm;
         this.listOfTables = listOfTables;
-        this.dialogLoader = dialogLoader;
+        this.dialog = dialog;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutBuilder.inflate(parent, R.layout.act04_main_frag03_tables_rvlayout);
+        View view = LayoutHelper.inflateRV(parent, R.layout.act04_main_frag03_tables_rvlayout);
         ViewHolder layout = new ViewHolder(view);
         return layout;
     }
@@ -48,10 +49,7 @@ public class M04F03_TablesRVA extends RecyclerView.Adapter<M04F03_TablesRVA.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String table = listOfTables.get(position);
-        holder.loadDetails(table, position);
-        holder.onClickEditBtn(table, position);
-        holder.onClickSubBtn(table, position);
-        holder.onClickAddBtn(table, position);
+        holder.loadFunctionalities(table, position);
     }
 
     @Override
@@ -74,24 +72,21 @@ public class M04F03_TablesRVA extends RecyclerView.Adapter<M04F03_TablesRVA.View
             subBtn = itemView.findViewById(R.id.M04F03_RVQtySubBtn);
         }
 
-        public void loadDetails(String table, int position){
+        public void loadFunctionalities(String table, int position){
+            //Load Details
             this.position = position;
             RealmResults<RealmTable> tableCount = realm.where(RealmTable.class).equalTo("tableName", table).sort("tableNo").findAll();
             RealmTable tableItem = tableCount.get(0);
             tableName.setText(table);
             tableQty.setText(String.valueOf(tableCount.size()));
             lastUpdateText.setText(tableItem.getLastUpdatedText());
-        }
 
-        public void onClickEditBtn(String table, int position){
-            this.position = position;
+            //On Edit Btn
             editBtn.setOnClickListener(edit -> {
-               dialogLoader.load_DGContents(2, -1, table);
+                dialog.load_DGContents(new DialogBundle(2, table));
             });
-        }
 
-        public void onClickSubBtn(String table, int position){
-            this.position = position;
+            //On Click Sub Btn
             subBtn.setOnClickListener(sub -> {
                 RealmResults<RealmTable> listOfTables = realm.where(RealmTable.class).findAll();
                 RealmResults<RealmTicket> listOfTickets = realm.where(RealmTicket.class).findAll();
@@ -104,10 +99,8 @@ public class M04F03_TablesRVA extends RecyclerView.Adapter<M04F03_TablesRVA.View
                     ToastMessage.show(context, "Cannot remove remaining table");
                 }
             });
-        }
 
-        public void onClickAddBtn(String table, int position){
-            this.position = position;
+            //On Click Add Btn
             addBtn.setOnClickListener(sub -> {
                 OpenTableInstance.toAddTableCount(table);
                 notifyDataSetChanged();

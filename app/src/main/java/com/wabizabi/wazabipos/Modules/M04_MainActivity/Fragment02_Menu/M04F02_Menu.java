@@ -1,7 +1,6 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
-import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -18,37 +17,35 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenMenuInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Adapters.M04F02D01_SelectIconRVA;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Adapters.M04F02D06_CombinationRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Adapters.M04F02D07_CombinationRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Adapters.M04F02_CategoryRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Adapters.M04F02_ItemRVA;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Interfaces.RVMenuLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.DialogBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.IconLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.ListBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
+import org.bson.types.ObjectId;
+
 import java.util.List;
-import java.util.Map;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
-public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader {
+public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
     //--DATABASE--//
     Realm realm = Realm.getDefaultInstance();
 
@@ -59,7 +56,6 @@ public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader 
     EditText searchbar;
 
     //--RECYCLERVIEW--//
-    public static String currentMenuRV = "Categories";
     TextView displayText;
     RecyclerView menuRV;
     RecyclerView.Adapter menuRVA;
@@ -81,44 +77,48 @@ public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader 
     CardView menuDG02_ConfirmBtn;
     ImageView closeDG02Btn;
 
-    //--DG03 CREATE ITEM--//
+    //--DG03 EDIT CATEGORY--//
     Dialog menuDG03;
-    ImageView menuDG03_ItemImg;
-    EditText menuDG03_ItemNameInput,
-             menuDG03_ItemPriceInput;
-    CardView menuDG03_ConfirmBtn;
+    ImageView menuDG03_CategoryImg;
+    CardView menuDG03_SelectIconBtn;
+    EditText menuDG03_CategoryNameInput;
+    CardView menuDG03_ApplyChangesBtn, menuDG03_DeleteBtn;
     ImageView closeDG03Btn;
 
-    //--DG04 EDIT CATEGORY--//
+    //--DG04 DELETE CATEGORY--//
     Dialog menuDG04;
-    ImageView menuDG04_CategoryImg;
-    CardView menuDG04_SelectIconBtn;
-    EditText menuDG04_CategoryNameInput;
-    CardView menuDG04_ApplyChangesBtn, menuDG04_DeleteBtn;
+    TextView menuDG04_CategoryName;
+    CardView menuDG04_YesBtn, menuDG04_NoBtn;
     ImageView closeDG04Btn;
 
-    //--DG05 EDIT ITEM--//
+    //--DG05 CREATE ITEM--//
     Dialog menuDG05;
     ImageView menuDG05_ItemImg;
-    EditText menuDG05_ItemNameInput,
+    EditText menuDG05_ItemWebNameInput,
+             menuDG05_ItemPOSNameInput,
              menuDG05_ItemPriceInput;
-    CardView menuDG05_ApplyChangesBtn, menuDG05_DeleteBtn;
+    CardView menuDG05_ConfirmBtn;
     ImageView closeDG05Btn;
 
-    //--DG06 VIEW ITEM--//
+    //--DG06 EDIT ITEM--//
     Dialog menuDG06;
-    ImageView menuDG06_ItemImage;
-    CardView menuDG06_EditBtn;
-    TextView menuDG06_ItemName,
-             menuDG06_ItemPrice;
-    RecyclerView menuDG06_RecyclerView;
-    RecyclerView.Adapter menuDG06_RecyclerViewAdapter;
+    ImageView menuDG06_ItemImg;
+    EditText menuDG06_ItemWebNameInput,
+             menuDG06_ItemPOSNameInput,
+             menuDG06_ItemPriceInput;
+    CardView menuDG06_ApplyChangesBtn, menuDG06_DeleteBtn;
     ImageView closeDG06Btn;
 
-    //--DG07 DELETE CATEGORY--//
+    //--DG07 VIEW ITEM--//
     Dialog menuDG07;
-    TextView menuDG07_CategoryName;
-    CardView menuDG07_YesBtn, menuDG07_NoBtn;
+    ImageView menuDG07_ItemImage;
+    CardView menuDG07_EditBtn;
+    TextView menuDG07_ItemWebName,
+             menuDG07_ItemPOSName,
+             menuDG07_ItemPrice,
+             menuDG07_ItemID;
+    RecyclerView menuDG07_RecyclerView;
+    RecyclerView.Adapter menuDG07_RecyclerViewAdapter;
     ImageView closeDG07Btn;
 
     //--DG08 DELETE ITEM--//
@@ -134,27 +134,33 @@ public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader 
         init_FragmentFunctionalities(v);
         return v;
     }
+
     private void init_FragmentFunctionalities(View v){
         createBtn = v.findViewById(R.id.M04F02_CreateBtn);
         searchbar = v.findViewById(R.id.M04F02_SearchBarInput);
         displayText = v.findViewById(R.id.M04F02_RecyclerViewItemText);
         menuRV = v.findViewById(R.id.M04F02_RecyclerView);
 
-        load_Creation();
+        load_CategoryCreation();
         load_CategoryRV();
         load_SearchBar();
         init_Dialogs();
     }
 
-    private void load_Creation(){
+    private void load_CategoryCreation(){
         createBtn.setOnClickListener(create -> {
             if(currentFragment.equals("Menu01")){
-                load_DG02Functionalities(0, "");
+                load_DG02Functionalities(new DialogBundle(2, new MenuCategory(0, "")));
                 menuDG02.show();
-            } else {
-                RealmMenuCategory icon = realm.where(RealmMenuCategory.class).equalTo("categoryName", currentMenuRV).findFirst();
-                load_DG03Functionalities(icon.getCategoryImage(), currentMenuRV);
-                menuDG03.show();
+            }
+        });
+    }
+
+    private void load_ItemCreation(RVBundle bundle){
+        createBtn.setOnClickListener(create -> {
+            if(currentFragment.equals("Menu02")){
+                load_DG05Functionalities(new DialogBundle(3, new MenuItem(0, bundle.getMenuCategory(), "", "", 0.00), bundle));
+                menuDG05.show();
             }
         });
     }
@@ -163,14 +169,10 @@ public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader 
         searchbar.setText("");
         searchbar.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void afterTextChanged(Editable input) {
@@ -187,14 +189,8 @@ public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader 
         //Initialize RecyclerViewItems and State
         displayText.setText("「 CATEGORIES 」");
 
-        //Initialize RecyclerViewItems
-        listOfMenuCategories = new ArrayList<>();
-        RealmResults<RealmMenuCategory> queriedCategories = realm.where(RealmMenuCategory.class).sort("categoryName").findAll();
-        for(RealmMenuCategory query : queriedCategories){
-            listOfMenuCategories.add(new MenuCategory(query.getCategoryImage(), query.getCategoryName(), query.getLastUpdatedID(), query.getLastUpdatedText()));
-        }
-
         //Initialize RecyclerView
+        listOfMenuCategories = RVHelper.getMenuCategories(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         menuRVA = new M04F02_CategoryRVA(getActivity(), realm, searchbar, listOfMenuCategories, this, this);
@@ -203,12 +199,8 @@ public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader 
     }
 
     private void load_FilteredCategoryRV(String input){
-        List<MenuCategory> filteredCategory = new ArrayList<>();
-        for(MenuCategory category : listOfMenuCategories){
-            if(category.getCategoryName().toLowerCase().contains(input.toLowerCase())){
-                filteredCategory.add(category);
-            }
-        }
+        //Initialize RecyclerView
+        List<MenuCategory> filteredCategory = RVHelper.getFilteredMenuCategories(listOfMenuCategories, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         menuRVA = new M04F02_CategoryRVA(getActivity(), realm, searchbar, filteredCategory, this, this);
@@ -216,34 +208,27 @@ public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader 
         menuRV.setLayoutManager(layout);
     }
 
-    private void load_ItemRV(String category){
-        //Initialize RecyclerViewItems and State
-        displayText.setText("「 " + category.toUpperCase() + " 」");
-
-        //Initialize RecyclerViewItems
-        listOfMenuItems = new ArrayList<>();
-        RealmResults<RealmMenuItem> queriedItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", category).sort("itemName").findAll();
-        for(RealmMenuItem query : queriedItems){
-            listOfMenuItems.add(new MenuItem(query.getItemImage(), query.getItemName(), query.getItemPrice()));
-        }
+    private void load_ItemRV(RVBundle bundle){
+        //Initialize RV Text
+        displayText.setText("「 " + bundle.getMenuCategory() + " 」");
 
         //Initialize RecyclerView
-        GridLayoutManager layout = new GridLayoutManager(getActivity(), 2);
-        layout.setOrientation(GridLayoutManager.VERTICAL);
+        listOfMenuItems = bundle.getListOfMenuItems();
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
         menuRVA = new M04F02_ItemRVA(getActivity(), realm, listOfMenuItems, this);
         menuRV.setAdapter(menuRVA);
         menuRV.setLayoutManager(layout);
+
+        //Load Create Item Functionality
+        load_ItemCreation(bundle);
     }
 
     private void load_FilteredItemRV(String input){
-        List<MenuItem> filteredItem = new ArrayList<>();
-        for(MenuItem item : listOfMenuItems){
-            if(item.getItemName().toLowerCase().contains(input.toLowerCase())){
-                filteredItem.add(item);
-            }
-        }
-        GridLayoutManager layout = new GridLayoutManager(getActivity(), 2);
-        layout.setOrientation(GridLayoutManager.VERTICAL);
+        //Initialize RecyclerView
+        List<MenuItem> filteredItem = RVHelper.getFilteredMenuItems(listOfMenuItems, input);
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
         menuRVA = new M04F02_ItemRVA(getActivity(), realm, filteredItem, this);
         menuRV.setAdapter(menuRVA);
         menuRV.setLayoutManager(layout);
@@ -263,46 +248,48 @@ public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader 
         menuDG02_ConfirmBtn = menuDG02.findViewById(R.id.M04F02D02_ConfirmBtn);
         closeDG02Btn = menuDG02.findViewById(R.id.M04F02D02_CloseDGBtn);
 
-        //--DG03 CREATE ITEM--//
-        menuDG03 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg03_createitem);
-        menuDG03_ItemImg = menuDG03.findViewById(R.id.M04F02D03_CategoryImage);
-        menuDG03_ItemNameInput= menuDG03.findViewById(R.id.M04F02D03_ItemNameInput);
-        menuDG03_ItemPriceInput = menuDG03.findViewById(R.id.M04F02D03_ItemPriceInput);
-        menuDG03_ConfirmBtn = menuDG03.findViewById(R.id.M04F02D03_ConfirmBtn);
+        //--DG03 EDIT CATEGORY--//
+        menuDG03 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg03_editcategory);
+        menuDG03_CategoryImg = menuDG03.findViewById(R.id.M04F02D03_CategoryImage);
+        menuDG03_CategoryNameInput = menuDG03.findViewById(R.id.M04F02D03_CategoryNameInput);
+        menuDG03_SelectIconBtn = menuDG03.findViewById(R.id.M04F02D03_SelectIconBtn);
+        menuDG03_ApplyChangesBtn = menuDG03.findViewById(R.id.M04F02D03_ApplyChangesBtn);
+        menuDG03_DeleteBtn = menuDG03.findViewById(R.id.M04F02D03_DeleteBtn);
         closeDG03Btn = menuDG03.findViewById(R.id.M04F02D03_CloseDGBtn);
 
-        //--DG04 EDIT CATEGORY--//
-        menuDG04 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg04_editcategory);
-        menuDG04_CategoryImg = menuDG04.findViewById(R.id.M04F02D04_CategoryImage);
-        menuDG04_CategoryNameInput = menuDG04.findViewById(R.id.M04F02D04_CategoryNameInput);
-        menuDG04_SelectIconBtn = menuDG04.findViewById(R.id.M04F02D04_SelectIconBtn);
-        menuDG04_ApplyChangesBtn = menuDG04.findViewById(R.id.M04F02D04_ApplyChangesBtn);
-        menuDG04_DeleteBtn = menuDG04.findViewById(R.id.M04F02D04_DeleteBtn);
+        //--DG04 DELETE CATEGORY--//
+        menuDG04 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg04_deletecategory);
+        menuDG04_CategoryName = menuDG04.findViewById(R.id.M04F02D04_CategoryNameText);
+        menuDG04_YesBtn = menuDG04.findViewById(R.id.M04F02D04_YesBtn);
+        menuDG04_NoBtn = menuDG04.findViewById(R.id.M04F02D04_NoBtn);
         closeDG04Btn = menuDG04.findViewById(R.id.M04F02D04_CloseDGBtn);
 
-        //--DG05 EDIT ITEM--//
-        menuDG05 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg05_edititem);
+        //--DG05 CREATE ITEM--//
+        menuDG05 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg05_createitem);
         menuDG05_ItemImg = menuDG05.findViewById(R.id.M04F02D05_CategoryImage);
-        menuDG05_ItemNameInput = menuDG05.findViewById(R.id.M04F02D05_ItemNameInput);
+        menuDG05_ItemWebNameInput = menuDG05_ItemPOSNameInput.findViewById(R.id.M04F02D05_ItemWebNameInput);
+        menuDG05_ItemPOSNameInput = menuDG05.findViewById(R.id.M04F02D05_ItemPOSNameInput);
         menuDG05_ItemPriceInput = menuDG05.findViewById(R.id.M04F02D05_ItemPriceInput);
-        menuDG05_ApplyChangesBtn = menuDG05.findViewById(R.id.M04F02D05_ApplyChangesBtn);
-        menuDG05_DeleteBtn = menuDG05.findViewById(R.id.M04F02D05_DeleteBtn);
+        menuDG05_ConfirmBtn = menuDG05.findViewById(R.id.M04F02D05_ConfirmBtn);
         closeDG05Btn = menuDG05.findViewById(R.id.M04F02D05_CloseDGBtn);
 
-        //--DG06 VIEW ITEM --//
-        menuDG06 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg06_viewitem);
-        menuDG06_ItemImage = menuDG06.findViewById(R.id.M04F02D06_ItemImage);
-        menuDG06_EditBtn = menuDG06.findViewById(R.id.M04F02D06_EditBtn);
-        menuDG06_ItemName = menuDG06.findViewById(R.id.M04F02D06_ItemName);
-        menuDG06_ItemPrice = menuDG06.findViewById(R.id.M04F02D06_ItemPrice);
-        menuDG06_RecyclerView = menuDG06.findViewById(R.id.M04F02D06_FPGRV);
+        //--DG06 EDIT ITEM--//
+        menuDG06 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg06_edititem);
+        menuDG06_ItemImg = menuDG06.findViewById(R.id.M04F02D06_CategoryImage);
+        menuDG06_ItemWebNameInput = menuDG06.findViewById(R.id.M04F02D06_ItemWebNameInput);
+        menuDG06_ItemPOSNameInput = menuDG06.findViewById(R.id.M04F02D06_ItemPOSNameInput);
+        menuDG06_ItemPriceInput = menuDG06.findViewById(R.id.M04F02D06_ItemPriceInput);
+        menuDG06_ApplyChangesBtn = menuDG06.findViewById(R.id.M04F02D06_ApplyChangesBtn);
+        menuDG06_DeleteBtn = menuDG06.findViewById(R.id.M04F02D06_DeleteBtn);
         closeDG06Btn = menuDG06.findViewById(R.id.M04F02D06_CloseDGBtn);
 
-        //--DG07 DELETE CATEGORY--//
-        menuDG07 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg07_deletecategory);
-        menuDG07_CategoryName = menuDG07.findViewById(R.id.M04F02D07_CategoryNameText);
-        menuDG07_YesBtn = menuDG07.findViewById(R.id.M04F02D07_YesBtn);
-        menuDG07_NoBtn = menuDG07.findViewById(R.id.M04F02D07_NoBtn);
+        //--DG07 VIEW ITEM --//
+        menuDG07 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg07_viewitem);
+        menuDG07_ItemImage = menuDG07.findViewById(R.id.M04F02D07_ItemImage);
+        menuDG07_EditBtn = menuDG07.findViewById(R.id.M04F02D07_EditBtn);
+        menuDG07_ItemPOSName = menuDG07.findViewById(R.id.M04F02D07_ItemName);
+        menuDG07_ItemPrice = menuDG07.findViewById(R.id.M04F02D07_ItemPrice);
+        menuDG07_RecyclerView = menuDG07.findViewById(R.id.M04F02D07_FPGRV);
         closeDG07Btn = menuDG07.findViewById(R.id.M04F02D07_CloseDGBtn);
 
         //--DG08 DELETE ITEM--//
@@ -315,45 +302,47 @@ public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader 
     }
 
     //Select Icon
-    private void load_DG01Functionalities(int image, String operation, String name){
-        //Initialize ReyclerView Items
-        List<Integer> icons = new ArrayList<>();
-        int counter = 0;
-        while (counter != 9){
-            icons.add(counter);
-            counter++;
-        }
-
+    private void load_DG01Functionalities(DialogBundle bundle){
         //Initialize RecyclerView
+        List<Integer> icons = RVHelper.getMenuIcons();
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        menuDG01_RecyclerViewAdapter = new M04F02D01_SelectIconRVA(getActivity(), realm, operation, name, menuDG01, icons, this);
+        menuDG01_RecyclerViewAdapter = new M04F02D01_SelectIconRVA(getActivity(), realm, menuDG01, bundle, icons, this);
         menuDG01_RecyclerView.setAdapter(menuDG01_RecyclerViewAdapter);
         menuDG01_RecyclerView.setLayoutManager(layout);
 
         //On Close Button
         closeDG01Btn.setOnClickListener(close->{
-            if(operation.equals("Create Category")){
-                load_DG02Functionalities(image, name);
+            if(bundle.getDialogDestinationNo() == 2){
+                load_DG02Functionalities(bundle);
                 menuDG01.dismiss();
                 menuDG02.show();
-            } else if(operation.equals("Edit Category")){
-                load_DG04Functionalites(image, name);
+            } else if(bundle.getDialogDestinationNo() == 4){
+                load_DG03Functionalities(bundle);
                 menuDG01.dismiss();
-                menuDG04.show();
+                menuDG03.show();
             }
         });
     }
 
     //Create Category
-    private void load_DG02Functionalities(int image, String name){
+    private void load_DG02Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getMenuCategory().getCategoryImage();
+        String name = bundle.getMenuCategory().getCategoryName();
+
         //Set Image and Name;
         IconLoader.setMenuIcon(menuDG02_CategoryImg, image);
         menuDG02_CategoryNameInput.setText(name);
 
         //On Click SelectIconButton
         menuDG02_SelectIconBtn.setOnClickListener(select -> {
-            load_DG01Functionalities(image,"Create Category", menuDG02_CategoryNameInput.getText().toString());
+            //Extract String from Edit Text
+            String input = menuDG02_CategoryNameInput.getText().toString();
+
+            //Load DG01 and pass the Bundle
+            bundle.getMenuCategory().setCategoryName(input);
+            load_DG01Functionalities(bundle);
             menuDG02.dismiss();
             menuDG01.show();
         });
@@ -364,7 +353,7 @@ public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader 
             String input = menuDG02_CategoryNameInput.getText().toString();
 
             //Check String
-            List<String> listOfCategories = ListBuilder.getMenuCategoryNames(realm);
+            List<String> listOfCategories = ListHelper.getMenuCategoryNames(realm);
             if(listOfCategories.contains(input)){
                 menuDG02_CategoryNameInput.setError("Name already exists.");
             } else {
@@ -381,248 +370,258 @@ public class M04F02_Menu extends Fragment implements RVMenuLoader, DialogLoader 
         });
     }
 
-    //Create Item
-    private void load_DG03Functionalities(int image, String category){
-        //Set Image and Name
-        IconLoader.setMenuIcon(menuDG03_ItemImg, image);
-        menuDG03_ItemNameInput.setText("");
-        menuDG03_ItemPriceInput.setText("");
+    //Edit Category
+    private void load_DG03Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getMenuCategory().getCategoryImage();
+        String name = bundle.getMenuCategory().getCategoryName();
 
-        //On Confirm Button
-        menuDG03_ConfirmBtn.setOnClickListener(create -> {
-            String name = menuDG03_ItemNameInput.getText().toString();
-            String price = menuDG03_ItemPriceInput.getText().toString();
-            List<String> listOfItems = ListBuilder.getMenuItemNames(realm);
-            if(listOfItems.contains(name)){
-                menuDG03_ItemNameInput.setError("Name already exists.");
+        //Set Image and Name;
+        IconLoader.setMenuIcon(menuDG03_CategoryImg, image);
+        menuDG03_CategoryNameInput.setText(name);
+
+        //On Click SelectIconButton
+        menuDG03_SelectIconBtn.setOnClickListener(select -> {
+            load_DG01Functionalities(bundle);
+            menuDG01.show();
+        });
+
+        //On Apply Button
+        menuDG03_ApplyChangesBtn.setOnClickListener(apply -> {
+            String input = menuDG03_CategoryNameInput.getText().toString();
+            List<String> listOfCategories = ListHelper.getMenuCategoryNames(realm);
+            if(name.equals(input)){
+                ToastMessage.show(getActivity(), "No Changes were made");
+                menuDG03_CategoryNameInput.setText("");
+                menuDG03.dismiss();
+            } else if(listOfCategories.contains(input) && !name.equals(input)){
+                menuDG03_CategoryNameInput.setError("Name Already Exists");
             } else {
-                OpenMenuInstance.toCreateItem(image, category, name, Double.parseDouble(price));
-                load_ItemRV(category);
-                menuDG03_ItemNameInput.setText("");
-                menuDG03_ItemPriceInput.setText("");
+                OpenMenuInstance.toUpdateCategory(name, image, input);
+                load_CategoryRV();
+                menuDG03_CategoryNameInput.setText("");
                 menuDG03.dismiss();
             }
         });
 
-        //On Close
+        //On Delete Button
+        menuDG03_DeleteBtn.setOnClickListener(delete -> {
+            load_DG04Functionalities(bundle);
+            menuDG03.dismiss();
+            menuDG04.show();
+        });
+
+        //On Close Button
         closeDG03Btn.setOnClickListener(close -> {
             menuDG03.dismiss();
         });
     }
 
-    //Edit Category
-    private void load_DG04Functionalites(int image, String name){
-        //Set Image and Name;
-        IconLoader.setMenuIcon(menuDG04_CategoryImg, image);
-        menuDG04_CategoryNameInput.setText(name);
+    //Delete Category
+    private void load_DG04Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        String name = bundle.getMenuCategory().getCategoryName();
 
-        //On Click SelectIconButton
-        menuDG04_SelectIconBtn.setOnClickListener(select -> {
-            load_DG01Functionalities(image,"Edit Category", menuDG04_CategoryNameInput.getText().toString());
-            menuDG01.show();
-        });
+        //Set Category Name
+        menuDG04_CategoryName.setText(name);
 
-        //On Apply Button
-        menuDG04_ApplyChangesBtn.setOnClickListener(apply -> {
-            String input = menuDG04_CategoryNameInput.getText().toString();
-            List<String> listOfCategories = ListBuilder.getMenuCategoryNames(realm);
-            if(name.equals(input)){
-                ToastMessage.show(getActivity(), "No Changes were made");
-                menuDG04_CategoryNameInput.setText("");
-                menuDG04.dismiss();
-            } else if(listOfCategories.contains(input) && !name.equals(input)){
-                menuDG04_CategoryNameInput.setError("Name Already Exists");
-            } else {
-                OpenMenuInstance.toUpdateCategory(name, image, input);
-                load_CategoryRV();
-                menuDG04_CategoryNameInput.setText("");
-                menuDG04.dismiss();
-            }
-        });
-
-        //On Delete Button
-        menuDG04_DeleteBtn.setOnClickListener(delete -> {
-            load_DG07Functionalities(image, name);
+        //On Yes Btn
+        menuDG04_YesBtn.setOnClickListener(delete -> {
+            OpenMenuInstance.toDeleteCategory(name);
+            load_CategoryRV();
             menuDG04.dismiss();
-            menuDG07.show();
         });
-
-        //On Close Button
+        //On No Btn
+        menuDG04_NoBtn.setOnClickListener(delete -> {
+            load_DG03Functionalities(bundle);
+            menuDG04.dismiss();
+            menuDG03.show();
+        });
+        //On Close Btn
         closeDG04Btn.setOnClickListener(close -> {
+            load_DG03Functionalities(bundle);
             menuDG04.dismiss();
+            menuDG03.show();
         });
     }
 
-    //Edit Item
-    private void load_DG05Functionalities(RealmMenuItem item){
-        //Set Image and Name;
-        IconLoader.setMenuIcon(menuDG05_ItemImg, item.getItemImage());
-        menuDG05_ItemNameInput.setText(item.getItemName());
-        menuDG05_ItemPriceInput.setText(new BigDecimal(item.getItemPrice()).setScale(2, RoundingMode.HALF_UP).toString());
+    //Create Item
+    private void load_DG05Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getMenuItem().getItemIcon();
+        String category = bundle.getMenuItem().getItemCategory();
+        RVBundle items = bundle.getRvBundle();
 
-        //On Apply Button
-        menuDG05_ApplyChangesBtn.setOnClickListener(apply -> {
-            String nameInput = menuDG05_ItemNameInput.getText().toString();
+        //Set Image and Name
+        IconLoader.setMenuIcon(menuDG05_ItemImg, image);
+        menuDG06_ItemWebNameInput.setText("");
+        menuDG05_ItemPOSNameInput.setText("");
+        menuDG05_ItemPriceInput.setText("");
+
+        //On Confirm Button
+        menuDG05_ConfirmBtn.setOnClickListener(create -> {
+            String nameWebInput = menuDG05_ItemWebNameInput.getText().toString();
+            String namePOSInput = menuDG05_ItemPOSNameInput.getText().toString();
             String priceInput = menuDG05_ItemPriceInput.getText().toString();
-            List<String> listOfItems = ListBuilder.getMenuItemNames(realm);
-            if(item.getItemName().equals(nameInput) && String.valueOf(item.getItemPrice()).equals(priceInput)){
-                ToastMessage.show(getActivity(), "No changes were made");
-                menuDG05.dismiss();
-            } else if(item.getItemName().equals(nameInput) && !String.valueOf(item.getItemPrice()).equals(priceInput)){
-                OpenMenuInstance.toUpdateItem(item.getItemName(), item.getItemImage(), item.getItemCategory(), nameInput, Double.parseDouble(priceInput));
-                menuDG05_ItemNameInput.setText("");
-                menuDG05_ItemPriceInput.setText("");
-                load_ItemRV(item.getItemCategory());
-                menuDG05.dismiss();
-            } else if(listOfItems.contains(nameInput)){
-                menuDG05_ItemNameInput.setError("Name already exists");
+            List<String> listOfPOSItems = ListHelper.getMenuItemNames(realm);
+            if(listOfPOSItems.contains(namePOSInput)){
+                menuDG05_ItemPOSNameInput.setError("Name already exists.");
             } else {
-                OpenMenuInstance.toUpdateItem(item.getItemName(), item.getItemImage(), item.getItemCategory(), nameInput, Double.parseDouble(priceInput));
-                load_ItemRV(item.getItemCategory());
-                menuDG05_ItemNameInput.setText("");
+                OpenMenuInstance.toCreateItem(image, category, namePOSInput, namePOSInput, Double.parseDouble(priceInput));
+                load_ItemRV(items);
+                menuDG05_ItemPOSNameInput.setText("");
                 menuDG05_ItemPriceInput.setText("");
                 menuDG05.dismiss();
             }
-        });
-
-        //On Delete Button
-        menuDG05_DeleteBtn.setOnClickListener(delete -> {
-            load_DG08Functionalities(item);
-            menuDG05.dismiss();
-            menuDG08.show();
         });
 
         //On Close
         closeDG05Btn.setOnClickListener(close -> {
-            load_DG06Functionalities(item);
             menuDG05.dismiss();
-            menuDG06.show();
+        });
+    }
+
+    //Edit Item
+    private void load_DG06Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getMenuItem().getItemIcon();
+        String category = bundle.getMenuItem().getItemCategory();
+        String name = bundle.getMenuItem().getItemPOSName();
+        String price = StringHelper.convertToCurrency(bundle.getMenuItem().getItemPrice());
+        RVBundle items = bundle.getRvBundle();
+
+        //Set Image and Name;
+        IconLoader.setMenuIcon(menuDG06_ItemImg, image);
+        menuDG06_ItemPOSNameInput.setText(name);
+        menuDG06_ItemPriceInput.setText("₱" + price);
+
+        //On Apply Button
+        menuDG06_ApplyChangesBtn.setOnClickListener(apply -> {
+            String nameInput = menuDG06_ItemPOSNameInput.getText().toString();
+            String priceInput = menuDG06_ItemPriceInput.getText().toString();
+            List<String> listOfItems = ListHelper.getMenuItemNames(realm);
+            if(name.equals(nameInput) && price.equals(priceInput)){
+                ToastMessage.show(getActivity(), "No changes were made");
+                menuDG06.dismiss();
+            } else if(name.equals(nameInput) && !price.equals(priceInput)){
+                OpenMenuInstance.toUpdateItem(name, image, category, nameInput, nameInput, Double.parseDouble(priceInput));
+                load_ItemRV(items);
+                menuDG06_ItemPOSNameInput.setText("");
+                menuDG06_ItemPriceInput.setText("");
+                menuDG06.dismiss();
+            } else if(listOfItems.contains(nameInput)){
+                menuDG06_ItemPOSNameInput.setError("Name already exists");
+            } else {
+                OpenMenuInstance.toUpdateItem(name, image, category, nameInput, nameInput, Double.parseDouble(priceInput));
+                load_ItemRV(items);
+                menuDG06_ItemPOSNameInput.setText("");
+                menuDG06_ItemPriceInput.setText("");
+                menuDG06.dismiss();
+            }
+        });
+
+        //On Delete Button
+        menuDG06_DeleteBtn.setOnClickListener(delete -> {
+            load_DG08Functionalities(bundle);
+            menuDG06.dismiss();
+            menuDG08.show();
+        });
+
+        //On Close
+        closeDG06Btn.setOnClickListener(close -> {
+            load_DG07Functionalities(bundle);
+            menuDG06.dismiss();
+            menuDG07.show();
         });
     }
 
     //View Item
-    private void load_DG06Functionalities(RealmMenuItem item){
+    private void load_DG07Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        ObjectId id = bundle.getMenuItem().getId();
+        int image = bundle.getMenuItem().getItemIcon();
+        String name = bundle.getMenuItem().getItemPOSName();
+        String price = StringHelper.convertToCurrency(bundle.getMenuItem().getItemPrice());
+
         //Load Item Details
-        IconLoader.setMenuIcon(menuDG06_ItemImage, item.getItemImage());
-        menuDG06_ItemName.setText(item.getItemName());
-        menuDG06_ItemPrice.setText("₱" + new BigDecimal(item.getItemPrice()).setScale(2, RoundingMode.HALF_UP).toString());
+        IconLoader.setMenuIcon(menuDG07_ItemImage, image);
+        menuDG07_ItemPOSName.setText(name);
+        menuDG07_ItemPrice.setText("₱" + price);
+        menuDG07_ItemID.setText(id.toString());
 
         //On Edit Button
-        menuDG06_EditBtn.setOnClickListener(edit -> {
-            load_DG05Functionalities(item);
-            menuDG06.dismiss();
-            menuDG05.show();
+        menuDG07_EditBtn.setOnClickListener(edit -> {
+            load_DG06Functionalities(bundle);
+            menuDG07.dismiss();
+            menuDG06.show();
         });
-
-        //Initialize RecyclerView Items
-        List<List<String>> listOfCombinations = new ArrayList<>();
-        for(Map.Entry<String, Map<List<String>, Integer>> list : fpList.entrySet()){
-            if(item.getItemName().equals(list.getKey())){
-                for(List<String> itemsets : list.getValue().keySet()){
-                    listOfCombinations.add(itemsets);
-                }
-            }
-        }
 
         //Initialize RecyclerView
+        List<List<String>> listOfCombinations = RVHelper.getPopularCombinations(name);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        menuDG06_RecyclerViewAdapter = new M04F02D06_CombinationRVA(listOfCombinations);
-        menuDG06_RecyclerView.setAdapter(menuDG06_RecyclerViewAdapter);
-        menuDG06_RecyclerView.setLayoutManager(layout);
+        menuDG07_RecyclerViewAdapter = new M04F02D07_CombinationRVA(listOfCombinations);
+        menuDG07_RecyclerView.setAdapter(menuDG07_RecyclerViewAdapter);
+        menuDG07_RecyclerView.setLayoutManager(layout);
 
         //On Close Button
-        closeDG06Btn.setOnClickListener(close -> {
-            menuDG06.dismiss();
-        });
-    }
-
-    //Delete Category
-    private void load_DG07Functionalities(int image, String name){
-        //Set Category Name
-        menuDG07_CategoryName.setText(name);
-
-        //On Yes Btn
-        menuDG07_YesBtn.setOnClickListener(delete -> {
-            OpenMenuInstance.toDeleteCategory(name);
-            load_CategoryRV();
-            menuDG07.dismiss();
-        });
-        //On No Btn
-        menuDG07_NoBtn.setOnClickListener(delete -> {
-            load_DG04Functionalites(image, name);
-            menuDG07.dismiss();
-            menuDG04.show();
-        });
-        //On Close Btn
         closeDG07Btn.setOnClickListener(close -> {
-            load_DG04Functionalites(image, name);
             menuDG07.dismiss();
-            menuDG04.show();
         });
     }
 
     //Delete Item
-    private void load_DG08Functionalities(RealmMenuItem item){
+    private void load_DG08Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        String category = bundle.getMenuItem().getItemCategory();
+        String name = bundle.getMenuItem().getItemPOSName();
+        RVBundle items = bundle.getRvBundle();
+
         //Set Item Name
-        menuDG08_ItemName.setText(item.getItemName());
+        menuDG08_ItemName.setText(name);
         //On Yes Btn
         menuDG08_YesBtn.setOnClickListener(delete -> {
-            OpenMenuInstance.toDeleteItem(item.getItemCategory(), item.getItemName());
-            load_ItemRV(currentMenuRV);
+            OpenMenuInstance.toDeleteItem(category, name);
+            load_ItemRV(items);
             menuDG08.dismiss();
         });
 
         //On No Btn
         menuDG08_NoBtn.setOnClickListener(delete -> {
-            load_DG06Functionalities(item);
-            menuDG06.show();
+            load_DG07Functionalities(bundle);
+            menuDG07.show();
             menuDG08.dismiss();
         });
 
         //On Close Btn
         closeDG08Btn.setOnClickListener(close -> {
-            load_DG06Functionalities(item);
-            menuDG06.show();
+            load_DG07Functionalities(bundle);
+            menuDG07.show();
             menuDG08.dismiss();
         });
     }
 
     @Override
-    public void load_RVContents(List<MenuItem> listOfItems) {
-        listOfMenuItems = new ArrayList<>();
-        listOfMenuItems.addAll(listOfItems);
-        currentFragment = "Menu02";
-        displayText.setText("「 " + currentMenuRV + " 」");
-        GridLayoutManager layout = new GridLayoutManager(getActivity(), 2);
-        layout.setOrientation(GridLayoutManager.VERTICAL);
-        menuRVA = new M04F02_ItemRVA(getActivity(), realm, listOfMenuItems, this);
-        menuRV.setAdapter(menuRVA);
-        menuRV.setLayoutManager(layout);
+    public void load_RVContents(RVBundle bundle) {
+        load_ItemRV(bundle);
     }
 
     @Override
-    public void load_DGContents(int dialogNo, int image, String name) {
+    public void load_DGContents(DialogBundle bundle) {
+        int dialogNo = bundle.getDialogDestinationNo();
         switch(dialogNo){
             case 2:
-                load_DG02Functionalities(image, name);
+                load_DG02Functionalities(bundle);
                 menuDG02.show();
                 break;
             case 4:
-                RealmMenuCategory category = realm.where(RealmMenuCategory.class).equalTo("categoryName", name).findFirst();
-                load_DG04Functionalites(category.getCategoryImage(), category.getCategoryName());
-                menuDG04.show();
-                break;
-            case 44:
-                load_DG04Functionalites(image, name);
-                menuDG04.show();
+                load_DG03Functionalities(bundle);
+                menuDG03.show();
                 break;
             case 6:
-                RealmMenuItem item = realm.where(RealmMenuItem.class).equalTo("itemName", name).findFirst();
-                load_DG06Functionalities(item);
-                menuDG06.show();
+                load_DG07Functionalities(bundle);
+                menuDG07.show();
                 break;
         }
     }
-
 }

@@ -46,8 +46,7 @@ public class M04F01SF03D06_SelectDiscountToApplyRVA extends RecyclerView.Adapter
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String discountName = listOfDiscountsKeyset.get(position);
         int discountPercentage = listOfDiscounts.get(discountName);
-        holder.loadDetails(discountName, discountPercentage, position);
-        holder.onClickDiscount(discountName, discountPercentage, position);
+        holder.loadFunctionalities(discountName, discountPercentage, position);
     }
 
     @Override
@@ -67,7 +66,8 @@ public class M04F01SF03D06_SelectDiscountToApplyRVA extends RecyclerView.Adapter
             discountStatus = itemView.findViewById(R.id.M04F01SF03D06_RVDiscountStatus);
         }
 
-        public void loadDetails(String name, int percentage, int position){
+        public void loadFunctionalities(String name, int percentage, int position){
+            //Set Views
             this.position = position;
             discountName.setText(name);
             discountPercentage.setText(percentage + "%");
@@ -82,10 +82,8 @@ public class M04F01SF03D06_SelectDiscountToApplyRVA extends RecyclerView.Adapter
                 discountName.setTextColor(ContextCompat.getColor(context, R.color.wabizabi));
                 discountPercentage.setTextColor(ContextCompat.getColor(context, R.color.wabizabi));
             }
-        }
 
-        public void onClickDiscount(String name, int percentage, int position){
-            this.position = position;
+            //On Select
             discountContainer.setOnClickListener(select -> {
                 if(listOfDiscountsToApply.containsKey(name)){
                     listOfDiscountsToApply.remove(name, percentage);

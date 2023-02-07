@@ -14,8 +14,8 @@ public class OpenPaymentMethodInstance {
 
     public static void toCreateMethod(String name){
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
-        DateFormat currentDateAndTime = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a");
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a").format(new Date());
+        DateFormat currentDateAndTime = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a");
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 RealmPaymentMethod payment = db.createObject(RealmPaymentMethod.class, new ObjectId());
@@ -28,7 +28,7 @@ public class OpenPaymentMethodInstance {
 
     public static void toUpdateMethod(String oldName, String name){
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | hh:mm a").format(new Date());
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 RealmPaymentMethod payment = db.where(RealmPaymentMethod.class).equalTo("methodName", oldName).findFirst();

@@ -14,6 +14,11 @@ public class StockCategory {
 
     public StockCategory(){}
 
+    public StockCategory(int categoryImage, String categoryName) {
+        this.categoryImage = categoryImage;
+        this.categoryName = categoryName;
+    }
+
     public StockCategory(int categoryImage, String categoryName, String lastUpdatedID, String lastUpdatedText) {
         this.categoryImage = categoryImage;
         this.categoryName = categoryName;

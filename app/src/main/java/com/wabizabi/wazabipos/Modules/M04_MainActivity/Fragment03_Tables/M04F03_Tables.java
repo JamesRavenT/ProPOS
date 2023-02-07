@@ -1,16 +1,20 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Tables;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -19,21 +23,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenTableInstance;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmTable;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmTicket;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Tables.Adapters.M04F03_TablesRVA;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.DialogBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.ListBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class M04F03_Tables extends Fragment implements DialogLoader {
     //--DATABASE--//
@@ -43,7 +45,8 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
     ImageView createBtn;
 
     //--SEARCH BAR--//
-    EditText searchbar;
+    EditText searchBar;
+    InputMethodManager keyBoard;
 
     //--RECYCLERVIEW--//
     List<String> listOfTables;
@@ -77,9 +80,10 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
         return v;
     }
 
+
     private void init_FragmentFunctionalities(View v){
         createBtn = v.findViewById(R.id.M04F03_CreateBtn);
-        searchbar = v.findViewById(R.id.M04F03_SearchBarInput);
+        searchBar = v.findViewById(R.id.M04F03_SearchBarInput);
         tablesRV = v.findViewById(R.id.M04F03_RecyclerView);
 
         init_Dialogs();
@@ -94,11 +98,20 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
             load_DG01Functionalities();
             tableDG01.show();
         });
-    }
 
+    }
     private void load_Searchbar(){
-        searchbar.setText("");
-        searchbar.addTextChangedListener(new TextWatcher() {
+        searchBar.setText("");
+        searchBar.setOnKeyListener((search, key, keyEvent) -> {
+            if(key == KeyEvent.KEYCODE_ENTER){
+                keyBoard = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                keyBoard.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getRootView().getWindowToken() , 0);
+                return true;
+            } else {
+                return false;
+            }
+        });
+        searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -114,22 +127,12 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
                 load_FilteredRecyclerView(input.toString());
             }
         });
+
     }
 
     private void load_RecyclerView(){
-        //Initialize RecyclerView Items
-        Map<String, Integer> listOfAllTables = new LinkedHashMap<>();
-        RealmResults<RealmTable> queriedTables = realm.where(RealmTable.class).sort("tableName").findAll();
-        for(RealmTable query : queriedTables){
-            if(listOfAllTables.containsKey(query.getTableName())){
-                listOfAllTables.put(query.getTableName(), listOfAllTables.get(query.getTableName()) + 1);
-            } else {
-                listOfAllTables.put(query.getTableName(), 1);
-            }
-        }
-        listOfTables = new ArrayList<>(listOfAllTables.keySet());
-
         //Initialize RecyclerView
+        listOfTables = RVHelper.getTables(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         tablesRVA = new M04F03_TablesRVA(getActivity(), realm, listOfTables, this);
@@ -138,15 +141,8 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
     }
 
     private void load_FilteredRecyclerView(String input){
-        //Initialize RecyclerView Items
-        List<String> filteredTables = new ArrayList<>();
-        for(String table : listOfTables){
-            if(table.toLowerCase().contains(input.toLowerCase())){
-                filteredTables.add(table);
-            }
-        }
-
         //Initialize RecyclerView
+        List<String> filteredTables = RVHelper.getFilteredTables(listOfTables, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         tablesRVA = new M04F03_TablesRVA(getActivity(), realm, filteredTables, this);
@@ -184,12 +180,13 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
         tableDG01_ConfirmBtn.setOnClickListener(confirm -> {
             //Extract String from Edit Text
             String input = tableDG01_NameInput.getText().toString();
-            List<String> listOfTables = ListBuilder.getTableNames(realm);
+            List<String> listOfTables = ListHelper.getTableNames(realm);
             if(listOfTables.contains(input)){
                 tableDG01_NameInput.setError("Name already Exists");
             } else {
                 OpenTableInstance.toCreateTable(input);
                 tableDG01_NameInput.setText("");
+                tableDG01_NameInput.setError(null);
                 load_RecyclerView();
                 tableDG01.dismiss();
             }
@@ -202,33 +199,46 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
     }
 
     //Edit Table
-    private void load_DG02Functionalities(String name){
+    private void load_DG02Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        String table = bundle.getTableName();
+
         //Set Edit Text
-        tableDG02_NameInput.setText(name);
+        tableDG02_NameInput.setText(table);
+        int focus = tableDG02_NameInput.getText().toString().length();
+        tableDG02_NameInput.requestFocus();
+        tableDG02_NameInput.setSelection(focus);
 
         //On Apply Btn
         tableDG02_ApplyBtn.setOnClickListener(apply -> {
             //Extract String
             String input = tableDG02_NameInput.getText().toString();
-            List<String> listOfTables = ListBuilder.getTableNames(realm);
-            if(name.equals(input)){
+            List<String> listOfTables = ListHelper.getTableNames(realm);
+            if(table.equals(input)){
                 ToastMessage.show(getActivity(), "No Changes were made");
                 tableDG02.dismiss();
             } else if(listOfTables.contains(input)){
                 tableDG02_NameInput.setError("Name Already Exists");
             } else {
-                OpenTableInstance.toEditTable(name, input);
+                OpenTableInstance.toEditTable(table, input);
                 load_RecyclerView();
                 tableDG02_NameInput.setText("");
+                tableDG02_NameInput.setError(null);
                 tableDG02.dismiss();
             }
         });
 
         //On Delete Btn
+        RealmTicket ticket = realm.where(RealmTicket.class).findFirst();
         tableDG02_DeleteBtn.setOnClickListener(delete -> {
-            load_DG03Functionalitites(name);
-            tableDG02.dismiss();
-            tableDG03.show();
+            if(ticket == null) {
+                bundle.setDialogDestinationNo(3);
+                load_DG03Functionalities(bundle);
+                tableDG02.dismiss();
+                tableDG03.show();
+            } else {
+                ToastMessage.show(getActivity(), "Cannot delete Tables if ticket is not empty");
+            }
         });
 
         //On Close Btn
@@ -238,35 +248,41 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
     }
 
     //Delete Table
-    private void load_DG03Functionalitites(String name){
+    private void load_DG03Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        String table = bundle.getTableName();
+
         //Set Table Name
-        tableDG03_TableName.setText(name);
+        tableDG03_TableName.setText(table + "?");
 
         //On Yes Btn
         tableDG03_YesBtn.setOnClickListener(yes -> {
-            OpenTableInstance.toDeleteTable(name);
+            OpenTableInstance.toDeleteTable(table);
             load_RecyclerView();
             tableDG03.dismiss();
         });
 
         //On No Btn
         tableDG03_NoBtn.setOnClickListener(no -> {
-            load_DG02Functionalities(name);
+            bundle.setDialogDestinationNo(2);
+            load_DG02Functionalities(bundle);
             tableDG03.dismiss();
             tableDG02.show();
         });
 
         //On Close Btn
         closeDG03Btn.setOnClickListener(close -> {
-            load_DG02Functionalities(name);
+            bundle.setDialogDestinationNo(2);
+            load_DG02Functionalities(bundle);
             tableDG03.dismiss();
             tableDG02.show();
         });
     }
 
     @Override
-    public void load_DGContents(int dialogNo, int image, String name) {
-        load_DG02Functionalities(name);
+    public void load_DGContents(DialogBundle bundle) {
+        //Unpack Bundle
+        load_DG02Functionalities(bundle);
         tableDG02.show();
     }
 

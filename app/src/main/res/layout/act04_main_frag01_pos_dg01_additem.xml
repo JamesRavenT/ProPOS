@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F01D01_Layout"
     android:layout_width="400dp"
-    android:layout_height="400dp"
+    android:layout_height="415dp"
     android:layout_gravity="center"
     android:padding="5dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F01D01_Container"
         android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_height="375dp"
         android:layout_margin="5dp"
-        app:cardCornerRadius="10dp"
         android:elevation="10dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +26,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_shape_rectangle_stroke_dark_marg12p">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/M04F01D01_ItemImageLayout"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/bg_shape_rectangle_stroke_dark_marg03p"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01D01_AddToCartText"
+                app:layout_constraintVertical_bias="0.0">
+
+                <ImageView
+                    android:id="@+id/M04F01D01_ItemImage"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_products00_default" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/M04F01D01_CloseDGBtnLayout"
@@ -52,19 +75,6 @@
                     app:srcCompat="@drawable/icon_button_close_red" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/M04F01D01_ItemImage"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.179"
-                app:srcCompat="@drawable/icon_products00_default" />
-
             <TextView
                 android:id="@+id/M04F01D01_ItemPrice"
                 android:layout_width="wrap_content"
@@ -78,9 +88,8 @@
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.227"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01D01_ItemImage"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01D01_ItemImageLayout"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -94,30 +103,36 @@
                 android:gravity="center"
                 android:text="Udon Ramen"
                 android:textColor="@color/wabizabi"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/M04F01D01_ItemPrice"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/M04F01D01_SubBtn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+            <TextView
+                android:id="@+id/M04F01D01_AddToCartText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Add Item"
+                android:textColor="@color/wabizabi"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/M04F01D01_ItemQty"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.316"
-                app:srcCompat="@drawable/icon_button_arrowleft" />
+                app:layout_constraintTop_toBottomOf="@+id/M04F01D01_CloseDGBtnLayout"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/M04F01D01_ItemQty"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
                 android:text="1"
@@ -125,21 +140,34 @@
                 android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.766"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.316" />
+                app:layout_constraintTop_toBottomOf="@+id/M04F01D01_ItemName"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/M04F01D01_SubBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/M04F01D01_ItemQty"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01D01_ItemName"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/icon_button_arrowleft" />
 
             <ImageView
                 android:id="@+id/M04F01D01_AddBtn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/M04F01D01_ItemQty"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.316"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01D01_ItemName"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/icon_button_arrowright" />
 
             <androidx.cardview.widget.CardView
@@ -147,17 +175,16 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
                 android:backgroundTint="@color/wabizabi"
                 android:elevation="10dp"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01D01_ItemName"
-                app:layout_constraintVertical_bias="0.272">
+                app:layout_constraintTop_toBottomOf="@+id/M04F01D01_ItemQty"
+                app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/M04F01D01_AddToCartBtnLayout"

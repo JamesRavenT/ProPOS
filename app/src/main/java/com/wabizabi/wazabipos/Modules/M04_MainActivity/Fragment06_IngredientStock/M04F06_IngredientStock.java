@@ -24,18 +24,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.Instances.OpenStocksInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockItem;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmStockCategory;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmStockItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStock.Adapters.M04F06D01_SelectIconRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStock.Adapters.M04F06_CategoryRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStock.Adapters.M04F06_ItemRVA;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Interfaces.RVStockLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.DialogBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.IconLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.ListBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class M04F06_IngredientStock extends Fragment implements RVStockLoader, DialogLoader {
+public class M04F06_IngredientStock extends Fragment implements RVLoader, DialogLoader {
     //--DATABASE--//
     Realm realm = Realm.getDefaultInstance();
 
@@ -139,24 +140,27 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
         stockRV = v.findViewById(R.id.M04F06_RecyclerView);
 
         init_Dialogs();
-        load_Creation();
+        load_CategoryCreation();
         load_SearchBar();
         load_CategoryRV();
 
     }
-
-    private void load_Creation(){
+    private void load_CategoryCreation(){
         createBtn.setOnClickListener(create -> {
             if(currentFragment.equals("Stock01")){
-                load_DG02Functionalities(0, "");
+                load_DG02Functionalities(new DialogBundle(2, new StockCategory(0, "")));
                 stockDG02.show();
-            } else {
-                RealmStockCategory icon = realm.where(RealmStockCategory.class).equalTo("categoryName", currentStockRV).findFirst();
-                load_DG03Functionalities(icon.getCategoryImage(), currentStockRV);
+            }
+        });
+    }
+
+    private void load_ItemCreation(RVBundle bundle){
+        createBtn.setOnClickListener(create -> {
+            if(currentFragment.equals("Stock02")){
+                load_DG03Functionalities(new DialogBundle(3, new StockItem(0, bundle.getMenuCategory(),"", 0, ""), bundle));
                 stockDG03.show();
             }
         });
-
     }
 
     private void load_SearchBar(){
@@ -187,14 +191,8 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
         //Initialize RecyclerViewItems and State
         displayText.setText("「 CATEGORIES 」");
 
-        //Initialize RecyclerViewItems
-        listOfStockCategories = new ArrayList<>();
-        RealmResults<RealmStockCategory> queriedCategories = realm.where(RealmStockCategory.class).sort("categoryName").findAll();
-        for(RealmStockCategory query : queriedCategories){
-            listOfStockCategories.add(new StockCategory(query.getCategoryImage(), query.getCategoryName(), query.getLastUpdatedID(), query.getLastUpdatedText()));
-        }
-
         //Initialize RecyclerView
+        listOfStockCategories = RVHelper.getStockCategories(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         stockRVA = new M04F06_CategoryRVA(getActivity(), realm, searchbar, listOfStockCategories, this, this);
@@ -203,12 +201,7 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
     }
 
     private void load_FilteredCategoryRV(String input){
-        List<StockCategory> filteredCategory = new ArrayList<>();
-        for(StockCategory category : listOfStockCategories){
-            if(category.getCategoryName().toLowerCase().contains(input.toLowerCase())){
-                filteredCategory.add(category);
-            }
-        }
+        List<StockCategory> filteredCategory = RVHelper.getFilteredStockCategories(listOfStockCategories, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         stockRVA = new M04F06_CategoryRVA(getActivity(), realm, searchbar, filteredCategory, this, this);
@@ -216,32 +209,24 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
         stockRV.setLayoutManager(layout);
     }
 
-    private void load_ItemRV(String category){
+    private void load_ItemRV(RVBundle bundle){
         //Initialize RecyclerViewItems and State
-        displayText.setText("「 " + category.toUpperCase() + " 」");
+        displayText.setText("「 " + bundle.getStockCategory().toUpperCase() + " 」");
 
         //Initialize RecyclerViewItems
-        listOfStockItems = new ArrayList<>();
-        RealmResults<RealmStockItem> queriedItems = realm.where(RealmStockItem.class).equalTo("itemCategory", category).sort("itemName").findAll();
-        for(RealmStockItem query : queriedItems){
-            listOfStockItems.add(new StockItem(query.getItemImage(), query.getItemCategory(), query.getItemName(), query.getItemAmount(), query.getUnitOfMeasurement()));
-        }
-
-        //Initialize RecyclerView
-        GridLayoutManager layout = new GridLayoutManager(getActivity(), 2);
-        layout.setOrientation(GridLayoutManager.VERTICAL);
+        listOfStockItems = RVHelper.getStockItems(realm, bundle.getStockCategory());
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
         stockRVA = new M04F06_ItemRVA(getActivity(), realm, listOfStockItems, this);
         stockRV.setAdapter(stockRVA);
         stockRV.setLayoutManager(layout);
+
+        //Load Create Item Functionality
+        load_ItemCreation(bundle);
     }
 
     private void load_FilteredItemRV(String input){
-        List<StockItem> filteredItem = new ArrayList<>();
-        for(StockItem item : listOfStockItems){
-            if(item.getItemName().toLowerCase().contains(input.toLowerCase())){
-                filteredItem.add(item);
-            }
-        }
+        List<StockItem> filteredItem = RVHelper.getFilteredStockItems(listOfStockItems, input);
         GridLayoutManager layout = new GridLayoutManager(getActivity(), 2);
         layout.setOrientation(GridLayoutManager.VERTICAL);
         stockRVA = new M04F06_ItemRVA(getActivity(), realm, filteredItem, this);
@@ -317,30 +302,23 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
     }
 
     //Select Icon
-    private void load_DG01Functionalities(int image, String operation, String name){
-        //Initialize ReyclerView Items
-        List<Integer> icons = new ArrayList<>();
-        int counter = 0;
-        while (counter != 9){
-            icons.add(counter);
-            counter++;
-        }
-
+    private void load_DG01Functionalities(DialogBundle bundle){
         //Initialize RecyclerView
+        List<Integer> icons = RVHelper.getStockIcons();
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        stockDG01_RecyclerViewAdapter = new M04F06D01_SelectIconRVA(getActivity(), realm, operation, name, stockDG01, icons, this);
+        stockDG01_RecyclerViewAdapter = new M04F06D01_SelectIconRVA(getActivity(), realm, stockDG01, bundle, icons, this);
         stockDG01_RecyclerView.setAdapter(stockDG01_RecyclerViewAdapter);
         stockDG01_RecyclerView.setLayoutManager(layout);
 
         //On Close Button
         closeDG01Btn.setOnClickListener(close->{
-            if(operation.equals("Create Category")){
-                load_DG02Functionalities(image, name);
+            if(bundle.getDialogDestinationNo() == 2){
+                load_DG02Functionalities(bundle);
                 stockDG01.dismiss();
                 stockDG02.show();
-            } else if(operation.equals("Edit Category")){
-                load_DG04Functionalites(image, name);
+            } else if(bundle.getDialogDestinationNo() == 4){
+                load_DG04Functionalites(bundle);
                 stockDG01.dismiss();
                 stockDG04.show();
             }
@@ -348,14 +326,24 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
     }
 
     //Create Category
-    private void load_DG02Functionalities(int image, String name){
+    private void load_DG02Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getStockCategory().getCategoryImage();
+        String name = bundle.getStockCategory().getCategoryName();
+
+
         //Set Image and Name;
         IconLoader.setStockIcon(stockDG02_CategoryImg, image);
         stockDG02_CategoryNameInput.setText(name);
 
         //On Click SelectIconButton
         stockDG02_SelectIconBtn.setOnClickListener(select -> {
-            load_DG01Functionalities(image,"Create Category", stockDG02_CategoryNameInput.getText().toString());
+            //Extract String from Edit Text
+            String input = stockDG02_CategoryNameInput.getText().toString();
+
+            //Load DG01 and pass the Bundle
+            bundle.getStockCategory().setCategoryName(input);
+            load_DG01Functionalities(bundle);
             stockDG02.dismiss();
             stockDG01.show();
         });
@@ -366,7 +354,7 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
             String input = stockDG02_CategoryNameInput.getText().toString();
 
             //Check String
-            List<String> listOfCategories = ListBuilder.getStockCategoryNames(realm);
+            List<String> listOfCategories = ListHelper.getStockCategoryNames(realm);
             if(listOfCategories.contains(input)){
                 stockDG02_CategoryNameInput.setError("Name already exists.");
             } else {
@@ -384,7 +372,13 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
     }
 
     //Create Item
-    private void load_DG03Functionalities(int image, String category){
+    private void load_DG03Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getStockItem().getItemImage();
+        String category = bundle.getStockItem().getItemCategory();
+        String name = bundle.getStockItem().getItemName();
+        RVBundle items = bundle.getRvBundle();
+
         //Set Image and Name
         IconLoader.setStockIcon(stockDG03_ItemImg, image);
         stockDG03_ItemNameInput.setText("");
@@ -394,12 +388,12 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
         stockDG03_ConfirmBtn.setOnClickListener(create -> {
             String nameInput = stockDG03_ItemNameInput.getText().toString();
             String measurementInput = stockDG03_ItemMeasurementInput.getText().toString();
-            List<String> listOfItems = ListBuilder.getStockItemNames(realm);
+            List<String> listOfItems = ListHelper.getStockItemNames(realm);
             if(listOfItems.contains(nameInput)){
                 stockDG03_ItemNameInput.setError("Name already exists.");
             } else {
                 OpenStocksInstance.toCreateItem(image, category, nameInput, 1, measurementInput);
-                load_ItemRV(category);
+                load_ItemRV(items);
                 stockDG03_ItemNameInput.setText("");
                 stockDG03_ItemMeasurementInput.setText("");
                 stockDG03.dismiss();
@@ -413,15 +407,19 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
     }
 
     //Edit Category
-    private void load_DG04Functionalites(int image, String name){
+    private void load_DG04Functionalites(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getStockCategory().getCategoryImage();
+        String name = bundle.getStockCategory().getCategoryName();
+
         //Set Image and Name;
         IconLoader.setStockIcon(stockDG04_CategoryImg, image);
         stockDG04_CategoryNameInput.setText(name);
 
         //On Click SelectIconButton
         stockDG04_SelectIconBtn.setOnClickListener(select -> {
-            String input = stockDG04_CategoryNameInput.getText().toString();
-            load_DG01Functionalities(image,"Edit Category", input);
+            bundle.getStockCategory().setCategoryName(stockDG04_CategoryNameInput.getText().toString());
+            load_DG01Functionalities(bundle);
             stockDG04.dismiss();
             stockDG01.show();
         });
@@ -429,7 +427,7 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
         //On Apply Button
         stockDG04_ApplyChangesBtn.setOnClickListener(apply -> {
             String input = stockDG04_CategoryNameInput.getText().toString();
-            List<String> listOfCategories = ListBuilder.getStockCategoryNames(realm);
+            List<String> listOfCategories = ListHelper.getStockCategoryNames(realm);
             if(name.equals(input)){
                 ToastMessage.show(getActivity(), "No Changes were made");
                 stockDG04_CategoryNameInput.setText("");
@@ -446,7 +444,7 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
 
         //On Delete Button
         stockDG04_DeleteBtn.setOnClickListener(delete -> {
-            load_DG07Functionalities(image, name);
+            load_DG07Functionalities(bundle);
             stockDG04.dismiss();
             stockDG07.show();
         });
@@ -458,31 +456,38 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
     }
 
     //Edit Item
-    private void load_DG05Functionalities(RealmStockItem item){
+    private void load_DG05Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getStockItem().getItemImage();
+        String category = bundle.getStockItem().getItemCategory();
+        String name = bundle.getStockItem().getItemName();
+        String measurement = bundle.getStockItem().getUnitOfMeasurement();
+        RVBundle items = bundle.getRvBundle();
+
         //Set Image and Name;
-        IconLoader.setStockIcon(stockDG05_ItemImg, item.getItemImage());
-        stockDG05_ItemNameInput.setText(item.getItemName());
-        stockDG05_ItemMeasurementInput.setText(item.getUnitOfMeasurement());
+        IconLoader.setStockIcon(stockDG05_ItemImg, image);
+        stockDG05_ItemNameInput.setText(name);
+        stockDG05_ItemMeasurementInput.setText(measurement);
 
         //On Apply Button
         stockDG05_ApplyChangesBtn.setOnClickListener(apply -> {
             String nameInput = stockDG05_ItemNameInput.getText().toString();
             String measurementInput = stockDG05_ItemMeasurementInput.getText().toString();
-            List<String> listOfItems = ListBuilder.getStockItemNames(realm);
-            if(item.getItemName().equals(nameInput) && item.getUnitOfMeasurement().equals(measurementInput)){
+            List<String> listOfItems = ListHelper.getStockItemNames(realm);
+            if(name.equals(nameInput) && measurement.equals(measurementInput)){
                 ToastMessage.show(getActivity(), "No changes were made");
                 stockDG05.dismiss();
-            } else if(item.getItemName().equals(nameInput) && !item.getUnitOfMeasurement().equals(measurementInput)){
-                OpenStocksInstance.toUpdateItem(item.getItemName(), item.getItemImage(), item.getItemCategory(), nameInput, measurementInput);
+            } else if(name.equals(nameInput) && !measurement.equals(measurementInput)){
+                OpenStocksInstance.toUpdateItem(name, image, category, nameInput, measurementInput);
+                load_ItemRV(items);
                 stockDG05_ItemNameInput.setText("");
                 stockDG05_ItemMeasurementInput.setText("");
-                load_ItemRV(item.getItemCategory());
                 stockDG05.dismiss();
             } else if(listOfItems.contains(nameInput)){
                 stockDG05_ItemNameInput.setError("Name already exists");
             } else {
-                OpenStocksInstance.toUpdateItem(item.getItemName(), item.getItemImage(), item.getItemCategory(), nameInput, measurementInput);
-                load_ItemRV(item.getItemCategory());
+                OpenStocksInstance.toUpdateItem(name, image, category, nameInput, measurementInput);
+                load_ItemRV(items);
                 stockDG05_ItemNameInput.setText("");
                 stockDG05_ItemMeasurementInput.setText("");
                 stockDG05.dismiss();
@@ -491,30 +496,38 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
 
         //On Delete Button
         stockDG05_DeleteBtn.setOnClickListener(delete -> {
-            load_DG08Functionalities(item);
+            load_DG08Functionalities(bundle);
             stockDG05.dismiss();
             stockDG08.show();
         });
 
         //On Close
         closeDG05Btn.setOnClickListener(close -> {
-            load_DG06Functionalities(item);
+            load_DG06Functionalities(bundle);
             stockDG05.dismiss();
             stockDG06.show();
         });
     }
 
     //View Item
-    private void load_DG06Functionalities(RealmStockItem item){
+    private void load_DG06Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getStockItem().getItemImage();
+        String category = bundle.getStockItem().getItemCategory();
+        String name = bundle.getStockItem().getItemName();
+        int amount = bundle.getStockItem().getItemAmount();
+        String measurement = bundle.getStockItem().getUnitOfMeasurement();
+        RVBundle items = bundle.getRvBundle();
+
         //Load Item Details
-        IconLoader.setStockIcon(stockDG06_ItemImage, item.getItemImage());
-        stockDG06_ItemName.setText(item.getItemName());
-        stockDG06_ItemQty.setText(String.valueOf(item.getItemAmount()));
-        stockDG06_ItemMeasurement.setText(item.getUnitOfMeasurement());
+        IconLoader.setStockIcon(stockDG06_ItemImage, image);
+        stockDG06_ItemName.setText(name);
+        stockDG06_ItemQty.setText(String.valueOf(amount));
+        stockDG06_ItemMeasurement.setText(measurement);
 
         //On Edit Button
         stockDG06_EditBtn.setOnClickListener(edit -> {
-            load_DG05Functionalities(item);
+            load_DG05Functionalities(bundle);
             stockDG06.dismiss();
             stockDG05.show();
         });
@@ -536,10 +549,10 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
 
         //On Update Button
         stockDG06_UpdateBtn.setOnClickListener(update -> {
-            int amount = Integer.parseInt(stockDG06_ItemQty.getText().toString());
-            if(amount != item.getItemAmount()){
-                OpenStocksInstance.toUpdateAmount(item.getItemCategory(), item.getItemName(), amount);
-                load_ItemRV(item.getItemCategory());
+            int newAmount = Integer.parseInt(stockDG06_ItemQty.getText().toString());
+            if(newAmount != amount){
+                OpenStocksInstance.toUpdateAmount(category, name, newAmount);
+                load_ItemRV(items);
                 stockDG06.dismiss();
             }
         });
@@ -552,7 +565,11 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
     }
 
     //Delete Category
-    private void load_DG07Functionalities(int image, String name){
+    private void load_DG07Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getStockCategory().getCategoryImage();
+        String name = bundle.getStockCategory().getCategoryName();
+
         //Set Category Name
         stockDG07_CategoryName.setText(name);
 
@@ -564,76 +581,71 @@ public class M04F06_IngredientStock extends Fragment implements RVStockLoader, D
         });
         //On No Btn
         stockDG07_NoBtn.setOnClickListener(delete -> {
-            load_DG04Functionalites(image, name);
+            load_DG04Functionalites(bundle);
             stockDG07.dismiss();
             stockDG04.show();
         });
         //On Close Btn
         closeDG07Btn.setOnClickListener(close -> {
-            load_DG04Functionalites(image, name);
+            load_DG04Functionalites(bundle);
             stockDG07.dismiss();
             stockDG04.show();
         });
     }
 
     //Delete Item
-    private void load_DG08Functionalities(RealmStockItem item){
+    private void load_DG08Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getStockItem().getItemImage();
+        String category = bundle.getStockItem().getItemCategory();
+        String name = bundle.getStockItem().getItemName();
+        int amount = bundle.getStockItem().getItemAmount();
+        String measurement = bundle.getStockItem().getUnitOfMeasurement();
+        RVBundle items = bundle.getRvBundle();
+
         //Set Item Name
-        stockDG08_ItemName.setText(item.getItemName());
+        stockDG08_ItemName.setText(name);
         //On Yes Btn
         stockDG08_YesBtn.setOnClickListener(delete -> {
-            OpenStocksInstance.toDeleteItem(item.getItemCategory(), item.getItemName());
-            load_ItemRV(currentStockRV);
+            OpenStocksInstance.toDeleteItem(category, name);
+            load_ItemRV(items);
             stockDG08.dismiss();
         });
 
         //On No Btn
         stockDG08_NoBtn.setOnClickListener(delete -> {
-            load_DG06Functionalities(item);
+            load_DG06Functionalities(bundle);
             stockDG06.show();
             stockDG08.dismiss();
         });
 
         //On Close Btn
         closeDG08Btn.setOnClickListener(close -> {
-            load_DG06Functionalities(item);
+            load_DG06Functionalities(bundle);
             stockDG06.show();
             stockDG08.dismiss();
         });
     }
 
     @Override
-    public void load_RVContents(List<StockItem> listOfItems) {
-        listOfStockItems = new ArrayList<>();
-        listOfStockItems.addAll(listOfItems);
-        currentFragment = "Stock02";
-        displayText.setText("「 " + currentStockRV + " 」");
-        GridLayoutManager layout = new GridLayoutManager(getActivity(), 2);
-        layout.setOrientation(GridLayoutManager.VERTICAL);
-        stockRVA = new M04F06_ItemRVA(getActivity(), realm, listOfStockItems, this);
-        stockRV.setAdapter(stockRVA);
-        stockRV.setLayoutManager(layout);
+    public void load_RVContents(RVBundle bundle) {
+        load_ItemRV(bundle);
     }
 
     @Override
-    public void load_DGContents(int dialogNo, int image, String name) {
+    public void load_DGContents(DialogBundle bundle) {
+        int dialogNo = bundle.getDialogDestinationNo();
         switch(dialogNo){
             case 2:
-                load_DG02Functionalities(image, name);
+                load_DG02Functionalities(bundle);
                 stockDG02.show();
                 break;
             case 4:
-                RealmStockCategory category = realm.where(RealmStockCategory.class).equalTo("categoryName", name).findFirst();
-                load_DG04Functionalites(category.getCategoryImage(), category.getCategoryName());
-                stockDG04.show();
-                break;
-            case 44:
-                load_DG04Functionalites(image, name);
+                load_DG04Functionalites(bundle);
                 stockDG04.show();
                 break;
             case 6:
-                RealmStockItem item = realm.where(RealmStockItem.class).equalTo("itemName", name).findFirst();
-                load_DG06Functionalities(item);
+                load_DG06Functionalities(bundle);
                 stockDG06.show();
                 break;
         }

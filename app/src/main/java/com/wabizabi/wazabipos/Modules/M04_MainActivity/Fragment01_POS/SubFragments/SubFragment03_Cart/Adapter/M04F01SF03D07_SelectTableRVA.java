@@ -1,6 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart.currentCartTable;
+
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart.selectedTable;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -43,8 +44,7 @@ public class M04F01SF03D07_SelectTableRVA extends RecyclerView.Adapter<M04F01SF0
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Table table = listOfTables.get(position);
-        holder.loadDetails(table, position);
-        holder.onSelect(table, position);
+        holder.loadFunctionalities(table, position);
     }
 
     @Override
@@ -63,17 +63,22 @@ public class M04F01SF03D07_SelectTableRVA extends RecyclerView.Adapter<M04F01SF0
             tableName = itemView.findViewById(R.id.M04F01SF03D07_RVTableName);
         }
 
-        public void loadDetails(Table table, int position){
+        public void loadFunctionalities(Table table, int position){
+            //Load Details
+            String name = table.getTableName();
+
+            //Set Views
             this.position = position;
+            tableName.setText(name);
             if(table.getTableNo() < 10){
                 tableNo.setText("0" + table.getTableNo());
             } else {
                 tableNo.setText(String.valueOf(table.getTableNo()));
             }
 
-            tableName.setText(table.getTableName());
-            if(currentCartTable != null){
-                if(currentCartTable == table){
+            //Check if Method is Selected
+            if(selectedTable != null){
+                if(selectedTable == table){
                     tableContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.green));
                 } else {
                     tableContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
@@ -82,24 +87,22 @@ public class M04F01SF03D07_SelectTableRVA extends RecyclerView.Adapter<M04F01SF0
                 tableContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
             }
 
-        }
-
-        public void onSelect(Table table, int position){
-            this.position = position;
+            //On Select
             tableContainer.setOnClickListener(select -> {
-                if(currentCartTable != null){
-                    if(currentCartTable == table){
-                        currentCartTable = new Table();
+                if(selectedTable != null){
+                    if(selectedTable == table){
+                        selectedTable = new Table();
                         notifyDataSetChanged();
                     } else {
-                        currentCartTable = table;
+                        selectedTable = table;
                         notifyDataSetChanged();
                     }
                 } else {
-                    currentCartTable = table;
+                    selectedTable = table;
                     notifyDataSetChanged();
                 }
             });
+
         }
     }
 }

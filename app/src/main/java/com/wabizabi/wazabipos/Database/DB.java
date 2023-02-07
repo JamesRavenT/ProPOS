@@ -1,37 +1,37 @@
 package com.wabizabi.wazabipos.Database;
 
+import android.app.Activity;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
+import com.wabizabi.wazabipos.Database.Instances.OpenMenuInstance;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 
 import org.bson.types.ObjectId;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 
 public class DB {
     private static final String TAG = "Database";
-    public static Realm realm;
-    public static RealmConfiguration wazabi;
-    public static FirebaseFirestore firestore = FirebaseFirestore.getInstance();;
+    static Realm realm = Realm.getDefaultInstance();
+    static RealmConfiguration wazabi;
+    static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    static CollectionReference menuCategory = firestore.collection("WazabiCATEGORYSYNCTEST");
+    static CollectionReference menuItem = firestore.collection("WazabiITEMSYNCTEST");
 
-
-
+    //Realm
     public static void init(){
         wazabi = new RealmConfiguration.Builder().name("wazabi.realm")
                 .deleteRealmIfMigrationNeeded()
@@ -42,160 +42,136 @@ public class DB {
         Log.d(TAG, "RealmDatabase | Initialized");
     }
 
-    public static void uploadFPListData(Map<String, Map<List<String>, Integer>> fpList) {
-        int counter = 0;
-        for (Map.Entry<String, Map<List<String>, Integer>> entry : fpList.entrySet()) {
-            counter++;
-            String documentID = (counter < 10) ? "Item No.0" + counter : "Item No." + counter;
-            Map<String, Object> items = new HashMap<>();
-            Map<String, Object> frequentItemSets = new HashMap<>();
-            Set<List<String>> keyItemSets = entry.getValue().keySet();
-            List<List<String>> listItemSets = new ArrayList<>(keyItemSets);
-            for (int i = 0; i < listItemSets.size(); i++) {
-                List<String> itemset = listItemSets.get(i);
-                if (i < 9) {
-                    String itemsetPosition = "FQItemSet No.0" + String.valueOf(i + 1);
-                    frequentItemSets.put(itemsetPosition, itemset);
-                } else {
-                    String itemsetPosition = "FQItemSet No." + String.valueOf(i + 1);
-                    frequentItemSets.put(itemsetPosition, itemset);
+    //Fire Store
+    public static void fetchDataFromTheCloud(){
+        menuCategory.get().addOnSuccessListener(query -> {
+            if(query.getDocuments().size() > 0){
+                List<DocumentSnapshot> listOfDocuments = query.getDocuments();
+                for(int i = 0 ; i < listOfDocuments.size() ; i++){
+                    DocumentSnapshot snapShot = listOfDocuments.get(i);
+                    DocumentReference docRef = snapShot.getReference();
+                    docRef.get().addOnSuccessListener(document -> {
+                        if(document.exists()){
+                            ObjectId id = new ObjectId(document.getString("Category ID"));
+                            int icon = document.getLong("Icon").intValue();
+                            String image = document.getString("Image");
+                            String name = document.getString("Name");
+                            OpenMenuInstance.toLoadCategoryFromCloud(id, icon, image, name);
+                        }
+                    });
                 }
             }
-            switch(entry.getKey()){
-                case "3 Cheese Crispy Kani Roll":
-                    items.put("id", "0kng9kE1uBAmqYRyIngs");
-                    break;
-                case "All Fried Sushi Platter":
-                    items.put("id",  "7L50djQmJFHtJg4vJYQV");
-                    break;
-                case "Salmon & Shrimp Tempura Roll":
-                    items.put("id", "7zXORUbGKKNmHmykYowT");
-                    break;
-                case "Aburi Salmon Roll":
-                    items.put("id", "BWv5lQS0f3XCJq1vvElY");
-                    break;
-                case "All California Sushi Platter":
-                    items.put("id", "DfX7psgV2tBNBE2jwD3R");
-                    break;
-                case "Yuzu Creamy Salmon Roll":
-                    items.put("id", "E9MK5mrfyjgnLWCzUDtc");
-                    break;
-                case "Chef's Special Sushi Platter":
-                    items.put("id", "FKxS1zC9iPI0ZgbwWy8c");
-                    break;
-                case "Salad Wrap":
-                    items.put("id", "KCCjnrIcHLKrvjxpubzF");
-                    break;
-                case "Shrimp & Vegetable Tempura":
-                    items.put("id", "KU1qtVtRMKD5fAYU3ngK");
-                    break;
-                case "Shrimp Tempura":
-                    items.put("id", "Shrimp Tempura");
-                    break;
-                case "Salmon Lovers Roll":
-                    items.put("id", "Rvn8NT0ralv5vQBAbQct");
-                    break;
-                case "Beef Yaki Udon":
-                    items.put("id", "SE6PKDkjULesexAzBHm0");
-                    break;
-                case "Premium Sushi Set":
-                    items.put("id", "UspEShIxLliA7iht5Qtb");
-                    break;
-                case "Gyudon":
-                    items.put("id", "VPIwOHxedfalbsP1gtRO");
-                    break;
-                case "Deluxe Sushi Platter":
-                    items.put("id", "W8RX4MtSO4WiKwlQhfcR");
-                    break;
-                case "Kani Salad":
-                    items.put("id", "X8WUbmIsQF0rKUTv6EU6");
-                    break;
-                case "Katsudon":
-                    items.put("id", "XCWxjBKiXtO6oL9wptRG");
-                    break;
-                case "Tuna Sashimi":
-                    items.put("id", "cJDTInjSHpCdqqDqsScQ");
-                    break;
-                case "Fried Futomaki Roll":
-                    items.put("id", "erHlQwlgcx7TPgWBDfSN");
-                    break;
-                case "Crispy Spicy Tuna":
-                    items.put("id", "exzOCdymq6yrAYvhhnEW");
-                    break;
-                case "Tuna Tataki Roll":
-                    items.put("id", "jMkwgZuxeU76WbF8u6tN");
-                    break;
-                case "Crispy Philly Roll":
-                    items.put("id", "t7ELrhdh2SXmQohOZomR");
-                    break;
-                case "Tuna Salmon Dynamite Roll":
-                    items.put("id", "xYLyR2JQzneEbMYfmlag");
-                    break;
-                case "Miso Ramen":
-                    items.put("id", "y0Z58xY17yB9iZm6bvGf");
-                    break;
-                case "California Deluxe":
-                    items.put("id", "xQ7hWuxMyLSTmCJaUX4b");
-                    break;
-                case "California Maki":
-                    items.put("id", "V9ZuWIrxpljeWQ2CKhsp");
-                    break;
-                case "Krazy Volcano":
-                    items.put("id", "ATRn8sV9DE8aMvvU82m0");
-                    break;
-                case "nigiri salmon":
-                    items.put("id","H6DhREj1NoeKqqVeLEcm");
-                    break;
-                case "Salmon sashimi":
-                    items.put("id", "TqRu62Bl1d1PJfyiPmDG");
-                    break;
-                case "Tantan Ramen":
-                    items.put("id", "ndBtCNgV2CTAvoloIh8N");
-                    break;
-                case "Teriyakidon":
-                    items.put("id", "zwVakQO8ZFRmqnpDs955");
-                    break;
-                case "Tonkotsu Ramen":
-                    items.put("id","YXOQwJ9oUyQfks6SQrVg");
-                    break;
-                case "rainbow chirashi":
-                    items.put("id", "hfLpIoMW7modn0jP0WU1");
-                    break;
-                case "test" :
-                    items.put("id", "GPi5D1UxEMc7lm83aoOc");
-                    break;
-                case "Sea weeds Salad":
-                    items.put("id", "dYxTqLbDJszaatYwlTWG");
-                    break;
-                default:
-                    items.put("id", String.valueOf(new ObjectId()));
-                    break;
-            }
-            items.put("itemName", entry.getKey());
-            items.put("itemSets", frequentItemSets);
-            DocumentReference docu = firestore.collection("WazabiPOSTEST3").document(entry.getKey());
-            docu.get().addOnCompleteListener(task -> {
-                if(task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
+        });
+
+        menuItem.get().addOnSuccessListener(query -> {
+           if(query.getDocuments().size() > 0){
+               List<DocumentSnapshot> listOfDocuments = query.getDocuments();
+               for(int i = 0 ; i < listOfDocuments.size() ; i++){
+                   DocumentSnapshot snapShot = listOfDocuments.get(i);
+                   DocumentReference docRef = snapShot.getReference();
+                   docRef.get().addOnSuccessListener(document -> {
+                       if(document.exists()){
+                           ObjectId id = new ObjectId(document.getString("Item ID"));
+                           int icon = document.getLong("Icon").intValue();
+                           String image = document.getString("Image");
+                           String category = document.getString("Item Category");
+                           String webName = document.getString("Item Name");
+                           String posName = document.getString("Item POS Name");
+                           double price = document.getLong("Item Price").doubleValue();
+                           OpenMenuInstance.toLoadItemFromCloud(id, icon, image, category, webName, posName, price);
+                       }
+                   });
+               }
+           }
+        });
+    }
+
+    public static void syncRealmAndFirestore(Activity activity){
+        RealmResults<RealmMenuItem> listOfItems = realm.where(RealmMenuItem.class).findAll();
+        menuItem.addSnapshotListener(activity, (query, collectionError) -> {
+            if(collectionError != null){ return; }
+            List<DocumentSnapshot> listOfDocuments = query.getDocuments();
+            for(int i = 0 ; i < listOfItems.size() ; i++) {
+                String documentKey = listOfItems.get(i).get_id().toString();
+                DocumentSnapshot snapshot = listOfDocuments.get(i);
+                DocumentReference docRef = snapshot.getDocumentReference(documentKey);
+                docRef.addSnapshotListener((document, docuError) -> {
+                    if(docuError != null){ return; }
                     if(document.exists()){
-                        firestore.collection("WazabiPOSTEST3").document(documentID).update(items);
-                    } else {
-                        firestore.collection("WazabiPOSTEST3").document(documentID).set(items);
+                        String name = document.getString("Item Name");
+                        String image = document.getString("Item Image");
+                        String category = document.getString("Menu Name");
+                        OpenMenuInstance.toUpdateItemImage(name, image, category);
                     }
-                }
-            });
-        }
-    }
-    public static void uploadFQListData(Map<String, Integer> fqList) {
-        Map<String,Object> items = new HashMap<>();
-        for(Map.Entry<String, Integer> entry : fqList.entrySet()){
-            String itemName = entry.getKey();
-            Integer itemFrequency = entry.getValue();
-            items.put(itemName, itemFrequency);
-
-        }
-        firestore = FirebaseFirestore.getInstance();
-        firestore.collection("WazabiPOSTEST4").document("Item Frequency").set(items);
+                });
+            }
+        });
     }
 
+    public static void uploadNewCategoryToCloud(ObjectId id, int categoryIcon, String categoryName){
+        String docID = id.toString();
+        Map<String, Object> document = new HashMap<>();
+        document.put("Category ID", docID);
+        document.put("Icon", categoryIcon);
+        document.put("Image", "");
+        document.put("Name", categoryName);
+        menuCategory.document(docID).set(document);
+    }
+
+    public static void updateCategoryFromCloud(ObjectId id, int categoryIcon, String categoryName){
+        String docID = id.toString();
+        Map<String, Object> document = new HashMap<>();
+        document.put("Icon", categoryIcon);
+        document.put("Name", categoryName);
+        menuCategory.document(docID).set(document, SetOptions.merge());
+    }
+
+    public static void deleteCategoryFromCloud(RealmMenuCategory category){
+        String docID = category.get_id().toString();
+        menuCategory.document(docID).delete();
+
+    }
+
+    public static void uploadNewItemToCloud(ObjectId id, int itemIcon, String itemImage, String itemCategory, String itemWebName, String itemPOSName, double price) {
+        String docID = id.toString();
+        Map<String, Object> document = new HashMap<>();
+        document.put("Item ID", docID);
+        document.put("Icon", itemIcon);
+        document.put("Image", itemImage);
+        document.put("Item Category", itemCategory);
+        document.put("Item Name", itemWebName);
+        document.put("Item POS Name", itemPOSName);
+        document.put("Item Price", price);
+        menuItem.document(docID).set(document);
+    }
+
+    public static void updateItemFromCloud(ObjectId id, int itemIcon, String itemCategory, String itemWebName, String itemPOSName, double price){
+        String docID = id.toString();
+        Map<String, Object> document = new HashMap<>();
+        document.put("Item ID", docID);
+        document.put("Icon", itemIcon);
+        document.put("Item Category", itemCategory);
+        document.put("Item Name", itemWebName);
+        document.put("Item POS Name", itemPOSName);
+        document.put("Item Price", price);
+        menuItem.document(docID).set(document, SetOptions.merge());
+    }
+
+    public static void deleteItemFromCloud(RealmMenuItem item){
+        String docID = item.get_id().toString();
+        menuItem.document(docID).delete();
+    }
+
+    public static void uploadPopularCombinations(ObjectId id, List<List<String>> itemSets) {
+        String docID = id.toString();
+        Map<String, Object> document = new HashMap<>();
+        for(int i = 0 ; i < itemSets.size() ; i++){
+            List<String> itemSet = itemSets.get(i);
+            String position = (i < 9)
+                    ? "Popular Combination No.0" + (i + 1)
+                    : "Popular Combination No." + (i + 1);
+            document.put(position, itemSet);
+        }
+        menuItem.document(docID).set(document, SetOptions.merge());
+    }
 }

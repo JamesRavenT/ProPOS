@@ -2,9 +2,7 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,11 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.IconLoader;
-import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,32 +32,28 @@ public class M04F01_ItemRVA extends RecyclerView.Adapter<M04F01_ItemRVA.ViewHold
 
     Context context;
     Realm realm;
-    Dialog addItemDG;
-    DialogLoader load;
     List<MenuItem> listOfItems;
+    DialogLoader dialog;
 
-
-    public M04F01_ItemRVA(Context context, Realm realm, List<MenuItem> listOfItems, Dialog addItemDG, DialogLoader load) {
+    public M04F01_ItemRVA(Context context, Realm realm, List<MenuItem> listOfItems, DialogLoader dialog) {
         this.context = context;
         this.realm = realm;
         this.listOfItems = listOfItems;
-        this.addItemDG = addItemDG;
-        this.load = load;
+        this.dialog = dialog;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View viewLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.act04_main_frag01_pos_item_rvlayout, parent, false);
-        ViewHolder itemLayout = new ViewHolder(viewLayout);
-        return itemLayout;
+        View view = LayoutHelper.inflateRV(parent, R.layout.act04_main_frag01_pos_item_rvlayout);
+        ViewHolder layout = new ViewHolder(view);
+        return layout;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MenuItem item = listOfItems.get(position);
-        holder.loadItem(item, position);
-        holder.onClick(item, position);
+        holder.loadFunctionalities(item, position);
     }
 
     @Override
@@ -68,47 +64,56 @@ public class M04F01_ItemRVA extends RecyclerView.Adapter<M04F01_ItemRVA.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
         private ConstraintLayout itemStatus;
-        private CardView itemContainer;
+        private TextView itemStatusText;
         private ImageView itemImage;
         private TextView itemName, itemPrice;
+        private CardView addBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemStatus = itemView.findViewById(R.id.M04F01_IRVStatusLayout);
-            itemContainer = itemView.findViewById(R.id.M04F01_IRVContainer);
+            itemStatus = itemView.findViewById(R.id.M04F01_IRVStatus);
+            itemStatusText = itemView.findViewById(R.id.M04F01_IRVStatusCart);
+            addBtn = itemView.findViewById(R.id.M04F01_IRVAddToCartBtn);
             itemImage = itemView.findViewById(R.id.M04F01_IRVItemImage);
             itemName = itemView.findViewById(R.id.M04F01_IRVItemName);
             itemPrice = itemView.findViewById(R.id.M04F01_IRVItemPrice);
         }
 
-        public void loadItem(MenuItem item, int position){
-            this.position = position;
-            String name = (item.getItemName().length() < 25) ? item.getItemName() : item.getItemName().substring(0, Math.min(item.getItemName().length(), 20)) + "...";
-            IconLoader.setMenuIcon(itemImage, item.getItemImage());
-            itemName.setText(name);
-            itemPrice.setText("₱" + new BigDecimal(item.getItemPrice()).setScale(2, RoundingMode.HALF_UP).toString());
+        public void loadFunctionalities(MenuItem item, int position){
+            //Load Details
+            String name = StringHelper.limitDisplay(item.getItemPOSName(), 0, 18, 15);
+            String price = StringHelper.convertToCurrency(item.getItemPrice());
 
-            //Code to check if Item is in cart
+            //Set Views
+            this.position = position;
+            IconLoader.setMenuIcon(itemImage, item.getItemIcon());
+            itemName.setText(name);
+            itemPrice.setText(price);
+
+            //Check if Item is in Cart
             List<String> itemChecker = new ArrayList<>();
-            List<CartObject> itemList = new ArrayList<>(cart.keySet());
-            for(CartObject itemObject : itemList){
-                String itemString = itemObject.getItemName();
-                if(itemString.equals(item.getItemName())){
+            List<Integer> itemAmount = new ArrayList<>();
+            List<CartItem> itemList = new ArrayList<>(cart.keySet());
+            for(CartItem itemObject : itemList){
+                int itemQty = cart.get(itemObject);
+                String itemString = itemObject.getItemPOSName();
+                if(itemString.equals(item.getItemPOSName())){
                     itemChecker.add(itemString);
+                    itemAmount.add(itemQty);
                 }
             }
             if(!itemChecker.isEmpty()){
+                //Set Item's Status to Occupied
                 itemStatus.setVisibility(View.VISIBLE);
+                //Disbale Add Btn and count it's frequency in the cart
+                itemStatusText.setText("In Cart : " + itemAmount.get(0));
             } else {
+                //Set Item's Status to Free
                 itemStatus.setVisibility(View.GONE);
+                //Enable Add Btn
+                addBtn.setOnClickListener(add -> {
+                    dialog.load_DGContents(new DialogBundle(1, item, new RVBundle(item.getItemCategory(), listOfItems)));
+                });
             }
-        }
-
-        public void onClick(MenuItem item, int position){
-            this.position = position;
-            itemContainer.setOnClickListener(select -> {
-                load.load_DGContents(1, item.getItemImage(), item.getItemName());
-                addItemDG.show();
-            });
         }
     }
 }

@@ -2,8 +2,10 @@ package com.wabizabi.wazabipos.Utilities.Interfaces;
 
 import android.content.Context;
 
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+
 public interface DialogLoader {
 
-    void load_DGContents(int dialogNo, int image, String name);
+    void load_DGContents(DialogBundle bundle);
 
 }

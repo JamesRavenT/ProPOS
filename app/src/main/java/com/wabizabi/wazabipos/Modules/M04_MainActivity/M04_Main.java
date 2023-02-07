@@ -8,23 +8,32 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+
+import com.wabizabi.wazabipos.Database.DB;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
+import com.wabizabi.wazabipos.Modules.M02_UserVerification.M02_UserVerification;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.M04F02_Menu;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Tables.M04F03_Tables;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_Discount.M04F04_Discounts;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_PaymentMethods.M04F05_PaymentMethods;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStock.M04F06_IngredientStock;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.M04F07_Admin;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment08_Printer.M04F08_Printer;
 import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogCat;
 
 import io.realm.Realm;
 
@@ -32,6 +41,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     //--DATABASE--//
     Realm realm = Realm.getDefaultInstance();
     //--DEVICE TYPE AND ORIENTATION--//
+    InputMethodManager keyBoard;
     int screenLayoutSize;
     int orientation;
     //--NAVIGATION DRAWER VARIABLES--//
@@ -40,23 +50,20 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     NavigationView navigation;
     View navi;
     TextView username;
-    //--FRAGMENTS--//
-    //--SUBFRAGMENTS--//
-    public static M04F01SF03_Cart pos_cart = new M04F01SF03_Cart();
     //--GLOBAL VARIABLES--//
     public static String currentFragment;
-    public static int currentPOSCategoryIndex = -1;
-    public static String currentPOSCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_WaZabiPOS);
         setContentView(R.layout.act04_main);
         screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         orientation = getResources().getConfiguration().orientation;
         init_Functionalities();
         if(savedInstanceState == null) {
-            currentFragment = "POS";
+            currentFragment = "POS01";
+            setTheme(R.style.Theme_WaZabiPOS);
             getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, new M04F01_POS()).commit();
         }
     }
@@ -67,6 +74,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         navigation = findViewById(R.id.NavigationLayout);
         init_Toolbar();
         init_NavigationDrawer();
+        init_Printer();
     }
 
     private void init_Toolbar(){
@@ -93,12 +101,16 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         username.setText(user.getUserName());
     }
 
+    private void init_Printer(){
+    }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.nav_POS:
-                currentFragment = "POS";
+                hideKeyBoard();
+                currentFragment = "POS01";
                 if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 }
@@ -108,6 +120,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                         .commit();
                 break;
             case R.id.nav_Menu:
+                hideKeyBoard();
                 currentFragment = "Menu01";
                 if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -118,6 +131,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                         .commit();
                 break;
             case R.id.nav_Tables:
+                hideKeyBoard();
                 currentFragment = "Table";
                 if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -128,6 +142,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                         .commit();
                 break;
             case R.id.nav_Discounts:
+                hideKeyBoard();
                 currentFragment = "Discount";
                 if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -138,6 +153,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                         .commit();
                 break;
             case R.id.nav_PaymentMethods:
+                hideKeyBoard();
                 currentFragment = "PaymentMethod";
                 if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -148,6 +164,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                         .commit();
                 break;
             case R.id.nav_Inventory:
+                hideKeyBoard();
                 currentFragment = "Stock01";
                 if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -157,9 +174,38 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                         .replace(R.id.MainActivityContainer, new M04F06_IngredientStock())
                         .commit();
                 break;
+            case R.id.nav_Admin:
+                hideKeyBoard();
+                if(currentFragment != "Admin") {
+                    if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    }
+                    startActivity(new Intent(this, M02_UserVerification.class));
+                } else {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.MainActivityContainer, new M04F07_Admin())
+                            .commit();
+                }
+            case R.id.nav_Printer:
+                hideKeyBoard();
+                currentFragment = "Printer";
+                if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F08_Printer())
+                        .commit();
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void hideKeyBoard(){
+        keyBoard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        keyBoard.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken() , 0);
     }
 
     @Override
@@ -168,8 +214,14 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         orientation = getResources().getConfiguration().orientation;
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
+        } else if(currentFragment == "POS02") {
+            currentFragment = "POS01";
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.MainActivityContainer, new M04F01_POS())
+                    .commit();
         } else if(currentFragment == "Cart") {
-            currentFragment = "POS";
+            currentFragment = "POS01";
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.MainActivityContainer, new M04F01_POS())
@@ -195,8 +247,59 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         }
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        DB.syncRealmAndFirestore(this);
+    }
 
-
-
+    @Override
+    protected void onResume(){
+        super.onResume();
+        switch (currentFragment){
+            case "POS01":
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F01_POS())
+                        .commit();
+                break;
+            case "Menu01":
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F02_Menu())
+                        .commit();
+                break;
+            case "Table":
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F03_Tables())
+                        .commit();
+                break;
+            case "Discount":
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F04_Discounts())
+                        .commit();
+                break;
+            case "Method":
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F05_PaymentMethods())
+                        .commit();
+                break;
+            case "Stock01":
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F06_IngredientStock())
+                        .commit();
+                break;
+            case "Admin":
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F07_Admin())
+                        .commit();
+                break;
+        }
+    }
 }
 

@@ -1,17 +1,18 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS;
 
-import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 
 import android.app.Dialog;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,55 +20,46 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_CategoryRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Header.M04F01SF01_Header;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation.M04F01SF02_Recommendation;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Interfaces.RVMenuLoader;
+import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
 import com.wabizabi.wazabipos.R;
-import com.wabizabi.wazabipos.Utilities.Libraries.IconLoader;
-import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogCat;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
-public class M04F01_POS extends Fragment implements RVMenuLoader, DialogLoader {
+public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
     //--DATABASE--//
     Realm realm = Realm.getDefaultInstance();
 
-    //--RECYCLER VIEW(S)--//
-    //Category RV
-    RecyclerView posCategoryRV;
-    RecyclerView.Adapter posCategoryRVA;
-    TextView currentCategoryText;
-    public static int currentPOSCategoryIndex = -1;
-    public static String currentPOSCategoryName;
+    //--SEARCH BAR--//
+    EditText searchBar;
 
-    //Item RV
-    RecyclerView posItemRV;
-    RecyclerView.Adapter posItemRVA;
-    public static int currentPOSItemImage;
-    public static String currentPOSItemName;
-    public static double currentPOSItemPrice;
+    //--RECYCLER VIEW--//
+    TextView currentRVText;
+    RecyclerView posRV;
+    RecyclerView.Adapter posRVA;
+    List<MenuCategory> listOfCategories;
+    List<MenuItem> listOfItems;
 
-    //--GO TO CART BUTTON--//
-    CardView goToCartButton;
-    TextView goToCartText;
     //--ADD ITEM DIALOG--//
     Dialog posDG01;
     int itemQtyCount = 1;
@@ -85,11 +77,9 @@ public class M04F01_POS extends Fragment implements RVMenuLoader, DialogLoader {
     }
 
     private void init_FragmentFunctionalities(View v){
-        posCategoryRV = v.findViewById(R.id.M04F01_CategoryRV);
-        posItemRV = v.findViewById(R.id.M04F01_ItemsRV);
-        currentCategoryText = v.findViewById(R.id.M04F01_ItemText);
-        goToCartText = v.findViewById(R.id.M04F01_OrdersBtnText);
-        goToCartButton = v.findViewById(R.id.M04F01_OrdersBtn);
+        searchBar = v.findViewById(R.id.M04F01_SearchBarInput);
+        currentRVText = v.findViewById(R.id.M04F01_RecyclerViewText);
+        posRV = v.findViewById(R.id.M04F01_RecyclerView);
 
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -102,9 +92,8 @@ public class M04F01_POS extends Fragment implements RVMenuLoader, DialogLoader {
     private void load_PortraitFunctionalities() {
         init_Dialogs();
         load_Header();
-        load_RecyclerViews();
-        load_OrderSize();
-        load_ButtonFunctions();
+        load_SearchBar();
+        load_CategoryRV();
     }
 
     private void load_LandscapeFunctionalities(){
@@ -113,9 +102,9 @@ public class M04F01_POS extends Fragment implements RVMenuLoader, DialogLoader {
 
     private void load_Header(){
         if(!cart.isEmpty()){
-            List<CartObject> keys = new ArrayList<>(cart.keySet());
-            CartObject firstItem = keys.get(0);
-            String item = firstItem.getItemName();
+            List<CartItem> keys = new ArrayList<>(cart.keySet());
+            CartItem firstItem = keys.get(0);
+            String item = firstItem.getItemWebName();
             if(fpList.containsKey(item)) {
                 getActivity()
                         .getSupportFragmentManager()
@@ -138,62 +127,78 @@ public class M04F01_POS extends Fragment implements RVMenuLoader, DialogLoader {
         }
     }
 
-    private void load_RecyclerViews() {
-        //Initialize the List of Categories to be displayed
-        List<MenuCategory> listOfCategories = new ArrayList<>();
-        RealmResults<RealmMenuCategory> queriedCategoryList = realm.where(RealmMenuCategory.class).sort("categoryName").findAll();
-        for(RealmMenuCategory queriedCategory : queriedCategoryList){
-            listOfCategories.add(new MenuCategory(queriedCategory.getCategoryImage(), queriedCategory.getCategoryName()));
-        }
-        //Initialize the List of Items to be displayed
-        List<MenuItem> listOfItems = new ArrayList<>();
-        if(currentPOSCategoryIndex == -1){
-            RealmResults<RealmMenuItem> queriedItemList = realm.where(RealmMenuItem.class).sort("itemName").findAll();
-            for(RealmMenuItem queriedItem : queriedItemList){
-                listOfItems.add(new MenuItem(queriedItem.getItemImage(), queriedItem.getItemName(), queriedItem.getItemPrice()));
+    private void load_SearchBar(){
+        searchBar.getText().clear();
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
-        } else {
-            RealmResults<RealmMenuItem> queriedItemList = realm.where(RealmMenuItem.class).equalTo("itemCategory", currentPOSCategoryName).sort("itemName").findAll();
-            for(RealmMenuItem queriedItem : queriedItemList){
-                listOfItems.add(new MenuItem(queriedItem.getItemImage(), queriedItem.getItemName(), queriedItem.getItemPrice()));
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
-        }
 
-        //Set the Layout and the Adapter of the Category RecyclerView
-        LinearLayoutManager categoryLayout = new LinearLayoutManager(getActivity());
-        categoryLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
-        posCategoryRVA = new M04F01_CategoryRVA(getActivity(), realm, listOfCategories, listOfItems, this);
-        posCategoryRV.setLayoutManager(categoryLayout);
-        posCategoryRV.setAdapter(posCategoryRVA);
-
-        //Set the Layout and the Adapter of the Item RecyclerView
-        GridLayoutManager itemLayout = new GridLayoutManager(getActivity(), 2);
-        itemLayout.setOrientation(GridLayoutManager.VERTICAL);
-        posItemRVA = new M04F01_ItemRVA(getActivity(), realm, listOfItems, posDG01,this);;
-        posItemRV.setLayoutManager(itemLayout);
-        posItemRV.setAdapter(posItemRVA);
-    }
-
-    private void load_OrderSize(){
-        goToCartText.setText("Orders [" + cart.size() + "]");
-    }
-
-    private void load_ButtonFunctions(){
-        goToCartButton.setOnClickListener((btn) -> {
-            currentFragment = "Cart";
-            getActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.MainActivityContainer, new M04F01SF03_Cart())
-                    .commit();
+            @Override
+            public void afterTextChanged(Editable input) {
+                if(currentFragment.equals("POS01")){
+                    load_FilteredCategoryRV(input.toString());
+                } else {
+                    load_FilteredItemRV(input.toString());
+                }
+            }
         });
+    }
+
+    private void load_CategoryRV() {
+        //Initialize Text Display
+        currentRVText.setText("「 CATEGORIES 」");
+        //Initialize RV Items and then the RecyclerView
+        listOfCategories = RVHelper.getMenuCategories(realm);
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        posRVA = new M04F01_CategoryRVA(getActivity(), realm, listOfCategories, this);
+        posRV.setAdapter(posRVA);
+        posRV.setLayoutManager(layout);
+    }
+
+    private void load_FilteredCategoryRV(String input){
+        //Initialize RV Items and then the RecyclerView
+        List<MenuCategory> filteredCategory = RVHelper.getFilteredMenuCategories(listOfCategories, input);
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        posRVA = new M04F01_CategoryRVA(getActivity(), realm, filteredCategory, this);
+        posRV.setAdapter(posRVA);
+        posRV.setLayoutManager(layout);
+    }
+
+    private void load_ItemRV(RVBundle bundle){
+        //Initialize Text Display
+        currentRVText.setText("「 " + bundle.getMenuCategory().toUpperCase() + " 」");
+
+        //Unpack bundle to get RV Items and then initialize the RecyclerView
+        listOfItems = bundle.getListOfMenuItems();
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        posRVA = new M04F01_ItemRVA(getActivity(), realm, listOfItems, this);
+        posRV.setAdapter(posRVA);
+        posRV.setLayoutManager(layout);
+    }
+
+    private void load_FilteredItemRV(String input){
+        //Initialize RV Items and then the RecyclerView
+        List<MenuItem> filteredListOfItem = RVHelper.getFilteredMenuItems(listOfItems, input);
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        posRVA = new M04F01_ItemRVA(getActivity(), realm, filteredListOfItem, this);
+        posRV.setAdapter(posRVA);
+        posRV.setLayoutManager(layout);
     }
 
     private void init_Dialogs() {
         //--DG01 ADD ITEM DIALOG--//
-        posDG01 = new Dialog(getActivity());
-        posDG01.setContentView(R.layout.act04_main_frag01_pos_dg01_additem);
-        posDG01.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        posDG01 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag01_pos_dg01_additem);
         posDG01_ItemImage = posDG01.findViewById(R.id.M04F01D01_ItemImage);
         posDG01_ItemPrice = posDG01.findViewById(R.id.M04F01D01_ItemPrice);
         posDG01_ItemName = posDG01.findViewById(R.id.M04F01D01_ItemName);
@@ -204,15 +209,21 @@ public class M04F01_POS extends Fragment implements RVMenuLoader, DialogLoader {
         posDG01_CloseDGBtn = posDG01.findViewById(R.id.M04F01D01_CloseDGBtn);
     }
 
-    private void load_DG01Functionalities(String name){
-        //Get Item
-        RealmMenuItem item = realm.where(RealmMenuItem.class).equalTo("itemName", name).findFirst();
-
-        //Set Views
-        String itemName = (name.length() < 25) ? name : name.substring(0, Math.min(item.getItemName().length(), 20)) + "...";
-        IconLoader.setMenuIcon(posDG01_ItemImage, item.getItemImage());
-        posDG01_ItemName.setText(itemName);
-        posDG01_ItemPrice.setText("₱" + new BigDecimal(item.getItemPrice()).setScale(2, RoundingMode.HALF_UP).toString());
+    private void load_DG01Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int itemImage = bundle.getMenuItem().getItemIcon();
+        String itemCategory = bundle.getMenuItem().getItemCategory();
+        String itemWebName = bundle.getMenuItem().getItemWebName();
+        String itemPOSName = bundle.getMenuItem().getItemPOSName();
+        double itemPrice = bundle.getMenuItem().getItemPrice();
+        List<MenuItem> listOfItems = bundle.getRvBundle().getListOfMenuItems();
+        LogCat.debug(itemWebName);
+        LogCat.debug(itemPOSName);
+        //Load Item Details
+        String price = StringHelper.convertToCurrency(itemPrice);
+        IconLoader.setMenuIcon(posDG01_ItemImage, itemImage);
+        posDG01_ItemName.setText(itemPOSName);
+        posDG01_ItemPrice.setText(price);
 
         //On Sub Btn
         posDG01_ItemSubBtn.setOnClickListener(dec -> {
@@ -230,22 +241,21 @@ public class M04F01_POS extends Fragment implements RVMenuLoader, DialogLoader {
 
         //On Add To Cart Btn
         posDG01_AddToCartBtn.setOnClickListener(add -> {
-            List<CartObject> items = new ArrayList<>(cart.keySet());
-            List<CartObject> basket = new ArrayList<>();
-            for(CartObject cartItem : items){
-                if(cartItem.getItemName().equalsIgnoreCase(name)){
+            List<CartItem> items = new ArrayList<>(cart.keySet());
+            List<CartItem> basket = new ArrayList<>();
+            for(CartItem cartItem : items){
+                if(cartItem.getItemPOSName().equalsIgnoreCase(itemPOSName)){
                     basket.add(cartItem);
                 }
             }
             if(!basket.isEmpty()){
-                CartObject itemkey = basket.get(0);
+                CartItem itemkey = basket.get(0);
                 cart.put(itemkey, cart.get(itemkey) + 1);
             } else {
-                cart.put(new CartObject(name, item.getItemPrice()), itemQtyCount);
+                cart.put(new CartItem(itemPOSName, itemWebName, itemPrice), itemQtyCount);
             }
             load_Header();
-            load_RecyclerViews();
-            load_OrderSize();
+            load_ItemRV(new RVBundle(itemCategory, listOfItems));
             itemQtyCount = 1;
             posDG01.dismiss();
         });
@@ -257,16 +267,15 @@ public class M04F01_POS extends Fragment implements RVMenuLoader, DialogLoader {
     }
 
     @Override
-    public void load_RVContents(List<MenuItem> listOfItems) {
-        posItemRVA = new M04F01_ItemRVA(getActivity(), realm, listOfItems, posDG01, this);
-        posItemRVA.notifyDataSetChanged();
-        posItemRV.setAdapter(posItemRVA);
+    public void load_DGContents(DialogBundle bundle) {
+        load_DG01Functionalities(bundle);
+        posDG01.show();
     }
 
     @Override
-    public void load_DGContents(int dialogNo, int image, String name) {
-        load_DG01Functionalities(name);
-        posDG01.show();
+    public void load_RVContents(RVBundle bundle) {
+        currentFragment = "POS02";
+        load_ItemRV(bundle);
     }
 
 

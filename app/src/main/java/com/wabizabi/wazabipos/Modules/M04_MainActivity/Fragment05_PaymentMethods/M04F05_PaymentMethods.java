@@ -25,9 +25,11 @@ import com.wabizabi.wazabipos.Database.RealmSchemas.RealmPaymentMethod;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_PaymentMethods.Adapters.M04F05_PaymentMethodsRVA;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.DialogBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.ListBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,14 +120,8 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
 
     }
     private void load_RecyclerView(){
-        //Initialize RecyclerView Items
-        listOfMethods = new ArrayList<>();
-        RealmResults<RealmPaymentMethod> queriedMethods = realm.where(RealmPaymentMethod.class).sort("methodName").findAll();
-        for(RealmPaymentMethod query : queriedMethods){
-            listOfMethods.add(new PaymentMethod(query.getMethodName(), query.getLastUpdatedID(), query.getLastUpdatedText()));
-        }
-
         //Initialize RecyclerView
+        listOfMethods = RVHelper.getPaymentMethods(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         methodsRVA = new M04F05_PaymentMethodsRVA(getActivity(), realm, listOfMethods, this);
@@ -134,15 +130,8 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
     }
 
     private void load_FilteredRecyclerView(String input){
-        //Initialize Filtered RecyclerView Items
-        List<PaymentMethod> filteredMethods = new ArrayList<>();
-        for(PaymentMethod method : listOfMethods){
-            if(method.getMethodName().toLowerCase().contains(input.toLowerCase())){
-                filteredMethods.add(new PaymentMethod(method.getMethodName(), method.getLastUpdatedID(), method.getLastUpdatedText()));
-            }
-        }
-
         //Initialize RecyclerView
+        List<PaymentMethod> filteredMethods = RVHelper.getFilteredPaymentMethods(listOfMethods, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         methodsRVA = new M04F05_PaymentMethodsRVA(getActivity(), realm, filteredMethods, this);
@@ -181,13 +170,14 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
         methodDG01_ConfirmBtn.setOnClickListener(confirm -> {
             String input = methodDG01_NameInput.getText().toString();
 
-            List<String> listOfMethodNames = ListBuilder.getMethodNames(realm);
+            List<String> listOfMethodNames = ListHelper.getMethodNames(realm);
             if(listOfMethodNames.contains(input)){
                 methodDG01_NameInput.setError("Name already exists");
             } else {
                 OpenPaymentMethodInstance.toCreateMethod(input);
                 load_RecyclerView();
                 methodDG01_NameInput.setText("");
+                methodDG01_NameInput.setError(null);
                 methodDG01.dismiss();
             }
         });
@@ -199,32 +189,41 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
 
     }
 
-    private void load_DG02Functionalities(String name){
+    private void load_DG02Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        String method = bundle.getMethod().getMethodName();
+
         //Set Text
-        methodDG02_NameInput.setText(name);
+        methodDG02_NameInput.setText(method);
+        int focus = methodDG02_NameInput.getText().toString().length();
+        methodDG02_NameInput.requestFocus();
+        methodDG02_NameInput.setSelection(focus);
 
         //On Apply Btn
         methodDG02_ApplyBtn.setOnClickListener(apply -> {
             String input = methodDG02_NameInput.getText().toString();
 
-            List<String> listOfMethodNames = ListBuilder.getMethodNames(realm);
-            if(name.equals(input)){
+            List<String> listOfMethodNames = ListHelper.getMethodNames(realm);
+            if(method.equals(input)){
                 ToastMessage.show(getActivity(), "No changes were made");
                 methodDG02_NameInput.setText("");
+                methodDG02_NameInput.setError(null);
                 methodDG02.dismiss();
             } else if(listOfMethodNames.contains(input)){
                 methodDG02_NameInput.setError("Name already exists");
             } else {
-                OpenPaymentMethodInstance.toUpdateMethod(name, input);
+                OpenPaymentMethodInstance.toUpdateMethod(method, input);
                 load_RecyclerView();
                 methodDG02_NameInput.setText("");
+                methodDG02_NameInput.setError(null);
                 methodDG02.dismiss();
             }
         });
 
         //On Delete Btn
         methodDG02_DeleteBtn.setOnClickListener(delete -> {
-            load_DG03Functionalities(name);
+            bundle.setDialogDestinationNo(3);
+            load_DG03Functionalities(bundle);
             methodDG02.dismiss();
             methodDG03.show();
         });
@@ -235,20 +234,24 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
         });
     }
 
-    private void load_DG03Functionalities(String name){
+    private void load_DG03Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        String method = bundle.getMethod().getMethodName();
+
         //Set Names
-        methodDG03_methodName.setText(name);
+        methodDG03_methodName.setText(method + "?");
 
         //On Yes Btn
         methodDG03_YesBtn.setOnClickListener(yes -> {
-            OpenPaymentMethodInstance.toDeleteMethod(name);
+            OpenPaymentMethodInstance.toDeleteMethod(method);
             load_RecyclerView();
             methodDG03.dismiss();
         });
 
         //On No Btn
         methodDG03_NoBtn.setOnClickListener(no -> {
-            load_DG02Functionalities(name);
+            bundle.setDialogDestinationNo(2);
+            load_DG02Functionalities(bundle);
             methodDG03.dismiss();
             methodDG02.show();
         });
@@ -256,15 +259,16 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
         //On Close Button
 
         closeDG03Btn.setOnClickListener(close -> {
-            load_DG02Functionalities(name);
+            bundle.setDialogDestinationNo(2);
+            load_DG02Functionalities(bundle);
             methodDG03.dismiss();
             methodDG02.show();
         });
     }
 
     @Override
-    public void load_DGContents(int dialogNo, int image, String name) {
-        load_DG02Functionalities(name);
+    public void load_DGContents(DialogBundle bundle) {
+        load_DG02Functionalities(bundle);
         methodDG02.show();
     }
 }

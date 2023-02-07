@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F01_Layout"
-    android:background="@color/dirtywhite"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/dirtywhite">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/M04F01_HeaderLayout"
@@ -32,113 +32,98 @@
         android:id="@+id/M04F01_GroupLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/M04F01_FooterLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/M04F01_HeaderLayout">
 
-        <ScrollView
-            android:id="@+id/M04F01_GroupScrollLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:id="@+id/M04F01_GroupLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/m04F01_ItemText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="0dp"
-                    android:fontFamily="@font/nunito_sans"
-                    android:text="「  C A T E G O R I E S  」"
-                    android:textColor="@color/wabizabi"
-                    android:textSize="15dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/M04F01_CategoryRV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="115dp"
-                    android:layout_marginTop="5dp"
-
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/M04F01_ItemText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="0dp"
-                    android:fontFamily="@font/nunito_sans"
-                    android:text="「  I T E M S 」"
-                    android:textColor="@color/wabizabi"
-                    android:textSize="15dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/M04F01_ItemsRV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="450dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="4dp" />
-
-            </LinearLayout>
-        </ScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/M04F01_FooterLayout"
-        android:layout_width="409dp"
-        android:layout_height="75dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
         <androidx.cardview.widget.CardView
-            android:id="@+id/M04F01_OrdersBtn"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:backgroundTint="@color/wabizabi"
-            android:elevation="10dp"
-            app:cardCornerRadius="10dp"
+            android:id="@+id/M04F01_SearchBarContainer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M04F01_OrdersBtnLayout"
+                android:id="@+id/M04F01_SearchBarContainerLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:background="@drawable/bg_shape_rectangle_stroke_dark_marg05p">
 
-                <TextView
-                    android:id="@+id/M04F01_OrdersBtnText"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:fontFamily="@font/nunito_sans"
-                    android:gravity="center"
-                    android:text="Orders [ 0 ]"
-                    android:textColor="@color/white"
-                    android:textSize="25sp"
+                <EditText
+                    android:id="@+id/M04F01_SearchBarInput"
+                    android:layout_width="325dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="false"
+                    android:focusedByDefault="false"
+                    android:fontFamily="@font/nunito_sans_light"
+                    android:hint="Search . . ."
+                    android:textColor="@color/wabizabi"
+                    android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.019"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.521" />
+
+                <ImageView
+                    android:id="@+id/M04F01_SearchBarImage"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/M04F01_SearchBarInput"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_button_search_dark" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/M04F01_RecyclerViewText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/nunito_sans"
+            android:text="「  CATEGORIES/ITEMS  」"
+            android:textColor="@color/wabizabi"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/M04F01_SearchBarContainer"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/M04F01_RecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/M04F01_RecyclerViewText"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

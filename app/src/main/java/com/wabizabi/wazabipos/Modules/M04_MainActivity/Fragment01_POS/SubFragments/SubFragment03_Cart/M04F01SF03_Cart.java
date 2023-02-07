@@ -24,31 +24,44 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenTableInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTicketInstance;
+import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
+import com.wabizabi.wazabipos.Database.ObjectSchemas.PaymentMethod;
+import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Table;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Ticket;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmDiscount;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmTable;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmTicket;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D01_AppliedDiscountCurrentItemRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D01_AppliedDiscountsRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D02_SelectDiscountToApplyRVA;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D04_ViewAppliedDiscountsRVA;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D05_ViewItemsOfCurrentDiscountRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D04_AppliedDiscountsRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D05_ItemsAppliedWithDiscountRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D06_SelectDiscountToApplyRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D07_SelectTableRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D09_SaveTicketRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D10_ManageTicketRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D13_MethodsRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D14_ConfirmTransactionRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D15_TransactionCompleteRVA;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.DialogBuilder;
-import com.wabizabi.wazabipos.Utilities.Libraries.ToastMessage;
-import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.CartHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.PrintHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
 import com.wabizabi.wazabipos.R;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -65,7 +78,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     RecyclerView.Adapter cartRVA;
 
     //--ORDER DETAILS DISPLAY--//
-    public static Ticket currentCartTicket = null;
+    public static Ticket currentCartTicket;
     ConstraintLayout orderDetailsLayout;
     CardView selectOrderTypeBtn;
     TextView orderTypeText;
@@ -79,7 +92,6 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     CardView chargeBtn;
 
     //--DG01 DISCOUNTS APPLIED ON SELECTED CART ITEM--//
-    public static CartObject currentCartItem;
     Dialog cartDG01;
     TextView cartDG01_ItemName;
     RecyclerView cartDG01_RecyclerView;
@@ -125,16 +137,15 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     ImageView cartDG06_CloseBtn;
 
     //--DG07 SELECT TABLE--//
-    public static Table currentCartTable = null;
+    public static Table selectedTable;
     Dialog cartDG07;
     RecyclerView cartDG07_RecyclerView;
     RecyclerView.Adapter cartDG07_RecyclerViewAdapter;
+    EditText cartDG07_DetailsInput;
     CardView cartDG07_ConfirmBtn;
     ImageView cartDG07_CloseBtn;
 
     //--DG08 ENTER DETAILS--//
-    public static String currentCartCustomer = "N/A";
-    public static String currentCartCustomerDetails;
     Dialog cartDG08;
     EditText cartDG08_NameInput,
              cartDG08_DetailInput;
@@ -151,7 +162,9 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     RecyclerView.Adapter cartDG09_RecyclerViewAdapter;
     TextView cartDG09_Discount,
              cartDG09_Tax,
-             cartDG09_Total;
+             cartDG09_AmountDue,
+             cartDG09_ItemCount,
+             cartDG09_DateAndTime;
     CardView cartDG09_YesBtn, cartDG09_NoBtn;
     ImageView cartDG09_CloseBtn;
 
@@ -165,6 +178,66 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     RecyclerView cartDG10_RecyclerView;
     RecyclerView.Adapter cartDG10_RecyclerViewAdapter;
     ImageView cartDG10_CloseBtn;
+
+    //--DG11 CONFIRM DELETE TICKET--//
+    Dialog cartDG11;
+    TextView cartDG11_TicketText;
+    CardView cartDG11_YesBtn,
+            cartDG11_NoBtn;
+    ImageView cartDG11_CloseBtn;
+
+    //--DG12 VIEW ORDER DETAILS--//
+    Dialog cartDG12;
+    TextView cartDG12_DetailsText;
+    ImageView cartDG12_CloseBtn;
+
+    //--DG13 PAYMENT--//
+    public static String selectedMethod;
+    Dialog cartDG13;
+    RecyclerView cartDG13_MethodsRecyclerView;
+    RecyclerView.Adapter cartDG13_MethodsRecyclerViewAdapter;
+    TextView cartDG13_AmountDue;
+    EditText cartDG13_AmountInput;
+    CardView cartDG13_ConfirmBtn;
+    ImageView cartDG13_CloseDGBtn;
+
+    //--DG14 CONFIRM TRANSACTION--//
+    Dialog cartDG14;
+    TextView cartDG14_OrderType,
+            cartDG14_TableCustomerDetail,
+            cartDG14_Cashier;
+    RecyclerView cartDG14_RecyclerView;
+    RecyclerView.Adapter cartDG14_RecyclerViewAdapter;
+    TextView cartDG14_AmountDue,
+            cartDG14_Tax,
+            cartDG14_Discount,
+            cartDG14_PaymentMethod,
+            cartDG14_AmountRecieved,
+            cartDG14_Change,
+            cartDG14_ItemCount,
+            cartDG14_DateAndTime;
+    CardView cartDG14_YesBtn, cartDG14_NoBtn;
+    ImageView cartDG14_CloseBtn;
+
+    //--DG15 TRANSACTION COMPLETE--//
+    Dialog cartDG15;
+    TextView cartDG15_SalesNumber,
+             cartDG15_OrderType,
+             cartDG15_TableCustomerDetail,
+             cartDG15_Cashier;
+    RecyclerView cartDG15_RecyclerView;
+    RecyclerView.Adapter cartDG15_RecyclerViewAdapter;
+    TextView cartDG15_AmountDue,
+             cartDG15_Discount,
+             cartDG15_Tax,
+             cartDG15_PaymentMethod,
+             cartDG15_AmountRecieved,
+             cartDG15_Change,
+             cartDG15_ItemCount,
+             cartDG15_DateAndTime;
+    CardView cartDG15_PrintBtn, cartDG15_CloseBtn;
+    ImageView cartDG15_CloseDGBtn;
+
 
     @Nullable
     @Override
@@ -211,13 +284,16 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
             if (currentCartTicket == null) {
                 load_DG03Functionalities();
                 cartDG03.show();
+            } else {
+                load_DG12Functionalities();
+                cartDG12.show();
             }
         });
 
-        if(currentCartOrderType != null){
+        if(currentCartOrderType != null && currentCartTicket == null){
             orderTypeText.setText(currentCartOrderType);
         } else if(currentCartTicket != null) {
-            orderTypeText.setText(currentCartTicket.getTableName() + " " + currentCartTicket.getTableName() + " - " + currentCartTicket.getOrderType());
+            orderTypeText.setText(currentCartTicket.getOrder() + " - " + currentCartTicket.getOrderType());
         } else {
             orderTypeText.setText("Select Order Type");
         }
@@ -232,21 +308,21 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
         double finalDiscount = 0.00; //Discount
         double finalTax = 0.00; //Tax
         double finalTotal = 0.00; //Total
-        for(CartObject item : cart.keySet()){
+        for(CartItem item : cart.keySet()){
             int quantity = cart.get(item);
             double subTotal = item.getItemPrice() * quantity;
             double tax = subTotal * 0.03;
-            double total = subTotal + tax;
+            double taxedTotal = subTotal + tax;
             int discountInPercentage = 0;
             for(Map.Entry<String, Integer> discount : item.getItemDiscounts().entrySet()){
                 discountInPercentage += discount.getValue();
             }
             double discountInDecimal = (double) discountInPercentage / 100;
-            double discount = total * discountInDecimal;
-            double finalPrice = total - discount;
+            double discount = subTotal * discountInDecimal;
+            double discountedTotal = taxedTotal - discount;
             finalDiscount += discount;
             finalTax += tax;
-            finalTotal += finalPrice;
+            finalTotal += discountedTotal;
         }
         cartDiscount.setText("₱" + new BigDecimal(finalDiscount).setScale(2, RoundingMode.HALF_UP).toString());
         cartTax.setText("₱" + new BigDecimal(finalTax).setScale(2, RoundingMode.HALF_UP).toString());
@@ -256,18 +332,13 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
         if(currentCartTicket != null) {
             //Save Ticket Btn
             saveTicketBtn.setOnClickListener(print -> {
-                ToastMessage.show(getActivity(), "Printed!");
+                try {
+                    PrintHelper.printTicket(currentCartTicket);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             });
-            //Save Ticket Text
-            if(currentCartTicket != null){
-                saveTicketBtnTxt.setText("Print Ticket");
-            } else {
-                saveTicketBtnTxt.setText("Save Ticket");
-            }
-
-        }
-
-        if(currentCartOrderType != null){
+        } else if(currentCartOrderType != null){
             //Save Ticket Button
             saveTicketBtn.setOnClickListener(save -> {
                 if(currentCartOrderType.equals("Dine In") || currentCartOrderType.equals("Take Out")) {
@@ -285,6 +356,13 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
             saveTicketBtn.setOnClickListener(error -> {
                 ToastMessage.show(getActivity(), "Please Select an Order Type");
             });
+        }
+
+        //Save Ticket Text
+        if(currentCartTicket != null){
+            saveTicketBtnTxt.setText("Print Ticket");
+        } else {
+            saveTicketBtnTxt.setText("Save Ticket");
         }
 
         //ManageTickets
@@ -310,6 +388,24 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
             ticketsBtnTxt.setText("Tickets [0]");
         }
 
+
+        //Charge Ticket
+        double amountDue = finalTotal;
+        chargeBtn.setOnClickListener(charge -> {
+            if(currentCartTicket != null){
+                String order = currentCartTicket.getOrder();
+                String orderType = currentCartTicket.getOrderType();
+                load_DG13Functionalities(new DialogBundle(13, order, orderType, amountDue));
+                cartDG13.show();
+            } else if(currentCartOrderType != null && currentCartTicket == null){
+                String order = "Table 00 [Default]";
+                String orderType = currentCartOrderType;
+                load_DG13Functionalities(new DialogBundle(13, order, orderType, amountDue));
+                cartDG13.show();
+            } else {
+                ToastMessage.show(getActivity(), "Please select an Order Type");
+            }
+        });
     }
 
     private void init_Dialogs(){
@@ -355,13 +451,14 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
         //--DG07 SELECT TABLE TO SAVE TICKET--//
         cartDG07 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag01_pos_subfrag03_order_dg07_selecttable);
         cartDG07_RecyclerView = cartDG07.findViewById(R.id.M04F01SF03D07_TablesRV);
+        cartDG07_DetailsInput = cartDG07.findViewById(R.id.M04F01SF03D07_DetailsInput);
         cartDG07_ConfirmBtn = cartDG07.findViewById(R.id.M04F01SF03D07_ConfirmBtn);
         cartDG07_CloseBtn = cartDG07.findViewById(R.id.M04F01SF03D07_CloseDGBtn);
 
         //--DG08 ENTER CUSTOMER DETAIL TO SAVE TICKET--//
         cartDG08 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag01_pos_subfrag03_order_dg08_customerdetail);
         cartDG08_NameInput = cartDG08.findViewById(R.id.M04F01SF03D08_CustomerNameInput);
-        cartDG08_DetailInput = cartDG08.findViewById(R.id.M04F01SF03D08_OrderDetailsInput);
+        cartDG08_DetailInput = cartDG08.findViewById(R.id.M04F01SF03D08_DetailsInput);
         cartDG08_ConfirmBtn = cartDG08.findViewById(R.id.M04F01SF03D08_ConfirmBtn);
         cartDG08_CloseBtn = cartDG08.findViewById(R.id.M04F01SF03D08_CloseDGBtn);
 
@@ -374,7 +471,9 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
         cartDG09_RecyclerView = cartDG09.findViewById(R.id.M04F01SF03D09_ItemsRV);
         cartDG09_Discount = cartDG09.findViewById(R.id.M04F01SF03D09_DiscountNo);
         cartDG09_Tax = cartDG09.findViewById(R.id.M04F01SF03D09_TaxNo);
-        cartDG09_Total = cartDG09.findViewById(R.id.M04F01SF03D09_TotalNo);
+        cartDG09_AmountDue = cartDG09.findViewById(R.id.M04F01SF03D09_AmountDueNo);
+        cartDG09_ItemCount = cartDG09.findViewById(R.id.M04F01SF03D09_TotalItemsNo);
+        cartDG09_DateAndTime = cartDG09.findViewById(R.id.M04F01SF03D09_DateAndTime);
         cartDG09_YesBtn = cartDG09.findViewById(R.id.M04F01SF03D09_YesBtn);
         cartDG09_NoBtn = cartDG09.findViewById(R.id.M04F01SF03D09_NoBtn);
         cartDG09_CloseBtn = cartDG09.findViewById(R.id.M04F01SF03D09_CloseDGBtn);
@@ -389,84 +488,142 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
         cartDG10_RecyclerView = cartDG10.findViewById(R.id.M04F01SF03D10_TicketsRV);
         cartDG10_CloseBtn = cartDG10.findViewById(R.id.M04F01SF03D10_CloseDGBtn);
 
+        //--DG11 CONFIRM TO DELETE TICKET--//
+        cartDG11 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag01_pos_subfrag03_order_dg11_confirmdeleteticket);
+        cartDG11_TicketText = cartDG11.findViewById(R.id.M04F01SF03D11_TicketNameText);
+        cartDG11_YesBtn = cartDG11.findViewById(R.id.M04F01SF03D11_YesBtn);
+        cartDG11_NoBtn = cartDG11.findViewById(R.id.M04F01SF03D11_NoBtn);
+        cartDG11_CloseBtn = cartDG11.findViewById(R.id.M04F01SF03D11_CloseDGBtn);
+
+        //--DG12 LOAD CURRENT TICKET ORDER DETAILS--//
+        cartDG12 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag01_pos_subfrag03_order_dg12_orderdetails);
+        cartDG12_DetailsText = cartDG12.findViewById(R.id.M04F01SF03D12_OrderDetails);
+        cartDG12_CloseBtn = cartDG12.findViewById(R.id.M04F01SF03D12_CloseDGBtn);
+
+        //--DG13 INPUT PAYMENT--//
+        cartDG13 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag01_pos_subfrag03_order_dg13_charge);
+        cartDG13_MethodsRecyclerView = cartDG13.findViewById(R.id.M04F01SF03D13_PaymentMethodRV);
+        cartDG13_AmountDue = cartDG13.findViewById(R.id.M04F01SF03D13_AmountDue);
+        cartDG13_AmountInput = cartDG13.findViewById(R.id.M04F01SF03D13_AmountInput);
+        cartDG13_ConfirmBtn = cartDG13.findViewById(R.id.M04F01SF03D13_ConfirmBtn);
+        cartDG13_CloseDGBtn = cartDG13.findViewById(R.id.M04F01SF03D13_CloseDGBtn);
+
+        //--DG14 CONFIRM TRANSACTION--//
+        cartDG14 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag01_pos_subfrag03_order_dg14_confirmcharge);
+        cartDG14_OrderType = cartDG14.findViewById(R.id.M04F01SF03D14_OrderType);
+        cartDG14_TableCustomerDetail = cartDG14.findViewById(R.id.M04F01SF03D14_TableOrCustomer);
+        cartDG14_Cashier = cartDG14.findViewById(R.id.M04F01SF03D14_Cashier);
+        cartDG14_RecyclerView = cartDG14.findViewById(R.id.M04F01SF03D14_ItemsRV);
+        cartDG14_AmountDue = cartDG14.findViewById(R.id.M04F01SF03D14_AmountDueNo);
+        cartDG14_Discount = cartDG14.findViewById(R.id.M04F01SF03D14_DiscountNo);
+        cartDG14_Tax = cartDG14.findViewById(R.id.M04F01SF03D14_TaxNo);
+        cartDG14_PaymentMethod = cartDG14.findViewById(R.id.M04F01SF03D14_PaymentMethod);
+        cartDG14_AmountRecieved = cartDG14.findViewById(R.id.M04F01SF03D14_AmountRecieved);
+        cartDG14_Change = cartDG14.findViewById(R.id.M04F01SF03D14_ChangeNo);
+        cartDG14_ItemCount = cartDG14.findViewById(R.id.M04F01SF03D14_TotalItemsNo);
+        cartDG14_DateAndTime = cartDG14.findViewById(R.id.M04F01SF03D14_DateAndTime);
+        cartDG14_YesBtn = cartDG14.findViewById(R.id.M04F01SF03D14_YesBtn);
+        cartDG14_NoBtn = cartDG14.findViewById(R.id.M04F01SF03D14_NoBtn);
+        cartDG14_CloseBtn = cartDG14.findViewById(R.id.M04F01SF03D14_CloseDGBtn);
+
+        //--DG15 TRANSACTION COMPLETE--//
+        cartDG15 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag01_pos_subfrag03_order_dg15_transactioncomplete);
+        cartDG15_SalesNumber = cartDG15.findViewById(R.id.M04F01SF03D15_ReceiptNo);
+        cartDG15_OrderType = cartDG15.findViewById(R.id.M04F01SF03D15_OrderType);
+        cartDG15_TableCustomerDetail = cartDG15.findViewById(R.id.M04F01SF03D15_TableOrCustomer);
+        cartDG15_Cashier = cartDG15.findViewById(R.id.M04F01SF03D15_Cashier);
+        cartDG15_RecyclerView = cartDG15.findViewById(R.id.M04F01SF03D15_ItemsRV);
+        cartDG15_AmountDue = cartDG15.findViewById(R.id.M04F01SF03D15_AmountDueNo);
+        cartDG15_Discount = cartDG15.findViewById(R.id.M04F01SF03D15_DiscountNo);
+        cartDG15_Tax = cartDG15.findViewById(R.id.M04F01SF03D15_TaxNo);
+        cartDG15_PaymentMethod = cartDG15.findViewById(R.id.M04F01SF03D15_PaymentMethod);
+        cartDG15_AmountRecieved = cartDG15.findViewById(R.id.M04F01SF03D15_AmountRecieved);
+        cartDG15_Change = cartDG15.findViewById(R.id.M04F01SF03D15_ChangeNo);
+        cartDG15_ItemCount = cartDG15.findViewById(R.id.M04F01SF03D15_TotalItemsNo);
+        cartDG15_DateAndTime = cartDG15.findViewById(R.id.M04F01SF03D15_DateAndTime);
+        cartDG15_PrintBtn = cartDG15.findViewById(R.id.M04F01SF03D15_PrintBtn);
+        cartDG15_CloseBtn = cartDG15.findViewById(R.id.M04F01SF03D15_CloseBtn);
+        cartDG15_CloseDGBtn = cartDG15.findViewById(R.id.M04F01SF03D15_CloseDGBtn);
     }
 
     //DG to display the Applied Discounts to the Selected Item upon clicking an Item in the cart
-    private void load_DG01Functionalities(){
-        //Check if currentCartItem is not null to prevent crash
-        if(currentCartItem != null){
-            //Set Text
-            cartDG01_ItemName.setText(currentCartItem.getItemName());
+    private void load_DG01Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        CartItem item = bundle.getCartItem();
 
-            //Initialize RecyclerView Items
-            List<String> listOfDiscountsKeyset = new ArrayList<>(currentCartItem.getItemDiscounts().keySet());
+        //Set Text
+        cartDG01_ItemName.setText(item.getItemPOSName());
 
-            //Initialize RecyclerView
-            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-            layout.setOrientation(LinearLayoutManager.VERTICAL);
-            cartDG01_RecyclerViewAdapter = new M04F01SF03D01_AppliedDiscountCurrentItemRVA(getActivity(), realm, currentCartItem.getItemDiscounts(), listOfDiscountsKeyset);
-            cartDG01_RecyclerView.setAdapter(cartDG01_RecyclerViewAdapter);
-            cartDG01_RecyclerView.setLayoutManager(layout);
+        //Initialize RecyclerView Items
+        List<String> listOfDiscountsKeyset = new ArrayList<>(item.getItemDiscounts().keySet());
 
-            //On Apply Discount Button
-            cartDG01_AddDiscountBtn.setOnClickListener(apply -> {
-                load_DG02Functionalities();
-                cartDG01.dismiss();
-                cartDG02.show();
-            });
+        //Initialize RecyclerView
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        cartDG01_RecyclerViewAdapter = new M04F01SF03D01_AppliedDiscountsRVA(getActivity(), realm, item.getItemDiscounts(), listOfDiscountsKeyset, this);
+        cartDG01_RecyclerView.setAdapter(cartDG01_RecyclerViewAdapter);
+        cartDG01_RecyclerView.setLayoutManager(layout);
 
-            //On Close Button
-            cartDG01_CloseBtn.setOnClickListener(close -> {
-                cartDG01.dismiss();
-            });
-        }
+        //On Apply Discount Button
+        cartDG01_AddDiscountBtn.setOnClickListener(apply -> {
+            load_DG02Functionalities(bundle);
+            cartDG01.dismiss();
+            cartDG02.show();
+        });
+
+        //On Close Button
+        cartDG01_CloseBtn.setOnClickListener(close -> {
+            cartDG01.dismiss();
+        });
     }
 
     //DG to display the Selectable Discounts to Apply to the Selected Item upon clicking the "Add Discount" from DG01
-    private void load_DG02Functionalities(){
-        //Check if currentCartItem is not null to prevent crash
-        if(currentCartItem != null){
-            //Initialize RecyclerView Items
-            Map<String, Integer> listOfDiscounts = new TreeMap<>();
-            RealmResults<RealmDiscount> queriedDiscounts = realm.where(RealmDiscount.class).sort("discountName").findAll();
-            for(RealmDiscount query : queriedDiscounts){
-                if(!currentCartItem.getItemDiscounts().containsKey(query.getDiscountName())){
-                    listOfDiscounts.put(query.getDiscountName(), query.getDiscountPercentage());
-                }
+    private void load_DG02Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        CartItem item = bundle.getCartItem();
+
+        //Initialize RecyclerView Items
+        Map<String, Integer> listOfDiscounts = new TreeMap<>();
+        RealmResults<RealmDiscount> queriedDiscounts = realm.where(RealmDiscount.class).sort("discountName").findAll();
+        for(RealmDiscount query : queriedDiscounts){
+            if(!item.getItemDiscounts().containsKey(query.getDiscountName())){
+                listOfDiscounts.put(query.getDiscountName(), query.getDiscountPercentage());
             }
-            List<String> listOfDiscountsKeyset = new ArrayList<>(listOfDiscounts.keySet());
-            Map<String, Integer> listOfDiscountsToApply = new TreeMap<>();
+        }
+        List<String> listOfDiscountsKeyset = new ArrayList<>(listOfDiscounts.keySet());
+        Map<String, Integer> listOfDiscountsToApply = new TreeMap<>();
 
-            //Initialize RecyclerView
-            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-            layout.setOrientation(LinearLayoutManager.VERTICAL);
-            cartDG02_RecyclerViewAdapter = new M04F01SF03D02_SelectDiscountToApplyRVA(getActivity(), realm, listOfDiscounts, listOfDiscountsKeyset, listOfDiscountsToApply);
-            cartDG02_RecyclerView.setAdapter(cartDG02_RecyclerViewAdapter);
-            cartDG02_RecyclerView.setLayoutManager(layout);
+        //Initialize RecyclerView
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        cartDG02_RecyclerViewAdapter = new M04F01SF03D02_SelectDiscountToApplyRVA(getActivity(), realm, listOfDiscounts, listOfDiscountsKeyset, listOfDiscountsToApply);
+        cartDG02_RecyclerView.setAdapter(cartDG02_RecyclerViewAdapter);
+        cartDG02_RecyclerView.setLayoutManager(layout);
 
-            //Initialize Confirm Button
-            cartDG02_ConfirmBtn.setOnClickListener(confirm -> {
-                if(!listOfDiscountsToApply.isEmpty()){
-                    for(Map.Entry<String, Integer> discount : listOfDiscountsToApply.entrySet()){
-                        currentCartItem.getItemDiscounts().put(discount.getKey(), discount.getValue());
-                    }
-                    cartRVA.notifyDataSetChanged();
-                    load_OrderDetails();
-                    load_DG01Functionalities();
-                    cartDG02.dismiss();
-                    cartDG01.show();
-                } else {
-                    Toast.makeText(getActivity(), "Please Select A Discount", Toast.LENGTH_SHORT).show();
+        //Initialize Confirm Button
+        cartDG02_ConfirmBtn.setOnClickListener(confirm -> {
+            if(!listOfDiscountsToApply.isEmpty()){
+                for(Map.Entry<String, Integer> discount : listOfDiscountsToApply.entrySet()){
+                    item.getItemDiscounts().put(discount.getKey(), discount.getValue());
                 }
-            });
-
-            //Initialize CloseDG Button
-            cartDG02_CloseBtn.setOnClickListener(close -> {
-                load_DG01Functionalities();
+                cartRVA.notifyDataSetChanged();
+                bundle.setCartItem(item);
+                load_DG01Functionalities(bundle);
+                load_OrderDetails();
                 cartDG02.dismiss();
                 cartDG01.show();
-            });
-        }
+            } else {
+                Toast.makeText(getActivity(), "Please Select A Discount", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //Initialize CloseDG Button
+        cartDG02_CloseBtn.setOnClickListener(close -> {
+            bundle.setCartItem(item);
+            load_DG01Functionalities(bundle);
+            cartDG02.dismiss();
+            cartDG01.show();
+        });
     }
 
     //DG to display the Selectable Order Types upon clicking the "Select Order Type" Button from the Cart Fragment
@@ -503,24 +660,28 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
 
         cartDG03_DineInBtn.setOnClickListener(di -> {
             currentCartOrderType = "Dine In";
+            load_DG03Functionalities();
             load_OrderDetails();
             cartDG03.dismiss();
         });
 
         cartDG03_TakeOutBtn.setOnClickListener(to -> {
             currentCartOrderType = "Take Out";
+            load_DG03Functionalities();
             load_OrderDetails();
             cartDG03.dismiss();
         });
 
         cartDG03_DeliveryBtn.setOnClickListener(dv -> {
             currentCartOrderType = "Delivery";
+            load_DG03Functionalities();
             load_OrderDetails();
             cartDG03.dismiss();
         });
 
         cartDG03_PickUpBtn.setOnClickListener(pu -> {
             currentCartOrderType = "Pick Up";
+            load_DG03Functionalities();
             load_OrderDetails();
             cartDG03.dismiss();
         });
@@ -532,26 +693,12 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
 
     //DG to display the Discounts Applied and their items upon clicking
     private void load_DG04Functionalities(){
-        //Initialize RecyclerView Items
-        Map<String, Integer> listOfDiscountsApplied = new TreeMap<>();
-        for(CartObject cartItem : cart.keySet()){
-            Map<String, Integer> discountsWithinTheItem = cartItem.getItemDiscounts();
-            if(!discountsWithinTheItem.isEmpty()){
-                for(Map.Entry<String, Integer> discount : discountsWithinTheItem.entrySet()){
-                    if(listOfDiscountsApplied.containsKey(discount.getKey())){
-                        listOfDiscountsApplied.put(discount.getKey(),  listOfDiscountsApplied.get(discount.getKey())+ 1);
-                    } else {
-                        listOfDiscountsApplied.put(discount.getKey(), 1);
-                    }
-                }
-            }
-        }
-        List<String> listOfDiscountsAppliedKeyset = new ArrayList<>(listOfDiscountsApplied.keySet());
-
         //Initialize RecyclerView
+        Map<String, Integer> listOfDiscountsApplied = CartHelper.getAppliedDiscounts();
+        List<String> listOfDiscountsAppliedKeyset = new ArrayList<>(listOfDiscountsApplied.keySet());
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        cartDG04_RecyclerViewAdapter = new M04F01SF03D04_ViewAppliedDiscountsRVA(getActivity(), realm, cartDG04, listOfDiscountsApplied, listOfDiscountsAppliedKeyset, this, this);
+        cartDG04_RecyclerViewAdapter = new M04F01SF03D04_AppliedDiscountsRVA(getActivity(), realm, cartDG04, listOfDiscountsApplied, listOfDiscountsAppliedKeyset, this, this);
         cartDG04_RecyclerView.setAdapter(cartDG04_RecyclerViewAdapter);
         cartDG04_RecyclerView.setLayoutManager(layout);
 
@@ -569,22 +716,18 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     }
 
     //DG to display the Items Applied with the Selected Discount
-    private void load_DG05Functionalities(String discount){
+    private void load_DG05Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        String discount = bundle.getDiscount().getDiscountName();
+
         //Set Discount Name
         cartDG05_DiscountName.setText(discount);
 
-        //Initialize RecyclerView Items
-        List<CartObject> itemsAppliedWithCurrentDiscount = new ArrayList<>();
-        for(CartObject cartItem : cart.keySet()){
-            if(cartItem.getItemDiscounts().containsKey(discount)){
-                itemsAppliedWithCurrentDiscount.add(cartItem);
-            }
-        }
-
         //Initialize RecyclerView
+        List<CartItem> itemsAppliedWithCurrentDiscount = CartHelper.getItemsAppliedWith(discount);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        cartDG05_RecyclerViewAdapter = new M04F01SF03D05_ViewItemsOfCurrentDiscountRVA(getActivity(), realm, discount, cartDG05, itemsAppliedWithCurrentDiscount, this, this);
+        cartDG05_RecyclerViewAdapter = new M04F01SF03D05_ItemsAppliedWithDiscountRVA(getActivity(), realm, discount, cartDG05, itemsAppliedWithCurrentDiscount, this, this);
         cartDG05_RecyclerView.setAdapter(cartDG05_RecyclerViewAdapter);
         cartDG05_RecyclerView.setLayoutManager(layout);
 
@@ -598,16 +741,10 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
 
     //DG to display the Selectable Discounts to Apply to All Items
     private void load_DG06Functionalities(){
-        //Initialize RecyclerView Items
-        Map<String, Integer> listOfDiscounts = new TreeMap<>();
-        RealmResults<RealmDiscount> queriedDiscounts = realm.where(RealmDiscount.class).sort("discountName").findAll();
-        for(RealmDiscount query : queriedDiscounts){
-            listOfDiscounts.put(query.getDiscountName(), query.getDiscountPercentage());
-        }
+        //Initialize RecyclerView
+        Map<String, Integer> listOfDiscounts = CartHelper.getListOfDiscounts(realm);
         List<String> listOfDiscountsKeyset = new ArrayList<>(listOfDiscounts.keySet());
         Map<String, Integer> listOfDiscountsToApply = new TreeMap<>();
-
-        //Initialize RecyclerView
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         cartDG06_RecyclerViewAdapter = new M04F01SF03D06_SelectDiscountToApplyRVA(getActivity(), realm, listOfDiscounts, listOfDiscountsKeyset, listOfDiscountsToApply);
@@ -618,7 +755,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
         cartDG06_ApplyToAllBtn.setOnClickListener(confirm -> {
             if(!listOfDiscountsToApply.isEmpty()){
                 for(Map.Entry<String, Integer> discount : listOfDiscountsToApply.entrySet()){
-                    for(CartObject item : cart.keySet()){
+                    for(CartItem item : cart.keySet()){
                         item.getItemDiscounts().put(discount.getKey(), discount.getValue());
                     }
                 }
@@ -638,19 +775,12 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
             cartDG06.dismiss();
             cartDG04.show();
         });
-
     }
 
     //DG to display the when saving a ticket under Dine In and Take out
     private void load_DG07Functionalities(){
-        //Initialize RecyclerView Items
-        List<Table> listOfTables = new ArrayList<>();
-        RealmResults<RealmTable> queriedTables = realm.where(RealmTable.class).equalTo("tableStatus", "Free").sort("tableNo").findAll();
-        for(RealmTable query : queriedTables){
-            listOfTables.add(new Table(query.getTableName(), query.getTableNo()));
-        }
-
         //Initialize RecyclerView
+        List<Table> listOfTables = CartHelper.getListOfFreeTable(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         cartDG07_RecyclerViewAdapter = new M04F01SF03D07_SelectTableRVA(getActivity(), realm, listOfTables);
@@ -659,9 +789,11 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
 
         //On Confirm Btn
         cartDG07_ConfirmBtn.setOnClickListener(confirm -> {
-            if(currentCartTable != null){
+            String input = cartDG07_DetailsInput.getText().toString();
+            if(selectedTable != null){
+                Table table = selectedTable;
+                load_DG09Functionalities(new DialogBundle(9, table, input));
                 cartDG07.dismiss();
-                load_DG09Functionalities();
                 cartDG09.show();
             } else {
                 ToastMessage.show(getActivity(), "Please select a Table");
@@ -673,77 +805,119 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
             cartDG07.dismiss();
         });
 
+        //On Dismiss
+        cartDG07.setOnDismissListener(dismiss -> {
+            selectedTable = null;
+        });
+
     }
 
     //DG to display the when saving a ticket under Delivery and Pick Up
     private void load_DG08Functionalities(){
+        //On Load
+        cartDG08_NameInput.getText().clear();
+        cartDG08_DetailInput.getText().clear();
+        //On Confirm
+        cartDG08_ConfirmBtn.setOnClickListener(confirm -> {
+            //Extract String
+            String nameInput = cartDG08_NameInput.getText().toString();
+            String detailInput = cartDG08_DetailInput.getText().toString();
+
+            //Check if nameInput Is Empty
+            if(nameInput.equals("")){
+                ToastMessage.show(getActivity(), "Please Enter A Customer Name");
+            } else {
+                load_DG09Functionalities(new DialogBundle(9, nameInput, detailInput));
+                cartDG08.dismiss();
+                cartDG09.show();
+            }
+        });
+
+        //On Close
         cartDG08_CloseBtn.setOnClickListener(close -> {
             cartDG08.dismiss();
         });
     }
 
     //DG to display the when confirming to save ticket
-    private void load_DG09Functionalities(){
-        //Initialize RecyclerView Items
-        List<CartObject> cartItems = new ArrayList<>(cart.keySet());
+    private void load_DG09Functionalities(DialogBundle bundle){
+        //Extract Bundles
+        Table table = bundle.getTable();
+        String customerName = bundle.getCustomerName();
+        String details = bundle.getAdditionalDetails();
+
+        //Load Details
+        RealmUser user = realm.where(RealmUser.class).findFirst();
+        String tcDetail = (table != null) ? (table.getTableNo() < 9)
+                        ? table.getTableName() + " 0" + table.getTableNo()
+                        : table.getTableName() + " " + table.getTableNo()
+                        : customerName;
+        String cashier = user.getUserName();
+        String orderDetails = (!details.equals(""))
+                            ? StringHelper.trim(details, 15) + details
+                            : " N/A";
+        String orderType = currentCartOrderType;
+        String itemCount = String.valueOf(cart.values().stream().mapToInt(i->i).sum());
+        String dateAndtime = new SimpleDateFormat("MMMM dd , yyyy | hh:mm a").format(new Date());
+
+        //Set Views
+        cartDG09_TableCustomerDetail.setText("Order : " + tcDetail);
+        cartDG09_Cashier.setText("Cashier : " + cashier);
+        cartDG09_OrderDetails.setText(orderDetails);
+        cartDG09_OrderType.setText(orderType.toUpperCase());
+        cartDG09_ItemCount.setText("[" + itemCount + "] Items");
+        cartDG09_DateAndTime.setText(dateAndtime);
 
         //Initialize RecyclerView
+        List<CartItem> cartItems = new ArrayList<>(cart.keySet());
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         cartDG09_RecyclerViewAdapter = new M04F01SF03D09_SaveTicketRVA(getActivity(), realm, cartItems);
         cartDG09_RecyclerView.setAdapter(cartDG09_RecyclerViewAdapter);
         cartDG09_RecyclerView.setLayoutManager(layout);
 
-        //Initialize Order Details
-        RealmUser cashier = realm.where(RealmUser.class).findFirst();
-        cartDG09_OrderType.setText(currentCartOrderType);
-        if(currentCartOrderType.equals("Dine In") || currentCartOrderType.equals("Take Out")){
-            cartDG09_TableCustomerDetail.setText(currentCartTable.getTableName() + " " + currentCartTable.getTableNo());
-        } else if(currentCartOrderType.equals("Delivery") || currentCartOrderType.equals("Pick Up")){
-            cartDG09_TableCustomerDetail.setText(currentCartCustomer);
-        }
-        cartDG09_Cashier.setText(cashier.getUserName());
-        cartDG09_OrderDetails.setText(currentCartCustomerDetails);
-
-        //Calculate the discount
+        //Calculate the Amount
         double finalDiscount = 0.00; //Discount
         double finalTax = 0.00; //Tax
         double finalTotal = 0.00; //Total
-        for(CartObject item : cart.keySet()){
+        for(CartItem item : cart.keySet()){
             int quantity = cart.get(item);
             double subTotal = item.getItemPrice() * quantity;
             double tax = subTotal * 0.03;
-            double total = subTotal + tax;
+            double taxedTotal = subTotal + tax;
             int discountInPercentage = 0;
             for(Map.Entry<String, Integer> discount : item.getItemDiscounts().entrySet()){
                 discountInPercentage += discount.getValue();
             }
             double discountInDecimal = (double) discountInPercentage / 100;
-            double discount = total * discountInDecimal;
-            double finalPrice = total - discount;
+            double discount = subTotal * discountInDecimal;
+            double discountedTotal = taxedTotal - discount;
             finalDiscount += discount;
             finalTax += tax;
-            finalTotal += finalPrice;
+            finalTotal += discountedTotal;
         }
         cartDG09_Discount.setText("₱" + new BigDecimal(finalDiscount).setScale(2, RoundingMode.HALF_UP).toString());
         cartDG09_Tax.setText("₱" + new BigDecimal(finalTax).setScale(2, RoundingMode.HALF_UP).toString());
-        cartDG09_Total.setText("₱" + new BigDecimal(finalTotal).setScale(2, RoundingMode.HALF_UP).toString());
+        cartDG09_AmountDue.setText("₱" + new BigDecimal(finalTotal).setScale(2, RoundingMode.HALF_UP).toString());
 
         //Initialize Yes and No Buttons
         cartDG09_YesBtn.setOnClickListener(save -> {
             //Save the Ticket to Database
-            List<String> itemName = new ArrayList<>();
+            List<String> itemWebName = new ArrayList<>();
+            List<String> itemPOSName = new ArrayList<>();
             List<Double> itemPrice = new ArrayList<>();
             List<Integer> itemQty = new ArrayList<>();
             List<String> discountItem = new ArrayList<>();
             List<String> discountName = new ArrayList<>();
             List<Integer> discountPercentage = new ArrayList<>();
-            for(Map.Entry<CartObject, Integer> cartItem : cart.entrySet()){
-                String name = cartItem.getKey().getItemName();
+            for(Map.Entry<CartItem, Integer> cartItem : cart.entrySet()){
+                String webName = cartItem.getKey().getItemWebName();
+                String name = cartItem.getKey().getItemPOSName();
                 double price = cartItem.getKey().getItemPrice();
                 int frequency = cartItem.getValue();
                 Map<String, Integer> discounts = cartItem.getKey().getItemDiscounts();
-                itemName.add(name);
+                itemWebName.add(webName);
+                itemPOSName.add(name);
                 itemPrice.add(price);
                 itemQty.add(frequency);
                 for(Map.Entry<String, Integer> discount : discounts.entrySet()){
@@ -752,47 +926,26 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
                     discountPercentage.add(discount.getValue());
                 }
             }
-            if(currentCartOrderType.equals("Dine In") || currentCartOrderType.equals("Take Out")){
-                OpenTicketInstance.toCreateTicket(cashier.getUserName(),
-                        currentCartOrderType,
-                                                 currentCartTable.getTableName(),
-                                                 currentCartTable.getTableNo(),
-                                                 "N/A",
-                                                 "N/A",
-                                                 itemName,
-                                                 itemPrice,
-                                                 itemQty,
-                                                 discountItem,
-                                                 discountName,
-                                                 discountPercentage);
-            } else {
-                OpenTicketInstance.toCreateTicket(cashier.getUserName(),
-                        currentCartOrderType,
-                                                 "N/A",
-                                                 -1,
-                                                 "N/A",
-                                                 "N/A",
-                                                 itemName,
-                                                 itemPrice,
-                                                 itemQty,
-                                                 discountItem,
-                                                 discountName,
-                                                 discountPercentage);
-            }
 
-            currentCartOrderType = "None";
-            if(currentCartTable != null){
-                OpenTableInstance.toSetTableStatusToOccupied(currentCartTable.getTableName(), currentCartTable.getTableNo());
-                currentCartTable = null;
-            } else {
-                currentCartTable = null;
+            OpenTicketInstance.toCreateTicket(tcDetail, cashier, details, orderType, itemWebName, itemPOSName, itemPrice, itemQty, discountItem, discountName, discountPercentage);
+            Map<CartItem, Integer> tempCart = new LinkedHashMap<>();
+            for(Map.Entry<CartItem, Integer> item : cart.entrySet()){
+                tempCart.put(item.getKey(), item.getValue());
             }
-            currentCartCustomer = "N/A";
-            currentCartCustomerDetails = "N/A";
+            Ticket ticket = new Ticket(tcDetail, cashier, orderType, tempCart, dateAndtime);
+            if(table != null) {
+                OpenTableInstance.toSetTableStatusToOccupied(table.getTableName(), table.getTableNo());
+            }
             cart.clear();
             cartRVA.notifyDataSetChanged();
+            currentCartOrderType = "None";
             load_OrderDetails();
             cartDG09.dismiss();
+            try {
+                PrintHelper.printTicket(ticket);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             ToastMessage.show(getActivity(), "Ticket Saved");
         });
 
@@ -808,48 +961,11 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
 
     //DG to display tickets
     private void load_DG10Functionalities(){
-        //Initialize RecyclerView Items
-        List<Ticket> listOfTickets = new ArrayList<>();
-        RealmResults<RealmTicket> queriedTickets = realm.where(RealmTicket.class).findAll();
-        for(RealmTicket query : queriedTickets){
-            Ticket ticket = new Ticket(query.getTicketID(),
-                                       query.getDateAndTime(),
-                                       query.getOrderType(),
-                                       query.getTableName(),
-                                       query.getTableNumber(),
-                                       query.getCustomerName(),
-                                       query.getCashierName(),
-                                       query.getAdditionalDetails());
-            //CARTOBJECT
-            List<String> itemName = new ArrayList<>(query.getItemName());
-            List<Double> itemPrice = new ArrayList<>(query.getItemPrice());
-            List<Integer> itemQty = new ArrayList<>(query.getItemQty());
-            //DISCOUNT
-            List<String> discountItem = new ArrayList<>(query.getDiscountItem());
-            List<String> discountName = new ArrayList<>(query.getDiscountName());
-            List<Integer> discountPercentage = new ArrayList<>(query.getDiscountPercentage());
-            for(int i = 0 ; i < itemName.size() ; i++){
-                String name = itemName.get(i);
-                double price = itemPrice.get(i);
-                int quantity = itemQty.get(i);
-                Map<String, Integer> discounts = new TreeMap<>();
-                for(int j = 0 ; j < discountItem.size() ; j++){
-                    String dItem = discountItem.get(j);
-                    String dName = discountName.get(j);
-                    int dPercentage = discountPercentage.get(j);
-                    if(dItem.equals(name)){
-                        discounts.put(dName, dPercentage);
-                    }
-                }
-                ticket.getItems().put(new CartObject(name, price, discounts), quantity);
-            }
-            listOfTickets.add(ticket);
-        }
-
         //Initialize RecyclerView
+        List<Ticket> listOfTickets = CartHelper.getListOfTickets(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        cartDG10_RecyclerViewAdapter = new M04F01SF03D10_ManageTicketRVA(getActivity(), realm, cartDG10, listOfTickets, this);
+        cartDG10_RecyclerViewAdapter = new M04F01SF03D10_ManageTicketRVA(getActivity(), realm, cartDG10, listOfTickets, this, this);
         cartDG10_RecyclerView.setAdapter(cartDG10_RecyclerViewAdapter);
         cartDG10_RecyclerView.setLayoutManager(layout);
 
@@ -865,7 +981,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
                     dineInTickets.add(ticket);
                 }
             }
-            cartDG10_RecyclerViewAdapter = new M04F01SF03D10_ManageTicketRVA(getActivity(), realm, cartDG10, dineInTickets, this);
+            cartDG10_RecyclerViewAdapter = new M04F01SF03D10_ManageTicketRVA(getActivity(), realm, cartDG10, dineInTickets, this, this);
             cartDG10_RecyclerViewAdapter.notifyDataSetChanged();
             cartDG10_RecyclerView.setAdapter(cartDG10_RecyclerViewAdapter);
         });
@@ -881,7 +997,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
                     takeOutTickets.add(ticket);
                 }
             }
-            cartDG10_RecyclerViewAdapter = new M04F01SF03D10_ManageTicketRVA(getActivity(), realm, cartDG10, takeOutTickets, this);
+            cartDG10_RecyclerViewAdapter = new M04F01SF03D10_ManageTicketRVA(getActivity(), realm, cartDG10, takeOutTickets, this, this);
             cartDG10_RecyclerViewAdapter.notifyDataSetChanged();
             cartDG10_RecyclerView.setAdapter(cartDG10_RecyclerViewAdapter);
         });
@@ -897,7 +1013,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
                     deliveryTickets.add(ticket);
                 }
             }
-            cartDG10_RecyclerViewAdapter = new M04F01SF03D10_ManageTicketRVA(getActivity(), realm, cartDG10, deliveryTickets, this);
+            cartDG10_RecyclerViewAdapter = new M04F01SF03D10_ManageTicketRVA(getActivity(), realm, cartDG10, deliveryTickets, this, this);
             cartDG10_RecyclerViewAdapter.notifyDataSetChanged();
             cartDG10_RecyclerView.setAdapter(cartDG10_RecyclerViewAdapter);
         });
@@ -913,7 +1029,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
                     pickUpTickets.add(ticket);
                 }
             }
-            cartDG10_RecyclerViewAdapter = new M04F01SF03D10_ManageTicketRVA(getActivity(), realm, cartDG10, pickUpTickets, this);
+            cartDG10_RecyclerViewAdapter = new M04F01SF03D10_ManageTicketRVA(getActivity(), realm, cartDG10, pickUpTickets, this, this);
             cartDG10_RecyclerViewAdapter.notifyDataSetChanged();
             cartDG10_RecyclerView.setAdapter(cartDG10_RecyclerViewAdapter);
         });
@@ -921,6 +1037,309 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
         //Initialize Close Button
         cartDG10_CloseBtn.setOnClickListener(close -> {
             cartDG10.dismiss();
+        });
+    }
+
+    //DG to display upon trying to delete a saved ticket
+    private void load_DG11Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        Ticket ticket = bundle.getTicket();
+
+        //Load Details
+        String order = ticket.getOrder();
+        String orderType = ticket.getOrderType();
+        String ticketName = ticket.getOrderType() + " - " + ticket.getOrder();
+
+        //Set View
+        cartDG11_TicketText.setText(ticketName);
+
+        //On Yes Btn
+        cartDG11_YesBtn.setOnClickListener(yes -> {
+            if(orderType.equals("Dine In") || orderType.equals("Take Out")){
+                String tableName = StringHelper.getTableName(order);
+                int tableNo = StringHelper.getTableNumber(order);
+                OpenTableInstance.toSetTableStatusToFree(tableName, tableNo);
+            }
+            if(currentCartTicket == ticket) {
+                currentCartTicket = null;
+            }
+            OpenTicketInstance.toDeleteTicket(ticket.getTicketID());
+            load_DG10Functionalities();
+            cartDG11.dismiss();
+            cartDG10.show();
+        });
+
+        //On Delete Btn
+        cartDG11_NoBtn.setOnClickListener(no -> {
+            load_DG10Functionalities();
+            cartDG11.dismiss();
+            cartDG10.show();
+        });
+
+        //On Close Btn
+        cartDG11_CloseBtn.setOnClickListener(not -> {
+            load_DG10Functionalities();
+            cartDG11.dismiss();
+            cartDG10.show();
+        });
+    }
+
+    //DG to display upon clicking the order details if currentTicket is !null
+    private void load_DG12Functionalities(){
+        //Load Details
+        String details = StringHelper.trim(currentCartTicket.getDetails(), 20);
+
+        //SetView
+        cartDG12_DetailsText.setText(details);
+
+        //On Close
+        cartDG12_CloseBtn.setOnClickListener(close -> {
+            cartDG12.dismiss();
+        });
+    }
+
+    private void load_DG13Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        double amountDue = bundle.getAmountDue();
+
+        //Load Details
+        String amountToBePaid = StringHelper.convertToCurrency(amountDue);
+
+        //Initialize RecyclerView
+        List<PaymentMethod> listOfMethods = CartHelper.getPaymentMethods(realm);
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        cartDG13_MethodsRecyclerViewAdapter = new M04F01SF03D13_MethodsRVA(getActivity(), realm, listOfMethods);
+        cartDG13_MethodsRecyclerView.setAdapter(cartDG13_MethodsRecyclerViewAdapter);
+        cartDG13_MethodsRecyclerView.setLayoutManager(layout);
+
+        //SetViews
+        cartDG13_AmountDue.setText(amountToBePaid);
+        cartDG13_AmountInput.setText("");
+
+        //On Confirm
+        cartDG13_ConfirmBtn.setOnClickListener(confirm -> {
+            if(selectedMethod != null){
+                double amountInput = Double.parseDouble(cartDG13_AmountInput.getText().toString());
+                bundle.setAmountRecieved(amountInput);
+                bundle.setPaymentMethod(selectedMethod);
+                load_DG14Functionalities(bundle);
+                cartDG13.dismiss();
+                cartDG14.show();
+            } else {
+                ToastMessage.show(getActivity(), "Please select Payment Method");
+            }
+        });
+
+        //On Close DG Btn
+        cartDG13_CloseDGBtn.setOnClickListener(close -> {
+            cartDG13.dismiss();
+        });
+
+        //On Dismiss
+        cartDG13.setOnDismissListener(dismiss -> {
+            selectedMethod = null;
+        });
+    }
+
+    private void load_DG14Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        String order = bundle.getOrderName();
+        String orderType = bundle.getOrderType();
+        String paymentMethod = bundle.getPaymentMethod();
+        double amountDue = bundle.getAmountDue();
+        double amountRecieved = bundle.getAmountRecieved();
+        double change = amountRecieved - amountDue;
+
+        //Load Other Details
+        RealmUser user = realm.where(RealmUser.class).findFirst();
+        String cashier = user.getUserName();
+        String amountToPay = StringHelper.convertToCurrency(amountDue);
+        String amountPaid = StringHelper.convertToCurrency(amountRecieved);
+        String changeAmount = StringHelper.convertToCurrency(change);
+        String itemCount = String.valueOf(cart.values().stream().mapToInt(i->i).sum());
+        String dateAndtime = new SimpleDateFormat("MMMM dd , yyyy | hh:mm a").format(new Date());
+
+        //Set Views
+        cartDG14_TableCustomerDetail.setText("Order : " + order);
+        cartDG14_Cashier.setText("Cashier : " + cashier);
+        cartDG14_OrderType.setText(orderType.toUpperCase());
+        cartDG14_ItemCount.setText("[" + itemCount + "] Items");
+        cartDG14_DateAndTime.setText(dateAndtime);
+
+        //Initialize RecyclerView
+        List<CartItem> cartItems = new ArrayList<>(cart.keySet());
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        cartDG14_RecyclerViewAdapter = new M04F01SF03D14_ConfirmTransactionRVA(getActivity(), realm, cartItems);
+        cartDG14_RecyclerView.setAdapter(cartDG14_RecyclerViewAdapter);
+        cartDG14_RecyclerView.setLayoutManager(layout);
+
+        //Calculate the Amount
+        double finalDiscount = 0.00; //Discount
+        double finalTax = 0.00; //Tax
+        double finalTotal = 0.00; //Total
+        for(CartItem item : cart.keySet()){
+            int quantity = cart.get(item);
+            double subTotal = item.getItemPrice() * quantity;
+            double tax = subTotal * 0.03;
+            double taxedTotal = subTotal + tax;
+            int discountInPercentage = 0;
+            for(Map.Entry<String, Integer> discount : item.getItemDiscounts().entrySet()){
+                discountInPercentage += discount.getValue();
+            }
+            double discountInDecimal = (double) discountInPercentage / 100;
+            double discount = subTotal * discountInDecimal;
+            double discountedTotal = taxedTotal - discount;
+            finalDiscount += discount;
+            finalTax += tax;
+            finalTotal += discountedTotal;
+        }
+        cartDG14_AmountDue.setText(amountToPay);
+        cartDG14_Discount.setText("₱" + new BigDecimal(finalDiscount).setScale(2, RoundingMode.HALF_UP).toString());
+        cartDG14_Tax.setText("₱" + new BigDecimal(finalTax).setScale(2, RoundingMode.HALF_UP).toString());
+        cartDG14_PaymentMethod.setText(paymentMethod);
+        cartDG14_AmountRecieved.setText(amountPaid);
+        cartDG14_Change.setText(changeAmount);
+
+        //On Yes Btn
+        double discountTotal = finalDiscount;
+        double taxesTotal = finalTax;
+        cartDG14_YesBtn.setOnClickListener(yes -> {
+            //Save the Tranasction to Database
+            List<String> itemWebName = new ArrayList<>();
+            List<String> itemPOSName = new ArrayList<>();
+            List<Double> itemPrice = new ArrayList<>();
+            List<Integer> itemQty = new ArrayList<>();
+            List<String> discountItem = new ArrayList<>();
+            List<String> discountName = new ArrayList<>();
+            List<Integer> discountPercentage = new ArrayList<>();
+            for(Map.Entry<CartItem, Integer> cartItem : cart.entrySet()){
+                String webName = cartItem.getKey().getItemWebName();
+                String posName = cartItem.getKey().getItemPOSName();
+                double price = cartItem.getKey().getItemPrice();
+                int frequency = cartItem.getValue();
+                Map<String, Integer> discounts = cartItem.getKey().getItemDiscounts();
+                itemWebName.add(webName);
+                itemPOSName.add(posName);
+                itemPrice.add(price);
+                itemQty.add(frequency);
+                for(Map.Entry<String, Integer> discount : discounts.entrySet()){
+                    discountItem.add(posName);
+                    discountName.add(discount.getKey());
+                    discountPercentage.add(discount.getValue());
+                }
+            }
+            OpenTransactionsInstance.toCreateSales(order,
+                                                    cashier,
+                                                    orderType,
+                                                    itemWebName,
+                                                    itemPOSName,
+                                                    itemPrice,
+                                                    itemQty,
+                                                    discountItem,
+                                                    discountName,
+                                                    discountPercentage,
+                                                    Integer.parseInt(itemCount),
+                                                    amountDue,
+                                                    discountTotal,
+                                                    taxesTotal,
+                                                    amountRecieved,
+                                                    change,
+                                                    paymentMethod);
+            if(orderType.equals("Dine In") || orderType.equals("Take Out")){
+                String name = StringHelper.getTableName(order);
+                int no = StringHelper.getTableNumber(order);
+                OpenTableInstance.toSetTableStatusToFree(name, no);
+            }
+            if(currentCartTicket != null){
+                OpenTicketInstance.toDeleteTicket(currentCartTicket.getTicketID());
+            }
+            currentCartTicket = null;
+            currentCartOrderType = null;
+            cart.clear();
+            cartRVA.notifyDataSetChanged();
+            load_OrderDetails();
+            load_DG15Functionalities();
+            cartDG14.dismiss();
+            cartDG15.show();
+        });
+
+        //On No Btn
+        cartDG14_NoBtn.setOnClickListener(no -> {
+            cartDG14.dismiss();
+        });
+
+        //On Close
+        cartDG14_CloseBtn.setOnClickListener(close -> {
+            cartDG14.dismiss();
+        });
+    }
+
+    private void load_DG15Functionalities(){
+        //Get Latest Transaction
+        SalesTransaction latestSale = CartHelper.getLatestTranscation(realm);
+        try {
+            PrintHelper.printSalesReceipt(latestSale);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Unpack Sales
+        Map<CartItem, Integer> items = latestSale.getItems();
+        String transactionNo = latestSale.getTransactionNo();
+        String dateAndTime = latestSale.getDateAndTime();
+        String order = latestSale.getOrder();
+        String cashier = latestSale.getCashier();
+        String orderType = latestSale.getOrderType();
+        String total = StringHelper.convertToCurrency(latestSale.getTotalAmountDue());
+        String discount = StringHelper.convertToCurrency(latestSale.getTotalDiscount());
+        String tax = StringHelper.convertToCurrency(latestSale.getTotalTax());
+        String paymentMethod = latestSale.getPaymentMethod();
+        String amountPaid = StringHelper.convertToCurrency(latestSale.getTotalAmountRecieved());
+        String change = StringHelper.convertToCurrency(latestSale.getChange());
+        String itemCount = String.valueOf(latestSale.getTotalItems());
+
+        //Set Views
+        cartDG15_SalesNumber.setText(transactionNo);
+        cartDG15_OrderType.setText(orderType.toUpperCase());
+        cartDG15_TableCustomerDetail.setText("Order : " + order);
+        cartDG15_Cashier.setText("Cashier : " + cashier);
+        cartDG15_AmountDue.setText(total);
+        cartDG15_Discount.setText(discount);
+        cartDG15_Tax.setText(tax);
+        cartDG15_PaymentMethod.setText(paymentMethod);
+        cartDG15_AmountRecieved.setText(amountPaid);
+        cartDG15_Change.setText(change);
+        cartDG15_ItemCount.setText("[" + itemCount + "] items");
+        cartDG15_DateAndTime.setText(dateAndTime);
+
+        //Initialize RecyclerView
+        List<CartItem> itemList = new ArrayList<>(items.keySet());
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        cartDG15_RecyclerViewAdapter = new M04F01SF03D15_TransactionCompleteRVA(getActivity(), realm, itemList, items);
+        cartDG15_RecyclerView.setAdapter(cartDG15_RecyclerViewAdapter);
+        cartDG15_RecyclerView.setLayoutManager(layout);
+
+        //On Print
+        cartDG15_PrintBtn.setOnClickListener(print -> {
+            try {
+                PrintHelper.printSalesReceipt(latestSale);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+        //On Close [Close]
+        cartDG15_CloseBtn.setOnClickListener(close -> {
+            cartDG15.dismiss();
+        });
+
+        //On Close [x]
+        cartDG15_CloseDGBtn.setOnClickListener(close -> {
+            cartDG15.dismiss();
         });
     }
 
@@ -932,21 +1351,21 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     }
 
     @Override
-    public void load_DGContents(int dialogNo, int image, String name) {
+    public void load_DGContents(DialogBundle bundle) {
+        int dialogNo = bundle.getDialogDestinationNo();
         switch(dialogNo){
             case 1:
-                load_DG01Functionalities();
+                load_DG01Functionalities(bundle);
                 cartDG01.show();
-            case 4:
-                load_DG04Functionalities();
-                cartDG04.show();
                 break;
             case 5:
-                load_DG05Functionalities(name);
+                load_DG05Functionalities(bundle);
                 cartDG05.show();
                 break;
+            case 11:
+                load_DG11Functionalities(bundle);
+                cartDG11.show();
         }
-
     }
 
     //--SLIDE TO DELETE--//
@@ -960,12 +1379,11 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
             //Remove swiped item from list and notify the RecyclerView
             int position = viewHolder.getAdapterPosition();
-            List<CartObject> items = new ArrayList<>(cart.keySet());
-            CartObject item = items.get(position);
+            List<CartItem> items = new ArrayList<>(cart.keySet());
+            CartItem item = items.get(position);
             cart.remove(item);
             cartRVA.notifyDataSetChanged();
             load_OrderDetails();
-
         }
     };
 }

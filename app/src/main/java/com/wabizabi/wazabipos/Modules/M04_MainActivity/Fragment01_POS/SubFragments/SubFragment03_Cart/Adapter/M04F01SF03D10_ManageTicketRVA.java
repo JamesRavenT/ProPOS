@@ -19,8 +19,12 @@ import com.wabizabi.wazabipos.Database.Instances.OpenTableInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTicketInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Ticket;
 import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
-import com.wabizabi.wazabipos.Utilities.Objects.CartObject;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogCat;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
 
 import java.util.List;
 import java.util.Map;
@@ -34,13 +38,15 @@ public class M04F01SF03D10_ManageTicketRVA extends RecyclerView.Adapter<M04F01SF
     Dialog dialog;
     List<Ticket> listOfTickets;
     FragmentLoader fragmentLoader;
+    DialogLoader dialogLoader;
 
-    public M04F01SF03D10_ManageTicketRVA(Context context, Realm realm, Dialog dialog, List<Ticket> listOfTickets, FragmentLoader fragmentLoader) {
+    public M04F01SF03D10_ManageTicketRVA(Context context, Realm realm, Dialog dialog, List<Ticket> listOfTickets, FragmentLoader fragmentLoader, DialogLoader dialogLoader) {
         this.context = context;
         this.realm = realm;
         this.dialog = dialog;
         this.listOfTickets = listOfTickets;
         this.fragmentLoader = fragmentLoader;
+        this.dialogLoader = dialogLoader;
     }
 
     @NonNull
@@ -54,9 +60,7 @@ public class M04F01SF03D10_ManageTicketRVA extends RecyclerView.Adapter<M04F01SF
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Ticket ticket = listOfTickets.get(position);
-        holder.loadDetails(ticket, position);
-        holder.onClickTicket(ticket, position);
-        holder.onClickDeleteBtn(ticket, position);
+        holder.loadFunctionalities(ticket, position);
     }
 
     @Override
@@ -67,58 +71,55 @@ public class M04F01SF03D10_ManageTicketRVA extends RecyclerView.Adapter<M04F01SF
     public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
         private ConstraintLayout ticketContainer;
-        private TextView dateAndTime, orderType, customerTable, cashier, orderDetails;
+        private TextView dateAndTime, orderType, customerTable, cashier, itemCounter, orderDetails;
         private ImageView deleteBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ticketContainer = itemView.findViewById(R.id.M04F01SF03D10_RVContainer);
-            dateAndTime = itemView.findViewById(R.id.M04F01SF03D10_RVDateAndTimeText);
+            dateAndTime = itemView.findViewById(R.id.M04F01SF03D10_RVTimeLapsed);
             orderType = itemView.findViewById(R.id.M04F01SF03D10_RVOrderType);
             customerTable = itemView.findViewById(R.id.M04F01SF03D10_RVTableOrCustomerDetail);
             cashier = itemView.findViewById(R.id.M04F01SF03D10_RVCashierName);
+            itemCounter = itemView.findViewById(R.id.M04F01SF03D10_RVItemCount);
             orderDetails = itemView.findViewById(R.id.M04F01SF03D10_RVOrderDetails);
             deleteBtn = itemView.findViewById(R.id.M04F01SF03D10_RVRemoveBtn);
+
         }
 
-        public void loadDetails(Ticket ticket, int position){
-            this.position = position;
-            dateAndTime.setText(ticket.getDateAndTime());
-            orderType.setText(ticket.getOrderType());
-            if(ticket.getOrderType().equals("Dine In") || ticket.getOrderType().equals("Take Out")){
-                if(ticket.getTableNumber() < 9) {
-                    customerTable.setText(ticket.getTableName() + " " + "0" + ticket.getTableNumber());
-                } else {
-                    customerTable.setText(ticket.getTableName() + " " + ticket.getTableNumber());
-                }
+        public void loadFunctionalities(Ticket ticket, int position){
+            //Load Details
+            String orderName = ticket.getOrderType();
+            String order = ticket.getOrder();
+            String cashierName = ticket.getCashier();
+            String itemCount = String.valueOf(ticket.getItems().values().stream().mapToInt(i->i).sum());
+            String details = StringHelper.trim(ticket.getDetails(), 15);
+            String timeLapsed = StringHelper.getTimeLapse(ticket.getYear(), ticket.getMonth(), ticket.getDay(), ticket.getHour(), ticket.getMinute());
 
-            }
-            customerTable.setText(ticket.getCustomerName());
-            cashier.setText(ticket.getCashierName());
-        }
-
-        public void onClickTicket(Ticket ticket, int position){
+            //Set Views
             this.position = position;
+            dateAndTime.setText(timeLapsed);
+            orderType.setText(orderName);
+            customerTable.setText("Order : " + order);
+            cashier.setText("Cashier : " + cashierName);
+            itemCounter.setText("[" + itemCount + "] items");
+            orderDetails.setText(details);
+
+
+            //On Ticket
             ticketContainer.setOnClickListener(load -> {
                 cart.clear();
-                for(Map.Entry<CartObject, Integer> cartItem : ticket.getItems().entrySet()){
+                for(Map.Entry<CartItem, Integer> cartItem : ticket.getItems().entrySet()){
                     cart.put(cartItem.getKey(), cartItem.getValue());
                 }
                 currentCartTicket = ticket;
                 fragmentLoader.load_FGContents();
                 dialog.dismiss();
             });
-        }
 
-        public void onClickDeleteBtn(Ticket ticket, int position){
-            this.position = position;
+            //On Delete
             deleteBtn.setOnClickListener(delete -> {
-                if(ticket.getOrderType().equals("Dine In") || ticket.getOrderType().equals("Take Out")){
-                    OpenTableInstance.toSetTableStatusToFree(ticket.getTableName(), ticket.getTableNumber());
-                }
-                listOfTickets.remove(position);
-                OpenTicketInstance.toDeleteTicket(ticket.getTicketID());
-                notifyDataSetChanged();
-                fragmentLoader.load_FGContents();
+                dialogLoader.load_DGContents(new DialogBundle(11, ticket));
+                dialog.dismiss();
             });
         }
     }
