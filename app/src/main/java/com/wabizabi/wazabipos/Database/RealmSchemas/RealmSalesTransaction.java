@@ -26,19 +26,21 @@ public class RealmSalesTransaction extends RealmObject {
     RealmList<String> discountName;
     RealmList<Integer> discountPercent;
     int totalItems;
-    double totalAmountDue;
-    double totalDiscount;
+    double totalSubTotal;
     double totalTax;
-    double totalAmountRecieved;
-    double totalChange;
+    double totalServiceFee;
+    double totalDiscount;
+    double totalAmountDue;
     String paymentMethod;
+    double totalPayment;
+    double totalChange;
     //TIME STAMPS
     String year; //2023 || yyyy
     String month; // 12 || MM
     String week; // 4 || W
     String dayTxt; // Monday ||  E
     String dayNo; // 01 || dd
-    String hour;
+    String hour; // 01 || hh
 
     public RealmSalesTransaction(){
 
@@ -172,20 +174,12 @@ public class RealmSalesTransaction extends RealmObject {
         this.totalItems = totalItems;
     }
 
-    public double getTotalAmountDue() {
-        return totalAmountDue;
+    public double getTotalSubTotal() {
+        return totalSubTotal;
     }
 
-    public void setTotalAmountDue(double totalAmountDue) {
-        this.totalAmountDue = totalAmountDue;
-    }
-
-    public double getTotalDiscount() {
-        return totalDiscount;
-    }
-
-    public void setTotalDiscount(double totalDiscount) {
-        this.totalDiscount = totalDiscount;
+    public void setTotalSubTotal(double totalSubTotal) {
+        this.totalSubTotal = totalSubTotal;
     }
 
     public double getTotalTax() {
@@ -196,20 +190,28 @@ public class RealmSalesTransaction extends RealmObject {
         this.totalTax = totalTax;
     }
 
-    public double getTotalAmountRecieved() {
-        return totalAmountRecieved;
+    public double getTotalServiceFee() {
+        return totalServiceFee;
     }
 
-    public void setTotalAmountRecieved(double totalAmountRecieved) {
-        this.totalAmountRecieved = totalAmountRecieved;
+    public void setTotalServiceFee(double totalServiceFee) {
+        this.totalServiceFee = totalServiceFee;
     }
 
-    public double getTotalChange() {
-        return totalChange;
+    public double getTotalDiscount() {
+        return totalDiscount;
     }
 
-    public void setTotalChange(double totalChange) {
-        this.totalChange = totalChange;
+    public void setTotalDiscount(double totalDiscount) {
+        this.totalDiscount = totalDiscount;
+    }
+
+    public double getTotalAmountDue() {
+        return totalAmountDue;
+    }
+
+    public void setTotalAmountDue(double totalAmountDue) {
+        this.totalAmountDue = totalAmountDue;
     }
 
     public String getPaymentMethod() {
@@ -218,6 +220,22 @@ public class RealmSalesTransaction extends RealmObject {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public double getTotalPayment() {
+        return totalPayment;
+    }
+
+    public void setTotalPayment(double totalPayment) {
+        this.totalPayment = totalPayment;
+    }
+
+    public double getTotalChange() {
+        return totalChange;
+    }
+
+    public void setTotalChange(double totalChange) {
+        this.totalChange = totalChange;
     }
 
     public String getYear() {

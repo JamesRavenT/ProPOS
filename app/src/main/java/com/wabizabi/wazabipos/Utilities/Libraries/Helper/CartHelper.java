@@ -79,7 +79,9 @@ public class CartHelper {
         List<Ticket> listOfTickets = new ArrayList<>();
         RealmResults<RealmTicket> queriedTickets = realm.where(RealmTicket.class).findAll();
         for(RealmTicket query : queriedTickets){
-            Ticket ticket = new Ticket(query.getTicketID(),
+            Ticket ticket = new Ticket(
+                    query.getTicketID(),
+                    "Original",
                     query.getOrder(),
                     query.getCashier(),
                     query.getDetails(),
@@ -134,18 +136,21 @@ public class CartHelper {
     public static SalesTransaction getLatestTranscation(Realm realm){
         RealmSalesTransaction query = realm.where(RealmSalesTransaction.class).sort("transactionID", Sort.DESCENDING).findFirst();
         SalesTransaction sales = new SalesTransaction(
+                query.getTransactionID(),
                 query.getTransactionNo(),
                 query.getDateAndTime(),
                 query.getCashier(),
                 query.getOrder(),
                 query.getOrderType(),
                 query.getTotalItems(),
-                query.getTotalAmountDue(),
-                query.getTotalDiscount(),
+                query.getTotalSubTotal(),
                 query.getTotalTax(),
-                query.getTotalAmountRecieved(),
-                query.getTotalChange(),
-                query.getPaymentMethod()
+                query.getTotalServiceFee(),
+                query.getTotalDiscount(),
+                query.getTotalAmountDue(),
+                query.getPaymentMethod(),
+                query.getTotalPayment(),
+                query.getTotalChange()
         );
 
         //CARTOBJECT
@@ -173,7 +178,6 @@ public class CartHelper {
             }
             sales.getItems().put(new CartItem(webName, posName, price, discounts), quantity);
         }
-
         return sales;
     }
 }

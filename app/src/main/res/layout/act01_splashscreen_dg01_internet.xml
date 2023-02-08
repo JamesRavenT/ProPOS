@@ -2,16 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/M04F07D02_Layout"
+    android:id="@+id/M01D01_Layout"
     android:layout_width="400dp"
-    android:layout_height="360dp"
+    android:layout_height="230dp"
     android:layout_gravity="center"
     android:padding="5dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/M04F07D02_Container"
+        android:id="@+id/M01D01_Container"
         android:layout_width="350dp"
-        android:layout_height="310dp"
+        android:layout_height="170dp"
         android:layout_margin="5dp"
         android:elevation="10dp"
         app:cardCornerRadius="10dp"
@@ -22,13 +22,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/M04F07D02_ContainerLayout"
+            android:id="@+id/M01D01_ContainerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_shape_rectangle_stroke_dark_marg12p">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M04F07D02_CloseDGBtnLayout"
+                android:id="@+id/M01D01_CloseDGBtnLayout"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginTop="5dp"
@@ -42,7 +42,7 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <ImageView
-                    android:id="@+id/M04F07D02_CloseDGBtn"
+                    android:id="@+id/M01D01_CloseDGBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -53,108 +53,67 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/M04F07D02_ChangeUserText"
+                android:id="@+id/M01D01_ConfirmToDeleteText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
-                android:text="Change Username"
+                android:text="Unable to Connect"
                 android:textColor="@color/wabizabi"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07D02_CloseDGBtnLayout"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M04F07D02_UserImageLayout"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_shape_rectangle_stroke_dark_marg03p"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07D02_ChangeUserText"
-                app:layout_constraintVertical_bias="0.0">
-
-                <ImageView
-                    android:id="@+id/M04F07D02_Image"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/icon_profile_dark" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/M04F07D02_UsernameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/nunito_sans_light"
-                android:paddingBottom="0dp"
-                android:text="Name : "
-                android:textColor="@color/wabizabi"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.003"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07D02_UserImageLayout"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <EditText
-                android:id="@+id/M04F07D02_UsernameInput"
-                android:layout_width="230dp"
-                android:layout_height="32.5dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_shape_thinline_dark"
-                android:ems="10"
-                android:fontFamily="@font/nunito_sans_light"
-                android:hint="Username"
-                android:inputType="textPersonName"
-                android:maxLength="25"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/M04F07D02_UsernameText"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07D02_UserImageLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M01D01_CloseDGBtnLayout"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/M01D01_TicketNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Please check your Internet Connection"
+                android:textColor="@color/wabizabi"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M01D01_ConfirmToDeleteText"
                 app:layout_constraintVertical_bias="0.0" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/M04F07D02_ConfirmBtn"
-                android:layout_width="300dp"
+                android:id="@+id/M01D01_RetryBtn"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginEnd="25dp"
                 android:backgroundTint="@color/wabizabi"
                 android:elevation="10dp"
                 app:cardCornerRadius="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07D02_UsernameText"
-                app:layout_constraintVertical_bias="0.04">
+                app:layout_constraintTop_toBottomOf="@+id/M01D01_TicketNameText"
+                app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/M04F07D02_ConfirmBtnLayout"
+                    android:id="@+id/M01D01_RetryBtnLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/M04F07D02_ConfirmBtnText"
+                        android:id="@+id/M01D01_RetryBtnText"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:fontFamily="@font/nunito_sans"
                         android:gravity="center"
-                        android:text="Confirm"
+                        android:text="Retry"
                         android:textColor="@color/white"
                         android:textSize="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"

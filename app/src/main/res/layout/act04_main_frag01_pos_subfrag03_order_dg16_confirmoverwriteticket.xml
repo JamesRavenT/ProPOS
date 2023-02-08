@@ -2,16 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/M04F07D04_Layout"
+    android:id="@+id/M04F01SF03D16_Layout"
     android:layout_width="400dp"
-    android:layout_height="330dp"
+    android:layout_height="230dp"
     android:layout_gravity="center"
     android:padding="5dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/M04F07D04_Container"
+        android:id="@+id/M04F01SF03D16_Container"
         android:layout_width="350dp"
-        android:layout_height="280dp"
+        android:layout_height="180dp"
         android:layout_margin="5dp"
         android:elevation="10dp"
         app:cardCornerRadius="10dp"
@@ -22,13 +22,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/M04F07D04_ContainerLayout"
+            android:id="@+id/M04F01SF03D16_ContainerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_shape_rectangle_stroke_dark_marg12p">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M04F07D04_CloseDGBtnLayout"
+                android:id="@+id/M04F01SF03D16_CloseDGBtnLayout"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginTop="5dp"
@@ -42,7 +42,7 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <ImageView
-                    android:id="@+id/M04F07D04_CloseDGBtn"
+                    android:id="@+id/M04F01SF03D16_CloseDGBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -53,29 +53,44 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/M04F07D04_SelectOperationText"
+                android:id="@+id/M04F01SF03D16_ConfirmToOverWriteText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
-                android:text="Select Transaction"
+                android:text="Confirm To OverWrite"
                 android:textColor="@color/wabizabi"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07D04_CloseDGBtnLayout"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D16_CloseDGBtnLayout"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/M04F01SF03D16_TicketNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:text="Ticket Name"
+                android:textColor="@color/wabizabi"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D16_ConfirmToOverWriteText"
                 app:layout_constraintVertical_bias="0.0" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/M04F07D04_InventoryBtn"
-                android:layout_width="0dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="50dp"
+                android:id="@+id/M04F01SF03D16_YesBtn"
+                android:layout_width="145dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="15dp"
                 android:backgroundTint="@color/wabizabi"
                 android:elevation="10dp"
                 app:cardCornerRadius="5dp"
@@ -83,67 +98,62 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07D04_SelectOperationText"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D16_TicketNameText"
+                app:layout_constraintVertical_bias="0.0" >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/M04F07D04_InventoryLayout"
+                    android:id="@+id/M04F01SF03D16_YesBtnLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_shape_rectangle_stroke_white_marg05p">
+                    android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/M04F07D04_InventoryText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/nunito_sans_light"
+                        android:id="@+id/M04F01SF03D16_YesBtnText"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/nunito_sans"
                         android:gravity="center"
-                        android:text="Inventory"
+                        android:text="Yes"
                         android:textColor="@color/white"
                         android:textSize="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/M04F07D04_SalesBtn"
-                android:layout_width="0dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="50dp"
+                android:id="@+id/M04F01SF03D16_NoBtn"
+                android:layout_width="145dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="50dp"
+                android:layout_marginEnd="25dp"
                 android:backgroundTint="@color/wabizabi"
                 android:elevation="10dp"
                 app:cardCornerRadius="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07D04_InventoryBtn"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D16_TicketNameText"
+                app:layout_constraintVertical_bias="0.0" >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/M04F07D04_SalesLayout"
+                    android:id="@+id/M04F01SF03D16_NoBtnLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_shape_rectangle_stroke_white_marg05p">
+                    android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/M04F07D04_SalesText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/nunito_sans_light"
+                        android:id="@+id/M04F01SF03D16_NoBtnText"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/nunito_sans"
                         android:gravity="center"
-                        android:text="Sales"
+                        android:text="No"
                         android:textColor="@color/white"
                         android:textSize="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

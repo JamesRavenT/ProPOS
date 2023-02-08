@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogCat;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogHelper;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -143,7 +143,7 @@ public class M04F08_PrinterRVA extends RecyclerView.Adapter<M04F08_PrinterRVA.Vi
                                         handler.post(new Runnable() {
                                             @Override
                                             public void run() {
-                                                LogCat.debug(data);
+                                                LogHelper.debug(data);
                                             }
                                         });
                                     } else {

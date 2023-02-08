@@ -32,17 +32,15 @@ import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class M04F06_IngredientStock extends Fragment implements RVLoader, DialogLoader {
     //--DATABASE--//
@@ -236,12 +234,12 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
 
     private void init_Dialogs(){
         //--DG01 SELECT ICON--//
-        stockDG01 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag06_stocks_dg01_selecticon);
+        stockDG01 = DialogHelper.create(getActivity(), R.layout.act04_main_frag06_stocks_dg01_selecticon);
         stockDG01_RecyclerView = stockDG01.findViewById(R.id.M04F06D01_IconsRV);
         closeDG01Btn = stockDG01.findViewById(R.id.M04F06D01_CloseDGBtn);
 
         //--DG02 CREATE CATEGORY--//
-        stockDG02 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag06_stocks_dg02_createcategory);
+        stockDG02 = DialogHelper.create(getActivity(), R.layout.act04_main_frag06_stocks_dg02_createcategory);
         stockDG02_CategoryImg = stockDG02.findViewById(R.id.M04F06D02_CategoryImage);
         stockDG02_SelectIconBtn = stockDG02.findViewById(R.id.M04F06D02_SelectIconBtn);
         stockDG02_CategoryNameInput = stockDG02.findViewById(R.id.M04F06D02_CategoryNameInput);
@@ -249,7 +247,7 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
         closeDG02Btn = stockDG02.findViewById(R.id.M04F06D02_CloseDGBtn);
 
         //--DG03 CREATE ITEM--//
-        stockDG03 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag06_stocks_dg03_createitem);
+        stockDG03 = DialogHelper.create(getActivity(), R.layout.act04_main_frag06_stocks_dg03_createitem);
         stockDG03_ItemImg = stockDG03.findViewById(R.id.M04F06D03_CategoryImage);
         stockDG03_ItemNameInput= stockDG03.findViewById(R.id.M04F06D03_ItemNameInput);
         stockDG03_ItemMeasurementInput = stockDG03.findViewById(R.id.M04F06D03_ItemMeasurementInput);
@@ -257,7 +255,7 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
         closeDG03Btn = stockDG03.findViewById(R.id.M04F06D03_CloseDGBtn);
 
         //--DG04 EDIT CATEGORY--//
-        stockDG04 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag06_stocks_dg04_editcategory);
+        stockDG04 = DialogHelper.create(getActivity(), R.layout.act04_main_frag06_stocks_dg04_editcategory);
         stockDG04_CategoryImg = stockDG04.findViewById(R.id.M04F06D04_CategoryImage);
         stockDG04_CategoryNameInput = stockDG04.findViewById(R.id.M04F06D04_CategoryNameInput);
         stockDG04_SelectIconBtn = stockDG04.findViewById(R.id.M04F06D04_SelectIconBtn);
@@ -266,7 +264,7 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
         closeDG04Btn = stockDG04.findViewById(R.id.M04F06D04_CloseDGBtn);
 
         //--DG05 EDIT ITEM--//
-        stockDG05 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag06_stocks_dg05_edititem);
+        stockDG05 = DialogHelper.create(getActivity(), R.layout.act04_main_frag06_stocks_dg05_edititem);
         stockDG05_ItemImg = stockDG05.findViewById(R.id.M04F06D05_CategoryImage);
         stockDG05_ItemNameInput = stockDG05.findViewById(R.id.M04F06D05_ItemNameInput);
         stockDG05_ItemMeasurementInput = stockDG05.findViewById(R.id.M04F06D05_ItemMeasurementInput);
@@ -275,7 +273,7 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
         closeDG05Btn = stockDG05.findViewById(R.id.M04F06D05_CloseDGBtn);
 
         //--DG06 VIEW ITEM --//
-        stockDG06 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag06_stocks_dg06_viewitem);
+        stockDG06 = DialogHelper.create(getActivity(), R.layout.act04_main_frag06_stocks_dg06_viewitem);
         stockDG06_ItemImage = stockDG06.findViewById(R.id.M04F06D06_ItemImage);
         stockDG06_EditBtn = stockDG06.findViewById(R.id.M04F06D06_EditBtn);
         stockDG06_ItemName = stockDG06.findViewById(R.id.M04F06D06_ItemName);
@@ -287,14 +285,14 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
         closeDG06Btn = stockDG06.findViewById(R.id.M04F06D06_CloseDGBtn);
 
         //--DG07 DELETE CATEGORY--//
-        stockDG07 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag06_stocks_dg07_deletecategory);
+        stockDG07 = DialogHelper.create(getActivity(), R.layout.act04_main_frag06_stocks_dg07_deletecategory);
         stockDG07_CategoryName = stockDG07.findViewById(R.id.M04F06D07_CategoryNameText);
         stockDG07_YesBtn = stockDG07.findViewById(R.id.M04F06D07_YesBtn);
         stockDG07_NoBtn = stockDG07.findViewById(R.id.M04F06D07_NoBtn);
         closeDG07Btn = stockDG07.findViewById(R.id.M04F06D07_CloseDGBtn);
 
         //--DG08 DELETE ITEM--//
-        stockDG08 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag06_stocks_dg08_deleteitem);
+        stockDG08 = DialogHelper.create(getActivity(), R.layout.act04_main_frag06_stocks_dg08_deleteitem);
         stockDG08_ItemName = stockDG08.findViewById(R.id.M04F06D08_ItemNameText);
         stockDG08_YesBtn = stockDG08.findViewById(R.id.M04F06D08_YesBtn);
         stockDG08_NoBtn = stockDG08.findViewById(R.id.M04F06D08_NoBtn);
@@ -429,7 +427,7 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
             String input = stockDG04_CategoryNameInput.getText().toString();
             List<String> listOfCategories = ListHelper.getStockCategoryNames(realm);
             if(name.equals(input)){
-                ToastMessage.show(getActivity(), "No Changes were made");
+                ToastHelper.show(getActivity(), "No Changes were made");
                 stockDG04_CategoryNameInput.setText("");
                 stockDG04.dismiss();
             } else if(listOfCategories.contains(input) && !name.equals(input)){
@@ -475,7 +473,7 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
             String measurementInput = stockDG05_ItemMeasurementInput.getText().toString();
             List<String> listOfItems = ListHelper.getStockItemNames(realm);
             if(name.equals(nameInput) && measurement.equals(measurementInput)){
-                ToastMessage.show(getActivity(), "No changes were made");
+                ToastHelper.show(getActivity(), "No changes were made");
                 stockDG05.dismiss();
             } else if(name.equals(nameInput) && !measurement.equals(measurementInput)){
                 OpenStocksInstance.toUpdateItem(name, image, category, nameInput, measurementInput);

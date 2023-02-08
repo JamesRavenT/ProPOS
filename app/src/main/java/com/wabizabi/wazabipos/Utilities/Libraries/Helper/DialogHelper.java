@@ -5,7 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
-public abstract class DialogBuilder {
+public abstract class DialogHelper {
 
     public static Dialog create(Context context, int resource) {
         Dialog dialog = new Dialog(context);
@@ -14,7 +14,5 @@ public abstract class DialogBuilder {
         dialog.getWindow().setDimAmount(0.5f);
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
-
     }
-
 }

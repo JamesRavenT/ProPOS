@@ -15,17 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.Instances.OpenTableInstance;
-import com.wabizabi.wazabipos.Database.Instances.OpenTicketInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Ticket;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogCat;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -108,7 +106,8 @@ public class M04F01SF03D10_ManageTicketRVA extends RecyclerView.Adapter<M04F01SF
             //On Ticket
             ticketContainer.setOnClickListener(load -> {
                 cart.clear();
-                for(Map.Entry<CartItem, Integer> cartItem : ticket.getItems().entrySet()){
+                Map<CartItem, Integer> newCart = new LinkedHashMap<>(ticket.getItems());
+                for(Map.Entry<CartItem, Integer> cartItem : newCart.entrySet()){
                     cart.put(cartItem.getKey(), cartItem.getValue());
                 }
                 currentCartTicket = ticket;

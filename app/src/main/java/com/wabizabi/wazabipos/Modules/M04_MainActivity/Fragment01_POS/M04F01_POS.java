@@ -1,6 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart.currentCartTicket;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 
@@ -34,9 +35,9 @@ import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogCat;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
@@ -198,7 +199,7 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
 
     private void init_Dialogs() {
         //--DG01 ADD ITEM DIALOG--//
-        posDG01 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag01_pos_dg01_additem);
+        posDG01 = DialogHelper.create(getActivity(), R.layout.act04_main_frag01_pos_dg01_additem);
         posDG01_ItemImage = posDG01.findViewById(R.id.M04F01D01_ItemImage);
         posDG01_ItemPrice = posDG01.findViewById(R.id.M04F01D01_ItemPrice);
         posDG01_ItemName = posDG01.findViewById(R.id.M04F01D01_ItemName);
@@ -217,8 +218,8 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
         String itemPOSName = bundle.getMenuItem().getItemPOSName();
         double itemPrice = bundle.getMenuItem().getItemPrice();
         List<MenuItem> listOfItems = bundle.getRvBundle().getListOfMenuItems();
-        LogCat.debug(itemWebName);
-        LogCat.debug(itemPOSName);
+        LogHelper.debug(itemWebName);
+        LogHelper.debug(itemPOSName);
         //Load Item Details
         String price = StringHelper.convertToCurrency(itemPrice);
         IconLoader.setMenuIcon(posDG01_ItemImage, itemImage);
@@ -253,6 +254,9 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
                 cart.put(itemkey, cart.get(itemkey) + 1);
             } else {
                 cart.put(new CartItem(itemPOSName, itemWebName, itemPrice), itemQtyCount);
+            }
+            if(currentCartTicket != null) {
+                currentCartTicket.setTicketStatus("Voidable");
             }
             load_Header();
             load_ItemRV(new RVBundle(itemCategory, listOfItems));

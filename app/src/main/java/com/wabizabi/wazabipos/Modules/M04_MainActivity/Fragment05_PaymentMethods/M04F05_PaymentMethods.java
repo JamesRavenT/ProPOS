@@ -21,21 +21,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenPaymentMethodInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.PaymentMethod;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmPaymentMethod;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_PaymentMethods.Adapters.M04F05_PaymentMethodsRVA;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
     //--DATABASE--//
@@ -142,20 +139,20 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
     private void init_Dialogs(){
 
         //--DG01--//
-        methodDG01 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag05_paymentmethods_dg01_createpaymentmethod);
+        methodDG01 = DialogHelper.create(getActivity(), R.layout.act04_main_frag05_paymentmethods_dg01_createpaymentmethod);
         methodDG01_NameInput = methodDG01.findViewById(R.id.M04F05D01_PaymentMethodNameInput);
         methodDG01_ConfirmBtn = methodDG01.findViewById(R.id.M04F05D01_ConfirmBtn);
         closeDG01Btn = methodDG01.findViewById(R.id.M04F05D01_CloseDGBtn);
 
         //--DG02--//
-        methodDG02 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag05_paymentmethods_dg02_editpaymentmethod);
+        methodDG02 = DialogHelper.create(getActivity(), R.layout.act04_main_frag05_paymentmethods_dg02_editpaymentmethod);
         methodDG02_NameInput = methodDG02.findViewById(R.id.M04F05D02_PaymentMethodNameInput);
         methodDG02_ApplyBtn = methodDG02.findViewById(R.id.M04F05D02_ApplyChangesBtn);
         methodDG02_DeleteBtn = methodDG02.findViewById(R.id.M04F05D02_DeleteBtn);
         closeDG02Btn = methodDG02.findViewById(R.id.M04F05D02_CloseDGBtn);
 
         //--DG03--//
-        methodDG03 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag05_paymentmethods_dg03_deletepaymentmethod);
+        methodDG03 = DialogHelper.create(getActivity(), R.layout.act04_main_frag05_paymentmethods_dg03_deletepaymentmethod);
         methodDG03_methodName = methodDG03.findViewById(R.id.M04F05D03_PaymentMethodNameText);
         methodDG03_YesBtn = methodDG03.findViewById(R.id.M04F05D03_YesBtn);
         methodDG03_NoBtn = methodDG03.findViewById(R.id.M04F05D03_NoBtn);
@@ -205,7 +202,7 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
 
             List<String> listOfMethodNames = ListHelper.getMethodNames(realm);
             if(method.equals(input)){
-                ToastMessage.show(getActivity(), "No changes were made");
+                ToastHelper.show(getActivity(), "No changes were made");
                 methodDG02_NameInput.setText("");
                 methodDG02_NameInput.setError(null);
                 methodDG02.dismiss();

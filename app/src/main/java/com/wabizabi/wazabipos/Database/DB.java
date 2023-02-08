@@ -9,6 +9,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.wabizabi.wazabipos.Database.Instances.OpenMenuInstance;
+import com.wabizabi.wazabipos.Database.Instances.OpenUserInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 
@@ -17,6 +18,7 @@ import org.bson.types.ObjectId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -28,8 +30,10 @@ public class DB {
     static Realm realm = Realm.getDefaultInstance();
     static RealmConfiguration wazabi;
     static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    static CollectionReference userProfile = firestore.collection("WazabiUSERSYNCTEST");
     static CollectionReference menuCategory = firestore.collection("WazabiCATEGORYSYNCTEST");
     static CollectionReference menuItem = firestore.collection("WazabiITEMSYNCTEST");
+    static CollectionReference salesTransaction = firestore.collection("WazabiSALESSYNCTEST");
 
     //Realm
     public static void init(){
@@ -86,7 +90,79 @@ public class DB {
         });
     }
 
+    public static void checkForUser(){
+        userProfile.get().addOnSuccessListener(query -> {
+            if(query.getDocuments().size() > 0) {
+                List<DocumentSnapshot> listOfDocuments = query.getDocuments();
+                for(int i = 0 ; i < listOfDocuments.size() ; i++) {
+                    DocumentSnapshot snapShot = listOfDocuments.get(i);
+                    DocumentReference docRef = snapShot.getReference();
+                    docRef.get().addOnSuccessListener(document -> {
+                        if (document.exists()) {
+                            ObjectId id = new ObjectId(document.getString("User ID"));
+                            String email = document.getString("User Mail");
+                            String name = document.getString("User Name");
+                            int password = document.getLong("User Password").intValue();
+                            OpenUserInstance.toLoadUserFromDB(id, email, name, password);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public static void uploadUserToCloud(ObjectId id, String email, String name, int password){
+        String docID = id.toString();
+        Map<String, Object> document = new HashMap<>();
+        document.put("User ID", docID);
+        document.put("User Mail", email);
+        document.put("User Name", name);
+        document.put("User Password", password);
+        userProfile.document(docID).set(document);
+    }
+
+    public static void updateUserEmailFromCloud(ObjectId id, String email){
+        String docID = id.toString();
+        Map<String, Object> document = new HashMap<>();
+        document.put("User Mail", email);
+        userProfile.document(docID).set(document, SetOptions.merge());
+    }
+
+    public static void updateUserNameFromCloud(ObjectId id, String name){
+        String docID = id.toString();
+        Map<String, Object> document = new HashMap<>();
+        document.put("User Name", name);
+        userProfile.document(docID).set(document, SetOptions.merge());
+    }
+
+    public static void updateUserPasswordFromCloud(ObjectId id, int password){
+        String docID = id.toString();
+        Map<String, Object> document = new HashMap<>();
+        document.put("User Password", password);
+        userProfile.document(docID).set(document, SetOptions.merge());
+    }
+
+
     public static void syncRealmAndFirestore(Activity activity){
+        RealmResults<RealmMenuCategory> listOfCategories = realm.where(RealmMenuCategory.class).findAll();
+        menuCategory.addSnapshotListener(activity, (query, collectionError) -> {
+            if(collectionError != null){ return; }
+            List<DocumentSnapshot> listOfDocuments = query.getDocuments();
+            for(int i = 0 ; i < listOfCategories.size() ; i++) {
+                String documentKey = listOfCategories.get(i).get_id().toString();
+                DocumentSnapshot snapshot = listOfDocuments.get(i);
+                DocumentReference docRef = snapshot.getDocumentReference(documentKey);
+                docRef.addSnapshotListener((document, docuError) -> {
+                    if(docuError != null){ return; }
+                    if(document.exists()){
+                        String image = document.getString("Image");
+                        String category = document.getString("Name");
+                        OpenMenuInstance.toUpdateCategoryImage(image, category);
+                    }
+                });
+            }
+        });
+
         RealmResults<RealmMenuItem> listOfItems = realm.where(RealmMenuItem.class).findAll();
         menuItem.addSnapshotListener(activity, (query, collectionError) -> {
             if(collectionError != null){ return; }
@@ -100,7 +176,7 @@ public class DB {
                     if(document.exists()){
                         String name = document.getString("Item Name");
                         String image = document.getString("Item Image");
-                        String category = document.getString("Menu Name");
+                        String category = document.getString("Item Category");
                         OpenMenuInstance.toUpdateItemImage(name, image, category);
                     }
                 });
@@ -129,7 +205,6 @@ public class DB {
     public static void deleteCategoryFromCloud(RealmMenuCategory category){
         String docID = category.get_id().toString();
         menuCategory.document(docID).delete();
-
     }
 
     public static void uploadNewItemToCloud(ObjectId id, int itemIcon, String itemImage, String itemCategory, String itemWebName, String itemPOSName, double price) {
@@ -174,4 +249,99 @@ public class DB {
         }
         menuItem.document(docID).set(document, SetOptions.merge());
     }
+
+    public static void uploadNewSalesToCloud(ObjectId id,
+                                             String dataVer,
+                                             String transID,
+                                             String transNo,
+                                             String dateAndTime,
+                                             String cashier,
+                                             String order,
+                                             String orderType,
+                                             List<String> itemsetWebName,
+                                             List<String> itemsetPOSName,
+                                             List<Double> itemsetPrice,
+                                             List<Integer> itemsetQty,
+                                             List<String> discountsItem,
+                                             List<String> discountsName,
+                                             List<Integer> discountsPercent,
+                                             int totalItems,
+                                             double totalAmountDue,
+                                             double totalDiscount,
+                                             double totalTax,
+                                             double totalAmountReceived,
+                                             double change,
+                                             String paymentMethod,
+                                             String year,
+                                             String month,
+                                             String week,
+                                             String daytxt,
+                                             String dayno,
+                                             String hr){
+        String docID = id.toString();
+        Map<String, Object> document = new HashMap<>();
+        document.put("00_Object ID", docID);
+        document.put("01_Data Ver", dataVer);
+        document.put("02_TransID", transID);
+        document.put("03_TransNo", transNo);
+        document.put("04_DateTime", dateAndTime);
+        document.put("05_Cashier", cashier);
+        document.put("06_Order", order);
+        document.put("07_OrderType", orderType);
+        document.put("08_ItemWebName", itemsetWebName);
+        document.put("09_ItemPOSName", itemsetPOSName);
+        document.put("10_ItemPrice", itemsetPrice);
+        document.put("11_ItemAmount", itemsetQty);
+        document.put("12_DiscountItem", discountsItem);
+        document.put("13_DiscountName", discountsName);
+        document.put("14_DiscountPercent", discountsPercent);
+        document.put("15_TotalItems", totalItems);
+        document.put("16_TotalAmountDue", totalAmountDue);
+        document.put("17_TotalDiscount", totalDiscount);
+        document.put("18_TotalTax", totalTax);
+        document.put("19_TotalAmountRecieved", totalAmountReceived);
+        document.put("20_Change", change);
+        document.put("21_PaymentMethod", paymentMethod);
+        document.put("22_Year", year);
+        document.put("23_Month", month);
+        document.put("24_Week", week);
+        document.put("25_DayTxt", daytxt);
+        document.put("26_DayNo", dayno);
+        document.put("27_Hour", hr);
+        salesTransaction.document(docID).set(document);
+    }
 }
+
+
+//db.collection("users")
+//        .whereEqualTo(FieldPath.documentId(), "idOfDocumentToListenTo")
+//        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//@Override
+//public void onEvent(@Nullable QuerySnapshot snapshots,
+//@Nullable FirebaseFirestoreException e) {
+//        if (e != null) {
+//        Log.w(TAG, "listen:error", e);
+//        return;
+//        }
+//
+//        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+//        switch (dc.getType()) {
+//        case ADDED:
+//        Log.d(TAG, "New user: " + dc.getDocument().getData());
+//        break;
+//        case MODIFIED:
+//        Log.d(TAG, "Modified user: " + dc.getDocument().getData());
+//        break;
+//        case REMOVED:
+//        Log.d(TAG, "Removed user: " + dc.getDocument().getData());
+//        // 👆 this is what you're looking for
+//        break;
+//        }
+//        }
+//
+//        }
+//        });
+
+
+//VATABLE SALES = 1004.46428571
+//VAT =

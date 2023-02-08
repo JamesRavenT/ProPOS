@@ -1,7 +1,9 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
 
+import com.wabizabi.wazabipos.Database.DB;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogHelper;
 
 import org.bson.types.ObjectId;
 
@@ -27,13 +29,17 @@ public class OpenTransactionsInstance {
                                      List<String> discountsName,
                                      List<Integer> discountsPercent,
                                      int totalItems,
-                                     double totalAmountDue,
-                                     double totalDiscount,
+                                     double totalSubTotal,
                                      double totalTax,
+                                     double totalServiceFee,
+                                     double totalDiscount,
+                                     double totalAmountDue,
+                                     String paymentMethod,
                                      double totalAmountReceived,
-                                     double change,
-                                     String paymentMethod){
+                                     double change
+                                     ){
         try(Realm realm = Realm.getDefaultInstance()){
+            ObjectId id = new ObjectId();
             String transNo = new SimpleDateFormat("yyDDD").format(new Date());
             String year = new SimpleDateFormat("yyyy").format(new Date());
             String month = new SimpleDateFormat("MM").format(new Date());
@@ -48,6 +54,7 @@ public class OpenTransactionsInstance {
                     .and()
                     .equalTo("dayNo", dayNo)
                     .findAll();
+            LogHelper.debug("QUERY SIZE");
             String dataVer = "v1.0";
             String transactionID = new SimpleDateFormat("yyMMddHHmmsS").format(new Date());
             String dateAndTime = new SimpleDateFormat("MMMM dd , yyyy | hh:mm a").format(new Date());
@@ -55,11 +62,11 @@ public class OpenTransactionsInstance {
                                  ? transNo + "-" + query.size()
                                  : (String.valueOf(query.size()).length() == 2)
                                  ? transNo + "-0" + query.size()
-                                 : (String.valueOf(query.size()).length() == 1 && query.size() != 0)
+                                 : (String.valueOf(query.size()).length() == 1 && query.size() != 1)
                                  ? transNo + "-00" + query.size()
                                  : transNo + "-001";
             realm.executeTransaction(db -> {
-                RealmSalesTransaction transaction = db.createObject(RealmSalesTransaction.class, new ObjectId());
+                RealmSalesTransaction transaction = db.createObject(RealmSalesTransaction.class, id);
                 //CART ITEMS
                 RealmList<String> itemsWebName = new RealmList<>(); itemsWebName.addAll(itemsetWebName);
                 RealmList<String> itemsIDName = new RealmList<>(); itemsIDName.addAll(itemsetPOSName);
@@ -87,7 +94,7 @@ public class OpenTransactionsInstance {
                 transaction.setTotalAmountDue(totalAmountDue);
                 transaction.setTotalDiscount(totalDiscount);
                 transaction.setTotalTax(totalTax);
-                transaction.setTotalAmountRecieved(totalAmountReceived);
+                transaction.setTotalPayment(totalAmountReceived);
                 transaction.setTotalChange(change);
                 transaction.setPaymentMethod(paymentMethod);
                 transaction.setYear(year);
@@ -96,6 +103,9 @@ public class OpenTransactionsInstance {
                 transaction.setDayTxt(dayTxt);
                 transaction.setDayNo(dayNo);
                 transaction.setHour(hour);
+                DB.uploadNewSalesToCloud(id, dataVer, transactionID, transactionNo, dateAndTime, cashier, order, orderType,
+                        itemsetWebName, itemsetPOSName, itemsetPrice, itemsetQty, discountsItem, discountsName, discountsPercent,
+                        totalItems, totalAmountDue, totalDiscount, totalTax, totalAmountReceived, change, paymentMethod, year, month, week, dayTxt, dayNo, hour);
             });
 
         }

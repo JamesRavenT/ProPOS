@@ -46,6 +46,15 @@ public class OpenMenuInstance {
         }
     }
 
+    public static void toUpdateCategoryImage(String image, String name){
+        try(Realm realm = Realm.getDefaultInstance()){
+            realm.executeTransaction(db -> {
+                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", name).findFirst();
+                category.setCategoryImage(image);
+            });
+        }
+    }
+
     public static void toUpdateCategory(String oldCategoryName, int icon, String name){
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
         String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
@@ -123,7 +132,6 @@ public class OpenMenuInstance {
             realm.executeTransaction(db -> {
                 RealmMenuItem item = db.where(RealmMenuItem.class).equalTo("itemPOSName", name).findFirst();
                 item.setItemImage(image);
-
             });
         }
     }

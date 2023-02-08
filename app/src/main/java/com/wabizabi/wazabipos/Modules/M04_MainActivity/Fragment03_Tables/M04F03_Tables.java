@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -28,10 +27,10 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Tables.Adapter
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
 import java.util.List;
 
@@ -152,20 +151,20 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
 
     private void init_Dialogs(){
         //--DG01--//
-        tableDG01 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag03_tables_dg01_createtable);
+        tableDG01 = DialogHelper.create(getActivity(), R.layout.act04_main_frag03_tables_dg01_createtable);
         tableDG01_NameInput = tableDG01.findViewById(R.id.M04F03D01_TableNameInput);
         tableDG01_ConfirmBtn = tableDG01.findViewById(R.id.M04F03D01_ConfirmBtn);
         closeDG01Btn = tableDG01.findViewById(R.id.M04F03D01_CloseDGBtn);
 
         //--DG02--//
-        tableDG02 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag03_tables_dg02_edittable);
+        tableDG02 = DialogHelper.create(getActivity(), R.layout.act04_main_frag03_tables_dg02_edittable);
         tableDG02_NameInput = tableDG02.findViewById(R.id.M04F03D02_TableNameInput);
         tableDG02_ApplyBtn = tableDG02.findViewById(R.id.M04F03D02_ApplyChangesBtn);
         tableDG02_DeleteBtn = tableDG02.findViewById(R.id.M04F03D02_DeleteBtn);
         closeDG02Btn = tableDG02.findViewById(R.id.M04F03D02_CloseDGBtn);
 
         //--DG03--//
-        tableDG03 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag03_tables_dg03_deletetable);
+        tableDG03 = DialogHelper.create(getActivity(), R.layout.act04_main_frag03_tables_dg03_deletetable);
         tableDG03_TableName = tableDG03.findViewById(R.id.M04F03D03_TableNameText);
         tableDG03_YesBtn = tableDG03.findViewById(R.id.M04F03D03_YesBtn);
         tableDG03_NoBtn = tableDG03.findViewById(R.id.M04F03D03_NoBtn);
@@ -215,7 +214,7 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
             String input = tableDG02_NameInput.getText().toString();
             List<String> listOfTables = ListHelper.getTableNames(realm);
             if(table.equals(input)){
-                ToastMessage.show(getActivity(), "No Changes were made");
+                ToastHelper.show(getActivity(), "No Changes were made");
                 tableDG02.dismiss();
             } else if(listOfTables.contains(input)){
                 tableDG02_NameInput.setError("Name Already Exists");
@@ -237,7 +236,7 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
                 tableDG02.dismiss();
                 tableDG03.show();
             } else {
-                ToastMessage.show(getActivity(), "Cannot delete Tables if ticket is not empty");
+                ToastHelper.show(getActivity(), "Cannot delete Tables if ticket is not empty");
             }
         });
 

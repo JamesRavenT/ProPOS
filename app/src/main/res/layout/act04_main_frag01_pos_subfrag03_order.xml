@@ -21,7 +21,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F01SF03_DetailsContainer"
         android:layout_width="0dp"
-        android:layout_height="285dp"
+        android:layout_height="315dp"
         android:elevation="50dp"
         app:cardBackgroundColor="@color/white"
         app:cardElevation="20dp"
@@ -78,7 +78,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/M04F01SF03_OrderDetailsLayout"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="130dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="25dp"
@@ -90,43 +90,11 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <TextView
-                    android:id="@+id/M04F01SF03_DiscountText"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/nunito_sans"
-                    android:text="Discount"
-                    android:textColor="@color/wabizabi"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/M04F01SF03_DiscountNo"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/nunito_sans"
-                    android:text="₱0.00"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/wabizabi"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03_DiscountText"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
                     android:id="@+id/M04F01SF03_TaxText"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="3dp"
                     android:fontFamily="@font/nunito_sans"
                     android:text="Tax"
                     android:textColor="@color/wabizabi"
@@ -135,14 +103,15 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_DiscountText"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/M04F01SF03_TaxNo"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="5dp"
                     android:fontFamily="@font/nunito_sans"
                     android:text="₱0.00"
                     android:textAlignment="textEnd"
@@ -150,18 +119,19 @@
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/M04F01SF03_TaxText"
-                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_DiscountNo"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/M04F01SF03_TotalText"
+                    android:id="@+id/M04F01SF03_ServiceFeeText"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/nunito_sans"
-                    android:text="Total"
+                    android:text="Service Fee"
                     android:textColor="@color/wabizabi"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -172,10 +142,11 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/M04F01SF03_TotalNo"
+                    android:id="@+id/M04F01SF03_ServiceFeeNo"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
                     android:fontFamily="@font/nunito_sans"
                     android:text="₱0.00"
                     android:textAlignment="textEnd"
@@ -183,9 +154,79 @@
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03_TotalText"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03_ServiceFeeText"
                     app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_TaxNo"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01SF03_DiscountText"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="Discount"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.009"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_ServiceFeeText"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01SF03_DiscountNo"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="₱0.00"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03_DiscountText"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_ServiceFeeNo"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01SF03_TotalText"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="Total"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_DiscountText"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01SF03_TotalNo"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="₱0.00"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03_TotalText"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_DiscountNo"
                     app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

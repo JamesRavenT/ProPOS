@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class M04F01SF03D06_SelectDiscountToApplyRVA extends RecyclerView.Adapter
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.act04_main_frag01_pos_subfrag03_order_dg06_itemdiscountapply_rvlayout, parent, false);
+        View view = LayoutHelper.inflateRV(parent, R.layout.act04_main_frag01_pos_subfrag03_order_dg06_itemdiscountapply_rvlayout);
         ViewHolder layout = new ViewHolder(view);
         return layout;
     }

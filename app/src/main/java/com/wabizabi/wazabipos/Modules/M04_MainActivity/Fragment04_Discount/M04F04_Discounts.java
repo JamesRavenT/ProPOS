@@ -20,21 +20,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenDiscountInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Discount;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmDiscount;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_Discount.Adapters.M04F04_DiscountsRVA;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class M04F04_Discounts extends Fragment implements DialogLoader {
 
@@ -143,14 +140,14 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
 
     private void init_Dialogs(){
         //--DG01--//
-        discountDG01 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag04_discounts_dg01_creatediscount);
+        discountDG01 = DialogHelper.create(getActivity(), R.layout.act04_main_frag04_discounts_dg01_creatediscount);
         discountDG01_NameInput = discountDG01.findViewById(R.id.M04F04D01_DiscountNameInput);
         discountDG01_percentInput = discountDG01.findViewById(R.id.M04F04D01_DiscountPercentageInput);
         discountDG01_ConfirmBtn = discountDG01.findViewById(R.id.M04F04D01_ConfirmBtn);
         closeDG01Btn = discountDG01.findViewById(R.id.M04F04D01_CloseDGBtn);
 
         //--DG02--//
-        discountDG02 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag04_discounts_dg02_editdiscount);
+        discountDG02 = DialogHelper.create(getActivity(), R.layout.act04_main_frag04_discounts_dg02_editdiscount);
         discountDG02_NameInput = discountDG02.findViewById(R.id.M04F04D02_DiscountNameInput);
         discountDG02_PercentInput = discountDG02.findViewById(R.id.M04F04D02_DiscountPercentageInput);
         discountDG02_ApplyBtn = discountDG02.findViewById(R.id.M04F04D02_ApplyChangesBtn);
@@ -158,7 +155,7 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
         closeDG02Btn = discountDG02.findViewById(R.id.M04F04D02_CloseDGBtn);
 
         //--DG03--//
-        discountDG03 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag04_discounts_dg03_deletediscount);
+        discountDG03 = DialogHelper.create(getActivity(), R.layout.act04_main_frag04_discounts_dg03_deletediscount);
         discountDG03_discountName = discountDG03.findViewById(R.id.M04F04D03_DiscountNameText);
         discountDG03_YesBtn = discountDG03.findViewById(R.id.M04F04D03_YesBtn);
         discountDG03_NoBtn = discountDG03.findViewById(R.id.M04F04D03_NoBtn);
@@ -176,17 +173,19 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
             String nameInput = discountDG01_NameInput.getText().toString();
             String percentInput = discountDG01_percentInput.getText().toString();
             List<String> listOfAllDiscounts = ListHelper.getDiscountNames(realm);
-            if(listOfAllDiscounts.contains(nameInput)){
+            if(listOfAllDiscounts.contains(nameInput)) {
                 discountDG01_NameInput.setError("Name already exists");
+            } else if(percentInput.equals("")){
+                discountDG01_percentInput.setError("Please input a value");
             } else if(Integer.parseInt(percentInput) > 100) {
-                discountDG02_PercentInput.setError("Value cannot be greater than 100%");
+                discountDG01_percentInput.setError("Value cannot be greater than 100%");
             } else {
                 OpenDiscountInstance.toCreateDiscount(nameInput, Integer.parseInt(percentInput));
                 load_RecyclerView();
                 discountDG01_NameInput.setText("");
                 discountDG01_percentInput.setText("");
                 discountDG01_NameInput.setError(null);
-                discountDG02_PercentInput.setError(null);
+                discountDG01_percentInput.setError(null);
                 discountDG01.dismiss();
             }
         });
@@ -220,7 +219,7 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
                 listOfAllDiscounts.remove(dcName);
             }
             if(dcName.equals(nameInput) && dcPercent == Integer.parseInt(percentInput)){
-                ToastMessage.show(getActivity(), "No changes were made");
+                ToastHelper.show(getActivity(), "No changes were made");
                 discountDG02_NameInput.setText("");
                 discountDG02_PercentInput.setText("");
                 discountDG02.dismiss();

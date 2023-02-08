@@ -2,14 +2,8 @@ package com.wabizabi.wazabipos.Database.ObjectSchemas;
 
 import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
 
-import org.bson.types.ObjectId;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 public class SalesTransaction {
     String dataVer; //v1.0
@@ -21,10 +15,12 @@ public class SalesTransaction {
     String orderType; //Dine In, Take Out etc.
     Map<CartItem, Integer> items = new LinkedHashMap<>();
     int totalItems;
-    double totalAmountDue;
-    double totalDiscount;
+    double totalSubTotal;
     double totalTax;
-    double totalAmountRecieved;
+    double totalServiceFee;
+    double totalDiscount;
+    double totalAmountDue;
+    double totalPayment;
     double change;
     String paymentMethod;
     //TIME STAMPS
@@ -38,17 +34,20 @@ public class SalesTransaction {
     public SalesTransaction(){
     }
 
-    public SalesTransaction(String transactionNo, String dateAndTime, String cashier, String order, String orderType, int totalItems, double totalAmountDue, double totalDiscount, double totalTax, double totalAmountRecieved, double change, String paymentMethod) {
+    public SalesTransaction(String transactionID, String transactionNo, String dateAndTime, String cashier, String order, String orderType, int totalItems, double totalSubTotal, double totalTax, double totalServiceFee, double totalDiscount, double totalAmountDue, String paymentMethod, double totalPayment, double change) {
+        this.transactionID = transactionID;
         this.transactionNo = transactionNo;
         this.dateAndTime = dateAndTime;
         this.cashier = cashier;
         this.order = order;
         this.orderType = orderType;
         this.totalItems = totalItems;
-        this.totalAmountDue = totalAmountDue;
-        this.totalDiscount = totalDiscount;
+        this.totalSubTotal = totalSubTotal;
         this.totalTax = totalTax;
-        this.totalAmountRecieved = totalAmountRecieved;
+        this.totalServiceFee = totalServiceFee;
+        this.totalDiscount = totalDiscount;
+        this.totalAmountDue = totalAmountDue;
+        this.totalPayment = totalPayment;
         this.change = change;
         this.paymentMethod = paymentMethod;
     }
@@ -125,20 +124,12 @@ public class SalesTransaction {
         this.totalItems = totalItems;
     }
 
-    public double getTotalAmountDue() {
-        return totalAmountDue;
+    public double getTotalSubTotal() {
+        return totalSubTotal;
     }
 
-    public void setTotalAmountDue(double totalAmountDue) {
-        this.totalAmountDue = totalAmountDue;
-    }
-
-    public double getTotalDiscount() {
-        return totalDiscount;
-    }
-
-    public void setTotalDiscount(double totalDiscount) {
-        this.totalDiscount = totalDiscount;
+    public void setTotalSubTotal(double totalSubTotal) {
+        this.totalSubTotal = totalSubTotal;
     }
 
     public double getTotalTax() {
@@ -149,12 +140,44 @@ public class SalesTransaction {
         this.totalTax = totalTax;
     }
 
-    public double getTotalAmountRecieved() {
-        return totalAmountRecieved;
+    public double getTotalServiceFee() {
+        return totalServiceFee;
     }
 
-    public void setTotalAmountRecieved(double totalAmountRecieved) {
-        this.totalAmountRecieved = totalAmountRecieved;
+    public void setTotalServiceFee(double totalServiceFee) {
+        this.totalServiceFee = totalServiceFee;
+    }
+
+    public double getTotalDiscount() {
+        return totalDiscount;
+    }
+
+    public void setTotalDiscount(double totalDiscount) {
+        this.totalDiscount = totalDiscount;
+    }
+
+    public double getTotalAmountDue() {
+        return totalAmountDue;
+    }
+
+    public void setTotalAmountDue(double totalAmountDue) {
+        this.totalAmountDue = totalAmountDue;
+    }
+
+    public double getTotalPayment() {
+        return totalPayment;
+    }
+
+    public void setTotalPayment(double totalPayment) {
+        this.totalPayment = totalPayment;
+    }
+
+    public double getChange() {
+        return change;
+    }
+
+    public void setChange(double change) {
+        this.change = change;
     }
 
     public String getPaymentMethod() {
@@ -211,13 +234,5 @@ public class SalesTransaction {
 
     public void setHour(String hour) {
         this.hour = hour;
-    }
-
-    public double getChange() {
-        return change;
-    }
-
-    public void setChange(double change) {
-        this.change = change;
     }
 }

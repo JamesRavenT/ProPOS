@@ -28,6 +28,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    packagingOptions {
+        exclude 'META-INF/NOTICE.md'
+        exclude 'META-INF/LICENSE.md'
+    }
 }
 
 dependencies {
@@ -38,6 +42,10 @@ dependencies {
 
     //ANDROID CHART
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //MAIL API
+    implementation 'com.sun.mail:android-mail:1.6.6'
+    implementation 'com.sun.mail:android-activation:1.6.7'
 
     //ANDROID STUDIO
     implementation 'androidx.appcompat:appcompat:1.5.1'

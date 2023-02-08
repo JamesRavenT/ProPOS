@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
 
-import com.google.firebase.firestore.CollectionReference;
 import com.wabizabi.wazabipos.Database.DB;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main;

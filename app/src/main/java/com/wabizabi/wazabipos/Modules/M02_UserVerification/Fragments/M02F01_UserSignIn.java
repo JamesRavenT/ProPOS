@@ -17,7 +17,7 @@ import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
 import com.wabizabi.wazabipos.R;
 
 public class M02F01_UserSignIn extends Fragment {
-    EditText userInput, pinInput, pinConfirmInput;
+    EditText emailInput, userInput, pinInput, pinConfirmInput;
     CardView confirmCreationBtn;
     @Nullable
     @Override
@@ -27,6 +27,7 @@ public class M02F01_UserSignIn extends Fragment {
         return v;
     }
     private void init_FragmentFunctionalities(View v){
+        emailInput = v.findViewById(R.id.M02F01_EmailInput);
         userInput = v.findViewById(R.id.M02F01_UsernameInput);
         pinInput = v.findViewById(R.id.M02F01_PasswordInput);
         pinConfirmInput = v.findViewById(R.id.M02F01_PasswordConfirmInput);
@@ -34,9 +35,13 @@ public class M02F01_UserSignIn extends Fragment {
         confirmCreationBtn.setOnClickListener((button)-> confirmAccountCreation());
     }
     private void confirmAccountCreation(){
+        String email = emailInput.getText().toString();
         String username = userInput.getText().toString();
         String password = pinInput.getText().toString();
         String passwordconfirm = pinConfirmInput.getText().toString();
+        if(!email.contains("@") && !email.contains(".")){
+            emailInput.setError("Please input a proper email address");
+        }
         if(username.equals("")) {
             userInput.setError("Please input a username.");
         }
@@ -47,7 +52,7 @@ public class M02F01_UserSignIn extends Fragment {
             pinInput.setError("Passwords do not match.");
             pinConfirmInput.setError("Passwords do not match.");
         } else {
-            OpenUserInstance.toCreateUser(username, password);
+            OpenUserInstance.toCreateUser(email, username, password);
             startActivity(new Intent(getActivity(), M03_LoadResources.class));
             getActivity().finish();
         }

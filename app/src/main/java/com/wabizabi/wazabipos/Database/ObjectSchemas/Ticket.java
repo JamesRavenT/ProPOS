@@ -6,7 +6,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Ticket {
-    String ticketID; //00000-000 || yyDDD-000
+    String ticketID; //00000-000 || yyDDDHHssS
+    String ticketStatus;
     String order;
     String cashier; //Username
     String details;
@@ -22,8 +23,10 @@ public class Ticket {
 
     public Ticket(){}
 
-    public Ticket(String ticketID, String order, String cashier, String details, String orderType, String dateAndTime, String year, String month, String day, String hour, String minute) {
+    //Normal Ticket
+    public Ticket(String ticketID, String ticketStatus, String order, String cashier, String details, String orderType, String dateAndTime, String year, String month, String day, String hour, String minute) {
         this.ticketID = ticketID;
+        this.ticketStatus = ticketStatus;
         this.order = order;
         this.cashier = cashier;
         this.details = details;
@@ -36,6 +39,7 @@ public class Ticket {
         this.minute = minute;
     }
 
+    //Printable Ticket
     public Ticket(String order, String cashier, String orderType, Map<CartItem, Integer> items, String dateAndTime) {
         this.order = order;
         this.cashier = cashier;
@@ -138,5 +142,13 @@ public class Ticket {
 
     public void setMinute(String minute) {
         this.minute = minute;
+    }
+
+    public String getTicketStatus() {
+        return ticketStatus;
+    }
+
+    public void setTicketStatus(String ticketStatus) {
+        this.ticketStatus = ticketStatus;
     }
 }

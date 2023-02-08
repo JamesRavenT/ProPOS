@@ -17,7 +17,7 @@ import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
 import java.util.List;
 
@@ -94,9 +94,9 @@ public class M04F03_TablesRVA extends RecyclerView.Adapter<M04F03_TablesRVA.View
                     OpenTableInstance.toSubTableCount(table);
                     notifyDataSetChanged();
                 } else if(!listOfTickets.isEmpty()) {
-                    ToastMessage.show(context, "Cannot remove tables if Tickets are present");
+                    ToastHelper.show(context, "Cannot remove tables if Tickets are present");
                 } else {
-                    ToastMessage.show(context, "Cannot remove remaining table");
+                    ToastHelper.show(context, "Cannot remove remaining table");
                 }
             });
 

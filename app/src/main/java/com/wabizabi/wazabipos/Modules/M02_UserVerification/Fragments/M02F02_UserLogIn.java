@@ -3,12 +3,16 @@ package com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,14 +20,19 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.work.Worker;
 
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.M04F07_Admin;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main;
 import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Utilities.BackgroundThreads.WorkOrders;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +43,8 @@ public class M02F02_UserLogIn extends Fragment {
     CardView pin1, pin2, pin3, pin4;
     CardView btn01, btn02, btn03, btn04, btn05, btn06, btn07, btn08, btn09, btn00;
     ImageButton btnBackspace;
+    TextView forgotPwBtn;
+    String previousSendingTime = null;
 
     @Nullable
     @Override
@@ -59,6 +70,7 @@ public class M02F02_UserLogIn extends Fragment {
         btn08 = v.findViewById(R.id.M02F02_Button08);
         btn09 = v.findViewById(R.id.M02F02_Button09);
         btnBackspace = v.findViewById(R.id.M02F02_ButtonBackspace);
+        forgotPwBtn = v.findViewById(R.id.M04F02_ForgotPasswordBtn);
 
         updatePIN();
 
@@ -73,6 +85,8 @@ public class M02F02_UserLogIn extends Fragment {
         btn08.setOnClickListener(btn -> insertEntry(8));
         btn09.setOnClickListener(btn -> insertEntry(9));
         btnBackspace.setOnClickListener(btn -> deleteEntry());
+
+        passwordRecovery();
     }
 
     private void insertEntry(int number){
@@ -146,6 +160,40 @@ public class M02F02_UserLogIn extends Fragment {
                 Toast.makeText(getActivity(), "Invalid PIN", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void passwordRecovery(){
+        forgotPwBtn.setOnClickListener(send -> {
+            boolean connectionExists = checkIfNetworkIsAvailable();
+            if(connectionExists){
+                if(previousSendingTime == null){
+                    previousSendingTime = new SimpleDateFormat("mm").format(new Date());
+                    WorkOrders.sendEmail(getActivity());
+                    ToastHelper.show(getActivity(), "A mail has been sent to your registered E-mail");
+                } else {
+                    int previousTime = Integer.parseInt(previousSendingTime);
+                    int currentTime = Integer.parseInt(new SimpleDateFormat("mm").format(new Date()));
+                    if(previousTime != currentTime){
+                        WorkOrders.sendEmail(getActivity());
+                        ToastHelper.show(getActivity(), "A mail has been sent to your registered E-mail");
+                        previousSendingTime = String.valueOf(currentTime);
+                    } else {
+                        ToastHelper.show(getActivity(), "Please wait for a minute before sending a mail again");
+                        previousSendingTime = String.valueOf(currentTime);
+                    }
+                }
+            } else {
+                ToastHelper.show(getActivity(), "Please enable your internet connection");
+
+            }
+        });
+    }
+
+    private boolean checkIfNetworkIsAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }

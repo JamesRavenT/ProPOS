@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -33,7 +32,6 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStoc
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.M04F07_Admin;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment08_Printer.M04F08_Printer;
 import com.wabizabi.wazabipos.R;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogCat;
 
 import io.realm.Realm;
 

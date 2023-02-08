@@ -21,18 +21,32 @@ public class DialogBundle {
     String orderName;
     String orderType;
     String paymentMethod;
+    String additionalDetails;
+    double subTotalAmount;
+    double taxAmount;
+    double serviceFeeAmount;
+    double discountAmount;
     double amountDue;
     double amountRecieved;
 
     Table table;
     String customerName;
-    String additionalDetails;
     String tableName;
     Discount discount;
     PaymentMethod method;
     StockCategory stockCategory;
     StockItem stockItem;
     RVBundle rvBundle;
+
+    //Save Ticket Bundle
+    public DialogBundle(int dialogDestinationNo, double subTotalAmount, double taxAmount, double serviceFeeAmount, double discountAmount, double amountDue) {
+        this.dialogDestinationNo = dialogDestinationNo;
+        this.subTotalAmount = subTotalAmount;
+        this.taxAmount = taxAmount;
+        this.serviceFeeAmount = serviceFeeAmount;
+        this.discountAmount = discountAmount;
+        this.amountDue = amountDue;
+    }
 
     //MenuCategory Bundle
     public DialogBundle(int dialogDestinationNo, MenuCategory menuCategory) {
@@ -66,10 +80,14 @@ public class DialogBundle {
     }
 
     //Payment Bundle
-    public DialogBundle(int dialogDestinationNo, String orderName, String orderType, double amountDue){
+    public DialogBundle(int dialogDestinationNo, String orderName, String orderType, double subTotalAmount, double taxAmount, double serviceFeeAmount, double discountAmount, double amountDue){
         this.dialogDestinationNo = dialogDestinationNo;
         this.orderName = orderName;
         this.orderType = orderType;
+        this.subTotalAmount = subTotalAmount;
+        this.taxAmount = taxAmount;
+        this.serviceFeeAmount = serviceFeeAmount;
+        this.discountAmount = discountAmount;
         this.amountDue = amountDue;
     }
 
@@ -98,7 +116,6 @@ public class DialogBundle {
         this.dialogDestinationNo = dialogNo;
         this.tableName = tableName;
     }
-
 
 
     //Discount Bundle
@@ -162,5 +179,89 @@ public class DialogBundle {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public void setMenuItem(MenuItem menuItem) {
+        this.menuItem = menuItem;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
+
+    public void setAdditionalDetails(String additionalDetails) {
+        this.additionalDetails = additionalDetails;
+    }
+
+    public double getSubTotalAmount() {
+        return subTotalAmount;
+    }
+
+    public void setSubTotalAmount(double subTotalAmount) {
+        this.subTotalAmount = subTotalAmount;
+    }
+
+    public double getTaxAmount() {
+        return taxAmount;
+    }
+
+    public void setTaxAmount(double taxAmount) {
+        this.taxAmount = taxAmount;
+    }
+
+    public double getServiceFeeAmount() {
+        return serviceFeeAmount;
+    }
+
+    public void setServiceFeeAmount(double serviceFeeAmount) {
+        this.serviceFeeAmount = serviceFeeAmount;
+    }
+
+    public double getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(double discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public void setAmountDue(double amountDue) {
+        this.amountDue = amountDue;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    public void setMethod(PaymentMethod method) {
+        this.method = method;
+    }
+
+    public void setStockCategory(StockCategory stockCategory) {
+        this.stockCategory = stockCategory;
+    }
+
+    public void setStockItem(StockItem stockItem) {
+        this.stockItem = stockItem;
     }
 }

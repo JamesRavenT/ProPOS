@@ -32,12 +32,12 @@ import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogBuilder;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastMessage;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
 import org.bson.types.ObjectId;
 
@@ -115,8 +115,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
     CardView menuDG07_EditBtn;
     TextView menuDG07_ItemWebName,
              menuDG07_ItemPOSName,
-             menuDG07_ItemPrice,
-             menuDG07_ItemID;
+             menuDG07_ItemPrice;
     RecyclerView menuDG07_RecyclerView;
     RecyclerView.Adapter menuDG07_RecyclerViewAdapter;
     ImageView closeDG07Btn;
@@ -236,12 +235,12 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
 
     private void init_Dialogs(){
         //--DG01 SELECT ICON--//
-        menuDG01 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg01_selecticon);
+        menuDG01 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg01_selecticon);
         menuDG01_RecyclerView = menuDG01.findViewById(R.id.M04F02D01_IconsRV);
         closeDG01Btn = menuDG01.findViewById(R.id.M04F02D01_CloseDGBtn);
 
         //--DG02 CREATE CATEGORY--//
-        menuDG02 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg02_createcategory);
+        menuDG02 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg02_createcategory);
         menuDG02_CategoryImg = menuDG02.findViewById(R.id.M04F02D02_CategoryImage);
         menuDG02_SelectIconBtn = menuDG02.findViewById(R.id.M04F02D02_SelectIconBtn);
         menuDG02_CategoryNameInput = menuDG02.findViewById(R.id.M04F02D02_CategoryNameInput);
@@ -249,7 +248,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         closeDG02Btn = menuDG02.findViewById(R.id.M04F02D02_CloseDGBtn);
 
         //--DG03 EDIT CATEGORY--//
-        menuDG03 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg03_editcategory);
+        menuDG03 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg03_editcategory);
         menuDG03_CategoryImg = menuDG03.findViewById(R.id.M04F02D03_CategoryImage);
         menuDG03_CategoryNameInput = menuDG03.findViewById(R.id.M04F02D03_CategoryNameInput);
         menuDG03_SelectIconBtn = menuDG03.findViewById(R.id.M04F02D03_SelectIconBtn);
@@ -258,23 +257,23 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         closeDG03Btn = menuDG03.findViewById(R.id.M04F02D03_CloseDGBtn);
 
         //--DG04 DELETE CATEGORY--//
-        menuDG04 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg04_deletecategory);
+        menuDG04 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg04_deletecategory);
         menuDG04_CategoryName = menuDG04.findViewById(R.id.M04F02D04_CategoryNameText);
         menuDG04_YesBtn = menuDG04.findViewById(R.id.M04F02D04_YesBtn);
         menuDG04_NoBtn = menuDG04.findViewById(R.id.M04F02D04_NoBtn);
         closeDG04Btn = menuDG04.findViewById(R.id.M04F02D04_CloseDGBtn);
 
         //--DG05 CREATE ITEM--//
-        menuDG05 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg05_createitem);
+        menuDG05 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg05_createitem);
         menuDG05_ItemImg = menuDG05.findViewById(R.id.M04F02D05_CategoryImage);
-        menuDG05_ItemWebNameInput = menuDG05_ItemPOSNameInput.findViewById(R.id.M04F02D05_ItemWebNameInput);
+        menuDG05_ItemWebNameInput = menuDG05.findViewById(R.id.M04F02D05_ItemWebNameInput);
         menuDG05_ItemPOSNameInput = menuDG05.findViewById(R.id.M04F02D05_ItemPOSNameInput);
         menuDG05_ItemPriceInput = menuDG05.findViewById(R.id.M04F02D05_ItemPriceInput);
         menuDG05_ConfirmBtn = menuDG05.findViewById(R.id.M04F02D05_ConfirmBtn);
         closeDG05Btn = menuDG05.findViewById(R.id.M04F02D05_CloseDGBtn);
 
         //--DG06 EDIT ITEM--//
-        menuDG06 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg06_edititem);
+        menuDG06 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg06_edititem);
         menuDG06_ItemImg = menuDG06.findViewById(R.id.M04F02D06_CategoryImage);
         menuDG06_ItemWebNameInput = menuDG06.findViewById(R.id.M04F02D06_ItemWebNameInput);
         menuDG06_ItemPOSNameInput = menuDG06.findViewById(R.id.M04F02D06_ItemPOSNameInput);
@@ -284,7 +283,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         closeDG06Btn = menuDG06.findViewById(R.id.M04F02D06_CloseDGBtn);
 
         //--DG07 VIEW ITEM --//
-        menuDG07 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg07_viewitem);
+        menuDG07 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg07_viewitem);
         menuDG07_ItemImage = menuDG07.findViewById(R.id.M04F02D07_ItemImage);
         menuDG07_EditBtn = menuDG07.findViewById(R.id.M04F02D07_EditBtn);
         menuDG07_ItemPOSName = menuDG07.findViewById(R.id.M04F02D07_ItemName);
@@ -293,7 +292,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         closeDG07Btn = menuDG07.findViewById(R.id.M04F02D07_CloseDGBtn);
 
         //--DG08 DELETE ITEM--//
-        menuDG08 = DialogBuilder.create(getActivity(), R.layout.act04_main_frag02_menu_dg08_deleteitem);
+        menuDG08 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg08_deleteitem);
         menuDG08_ItemName = menuDG08.findViewById(R.id.M04F02D08_ItemNameText);
         menuDG08_YesBtn = menuDG08.findViewById(R.id.M04F02D08_YesBtn);
         menuDG08_NoBtn = menuDG08.findViewById(R.id.M04F02D08_NoBtn);
@@ -391,7 +390,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
             String input = menuDG03_CategoryNameInput.getText().toString();
             List<String> listOfCategories = ListHelper.getMenuCategoryNames(realm);
             if(name.equals(input)){
-                ToastMessage.show(getActivity(), "No Changes were made");
+                ToastHelper.show(getActivity(), "No Changes were made");
                 menuDG03_CategoryNameInput.setText("");
                 menuDG03.dismiss();
             } else if(listOfCategories.contains(input) && !name.equals(input)){
@@ -501,7 +500,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
             String priceInput = menuDG06_ItemPriceInput.getText().toString();
             List<String> listOfItems = ListHelper.getMenuItemNames(realm);
             if(name.equals(nameInput) && price.equals(priceInput)){
-                ToastMessage.show(getActivity(), "No changes were made");
+                ToastHelper.show(getActivity(), "No changes were made");
                 menuDG06.dismiss();
             } else if(name.equals(nameInput) && !price.equals(priceInput)){
                 OpenMenuInstance.toUpdateItem(name, image, category, nameInput, nameInput, Double.parseDouble(priceInput));
@@ -547,7 +546,6 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         IconLoader.setMenuIcon(menuDG07_ItemImage, image);
         menuDG07_ItemPOSName.setText(name);
         menuDG07_ItemPrice.setText("₱" + price);
-        menuDG07_ItemID.setText(id.toString());
 
         //On Edit Button
         menuDG07_EditBtn.setOnClickListener(edit -> {

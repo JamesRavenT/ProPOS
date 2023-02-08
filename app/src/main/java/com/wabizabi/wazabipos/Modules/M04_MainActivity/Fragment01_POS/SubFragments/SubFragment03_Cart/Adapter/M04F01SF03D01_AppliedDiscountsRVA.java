@@ -1,5 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter;
 
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart.currentCartTicket;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -37,7 +40,7 @@ public class M04F01SF03D01_AppliedDiscountsRVA extends RecyclerView.Adapter<M04F
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.act04_main_frag01_pos_subfrag03_order_dg01_itemdiscount_rvlayout, parent, false);
+        View view = LayoutHelper.inflateRV(parent, R.layout.act04_main_frag01_pos_subfrag03_order_dg01_itemdiscount_rvlayout);
         ViewHolder layout = new ViewHolder(view);
         return layout;
     }
@@ -74,6 +77,9 @@ public class M04F01SF03D01_AppliedDiscountsRVA extends RecyclerView.Adapter<M04F
 
             //On Remove
             removeDiscountBtn.setOnClickListener(delete -> {
+                if(currentCartTicket != null) {
+                    currentCartTicket.setTicketStatus("Voidable");
+                }
                 listOfDiscountsApplied.remove(name, percent);
                 notifyDataSetChanged();
                 fragmentLoader.load_FGContents();

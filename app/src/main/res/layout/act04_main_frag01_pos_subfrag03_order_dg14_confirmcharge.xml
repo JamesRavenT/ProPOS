@@ -160,9 +160,170 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M04F01SF03D14_OrderDetailsLayout"
+                android:id="@+id/M04F01SF03D14_SubTotalLayout"
                 android:layout_width="0dp"
-                android:layout_height="120dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_ItemsRV"
+                app:layout_constraintVertical_bias="0.0">
+
+                <TextView
+                    android:id="@+id/M04F01SF03D14_SubTotalText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="100dp"
+                    android:fontFamily="@font/nunito_sans"
+                    android:gravity="start"
+                    android:text="SUB TOTAL"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01SF03D14_SubTotalNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/nunito_sans"
+                    android:gravity="end"
+                    android:text="₱0.00"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03D14_SubTotalText"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01SF03D14_TaxText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="100dp"
+                    android:fontFamily="@font/nunito_sans_light"
+                    android:gravity="start"
+                    android:text="Tax"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_SubTotalText"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01SF03D14_TaxNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/nunito_sans_light"
+                    android:gravity="end"
+                    android:text="₱0.00"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03D14_TaxText"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_SubTotalNo"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01SF03D14_ServiceFeeText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="100dp"
+                    android:fontFamily="@font/nunito_sans_light"
+                    android:gravity="start"
+                    android:text="Service Fee"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_TaxText"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01SF03D14_ServiceFeeNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/nunito_sans_light"
+                    android:gravity="end
+"
+                    android:text="₱0.00"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03D14_ServiceFeeText"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_TaxNo"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01SF03D14_DiscountText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="100dp"
+                    android:fontFamily="@font/nunito_sans_light"
+                    android:gravity="start"
+                    android:text="Discount"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_ServiceFeeText"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/M04F01SF03D14_DiscountNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/nunito_sans_light"
+                    android:gravity="end
+"
+                    android:text="₱0.00"
+                    android:textColor="@color/wabizabi"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03D14_DiscountText"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_ServiceFeeNo"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/M04F01SF03D14_TotalLayout"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/bg_shape_rectangle_stroke_dark_bordertopbot"
@@ -170,7 +331,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_ItemsRV"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_SubTotalLayout"
                 app:layout_constraintVertical_bias="0.0">
 
                 <TextView
@@ -212,79 +373,6 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/M04F01SF03D14_DiscountText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="100dp"
-                    android:fontFamily="@font/nunito_sans_light"
-                    android:gravity="start"
-                    android:text="Discount"
-                    android:textColor="@color/wabizabi"
-                    android:textSize="15dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_TotalText"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/M04F01SF03D14_DiscountNo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/nunito_sans_light"
-                    android:gravity="end
-"
-                    android:text="₱0.00"
-                    android:textColor="@color/wabizabi"
-                    android:textSize="15dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03D14_DiscountText"
-                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_AmountDueNo"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/M04F01SF03D14_TaxText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="100dp"
-                    android:fontFamily="@font/nunito_sans_light"
-                    android:gravity="start"
-                    android:text="Tax"
-                    android:textColor="@color/wabizabi"
-                    android:textSize="15dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_DiscountText"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/M04F01SF03D14_TaxNo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/nunito_sans_light"
-                    android:gravity="end"
-                    android:text="₱0.00"
-                    android:textColor="@color/wabizabi"
-                    android:textSize="15dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03D14_TaxText"
-                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_DiscountNo"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
                     android:id="@+id/M04F01SF03D14_PaymentMethod"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -299,7 +387,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_TaxText"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_TotalText"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
@@ -315,9 +403,8 @@
                     android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03D14_TaxText"
-                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_TaxNo"
+                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03D14_PaymentMethod"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_AmountDueNo"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
@@ -351,8 +438,7 @@
                     android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03D14_TaxText"
+                    app:layout_constraintStart_toEndOf="@+id/M04F01SF03D14_ChangeText"
                     app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_AmountRecieved"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -374,7 +460,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_OrderDetailsLayout"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D14_TotalLayout"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView

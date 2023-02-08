@@ -197,4 +197,23 @@ public class StringHelper {
                     : new String(new char[7]).replace('\0', ' ') + amount;
         return text + "\n";
     }
+
+    public static String getPrinterPaymentMethod(String s){
+        String text = (s.length() == 1)
+                    ? "  " + s + new String(new char[7]).replace('\0', ' ')
+                    : (s.length() == 2)
+                    ? "  " + s + new String(new char[6]).replace('\0', ' ')
+                    : (s.length() == 3)
+                    ? "  " + s + new String(new char[5]).replace('\0', ' ')
+                    : (s.length() == 4)
+                    ? "  " + s + new String(new char[4]).replace('\0', ' ')
+                    : (s.length() == 5)
+                    ? "  " + s + new String(new char[3]).replace('\0', ' ')
+                    : (s.length() == 6)
+                    ? "  " + s + new String(new char[2]).replace('\0', ' ')
+                    : (s.length() == 7)
+                    ? "  " + s + new String(new char[1]).replace('\0', ' ')
+                    : "  " + s;
+        return text;
+    }
 }

@@ -1,11 +1,9 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmTable;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogCat;
 
 import org.bson.types.ObjectId;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

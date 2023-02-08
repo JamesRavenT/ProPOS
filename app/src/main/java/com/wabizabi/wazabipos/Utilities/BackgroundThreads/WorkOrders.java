@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
@@ -27,6 +28,12 @@ public class WorkOrders {
                     .setConstraints(network)
                     .build();
 
+    static OneTimeWorkRequest passwordRecovery =
+            new OneTimeWorkRequest
+                    .Builder(W03_Mail.class)
+                    .setConstraints(network)
+                    .build();
+
     public static void startAlgorithm(Context context){
         WorkManager
                 .getInstance(context)
@@ -37,6 +44,12 @@ public class WorkOrders {
         WorkManager
                 .getInstance(context)
                 .enqueueUniquePeriodicWork("FPData", ExistingPeriodicWorkPolicy.REPLACE, uploadToCloudDatabase);
+    }
+
+    public static void sendEmail(Context context){
+        WorkManager
+                .getInstance(context)
+                .enqueue(passwordRecovery);
     }
 
 }
