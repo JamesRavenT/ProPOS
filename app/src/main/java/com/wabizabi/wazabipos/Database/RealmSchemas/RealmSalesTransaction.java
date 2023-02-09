@@ -12,6 +12,7 @@ public class RealmSalesTransaction extends RealmObject {
     String dataVer; //v1.0
     String transactionID; //230126110400 || yyMMddHHmmsS
     String transactionNo; //00000-000 || yyDDD-000
+    String transactionType;
     String dateAndTime; //00|00|00 || yy|MM|dd
     String cashier; //Username
     String order; //Table No || Customer Name
@@ -284,5 +285,13 @@ public class RealmSalesTransaction extends RealmObject {
 
     public void setHour(String hour) {
         this.hour = hour;
+    }
+
+    public String getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
     }
 }

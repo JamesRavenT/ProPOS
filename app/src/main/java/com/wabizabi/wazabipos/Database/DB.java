@@ -38,9 +38,9 @@ public class DB {
     //Realm
     public static void init(){
         wazabi = new RealmConfiguration.Builder().name("wazabi.realm")
-                .deleteRealmIfMigrationNeeded()
                 .allowQueriesOnUiThread(true)
                 .allowWritesOnUiThread(true)
+                .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(wazabi);
         Log.d(TAG, "RealmDatabase | Initialized");
@@ -254,6 +254,7 @@ public class DB {
                                              String dataVer,
                                              String transID,
                                              String transNo,
+                                             String transType,
                                              String dateAndTime,
                                              String cashier,
                                              String order,
@@ -284,30 +285,31 @@ public class DB {
         document.put("01_Data Ver", dataVer);
         document.put("02_TransID", transID);
         document.put("03_TransNo", transNo);
-        document.put("04_DateTime", dateAndTime);
-        document.put("05_Cashier", cashier);
-        document.put("06_Order", order);
-        document.put("07_OrderType", orderType);
-        document.put("08_ItemWebName", itemsetWebName);
-        document.put("09_ItemPOSName", itemsetPOSName);
-        document.put("10_ItemPrice", itemsetPrice);
-        document.put("11_ItemAmount", itemsetQty);
-        document.put("12_DiscountItem", discountsItem);
-        document.put("13_DiscountName", discountsName);
-        document.put("14_DiscountPercent", discountsPercent);
-        document.put("15_TotalItems", totalItems);
-        document.put("16_TotalAmountDue", totalAmountDue);
-        document.put("17_TotalDiscount", totalDiscount);
-        document.put("18_TotalTax", totalTax);
-        document.put("19_TotalAmountRecieved", totalAmountReceived);
-        document.put("20_Change", change);
-        document.put("21_PaymentMethod", paymentMethod);
-        document.put("22_Year", year);
-        document.put("23_Month", month);
-        document.put("24_Week", week);
-        document.put("25_DayTxt", daytxt);
-        document.put("26_DayNo", dayno);
-        document.put("27_Hour", hr);
+        document.put("04_TransType", transType);
+        document.put("05_DateTime", dateAndTime);
+        document.put("06_Cashier", cashier);
+        document.put("07_Order", order);
+        document.put("08_OrderType", orderType);
+        document.put("09_ItemWebName", itemsetWebName);
+        document.put("10_ItemPOSName", itemsetPOSName);
+        document.put("11_ItemPrice", itemsetPrice);
+        document.put("12_ItemAmount", itemsetQty);
+        document.put("13_DiscountItem", discountsItem);
+        document.put("14_DiscountName", discountsName);
+        document.put("15_DiscountPercent", discountsPercent);
+        document.put("16_TotalItems", totalItems);
+        document.put("17_TotalAmountDue", totalAmountDue);
+        document.put("18_TotalDiscount", totalDiscount);
+        document.put("19_TotalTax", totalTax);
+        document.put("20_TotalAmountRecieved", totalAmountReceived);
+        document.put("21_Change", change);
+        document.put("22_PaymentMethod", paymentMethod);
+        document.put("23_Year", year);
+        document.put("24_Month", month);
+        document.put("25_Week", week);
+        document.put("26_DayTxt", daytxt);
+        document.put("27_DayNo", dayno);
+        document.put("28_Hour", hr);
         salesTransaction.document(docID).set(document);
     }
 }

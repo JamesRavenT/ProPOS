@@ -6,11 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.wabizabi.wazabipos.Database.Instances.OpenFPGInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
 import com.wabizabi.wazabipos.Utilities.Libraries.Algorithm.FQList;
 import com.wabizabi.wazabipos.Utilities.Libraries.Algorithm.Tree;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +38,39 @@ public class W01_Algorithm extends Worker {
         Realm.init(getApplicationContext());
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        RealmResults<RealmSalesTransaction> queriedTransactions = realm.where(RealmSalesTransaction.class).findAll();
+
+        String currentYear = new SimpleDateFormat("YYYY").format(new Date());
+        String currentMonth = new SimpleDateFormat("MM").format(new Date());
+        int prevMonthInt = (Integer.parseInt(currentMonth) == 1 )
+                         ? 12
+                         : Integer.parseInt(currentMonth) - 1;
+        int prevYearInt = (prevMonthInt == 12)
+                        ? Integer.parseInt(currentYear) - 1
+                        : Integer.parseInt(currentYear);
+        int nextMonthInt = (Integer.parseInt(currentMonth) == 12)
+                         ? 1
+                         : Integer.parseInt(currentMonth) + 1;
+        int nextYearInt = (nextMonthInt == 1)
+                        ? Integer.parseInt(currentYear) + 1
+                        : Integer.parseInt(currentYear);
+        String prevYear = (String.valueOf(prevYearInt).length() == 1)
+                        ? "0" + prevYearInt
+                        : String.valueOf(prevYearInt);
+        String prevMonth = (String.valueOf(prevMonthInt).length() == 1)
+                         ? "0" + prevMonthInt
+                         : String.valueOf(prevMonthInt);
+        String nextYear = (String.valueOf(nextYearInt).length() == 1)
+                        ? "0" + nextYearInt
+                        : String.valueOf(nextYearInt);
+        String nextMonth = (String.valueOf(nextMonthInt).length() == 1)
+                        ? "0" + nextMonthInt
+                        : String.valueOf(nextMonthInt);
+        //ALGORITHM
+        RealmResults<RealmSalesTransaction> queriedTransactions = realm.where(RealmSalesTransaction.class)
+                .equalTo("year", prevYear).and().equalTo("year", currentYear).and().equalTo("year", nextYear)
+                .and()
+                .equalTo("month", prevMonth).and().equalTo("month", currentMonth).and().equalTo("month", nextMonth)
+                .findAll();
         if (!queriedTransactions.isEmpty()) {
             List<List<String>> listOfTransactions = new ArrayList<>();
             for(RealmSalesTransaction sales : queriedTransactions) {
@@ -47,6 +82,7 @@ public class W01_Algorithm extends Worker {
             FQList.filterandsort(minSuppThreshold, unfilteredfqList, fqList);
             Tree fpTree = Tree.create(listOfTransactions, fqList);
             Tree.mineToFindFrequentPatterns(fpTree, minSuppThreshold, fqList, fpList);
+            OpenFPGInstance.toSaveResult(fqList, fpList);
         }
         realm.commitTransaction();
         return Result.success();

@@ -38,6 +38,11 @@ public class DialogBundle {
     StockItem stockItem;
     RVBundle rvBundle;
 
+    String year;
+    String month;
+    String week;
+    String day;
+
     //Save Ticket Bundle
     public DialogBundle(int dialogDestinationNo, double subTotalAmount, double taxAmount, double serviceFeeAmount, double discountAmount, double amountDue) {
         this.dialogDestinationNo = dialogDestinationNo;
@@ -147,6 +152,13 @@ public class DialogBundle {
     public DialogBundle(int dialogDestinationNo, StockItem stockItem) {
         this.dialogDestinationNo = dialogDestinationNo;
         this.stockItem = stockItem;
+    }
+
+    public DialogBundle(String year, String month, String week, String day) {
+        this.year = year;
+        this.month = month;
+        this.week = week;
+        this.day = day;
     }
 
     public int getDialogDestinationNo() { return dialogDestinationNo; }

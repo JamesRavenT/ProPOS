@@ -9,6 +9,7 @@ public class SalesTransaction {
     String dataVer; //v1.0
     String transactionID; //230126110400 || yyMMddHHmmsS
     String transactionNo; //00000-000 || yyDDD-000
+    String transactionType;
     String dateAndTime; //00|00|00 || yy|MM|dd
     String cashier; //Username
     String order; //Table No || Customer Name
@@ -34,6 +35,7 @@ public class SalesTransaction {
     public SalesTransaction(){
     }
 
+    //PRINT
     public SalesTransaction(String transactionID, String transactionNo, String dateAndTime, String cashier, String order, String orderType, int totalItems, double totalSubTotal, double totalTax, double totalServiceFee, double totalDiscount, double totalAmountDue, String paymentMethod, double totalPayment, double change) {
         this.transactionID = transactionID;
         this.transactionNo = transactionNo;
@@ -50,6 +52,12 @@ public class SalesTransaction {
         this.totalPayment = totalPayment;
         this.change = change;
         this.paymentMethod = paymentMethod;
+    }
+
+    public SalesTransaction(String transactionType, double totalSubTotal, double totalAmountDue) {
+        this.transactionType = transactionType;
+        this.totalSubTotal = totalSubTotal;
+        this.totalAmountDue = totalAmountDue;
     }
 
     public String getDataVer() {
@@ -234,5 +242,13 @@ public class SalesTransaction {
 
     public void setHour(String hour) {
         this.hour = hour;
+    }
+
+    public String getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
     }
 }

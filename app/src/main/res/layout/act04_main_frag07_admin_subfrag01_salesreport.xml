@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/M0407SF01_Layout"
+    android:id="@+id/M04F07SF01_Layout"
     android:background="@color/dirtywhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/M0407SF01_HeaderLayout"
+        android:id="@+id/M04F07SF01_HeaderLayout"
         android:layout_width="0dp"
         android:layout_height="230dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/M0407SF01_HeaderContainer"
+            android:id="@+id/M04F07SF01_HeaderContainer"
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:layout_marginStart="10dp"
@@ -37,12 +37,12 @@
             app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M0407SF01_HeaderContainerLayout"
+                android:id="@+id/M04F07SF01_HeaderContainerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/M0407SF01_BackOfficeText"
+                    android:id="@+id/M04F07SF01_BackOfficeText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -59,7 +59,7 @@
                     app:layout_constraintVertical_bias="0.082" />
 
                 <TextView
-                    android:id="@+id/M0407SF01_SalesReportText"
+                    android:id="@+id/M04F07SF01_SalesReportText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -72,8 +72,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M0407SF01_BackOfficeText"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_BackOfficeText"
                     app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/M04F07SF01_SettingsBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.959"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.906"
+                    app:srcCompat="@drawable/icon_button_settings" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -81,14 +93,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/M0407SF01_GroupLayout"
+        android:id="@+id/M04F07SF01_GroupLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/M0407SF01_HeaderLayout">
+        app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_HeaderLayout">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/M04F07SF01_SalesReportChartContainer"
@@ -111,7 +123,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/M0407SF01_ChartDate"
+                    android:id="@+id/M04F07SF01_ChartDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -130,7 +142,7 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/M0407SF01_Chart"
+                    android:id="@+id/M04F07SF01_Chart"
                     android:layout_width="0dp"
                     android:layout_height="200dp"
                     android:layout_marginStart="5dp"
@@ -140,11 +152,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M0407SF01_ChartDate"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_ChartDate"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/M0407SF01_GrossSalesText"
+                    android:id="@+id/M04F07SF01_GrossSalesText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_sans_light"
@@ -153,14 +165,14 @@
                     android:textColor="@color/wabizabi"
                     android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/M0407SF01_NetSalesText"
+                    app:layout_constraintEnd_toStartOf="@+id/M04F07SF01_NetSalesText"
                     app:layout_constraintHorizontal_bias="0.388"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M0407SF01_Chart"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_Chart"
                     app:layout_constraintVertical_bias="0.2" />
 
                 <TextView
-                    android:id="@+id/M0407SF01_GrossSalesNo"
+                    android:id="@+id/M04F07SF01_GrossSalesNo"
                     android:layout_width="125dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_sans_light"
@@ -169,14 +181,14 @@
                     android:textColor="@color/wabizabi"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/M0407SF01_NetSalesNo"
+                    app:layout_constraintEnd_toStartOf="@+id/M04F07SF01_NetSalesNo"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M0407SF01_NetSalesText"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_NetSalesText"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/M0407SF01_NetSalesText"
+                    android:id="@+id/M04F07SF01_NetSalesText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_sans_light"
@@ -187,11 +199,11 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M0407SF01_Chart"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_Chart"
                     app:layout_constraintVertical_bias="0.2" />
 
                 <TextView
-                    android:id="@+id/M0407SF01_NetSalesNo"
+                    android:id="@+id/M04F07SF01_NetSalesNo"
                     android:layout_width="125dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_sans_light"
@@ -202,11 +214,11 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M0407SF01_NetSalesText"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_NetSalesText"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/M0407SF01_TransactionsCountText"
+                    android:id="@+id/M04F07SF01_TransactionsCountText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_sans_light"
@@ -217,12 +229,12 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.789"
-                    app:layout_constraintStart_toEndOf="@+id/M0407SF01_NetSalesText"
-                    app:layout_constraintTop_toBottomOf="@+id/M0407SF01_Chart"
+                    app:layout_constraintStart_toEndOf="@+id/M04F07SF01_NetSalesText"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_Chart"
                     app:layout_constraintVertical_bias="0.2" />
 
                 <TextView
-                    android:id="@+id/M0407SF01_TranscationsCountNo"
+                    android:id="@+id/M04F07SF01_TranscationsCountNo"
                     android:layout_width="125dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_sans_light"
@@ -233,8 +245,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/M0407SF01_NetSalesNo"
-                    app:layout_constraintTop_toBottomOf="@+id/M0407SF01_NetSalesText"
+                    app:layout_constraintStart_toEndOf="@+id/M04F07SF01_NetSalesNo"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_NetSalesText"
                     app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -263,13 +275,14 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/M0407SF01_StatisticsText"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/M04F07SF01_StatisticsText"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
                     android:fontFamily="@font/nunito_sans_light"
-                    android:gravity="center"
+                    android:gravity="center|start"
                     android:text="Statistics"
                     android:textColor="@color/wabizabi"
                     android:textSize="20dp"
@@ -280,8 +293,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/M0407SF01_StatisticsRV"
+
+                <ScrollView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="15dp"
@@ -289,8 +302,92 @@
                     android:layout_marginBottom="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M0407SF01_StatisticsText" />
+                    app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_StatisticsText"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/M04F07SF01_PopularItemsText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/nunito_sans_light"
+                            android:gravity="center|start"
+                            android:text="Top 5 Popular Items"
+                            android:textColor="@color/wabizabi"
+                            android:textSize="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.003" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/M04F07SF01_PopularItemRVLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:background="@drawable/bg_shape_rectangle_stroke_dark_bordertopbot">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/M04F07SF01_PopularItemRV"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="1dp"
+                                android:layout_marginEnd="1dp"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/M04F07SF01_PopularCombinationsText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/nunito_sans_light"
+                            android:gravity="center|start"
+                            android:text="Top 5 Combinations"
+                            android:textColor="@color/wabizabi"
+                            android:textSize="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.003" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/M04F07SF01_PopularCombinationRVLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:background="@drawable/bg_shape_rectangle_stroke_dark_bordertopbot" >
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/M04F07SF01_PopularCombinationRV"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                </ScrollView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

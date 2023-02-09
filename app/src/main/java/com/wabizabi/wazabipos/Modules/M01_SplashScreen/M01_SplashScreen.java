@@ -20,6 +20,7 @@ import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Testing.TestData;
 
+import io.realm.DynamicRealm;
 import io.realm.Realm;
 
 public class M01_SplashScreen extends AppCompatActivity {
@@ -97,4 +98,5 @@ public class M01_SplashScreen extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
 }

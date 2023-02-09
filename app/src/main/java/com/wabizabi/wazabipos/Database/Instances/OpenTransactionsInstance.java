@@ -54,7 +54,6 @@ public class OpenTransactionsInstance {
                     .and()
                     .equalTo("dayNo", dayNo)
                     .findAll();
-            LogHelper.debug("QUERY SIZE");
             String dataVer = "v1.0";
             String transactionID = new SimpleDateFormat("yyMMddHHmmsS").format(new Date());
             String dateAndTime = new SimpleDateFormat("MMMM dd , yyyy | hh:mm a").format(new Date());
@@ -79,6 +78,103 @@ public class OpenTransactionsInstance {
                 transaction.setDataVer(dataVer);
                 transaction.setTransactionID(transactionID);
                 transaction.setTransactionNo(transactionNo);
+                transaction.setTransactionType("Sale");
+                transaction.setDateAndTime(dateAndTime);
+                transaction.setCashier(cashier);
+                transaction.setOrder(order);
+                transaction.setOrderType(orderType);
+                transaction.setItemWebName(itemsWebName);
+                transaction.setItemPOSName(itemsIDName);
+                transaction.setItemPrice(itemsIDPrice);
+                transaction.setItemQty(itemsIDAmount);
+                transaction.setDiscountItem(discountsIDItem);
+                transaction.setDiscountName(discountsIDName);
+                transaction.setDiscountPercent(discountsIDPercent);
+                transaction.setTotalItems(totalItems);
+                transaction.setTotalSubTotal(totalSubTotal);
+                transaction.setTotalTax(totalTax);
+                transaction.setTotalServiceFee(totalServiceFee);
+                transaction.setTotalDiscount(totalDiscount);
+                transaction.setTotalAmountDue(totalAmountDue);
+                transaction.setPaymentMethod(paymentMethod);
+                transaction.setTotalPayment(totalAmountReceived);
+                transaction.setTotalChange(change);
+
+                transaction.setYear(year);
+                transaction.setMonth(month);
+                transaction.setWeek(week);
+                transaction.setDayTxt(dayTxt);
+                transaction.setDayNo(dayNo);
+                transaction.setHour(hour);
+                DB.uploadNewSalesToCloud(id, dataVer, transactionID, transactionNo, "Sale", dateAndTime, cashier, order, orderType,
+                        itemsetWebName, itemsetPOSName, itemsetPrice, itemsetQty, discountsItem, discountsName, discountsPercent,
+                        totalItems, totalAmountDue, totalDiscount, totalTax, totalAmountReceived, change, paymentMethod, year, month, week, dayTxt, dayNo, hour);
+            });
+
+        }
+    }
+
+    public static void toCreateRefund(String order,
+                                     String cashier,
+                                     String orderType,
+                                     List<String> itemsetWebName,
+                                     List<String> itemsetPOSName,
+                                     List<Double> itemsetPrice,
+                                     List<Integer> itemsetQty,
+                                     List<String> discountsItem,
+                                     List<String> discountsName,
+                                     List<Integer> discountsPercent,
+                                     int totalItems,
+                                     double totalSubTotal,
+                                     double totalTax,
+                                     double totalServiceFee,
+                                     double totalDiscount,
+                                     double totalAmountDue,
+                                     String paymentMethod,
+                                     double totalAmountReceived,
+                                     double change
+    ){
+        try(Realm realm = Realm.getDefaultInstance()){
+            ObjectId id = new ObjectId();
+            String transNo = new SimpleDateFormat("yyDDD").format(new Date());
+            String year = new SimpleDateFormat("yyyy").format(new Date());
+            String month = new SimpleDateFormat("MM").format(new Date());
+            String week = new SimpleDateFormat("W").format(new Date());
+            String dayTxt = new SimpleDateFormat("E").format(new Date());
+            String dayNo = new SimpleDateFormat("dd").format(new Date());
+            String hour = new SimpleDateFormat("HH").format(new Date());
+            RealmResults<RealmSalesTransaction> query = realm.where(RealmSalesTransaction.class)
+                    .equalTo("year", year)
+                    .and()
+                    .equalTo("month", month)
+                    .and()
+                    .equalTo("dayNo", dayNo)
+                    .findAll();
+            String dataVer = "v1.0";
+            String transactionID = new SimpleDateFormat("yyMMddHHmmsS").format(new Date());
+            String dateAndTime = new SimpleDateFormat("MMMM dd , yyyy | hh:mm a").format(new Date());
+            String transactionNo = (String.valueOf(query.size()).length() == 3)
+                    ? transNo + "-" + query.size()
+                    : (String.valueOf(query.size()).length() == 2)
+                    ? transNo + "-0" + query.size()
+                    : (String.valueOf(query.size()).length() == 1 && query.size() != 1)
+                    ? transNo + "-00" + query.size()
+                    : transNo + "-001";
+            realm.executeTransaction(db -> {
+                RealmSalesTransaction transaction = db.createObject(RealmSalesTransaction.class, id);
+                //CART ITEMS
+                RealmList<String> itemsWebName = new RealmList<>(); itemsWebName.addAll(itemsetWebName);
+                RealmList<String> itemsIDName = new RealmList<>(); itemsIDName.addAll(itemsetPOSName);
+                RealmList<Double> itemsIDPrice = new RealmList<>(); itemsIDPrice.addAll(itemsetPrice);
+                RealmList<Integer> itemsIDAmount = new RealmList<>(); itemsIDAmount.addAll(itemsetQty);
+                //DISCOUNTS
+                RealmList<String> discountsIDItem = new RealmList<>(); discountsIDItem.addAll(discountsItem);
+                RealmList<String> discountsIDName = new RealmList<>(); discountsIDName.addAll(discountsName);
+                RealmList<Integer> discountsIDPercent = new RealmList<>(); discountsIDPercent.addAll(discountsPercent);
+                transaction.setDataVer(dataVer);
+                transaction.setTransactionID(transactionID);
+                transaction.setTransactionNo(transactionNo);
+                transaction.setTransactionType("Refund");
                 transaction.setDateAndTime(dateAndTime);
                 transaction.setCashier(cashier);
                 transaction.setOrder(order);
@@ -103,7 +199,7 @@ public class OpenTransactionsInstance {
                 transaction.setDayTxt(dayTxt);
                 transaction.setDayNo(dayNo);
                 transaction.setHour(hour);
-                DB.uploadNewSalesToCloud(id, dataVer, transactionID, transactionNo, dateAndTime, cashier, order, orderType,
+                DB.uploadNewSalesToCloud(id, dataVer, transactionID, "Refund", transactionNo, dateAndTime, cashier, order, orderType,
                         itemsetWebName, itemsetPOSName, itemsetPrice, itemsetQty, discountsItem, discountsName, discountsPercent,
                         totalItems, totalAmountDue, totalDiscount, totalTax, totalAmountReceived, change, paymentMethod, year, month, week, dayTxt, dayNo, hour);
             });

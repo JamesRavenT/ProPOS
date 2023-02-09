@@ -60,9 +60,13 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         orientation = getResources().getConfiguration().orientation;
         init_Functionalities();
         if(savedInstanceState == null) {
-            currentFragment = "POS01";
-            setTheme(R.style.Theme_WaZabiPOS);
-            getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, new M04F01_POS()).commit();
+            if(currentFragment != null) {
+                load_CurrentFragment();
+            } else {
+                currentFragment = "POS01";
+                setTheme(R.style.Theme_WaZabiPOS);
+                getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, new M04F01_POS()).commit();
+            }
         }
     }
 
@@ -72,7 +76,6 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         navigation = findViewById(R.id.NavigationLayout);
         init_Toolbar();
         init_NavigationDrawer();
-        init_Printer();
     }
 
     private void init_Toolbar(){
@@ -97,9 +100,6 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         username = navi.findViewById(R.id.nav_username);
         RealmUser user = realm.where(RealmUser.class).findFirst();
         username.setText(user.getUserName());
-    }
-
-    private void init_Printer(){
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -185,6 +185,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                             .replace(R.id.MainActivityContainer, new M04F07_Admin())
                             .commit();
                 }
+                break;
             case R.id.nav_Printer:
                 hideKeyBoard();
                 currentFragment = "Printer";
@@ -199,6 +200,55 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void load_CurrentFragment(){
+         if(currentFragment != null) {
+             switch (currentFragment){
+                 case "POS01":
+                     getSupportFragmentManager()
+                             .beginTransaction()
+                             .replace(R.id.MainActivityContainer, new M04F01_POS())
+                             .commit();
+                     break;
+                 case "Menu01":
+                     getSupportFragmentManager()
+                             .beginTransaction()
+                             .replace(R.id.MainActivityContainer, new M04F02_Menu())
+                             .commit();
+                     break;
+                 case "Table":
+                     getSupportFragmentManager()
+                             .beginTransaction()
+                             .replace(R.id.MainActivityContainer, new M04F03_Tables())
+                             .commit();
+                     break;
+                 case "Discount":
+                     getSupportFragmentManager()
+                             .beginTransaction()
+                             .replace(R.id.MainActivityContainer, new M04F04_Discounts())
+                             .commit();
+                     break;
+                 case "Method":
+                     getSupportFragmentManager()
+                             .beginTransaction()
+                             .replace(R.id.MainActivityContainer, new M04F05_PaymentMethods())
+                             .commit();
+                     break;
+                 case "Stock01":
+                     getSupportFragmentManager()
+                             .beginTransaction()
+                             .replace(R.id.MainActivityContainer, new M04F06_IngredientStock())
+                             .commit();
+                     break;
+                 case "Admin":
+                     getSupportFragmentManager()
+                             .beginTransaction()
+                             .replace(R.id.MainActivityContainer, new M04F07_Admin())
+                             .commit();
+                     break;
+             }
+         }
     }
 
     public void hideKeyBoard(){
@@ -252,52 +302,9 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
-        switch (currentFragment){
-            case "POS01":
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.MainActivityContainer, new M04F01_POS())
-                        .commit();
-                break;
-            case "Menu01":
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.MainActivityContainer, new M04F02_Menu())
-                        .commit();
-                break;
-            case "Table":
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.MainActivityContainer, new M04F03_Tables())
-                        .commit();
-                break;
-            case "Discount":
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.MainActivityContainer, new M04F04_Discounts())
-                        .commit();
-                break;
-            case "Method":
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.MainActivityContainer, new M04F05_PaymentMethods())
-                        .commit();
-                break;
-            case "Stock01":
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.MainActivityContainer, new M04F06_IngredientStock())
-                        .commit();
-                break;
-            case "Admin":
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.MainActivityContainer, new M04F07_Admin())
-                        .commit();
-                break;
-        }
+        load_CurrentFragment();
     }
 }
 

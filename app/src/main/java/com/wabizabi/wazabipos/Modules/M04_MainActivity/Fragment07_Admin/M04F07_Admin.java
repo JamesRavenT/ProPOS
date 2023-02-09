@@ -72,6 +72,7 @@ public class M04F07_Admin extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = LayoutHelper.inflateFragment(inflater, container, R.layout.act04_main_frag07_admin);
+        init_FragmentFunctionalities(v);
         return v;
     }
 
@@ -79,6 +80,7 @@ public class M04F07_Admin extends Fragment {
         viewProfileManagerBtn = v.findViewById(R.id.M04F07_ProfileContainer);
         viewTransactionsBtn = v.findViewById(R.id.M04F07_TransactionsViewBtn);
 
+        init_Dialogs();
         load_ProfileManager();
     }
 
@@ -138,16 +140,20 @@ public class M04F07_Admin extends Fragment {
     private void load_DG01Functionalities(){
         adminDG01_changeEmailBtn.setOnClickListener(email -> {
             load_DG02Functionalities();
+            adminDG01.dismiss();
             adminDG02.show();
+
         });
 
         adminDG01_changeNameBtn.setOnClickListener(name -> {
             load_DG03Functionalities();
+            adminDG01.dismiss();
             adminDG03.show();
         });
 
         adminDG01_changePasswordBtn.setOnClickListener(password -> {
             load_DG04Functionalities();
+            adminDG01.dismiss();
             adminDG04.show();
         });
 
@@ -172,10 +178,12 @@ public class M04F07_Admin extends Fragment {
 
             if(oldEmailInput.equals("")){
                 adminDG02_OldEmailInput.setError("This field cannot be empty!");
-            } else if(newEmailInput.equals("")){
-                adminDG02_NewEmailInput.setError("This field cannot be empty!");
             } else if(!oldEmailInput.equals(oldEmail)){
                 adminDG02_OldEmailInput.setError("Input does not match previous E-mail");
+            } else if(newEmailInput.equals("")) {
+                adminDG02_NewEmailInput.setError("This field cannot be empty!");
+            } else if(!newEmailInput.contains("@") && !newEmailInput.contains(".")){
+                adminDG02_NewEmailInput.setError("Input is not a valid email");
             } else {
                 OpenUserInstance.toUpdateEmail(newEmailInput);
                 adminDG02.dismiss();
