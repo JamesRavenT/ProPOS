@@ -10,6 +10,7 @@ import com.wabizabi.wazabipos.Database.Instances.OpenFPGInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
 import com.wabizabi.wazabipos.Utilities.Libraries.Algorithm.FQList;
 import com.wabizabi.wazabipos.Utilities.Libraries.Algorithm.Tree;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,9 +68,9 @@ public class W01_Algorithm extends Worker {
                         : String.valueOf(nextMonthInt);
         //ALGORITHM
         RealmResults<RealmSalesTransaction> queriedTransactions = realm.where(RealmSalesTransaction.class)
-                .equalTo("year", prevYear).and().equalTo("year", currentYear).and().equalTo("year", nextYear)
+                .equalTo("year", prevYear).or().equalTo("year", currentYear).or().equalTo("year", nextYear)
                 .and()
-                .equalTo("month", prevMonth).and().equalTo("month", currentMonth).and().equalTo("month", nextMonth)
+                .equalTo("month", prevMonth).or().equalTo("month", currentMonth).or().equalTo("month", nextMonth)
                 .findAll();
         if (!queriedTransactions.isEmpty()) {
             List<List<String>> listOfTransactions = new ArrayList<>();

@@ -75,7 +75,7 @@ public class M04F06_ItemRVA extends RecyclerView.Adapter<M04F06_ItemRVA.ViewHold
 
             //On Container
             itemContainer.setOnClickListener(click -> {
-                dialogLoader.load_DGContents(new DialogBundle(6, item));
+                dialogLoader.load_DGContents(new DialogBundle(7, item));
             });
         }
 

@@ -105,7 +105,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/M04F07SF01_SalesReportChartContainer"
             android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             app:cardBackgroundColor="@color/white"
@@ -144,7 +144,7 @@
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/M04F07SF01_Chart"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="150dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
@@ -157,24 +157,25 @@
 
                 <TextView
                     android:id="@+id/M04F07SF01_GrossSalesText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:fontFamily="@font/nunito_sans_light"
                     android:gravity="center"
-                    android:text="GrossSales"
+                    android:text="Gross Sales"
                     android:textColor="@color/wabizabi"
                     android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/M04F07SF01_NetSalesText"
-                    app:layout_constraintHorizontal_bias="0.388"
+                    app:layout_constraintEnd_toStartOf="@+id/M04F07SF01_NetSalesNo"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_Chart"
                     app:layout_constraintVertical_bias="0.2" />
 
                 <TextView
                     android:id="@+id/M04F07SF01_GrossSalesNo"
-                    android:layout_width="125dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:fontFamily="@font/nunito_sans_light"
                     android:gravity="center"
                     android:text="₱0.00"
@@ -219,24 +220,25 @@
 
                 <TextView
                     android:id="@+id/M04F07SF01_TransactionsCountText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
                     android:fontFamily="@font/nunito_sans_light"
                     android:gravity="center"
-                    android:text="No. of Transactions"
+                    android:text="Transactions"
                     android:textColor="@color/wabizabi"
                     android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.789"
-                    app:layout_constraintStart_toEndOf="@+id/M04F07SF01_NetSalesText"
+                    app:layout_constraintStart_toEndOf="@+id/M04F07SF01_NetSalesNo"
                     app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_Chart"
                     app:layout_constraintVertical_bias="0.2" />
 
                 <TextView
                     android:id="@+id/M04F07SF01_TranscationsCountNo"
-                    android:layout_width="125dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
                     android:fontFamily="@font/nunito_sans_light"
                     android:gravity="center"
                     android:text="0"
@@ -300,12 +302,14 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="15dp"
+                    android:padding="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/M04F07SF01_StatisticsText"
-                    app:layout_constraintVertical_bias="0.0">
+                    app:layout_constraintVertical_bias="0.0"
+                    android:background="@drawable/bg_shape_rectangle_stroke_dark_marg03p">
 
                     <LinearLayout
                         android:layout_width="match_parent"

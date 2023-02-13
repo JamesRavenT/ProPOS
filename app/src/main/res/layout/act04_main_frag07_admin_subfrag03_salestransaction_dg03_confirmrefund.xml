@@ -59,7 +59,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
-                android:text="Confirm To Delete"
+                android:text="Confirm To Refund"
                 android:textColor="@color/wabizabi"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"

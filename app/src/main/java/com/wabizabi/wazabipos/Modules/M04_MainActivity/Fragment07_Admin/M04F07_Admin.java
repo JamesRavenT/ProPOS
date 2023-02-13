@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenUserInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment01_SalesReport.M04F07SF01_SalesReport;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment02_InventoryTransaction.M04F07SF02_InventoryTransaction;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment03_SalesTransaction.M04F07SF03_SalesTransaction;
 import com.wabizabi.wazabipos.R;
@@ -78,10 +79,13 @@ public class M04F07_Admin extends Fragment {
 
     private void init_FragmentFunctionalities(View v){
         viewProfileManagerBtn = v.findViewById(R.id.M04F07_ProfileContainer);
+        viewSalesReportBtn = v.findViewById(R.id.M04F07_SalesReportViewBtn);
         viewTransactionsBtn = v.findViewById(R.id.M04F07_TransactionsViewBtn);
 
         init_Dialogs();
         load_ProfileManager();
+        load_ViewSalesReport();
+        load_ViewTransaction();
     }
 
     private void load_ProfileManager(){
@@ -92,7 +96,12 @@ public class M04F07_Admin extends Fragment {
     }
 
     private void load_ViewSalesReport(){
-
+        viewSalesReportBtn.setOnClickListener(view -> {
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.MainActivityContainer, new M04F07SF01_SalesReport())
+                    .commit();
+        });
     }
 
     private void load_ViewTransaction(){

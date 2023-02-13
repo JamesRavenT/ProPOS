@@ -90,7 +90,7 @@ public class M04F06_CategoryRVA extends RecyclerView.Adapter<M04F06_CategoryRVA.
 
             //On Edit Btn
             editBtn.setOnClickListener(edit -> {
-                dialogLoader.load_DGContents(new DialogBundle(4, category));
+                dialogLoader.load_DGContents(new DialogBundle(3, category));
             });
 
             //On View Btn

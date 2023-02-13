@@ -11,6 +11,12 @@ public class Node {
 
     Node(){}
 
+    Node(Node node){
+        this.itemName = node.itemName;
+        this.support = node.support;
+        this.parent = node.parent;
+    }
+
     Node(String item, int support, Node parent){
         this.itemName = item;
         this.support = support;

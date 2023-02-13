@@ -1173,35 +1173,39 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
         cartDG13_Method.setText("None");
 
         cartDG13_PrevMethod.setOnClickListener(prev -> {
-            if(indexMethod == -1 && !listOfMethods.isEmpty()){
-                indexMethod = listOfMethods.size()-1;
-                selectedMethod = listOfMethods.get(indexMethod).getMethodName();
-                cartDG13_Method.setText(selectedMethod);
-            } else if(indexMethod == 0){
-                indexMethod = listOfMethods.size()-1;
-                selectedMethod = listOfMethods.get(indexMethod).getMethodName();
-                cartDG13_Method.setText(selectedMethod);
-            } else {
-                indexMethod--;
-                selectedMethod = listOfMethods.get(indexMethod).getMethodName();
-                cartDG13_Method.setText(selectedMethod);
+            if(!listOfMethods.isEmpty()){
+                if(indexMethod == -1){
+                    indexMethod = listOfMethods.size()-1;
+                    selectedMethod = listOfMethods.get(indexMethod).getMethodName();
+                    cartDG13_Method.setText(selectedMethod);
+                } else if(indexMethod == 0){
+                    indexMethod = listOfMethods.size()-1;
+                    selectedMethod = listOfMethods.get(indexMethod).getMethodName();
+                    cartDG13_Method.setText(selectedMethod);
+                } else {
+                    indexMethod--;
+                    selectedMethod = listOfMethods.get(indexMethod).getMethodName();
+                    cartDG13_Method.setText(selectedMethod);
+                }
             }
         });
 
         //On Prev Btn
         cartDG13_NextMethod.setOnClickListener(next -> {
-            if(indexMethod == -1 && !listOfMethods.isEmpty()){
-                indexMethod = 0;
-                selectedMethod = listOfMethods.get(indexMethod).getMethodName();
-                cartDG13_Method.setText(selectedMethod);
-            } else if(indexMethod + 1 < listOfMethods.size()){
-                indexMethod++;
-                selectedMethod = listOfMethods.get(indexMethod).getMethodName();
-                cartDG13_Method.setText(selectedMethod);
-            } else if(indexMethod + 1 == listOfMethods.size()){
-                indexMethod = 0;
-                selectedMethod = listOfMethods.get(indexMethod).getMethodName();
-                cartDG13_Method.setText(selectedMethod);
+            if(!listOfMethods.isEmpty()){
+                if(indexMethod == -1){
+                    indexMethod = 0;
+                    selectedMethod = listOfMethods.get(indexMethod).getMethodName();
+                    cartDG13_Method.setText(selectedMethod);
+                } else if(indexMethod + 1 < listOfMethods.size()){
+                    indexMethod++;
+                    selectedMethod = listOfMethods.get(indexMethod).getMethodName();
+                    cartDG13_Method.setText(selectedMethod);
+                } else if(indexMethod + 1 == listOfMethods.size()){
+                    indexMethod = 0;
+                    selectedMethod = listOfMethods.get(indexMethod).getMethodName();
+                    cartDG13_Method.setText(selectedMethod);
+                }
             }
         });
 

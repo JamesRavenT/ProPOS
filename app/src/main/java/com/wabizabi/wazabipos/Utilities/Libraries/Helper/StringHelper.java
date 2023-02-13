@@ -20,6 +20,17 @@ public class StringHelper {
         return currency;
     }
 
+    public static String shortenCurrency(double price){
+        String currency = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP).toString();
+        String shortenedCurrency = (currency.length() == 9)
+                                 ? "₱" + currency.charAt(0) + currency.charAt(1) + "." + currency.charAt(3) + "K"
+                                 : (currency.length() == 10)
+                                 ? "₱" + currency.charAt(0) + currency.charAt(1) + currency.charAt(2) + "." + currency.charAt(4) + "K"
+                                 : (currency.length() == 11)
+                                 ? "₱" + currency.charAt(0) + "." + currency.charAt(1) + "M"
+                                 : "₱" + currency;
+        return shortenedCurrency;
+    }
     public static String convertToCurrencyNoSign(double price){
         String currency = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP).toString() + "\n";
         return currency;
@@ -215,5 +226,15 @@ public class StringHelper {
                     ? "  " + s + new String(new char[1]).replace('\0', ' ')
                     : "  " + s;
         return text;
+    }
+
+    public static String addZero(String s){
+        String newString = "0" + s;
+        return newString;
+    }
+
+    public static String removeZero(String s){
+        char newString = s.charAt(1);
+        return String.valueOf(newString);
     }
 }

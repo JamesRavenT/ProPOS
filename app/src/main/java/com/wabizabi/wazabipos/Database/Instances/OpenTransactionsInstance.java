@@ -44,9 +44,9 @@ public class OpenTransactionsInstance {
             String year = new SimpleDateFormat("yyyy").format(new Date());
             String month = new SimpleDateFormat("MM").format(new Date());
             String week = new SimpleDateFormat("W").format(new Date());
-            String dayTxt = new SimpleDateFormat("E").format(new Date());
+            String dayTxt = new SimpleDateFormat("EEEE").format(new Date());
             String dayNo = new SimpleDateFormat("dd").format(new Date());
-            String hour = new SimpleDateFormat("HH").format(new Date());
+            String hour = new SimpleDateFormat("kk").format(new Date());
             RealmResults<RealmSalesTransaction> query = realm.where(RealmSalesTransaction.class)
                     .equalTo("year", year)
                     .and()
@@ -78,7 +78,7 @@ public class OpenTransactionsInstance {
                 transaction.setDataVer(dataVer);
                 transaction.setTransactionID(transactionID);
                 transaction.setTransactionNo(transactionNo);
-                transaction.setTransactionType("Sale");
+                transaction.setTransactionType("Sales");
                 transaction.setDateAndTime(dateAndTime);
                 transaction.setCashier(cashier);
                 transaction.setOrder(order);
@@ -106,7 +106,7 @@ public class OpenTransactionsInstance {
                 transaction.setDayTxt(dayTxt);
                 transaction.setDayNo(dayNo);
                 transaction.setHour(hour);
-                DB.uploadNewSalesToCloud(id, dataVer, transactionID, transactionNo, "Sale", dateAndTime, cashier, order, orderType,
+                DB.uploadNewSalesToCloud(id, dataVer, transactionID, transactionNo, "Sales", dateAndTime, cashier, order, orderType,
                         itemsetWebName, itemsetPOSName, itemsetPrice, itemsetQty, discountsItem, discountsName, discountsPercent,
                         totalItems, totalAmountDue, totalDiscount, totalTax, totalAmountReceived, change, paymentMethod, year, month, week, dayTxt, dayNo, hour);
             });
@@ -220,10 +220,10 @@ public class OpenTransactionsInstance {
                 DateFormat currentYear = new SimpleDateFormat("yyyy");
                 DateFormat currentMonth = new SimpleDateFormat("MMMM");
                 DateFormat currentWeek = new SimpleDateFormat("W");
-                DateFormat currentDay = new SimpleDateFormat("d");
+                DateFormat currentDay = new SimpleDateFormat("dd");
                 DateFormat currentDoW = new SimpleDateFormat("EEEE");
                 DateFormat currentTime = new SimpleDateFormat("h:mm a");
-                DateFormat currentHour = new SimpleDateFormat("k");
+                DateFormat currentHour = new SimpleDateFormat("HH");
                 String timestamp = currentTimeStamp.format(new Date());
                 String year = currentYear.format(new Date());
                 String month = currentMonth.format(new Date());
@@ -240,9 +240,15 @@ public class OpenTransactionsInstance {
                 RealmList<Integer> itemsIDAmount = new RealmList<>(); itemsIDAmount.addAll(itemsetQty);
                 transaction.setItemWebName(itemsIDName);
                 transaction.setItemPOSName(itemsIDName);
+                transaction.setTransactionType("Sales");
+                transaction.setTotalSubTotal(itemsetPrice.stream().mapToDouble(d->d).sum() * itemsetQty.stream().mapToInt(i->i).sum());
+                transaction.setTotalAmountDue(itemsetPrice.stream().mapToDouble(d->d).sum() * itemsetQty.stream().mapToInt(i->i).sum() + (itemsetPrice.stream().mapToDouble(d->d).sum() * itemsetQty.stream().mapToInt(i->i).sum() * 0.03));
                 transaction.setYear(year);
                 transaction.setMonth(month);
                 transaction.setWeek(week);
+                transaction.setDayTxt(dow);
+                transaction.setDayNo(day);
+                transaction.setHour(hour);
             });
         }
     }
