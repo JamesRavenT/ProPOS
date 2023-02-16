@@ -143,7 +143,7 @@ public class M04F07_Admin extends Fragment {
         adminDG05 = DialogHelper.create(getActivity(), R.layout.act04_main_frag07_admin_dg05_selecttransaction);
         adminDG05_InventoryBtn = adminDG05.findViewById(R.id.M04F07D05_InventoryBtn);
         adminDG05_SalesBtn = adminDG05.findViewById(R.id.M04F07D05_SalesBtn);
-        closeDG05Btn = adminDG05.findViewById(R.id.M04F07D04_CloseDGBtn);
+        closeDG05Btn = adminDG05.findViewById(R.id.M04F07D05_CloseDGBtn);
     }
 
     private void load_DG01Functionalities(){

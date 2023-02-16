@@ -83,6 +83,7 @@ public class M01_SplashScreen extends AppCompatActivity {
     }
     private void load_TestData(){
         TestData.preloadTransactions();
+//        TestData.preloadProducts();
     }
     private void load_NextModule(){
         Handler splashScreen = new Handler();

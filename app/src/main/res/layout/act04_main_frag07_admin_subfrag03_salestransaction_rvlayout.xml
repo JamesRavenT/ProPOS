@@ -96,7 +96,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/M04F07SF03_RVOrderType"
+                android:id="@+id/M04F07SF03_RVOrder"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -129,7 +129,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03_RVOrderType"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF03_RVOrder"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView

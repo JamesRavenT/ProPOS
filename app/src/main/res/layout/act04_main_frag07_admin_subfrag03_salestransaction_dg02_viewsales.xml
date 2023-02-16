@@ -543,7 +543,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/M04F07SF03D02_CloseBtn"
+                android:id="@+id/M04F07SF03D02_RefundBtn"
                 android:layout_width="140dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
@@ -559,17 +559,17 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/M04F07SF03D02_CloseBtnLayout"
+                    android:id="@+id/M04F07SF03D02_RefundBtnLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/M04F07SF03D02_CloseBtnText"
+                        android:id="@+id/M04F07SF03D02_RefundBtnText"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:fontFamily="@font/nunito_sans"
                         android:gravity="center"
-                        android:text="Close"
+                        android:text="Refund"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"

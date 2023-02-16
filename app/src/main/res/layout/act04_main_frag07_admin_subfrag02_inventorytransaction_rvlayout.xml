@@ -31,7 +31,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/M04F07SF02_RVInvoiceLayout"
-                android:layout_width="389dp"
+                android:layout_width="0dp"
                 android:layout_height="110dp"
                 android:background="@drawable/bg_shape_rectangle_solid_dark_marg10p"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/nunito_sans_light"
-                        android:text="Delete"
+                        android:text="Void"
                         android:textColor="@color/white"
                         android:textSize="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"

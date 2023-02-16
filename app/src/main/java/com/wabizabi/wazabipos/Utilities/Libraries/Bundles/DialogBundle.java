@@ -1,9 +1,11 @@
 package com.wabizabi.wazabipos.Utilities.Libraries.Bundles;
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Discount;
+import com.wabizabi.wazabipos.Database.ObjectSchemas.InventoryTransaction;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.PaymentMethod;
+import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockItem;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Table;
@@ -37,6 +39,9 @@ public class DialogBundle {
     StockCategory stockCategory;
     StockItem stockItem;
     RVBundle rvBundle;
+
+    InventoryTransaction inventoryTransaction;
+    SalesTransaction sales;
 
     String year;
     String month;
@@ -154,11 +159,24 @@ public class DialogBundle {
         this.stockItem = stockItem;
     }
 
+    //INVENTORY
+    public DialogBundle(int dialogDestinationNo, InventoryTransaction inventoryTransaction){
+        this.dialogDestinationNo = dialogDestinationNo;
+        this.inventoryTransaction = inventoryTransaction;
+
+    }
+    //SALES?
     public DialogBundle(String year, String month, String week, String day) {
         this.year = year;
         this.month = month;
         this.week = week;
         this.day = day;
+    }
+
+    //SALES
+    public DialogBundle(int dialogDestinationNo, SalesTransaction sales) {
+        this.dialogDestinationNo = dialogDestinationNo;
+        this.sales = sales;
     }
 
     public int getDialogDestinationNo() { return dialogDestinationNo; }
@@ -307,5 +325,21 @@ public class DialogBundle {
 
     public void setDay(String day) {
         this.day = day;
+    }
+
+    public SalesTransaction getSales() {
+        return sales;
+    }
+
+    public void setSales(SalesTransaction sales) {
+        this.sales = sales;
+    }
+
+    public InventoryTransaction getInventoryTransaction() {
+        return inventoryTransaction;
+    }
+
+    public void setInventoryTransaction(InventoryTransaction inventoryTransaction) {
+        this.inventoryTransaction = inventoryTransaction;
     }
 }

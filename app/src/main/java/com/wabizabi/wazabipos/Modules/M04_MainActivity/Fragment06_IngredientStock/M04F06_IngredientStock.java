@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenStocksInstance;
+import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStock.Adapters.M04F06D01_SelectIconRVA;
@@ -75,14 +76,6 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
     CardView stockDG02_ConfirmBtn;
     ImageView closeDG02Btn;
 
-    //--DG05 CREATE ITEM--//
-    Dialog stockDG05;
-    ImageView stockDG05_ItemImg;
-    EditText stockDG05_ItemNameInput,
-             stockDG05_ItemMeasurementInput;
-    CardView stockDG05_ConfirmBtn;
-    ImageView closeDG05Btn;
-
     //--DG03 EDIT CATEGORY--//
     Dialog stockDG03;
     ImageView stockDG03_CategoryImg;
@@ -90,6 +83,21 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
     EditText stockDG03_CategoryNameInput;
     CardView stockDG03_ApplyChangesBtn, stockDG03_DeleteBtn;
     ImageView closeDG03Btn;
+
+    //--DG04 DELETE CATEGORY--//
+    Dialog stockDG04;
+    TextView stockDG04_CategoryName;
+    CardView stockDG04_YesBtn, stockDG04_NoBtn;
+    ImageView closeDG04Btn;
+
+    //--DG05 CREATE ITEM--//
+    Dialog stockDG05;
+    ImageView stockDG05_ItemImg;
+    EditText stockDG05_ItemNameInput,
+            stockDG05_ItemInitialAmountInput,
+            stockDG05_ItemMeasurementInput;
+    CardView stockDG05_ConfirmBtn;
+    ImageView closeDG05Btn;
 
     //--DG06 EDIT ITEM--//
     Dialog stockDG06;
@@ -109,12 +117,6 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
     ImageView stockDG07_SubBtn,
               stockDG07_AddBtn,
               closeDG07Btn;
-
-    //--DG04 DELETE CATEGORY--//
-    Dialog stockDG04;
-    TextView stockDG04_CategoryName;
-    CardView stockDG04_YesBtn, stockDG04_NoBtn;
-    ImageView closeDG04Btn;
 
     //--DG08 DELETE ITEM--//
     Dialog stockDG08;
@@ -155,7 +157,7 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
     private void load_ItemCreation(RVBundle bundle){
         createBtn.setOnClickListener(create -> {
             if(currentFragment.equals("Stock02")){
-                load_DG05Functionalities(new DialogBundle(3, new StockItem(0, bundle.getMenuCategory(),"", 0, ""), bundle));
+                load_DG05Functionalities(new DialogBundle(5, new StockItem(0, bundle.getStockCategory(),"", 0, ""), bundle));
                 stockDG05.show();
             }
         });
@@ -265,8 +267,9 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
         //--DG05 CREATE ITEM--//
         stockDG05 = DialogHelper.create(getActivity(), R.layout.act04_main_frag06_stocks_dg05_createitem);
         stockDG05_ItemImg = stockDG05.findViewById(R.id.M04F06D05_CategoryImage);
-        stockDG05_ItemNameInput= stockDG05.findViewById(R.id.M04F06D05_ItemNameInput);
+        stockDG05_ItemNameInput = stockDG05.findViewById(R.id.M04F06D05_ItemNameInput);
         stockDG05_ItemMeasurementInput = stockDG05.findViewById(R.id.M04F06D05_ItemMeasurementInput);
+        stockDG05_ItemInitialAmountInput = stockDG05.findViewById(R.id.M04F06D05_ItemInitialAmountInput);
         stockDG05_ConfirmBtn = stockDG05.findViewById(R.id.M04F06D05_ConfirmBtn);
         closeDG05Btn = stockDG05.findViewById(R.id.M04F06D05_CloseDGBtn);
 
@@ -370,35 +373,6 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
         });
     }
 
-    //Delete Category
-    private void load_DG04Functionalities(DialogBundle bundle){
-        //Unpack Bundle
-        int image = bundle.getStockCategory().getCategoryImage();
-        String name = bundle.getStockCategory().getCategoryName();
-
-        //Set Category Name
-        stockDG04_CategoryName.setText(name);
-
-        //On Yes Btn
-        stockDG04_YesBtn.setOnClickListener(delete -> {
-            OpenStocksInstance.toDeleteCategory(name);
-            load_CategoryRV();
-            stockDG04.dismiss();
-        });
-        //On No Btn
-        stockDG04_NoBtn.setOnClickListener(delete -> {
-            load_DG03Functionalites(bundle);
-            stockDG04.dismiss();
-            stockDG03.show();
-        });
-        //On Close Btn
-        closeDG04Btn.setOnClickListener(close -> {
-            load_DG03Functionalites(bundle);
-            stockDG04.dismiss();
-            stockDG03.show();
-        });
-    }
-
     //Edit Category
     private void load_DG03Functionalites(DialogBundle bundle){
         //Unpack Bundle
@@ -448,6 +422,35 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
         });
     }
 
+    //Delete Category
+    private void load_DG04Functionalities(DialogBundle bundle){
+        //Unpack Bundle
+        int image = bundle.getStockCategory().getCategoryImage();
+        String name = bundle.getStockCategory().getCategoryName();
+
+        //Set Category Name
+        stockDG04_CategoryName.setText(name);
+
+        //On Yes Btn
+        stockDG04_YesBtn.setOnClickListener(delete -> {
+            OpenStocksInstance.toDeleteCategory(name);
+            load_CategoryRV();
+            stockDG04.dismiss();
+        });
+        //On No Btn
+        stockDG04_NoBtn.setOnClickListener(delete -> {
+            load_DG03Functionalites(bundle);
+            stockDG04.dismiss();
+            stockDG03.show();
+        });
+        //On Close Btn
+        closeDG04Btn.setOnClickListener(close -> {
+            load_DG03Functionalites(bundle);
+            stockDG04.dismiss();
+            stockDG03.show();
+        });
+    }
+
     //Create Item
     private void load_DG05Functionalities(DialogBundle bundle){
         //Unpack Bundle
@@ -460,16 +463,18 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
         IconLoader.setStockIcon(stockDG05_ItemImg, image);
         stockDG05_ItemNameInput.setText("");
         stockDG05_ItemMeasurementInput.setText("");
+        stockDG05_ItemInitialAmountInput.setText("");
 
         //On Confirm Button
         stockDG05_ConfirmBtn.setOnClickListener(create -> {
             String nameInput = stockDG05_ItemNameInput.getText().toString();
             String measurementInput = stockDG05_ItemMeasurementInput.getText().toString();
+            int initialAmountInput = Integer.parseInt(stockDG05_ItemInitialAmountInput.getText().toString());
             List<String> listOfItems = ListHelper.getStockItemNames(realm);
             if(listOfItems.contains(nameInput)){
                 stockDG05_ItemNameInput.setError("Name already exists.");
             } else {
-                OpenStocksInstance.toCreateItem(image, category, nameInput, 1, measurementInput);
+                OpenStocksInstance.toCreateItem(image, category, nameInput, initialAmountInput, measurementInput);
                 load_ItemRV(items);
                 stockDG05_ItemNameInput.setText("");
                 stockDG05_ItemMeasurementInput.setText("");
@@ -531,9 +536,7 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
 
         //On Close
         closeDG06Btn.setOnClickListener(close -> {
-            load_DG07Functionalities(bundle);
             stockDG06.dismiss();
-            stockDG07.show();
         });
     }
 
@@ -579,8 +582,9 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
         stockDG07_UpdateBtn.setOnClickListener(update -> {
             int newAmount = Integer.parseInt(stockDG07_ItemQty.getText().toString());
             if(newAmount != amount){
+                OpenTransactionsInstance.toCreateInventory(name, amount, newAmount, measurement);
                 OpenStocksInstance.toUpdateAmount(category, name, newAmount);
-                load_ItemRV(items);
+                stockRVA.notifyDataSetChanged();
                 stockDG07.dismiss();
             }
         });
@@ -595,11 +599,8 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
     //Delete Item
     private void load_DG08Functionalities(DialogBundle bundle){
         //Unpack Bundle
-        int image = bundle.getStockItem().getItemImage();
         String category = bundle.getStockItem().getItemCategory();
         String name = bundle.getStockItem().getItemName();
-        int amount = bundle.getStockItem().getItemAmount();
-        String measurement = bundle.getStockItem().getUnitOfMeasurement();
         RVBundle items = bundle.getRvBundle();
 
         //Set Item Name
@@ -613,18 +614,31 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
 
         //On No Btn
         stockDG08_NoBtn.setOnClickListener(delete -> {
-            load_DG07Functionalities(bundle);
             stockDG07.show();
-            stockDG08.dismiss();
         });
 
         //On Close Btn
         closeDG08Btn.setOnClickListener(close -> {
-            load_DG07Functionalities(bundle);
             stockDG07.show();
-            stockDG08.dismiss();
         });
     }
+
+//    protected TextWatcher searchEngine = new TextWatcher() {
+//        @Override
+//        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable input) {
+//            load_FilteredRecyclerView(input.toString());
+//        }
+//    };
 
     @Override
     public void load_RVContents(RVBundle bundle) {
@@ -643,6 +657,9 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
                 load_DG03Functionalites(bundle);
                 stockDG03.show();
                 break;
+            case 5:
+                load_DG05Functionalities(bundle);
+                stockDG05.show();
             case 7:
                 load_DG07Functionalities(bundle);
                 stockDG07.show();

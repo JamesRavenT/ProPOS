@@ -60,6 +60,7 @@ public class SalesTransaction {
         this.totalAmountDue = totalAmountDue;
     }
 
+    //SALES REPORT
     public SalesTransaction(String transactionType, double totalSubTotal, double totalAmountDue, String year, String month, String week, String dayTxt, String dayNo, String hour) {
         this.transactionType = transactionType;
         this.totalSubTotal = totalSubTotal;
@@ -70,6 +71,20 @@ public class SalesTransaction {
         this.dayTxt = dayTxt;
         this.dayNo = dayNo;
         this.hour = hour;
+    }
+
+    //SALES TRANSACTION
+    public SalesTransaction(String dateAndTime, String transactionID, String transactionNo, String transactionType, String order, String orderType, int totalItems, double totalAmountDue, double totalPayment, String paymentMethod) {
+        this.transactionNo = transactionNo;
+        this.transactionID = transactionID;
+        this.transactionType = transactionType;
+        this.dateAndTime = dateAndTime;
+        this.order = order;
+        this.orderType = orderType;
+        this.totalItems = totalItems;
+        this.totalAmountDue = totalAmountDue;
+        this.totalPayment = totalPayment;
+        this.paymentMethod = paymentMethod;
     }
 
     public String getDataVer() {

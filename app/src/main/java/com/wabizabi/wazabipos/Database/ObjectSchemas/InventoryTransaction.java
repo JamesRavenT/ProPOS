@@ -1,30 +1,26 @@
-package com.wabizabi.wazabipos.Database.RealmSchemas;
+package com.wabizabi.wazabipos.Database.ObjectSchemas;
 
-import org.bson.types.ObjectId;
-
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
-public class RealmInventoryTransaction extends RealmObject {
-    @PrimaryKey
-    ObjectId _id;
+public class InventoryTransaction {
     String transactionID;
     String transactionDT;
-    String transactionType;
     String itemName;
+    String transactionType;
     int amount;
     String itemUnit;
     String day, month, year;
 
-    public RealmInventoryTransaction(){}
+    public InventoryTransaction(){}
 
-
-    public ObjectId get_id() {
-        return _id;
-    }
-
-    public void set_id(ObjectId _id) {
-        this._id = _id;
+    public InventoryTransaction(String transactionID, String transactionDT, String transactionType, String itemName,  int amount, String itemUnit, String day, String month, String year) {
+        this.transactionID = transactionID;
+        this.transactionDT = transactionDT;
+        this.transactionType = transactionType;
+        this.itemName = itemName;
+        this.amount = amount;
+        this.itemUnit = itemUnit;
+        this.day = day;
+        this.month = month;
+        this.year = year;
     }
 
     public String getTransactionID() {

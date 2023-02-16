@@ -669,6 +669,4 @@ public class M04F07SF01_SalesReport extends Fragment {
         srDG01_AddDayBtn.setVisibility(View.VISIBLE);
         srDG01_Day.setText(day);
     }
-    
-
 }

@@ -15,6 +15,8 @@ import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 
 import org.bson.types.ObjectId;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,46 +50,46 @@ public class DB {
 
     //Fire Store
     public static void fetchDataFromTheCloud(){
-        menuCategory.get().addOnSuccessListener(query -> {
-            if(query.getDocuments().size() > 0){
-                List<DocumentSnapshot> listOfDocuments = query.getDocuments();
-                for(int i = 0 ; i < listOfDocuments.size() ; i++){
-                    DocumentSnapshot snapShot = listOfDocuments.get(i);
-                    DocumentReference docRef = snapShot.getReference();
-                    docRef.get().addOnSuccessListener(document -> {
-                        if(document.exists()){
-                            ObjectId id = new ObjectId(document.getString("Category ID"));
-                            int icon = document.getLong("Icon").intValue();
-                            String image = document.getString("Image");
-                            String name = document.getString("Name");
-                            OpenMenuInstance.toLoadCategoryFromCloud(id, icon, image, name);
-                        }
-                    });
-                }
-            }
-        });
-
-        menuItem.get().addOnSuccessListener(query -> {
-           if(query.getDocuments().size() > 0){
-               List<DocumentSnapshot> listOfDocuments = query.getDocuments();
-               for(int i = 0 ; i < listOfDocuments.size() ; i++){
-                   DocumentSnapshot snapShot = listOfDocuments.get(i);
-                   DocumentReference docRef = snapShot.getReference();
-                   docRef.get().addOnSuccessListener(document -> {
-                       if(document.exists()){
-                           ObjectId id = new ObjectId(document.getString("Item ID"));
-                           int icon = document.getLong("Icon").intValue();
-                           String image = document.getString("Image");
-                           String category = document.getString("Item Category");
-                           String webName = document.getString("Item Name");
-                           String posName = document.getString("Item POS Name");
-                           double price = document.getLong("Item Price").doubleValue();
-                           OpenMenuInstance.toLoadItemFromCloud(id, icon, image, category, webName, posName, price);
-                       }
-                   });
-               }
-           }
-        });
+//        menuCategory.get().addOnSuccessListener(query -> {
+//            if(query.getDocuments().size() > 0){
+//                List<DocumentSnapshot> listOfDocuments = query.getDocuments();
+//                for(int i = 0 ; i < listOfDocuments.size() ; i++){
+//                    DocumentSnapshot snapShot = listOfDocuments.get(i);
+//                    DocumentReference docRef = snapShot.getReference();
+//                    docRef.get().addOnSuccessListener(document -> {
+//                        if(document.exists()){
+//                            ObjectId id = new ObjectId(document.getString("Category ID"));
+//                            int icon = document.getLong("Icon").intValue();
+//                            String image = document.getString("Image");
+//                            String name = document.getString("Name");
+//                            OpenMenuInstance.toLoadCategoryFromCloud(id, icon, image, name);
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//
+//        menuItem.get().addOnSuccessListener(query -> {
+//           if(query.getDocuments().size() > 0){
+//               List<DocumentSnapshot> listOfDocuments = query.getDocuments();
+//               for(int i = 0 ; i < listOfDocuments.size() ; i++){
+//                   DocumentSnapshot snapShot = listOfDocuments.get(i);
+//                   DocumentReference docRef = snapShot.getReference();
+//                   docRef.get().addOnSuccessListener(document -> {
+//                       if(document.exists()){
+//                           ObjectId id = new ObjectId(document.getString("Item ID"));
+//                           int icon = document.getLong("Icon").intValue();
+//                           String image = document.getString("Image");
+//                           String category = document.getString("Item Category");
+//                           String webName = document.getString("Item Name");
+//                           String posName = document.getString("Item POS Name");
+//                           double price = document.getLong("Item Price").doubleValue();
+//                           OpenMenuInstance.toLoadItemFromCloud(id, icon, image, category, webName, posName, price);
+//                       }
+//                   });
+//               }
+//           }
+//        });
     }
 
     public static void checkForUser(){
@@ -144,44 +146,44 @@ public class DB {
 
 
     public static void syncRealmAndFirestore(Activity activity){
-        RealmResults<RealmMenuCategory> listOfCategories = realm.where(RealmMenuCategory.class).findAll();
-        menuCategory.addSnapshotListener(activity, (query, collectionError) -> {
-            if(collectionError != null){ return; }
-            List<DocumentSnapshot> listOfDocuments = query.getDocuments();
-            for(int i = 0 ; i < listOfCategories.size() ; i++) {
-                String documentKey = listOfCategories.get(i).get_id().toString();
-                DocumentSnapshot snapshot = listOfDocuments.get(i);
-                DocumentReference docRef = snapshot.getDocumentReference(documentKey);
-                docRef.addSnapshotListener((document, docuError) -> {
-                    if(docuError != null){ return; }
-                    if(document.exists()){
-                        String image = document.getString("Image");
-                        String category = document.getString("Name");
-                        OpenMenuInstance.toUpdateCategoryImage(image, category);
-                    }
-                });
-            }
-        });
-
-        RealmResults<RealmMenuItem> listOfItems = realm.where(RealmMenuItem.class).findAll();
-        menuItem.addSnapshotListener(activity, (query, collectionError) -> {
-            if(collectionError != null){ return; }
-            List<DocumentSnapshot> listOfDocuments = query.getDocuments();
-            for(int i = 0 ; i < listOfItems.size() ; i++) {
-                String documentKey = listOfItems.get(i).get_id().toString();
-                DocumentSnapshot snapshot = listOfDocuments.get(i);
-                DocumentReference docRef = snapshot.getDocumentReference(documentKey);
-                docRef.addSnapshotListener((document, docuError) -> {
-                    if(docuError != null){ return; }
-                    if(document.exists()){
-                        String name = document.getString("Item Name");
-                        String image = document.getString("Item Image");
-                        String category = document.getString("Item Category");
-                        OpenMenuInstance.toUpdateItemImage(name, image, category);
-                    }
-                });
-            }
-        });
+//        RealmResults<RealmMenuCategory> listOfCategories = realm.where(RealmMenuCategory.class).findAll();
+//        menuCategory.addSnapshotListener(activity, (query, collectionError) -> {
+//            if(collectionError != null){ return; }
+//            List<DocumentSnapshot> listOfDocuments = query.getDocuments();
+//            for(int i = 0 ; i < listOfCategories.size() ; i++) {
+//                String documentKey = listOfCategories.get(i).get_id().toString();
+//                DocumentSnapshot snapshot = listOfDocuments.get(i);
+//                DocumentReference docRef = snapshot.getDocumentReference(documentKey);
+//                docRef.addSnapshotListener((document, docuError) -> {
+//                    if(docuError != null){ return; }
+//                    if(document.exists()){
+//                        String image = document.getString("Image");
+//                        String category = document.getString("Name");
+//                        OpenMenuInstance.toUpdateCategoryImage(image, category);
+//                    }
+//                });
+//            }
+//        });
+//
+//        RealmResults<RealmMenuItem> listOfItems = realm.where(RealmMenuItem.class).findAll();
+//        menuItem.addSnapshotListener(activity, (query, collectionError) -> {
+//            if(collectionError != null){ return; }
+//            List<DocumentSnapshot> listOfDocuments = query.getDocuments();
+//            for(int i = 0 ; i < listOfItems.size() ; i++) {
+//                String documentKey = listOfItems.get(i).get_id().toString();
+//                DocumentSnapshot snapshot = listOfDocuments.get(i);
+//                DocumentReference docRef = snapshot.getDocumentReference(documentKey);
+//                docRef.addSnapshotListener((document, docuError) -> {
+//                    if(docuError != null){ return; }
+//                    if(document.exists()){
+//                        String name = document.getString("Item Name");
+//                        String image = document.getString("Item Image");
+//                        String category = document.getString("Item Category");
+//                        OpenMenuInstance.toUpdateItemImage(name, image, category);
+//                    }
+//                });
+//            }
+//        });
     }
 
     public static void uploadNewCategoryToCloud(ObjectId id, int categoryIcon, String categoryName){
@@ -207,16 +209,16 @@ public class DB {
         menuCategory.document(docID).delete();
     }
 
-    public static void uploadNewItemToCloud(ObjectId id, int itemIcon, String itemImage, String itemCategory, String itemWebName, String itemPOSName, double price) {
+    public static void uploadNewItemToCloud(ObjectId id, int itemIcon, String itemCategory, String itemWebName, String itemPOSName, double price) {
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("Item ID", docID);
-        document.put("Icon", itemIcon);
-        document.put("Image", itemImage);
-        document.put("Item Category", itemCategory);
-        document.put("Item Name", itemWebName);
-        document.put("Item POS Name", itemPOSName);
-        document.put("Item Price", price);
+        document.put("_createdAt", new Date());
+        document.put("id", docID);
+        document.put("category", itemCategory);
+        document.put("name", itemWebName);
+        document.put("price", price);
+        document.put("z_PosIcon", itemIcon);
+        document.put("z_PosName", itemPOSName);
         menuItem.document(docID).set(document);
     }
 
@@ -240,13 +242,15 @@ public class DB {
     public static void uploadPopularCombinations(ObjectId id, List<List<String>> itemSets) {
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
+        Map<String, Object> fqItems = new HashMap<>();
         for(int i = 0 ; i < itemSets.size() ; i++){
             List<String> itemSet = itemSets.get(i);
             String position = (i < 9)
                     ? "Popular Combination No.0" + (i + 1)
                     : "Popular Combination No." + (i + 1);
-            document.put(position, itemSet);
+            fqItems.put(position, itemSet);
         }
+        document.put("freqBw", fqItems);
         menuItem.document(docID).set(document, SetOptions.merge());
     }
 

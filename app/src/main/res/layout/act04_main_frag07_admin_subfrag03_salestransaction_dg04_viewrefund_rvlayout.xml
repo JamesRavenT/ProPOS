@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/M04F07SF03D02_RVLayout"
+    android:id="@+id/M04F07SF03D04_RVLayout"
     android:layout_width="300dp"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/M04F07SF03D02_RVContainer"
+        android:id="@+id/M04F07SF03D04_RVContainer"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/M04F07SF03D02_RVItemQty"
+            android:id="@+id/M04F07SF03D04_RVItemQty"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginStart="5dp"
@@ -33,7 +33,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/M04F07SF03D02_RVItemName"
+            android:id="@+id/M04F07SF03D04_RVItemName"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans_light"
@@ -43,12 +43,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D02_RVItemQty"
+            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D04_RVItemQty"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/M04F07SF03D02_RVDiscountName"
+            android:id="@+id/M04F07SF03D04_RVDiscountName"
             android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans_light"
@@ -58,12 +58,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D02_RVItemQty"
-            app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D02_RVItemPrice"
+            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D04_RVItemQty"
+            app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D04_RVItemPrice"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/M04F07SF03D02_RVDiscountPercentage"
+            android:id="@+id/M04F07SF03D04_RVDiscountPercentage"
             android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans_light"
@@ -74,12 +74,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D02_RVDiscountName"
-            app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D02_RVItemPrice"
+            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D04_RVDiscountName"
+            app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D04_RVItemPrice"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/M04F07SF03D02_RVDiscountAmount"
+            android:id="@+id/M04F07SF03D04_RVDiscountAmount"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_sans_light"
@@ -90,12 +90,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.75"
-            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D02_RVDiscountPercentage"
-            app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D02_RVItemTotalPrice"
+            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D04_RVDiscountPercentage"
+            app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D04_RVItemTotalPrice"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/M04F07SF03D02_RVItemPrice"
+            android:id="@+id/M04F07SF03D04_RVItemPrice"
             android:layout_width="55dp"
             android:layout_height="20sp"
             android:fontFamily="@font/nunito_sans_light"
@@ -106,12 +106,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D02_RVItemQty"
-            app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D02_RVItemName"
+            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D04_RVItemQty"
+            app:layout_constraintTop_toBottomOf="@+id/M04F07SF03D04_RVItemName"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/M04F07SF03D02_RVItemTotalPrice"
+            android:id="@+id/M04F07SF03D04_RVItemTotalPrice"
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_marginEnd="5dp"
@@ -123,7 +123,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D02_RVItemName"
+            app:layout_constraintStart_toEndOf="@+id/M04F07SF03D04_RVItemName"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 

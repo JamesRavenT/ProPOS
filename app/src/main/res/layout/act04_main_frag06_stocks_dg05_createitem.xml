@@ -11,7 +11,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F06D05_Container"
         android:layout_width="350dp"
-        android:layout_height="340dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:elevation="10dp"
         app:cardCornerRadius="10dp"
@@ -141,7 +141,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.174"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F06D05_ItemNameText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F06D05_ItemNameInput"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/M04F06D05_ItemInitialAmountText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nunito_sans_light"
+                android:paddingBottom="0dp"
+                android:text="Initial / Starting Amount :"
+                android:textColor="@color/wabizabi"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.203"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F06D05_ItemMeasurementText"
                 app:layout_constraintVertical_bias="0.0" />
 
             <EditText
@@ -152,29 +169,52 @@
                 android:background="@drawable/bg_shape_thinline_dark"
                 android:ems="10"
                 android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
                 android:hint="  e.g. kilo"
                 android:inputType="textPersonName"
                 android:maxLength="25"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.035"
                 app:layout_constraintStart_toEndOf="@+id/M04F06D05_ItemMeasurementText"
                 app:layout_constraintTop_toBottomOf="@+id/M04F06D05_ItemNameInput"
-                app:layout_constraintVertical_bias="0.021" />
+                app:layout_constraintVertical_bias="0.022" />
+
+            <EditText
+                android:id="@+id/M04F06D05_ItemInitialAmountInput"
+                android:layout_width="0dp"
+                android:layout_height="32.5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/bg_shape_thinline_dark"
+                android:ems="10"
+                android:fontFamily="@font/nunito_sans_light"
+                android:gravity="center"
+                android:hint="1"
+                android:inputType="number"
+                android:maxLength="25"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/M04F06D05_ItemInitialAmountText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F06D05_ItemMeasurementInput"
+                app:layout_constraintVertical_bias="0.0" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/M04F06D05_ConfirmBtn"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="25dp"
                 android:backgroundTint="@color/wabizabi"
                 android:elevation="10dp"
                 app:cardCornerRadius="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F06D05_ItemMeasurementText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F06D05_ItemInitialAmountText"
                 app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout

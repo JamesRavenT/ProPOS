@@ -3,15 +3,19 @@ package com.wabizabi.wazabipos.Utilities.Libraries.Helper;
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Discount;
+import com.wabizabi.wazabipos.Database.ObjectSchemas.InventoryTransaction;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.PaymentMethod;
+import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockItem;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmDiscount;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmInventoryTransaction;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmPaymentMethod;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmStockCategory;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmStockItem;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmTable;
@@ -23,6 +27,7 @@ import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class RVHelper {
 
@@ -231,7 +236,6 @@ public class RVHelper {
     }
 
     //STOCK ITEM | OBJECT FILTERED
-
     public static List<StockItem> getFilteredStockItems(List<StockItem> listOfStockItems, String input){
         List<StockItem> filteredItem = new ArrayList<>();
         for(StockItem item : listOfStockItems){
@@ -240,6 +244,647 @@ public class RVHelper {
             }
         }
         return filteredItem;
+    }
+
+    //INVENTORY TRANSACTION | OBJECT DESCENDING
+    public static List<InventoryTransaction> getInventoryTransactionDescending(Realm realm, String transactionType, String year, String month, String day){
+        List<InventoryTransaction> listOfInventoryTransactions = new ArrayList<>();
+        int filter = (!transactionType.equals("Any") &&
+                !year.equals("Any") &&
+                !month.equals("Any") &&
+                !day.equals("Any"))
+                ? 5
+                : (!transactionType.equals("Any") &&
+                !year.equals("Any") &&
+                !month.equals("Any") &&
+                day.equals("Any"))
+                ? 4
+                : (!transactionType.equals("Any") &&
+                !year.equals("Any") &&
+                month.equals("Any") &&
+                day.equals("Any"))
+                ? 3
+                : (!transactionType.equals("Any") &&
+                year.equals("Any") &&
+                month.equals("Any") &&
+                day.equals("Any"))
+                ? 2
+                : 1;
+        switch(filter){
+            case 5:
+                RealmResults<RealmInventoryTransaction> queriedInventoryC5 =
+                        realm.where(RealmInventoryTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .equalTo("year", year)
+                                .equalTo("month", month)
+                                .equalTo("day", day)
+                                .sort("transactionID", Sort.DESCENDING)
+                                .findAll();
+                for(RealmInventoryTransaction query : queriedInventoryC5){
+                    listOfInventoryTransactions.add(new InventoryTransaction(
+                            query.getTransactionID(),
+                            query.getTransactionDT(),
+                            query.getTransactionType(),
+                            query.getItemName(),
+                            query.getAmount(),
+                            query.getItemUnit(),
+                            query.getYear(),
+                            query.getMonth(),
+                            query.getDay()
+                    ));
+                }
+                break;
+            case 4:
+                RealmResults<RealmInventoryTransaction> queriedInventoryC4 =
+                        realm.where(RealmInventoryTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .equalTo("year", year)
+                                .equalTo("month", month)
+                                .sort("transactionID", Sort.DESCENDING)
+                                .findAll();
+                for(RealmInventoryTransaction query : queriedInventoryC4){
+                    listOfInventoryTransactions.add(new InventoryTransaction(
+                            query.getTransactionID(),
+                            query.getTransactionDT(),
+                            query.getTransactionType(),
+                            query.getItemName(),
+                            query.getAmount(),
+                            query.getItemUnit(),
+                            query.getYear(),
+                            query.getMonth(),
+                            query.getDay()
+                    ));
+                }
+                break;
+            case 3:
+                RealmResults<RealmInventoryTransaction> queriedInventoryC3 =
+                        realm.where(RealmInventoryTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .equalTo("year", year)
+                                .sort("transactionID", Sort.DESCENDING)
+                                .findAll();
+                for(RealmInventoryTransaction query : queriedInventoryC3){
+                    listOfInventoryTransactions.add(new InventoryTransaction(
+                            query.getTransactionID(),
+                            query.getTransactionDT(),
+                            query.getTransactionType(),
+                            query.getItemName(),
+                            query.getAmount(),
+                            query.getItemUnit(),
+                            query.getYear(),
+                            query.getMonth(),
+                            query.getDay()
+                    ));
+                }
+                break;
+            case 2:
+                RealmResults<RealmInventoryTransaction> queriedInventoryC2 =
+                        realm.where(RealmInventoryTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .sort("transactionID", Sort.DESCENDING)
+                                .findAll();
+                for(RealmInventoryTransaction query : queriedInventoryC2){
+                    listOfInventoryTransactions.add(new InventoryTransaction(
+                            query.getTransactionID(),
+                            query.getTransactionDT(),
+                            query.getTransactionType(),
+                            query.getItemName(),
+                            query.getAmount(),
+                            query.getItemUnit(),
+                            query.getYear(),
+                            query.getMonth(),
+                            query.getDay()
+                    ));
+                }
+                break;
+            case 1:
+                RealmResults<RealmInventoryTransaction> queriedInventoryC1 =
+                        realm.where(RealmInventoryTransaction.class)
+                                .sort("transactionID", Sort.DESCENDING)
+                                .findAll();
+                for(RealmInventoryTransaction query : queriedInventoryC1){
+                    listOfInventoryTransactions.add(new InventoryTransaction(
+                            query.getTransactionID(),
+                            query.getTransactionDT(),
+                            query.getTransactionType(),
+                            query.getItemName(),
+                            query.getAmount(),
+                            query.getItemUnit(),
+                            query.getYear(),
+                            query.getMonth(),
+                            query.getDay()
+                    ));
+                }
+                break;
+        }
+        return listOfInventoryTransactions;
+    }
+
+    //INVENTORY TRANSACTION | OBJECT ASCENDING
+    public static List<InventoryTransaction> getInventoryTransactionAscending(Realm realm, String transactionType, String year, String month, String day){
+        List<InventoryTransaction> listOfInventoryTransactions = new ArrayList<>();
+        int filter = (!transactionType.equals("Any") &&
+                !year.equals("Any") &&
+                !month.equals("Any") &&
+                !day.equals("Any"))
+                ? 5
+                : (!transactionType.equals("Any") &&
+                !year.equals("Any") &&
+                !month.equals("Any") &&
+                day.equals("Any"))
+                ? 4
+                : (!transactionType.equals("Any") &&
+                !year.equals("Any") &&
+                month.equals("Any") &&
+                day.equals("Any"))
+                ? 3
+                : (!transactionType.equals("Any") &&
+                year.equals("Any") &&
+                month.equals("Any") &&
+                day.equals("Any"))
+                ? 2
+                : 1;
+        switch(filter){
+            case 5:
+                RealmResults<RealmInventoryTransaction> queriedInventoryC5 =
+                        realm.where(RealmInventoryTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .equalTo("year", year)
+                                .equalTo("month", month)
+                                .equalTo("day", day)
+                                .sort("transactionID", Sort.ASCENDING)
+                                .findAll();
+                for(RealmInventoryTransaction query : queriedInventoryC5){
+                    listOfInventoryTransactions.add(new InventoryTransaction(
+                            query.getTransactionID(),
+                            query.getTransactionDT(),
+                            query.getTransactionType(),
+                            query.getItemName(),
+                            query.getAmount(),
+                            query.getItemUnit(),
+                            query.getYear(),
+                            query.getMonth(),
+                            query.getDay()
+                    ));
+                }
+                break;
+            case 4:
+                RealmResults<RealmInventoryTransaction> queriedInventoryC4 =
+                        realm.where(RealmInventoryTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .equalTo("year", year)
+                                .equalTo("month", month)
+                                .sort("transactionID", Sort.ASCENDING)
+                                .findAll();
+                for(RealmInventoryTransaction query : queriedInventoryC4){
+                    listOfInventoryTransactions.add(new InventoryTransaction(
+                            query.getTransactionID(),
+                            query.getTransactionDT(),
+                            query.getTransactionType(),
+                            query.getItemName(),
+                            query.getAmount(),
+                            query.getItemUnit(),
+                            query.getYear(),
+                            query.getMonth(),
+                            query.getDay()
+                    ));
+                }
+                break;
+            case 3:
+                RealmResults<RealmInventoryTransaction> queriedInventoryC3 =
+                        realm.where(RealmInventoryTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .equalTo("year", year)
+                                .sort("transactionID", Sort.ASCENDING)
+                                .findAll();
+                for(RealmInventoryTransaction query : queriedInventoryC3){
+                    listOfInventoryTransactions.add(new InventoryTransaction(
+                            query.getTransactionID(),
+                            query.getTransactionDT(),
+                            query.getTransactionType(),
+                            query.getItemName(),
+                            query.getAmount(),
+                            query.getItemUnit(),
+                            query.getYear(),
+                            query.getMonth(),
+                            query.getDay()
+                    ));
+                }
+                break;
+            case 2:
+                RealmResults<RealmInventoryTransaction> queriedInventoryC2 =
+                        realm.where(RealmInventoryTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .sort("transactionID", Sort.ASCENDING)
+                                .findAll();
+                for(RealmInventoryTransaction query : queriedInventoryC2){
+                    listOfInventoryTransactions.add(new InventoryTransaction(
+                            query.getTransactionID(),
+                            query.getTransactionDT(),
+                            query.getTransactionType(),
+                            query.getItemName(),
+                            query.getAmount(),
+                            query.getItemUnit(),
+                            query.getYear(),
+                            query.getMonth(),
+                            query.getDay()
+                    ));
+                }
+                break;
+            case 1:
+                RealmResults<RealmInventoryTransaction> queriedInventoryC1 =
+                        realm.where(RealmInventoryTransaction.class)
+                                .sort("transactionID", Sort.ASCENDING)
+                                .findAll();
+                for(RealmInventoryTransaction query : queriedInventoryC1){
+                    listOfInventoryTransactions.add(new InventoryTransaction(
+                            query.getTransactionID(),
+                            query.getTransactionDT(),
+                            query.getTransactionType(),
+                            query.getItemName(),
+                            query.getAmount(),
+                            query.getItemUnit(),
+                            query.getYear(),
+                            query.getMonth(),
+                            query.getDay()
+                    ));
+                }
+                break;
+        }
+        return listOfInventoryTransactions;
+    }
+
+    // INVENTORY TRANSACTION | OBJECT FILTERED
+    public static List<InventoryTransaction> getFilteredInventoryTransaction(List<InventoryTransaction> listOfInventory, String input){
+        List<InventoryTransaction> filteredTransaction = new ArrayList<>();
+        for(InventoryTransaction transaction : listOfInventory){
+            if(transaction.getItemName().toLowerCase().contains(input.toLowerCase())){
+                filteredTransaction.add(transaction);
+            }
+        }
+        return filteredTransaction;
+    }
+
+
+    // SALES TRANSACTION | OBJECT DESCENDING
+    public static List<SalesTransaction> getSalesTransactionDescending(Realm realm, String transactionType, String orderType, String year, String month, String day){
+        List<SalesTransaction> listOfSalesTransactions = new ArrayList<>();
+        int filter = (!transactionType.equals("Any") &&
+                      !orderType.equals("Any") &&
+                      !year.equals("Any") &&
+                      !month.equals("Any") &&
+                      !day.equals("Any"))
+                   ? 6
+                   : (!transactionType.equals("Any") &&
+                      !orderType.equals("Any") &&
+                      !year.equals("Any") &&
+                      !month.equals("Any") &&
+                      day.equals("Any"))
+                   ? 5
+                   : (!transactionType.equals("Any") &&
+                      !orderType.equals("Any") &&
+                      !year.equals("Any") &&
+                      month.equals("Any") &&
+                      day.equals("Any"))
+                   ? 4
+                   : (!transactionType.equals("Any") &&
+                      !orderType.equals("Any") &&
+                      year.equals("Any") &&
+                      month.equals("Any") &&
+                      day.equals("Any"))
+                   ? 3
+                   : (!transactionType.equals("Any") &&
+                      orderType.equals("Any") &&
+                      year.equals("Any") &&
+                      month.equals("Any") &&
+                      day.equals("Any"))
+                   ? 2
+                   : 1;
+
+        switch(filter){
+            case 6:
+                RealmResults<RealmSalesTransaction> queriedSalesC6 =
+                        realm.where(RealmSalesTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .and().equalTo("orderType", orderType)
+                                .and().equalTo("year", year)
+                                .and().equalTo("month", month)
+                                .and().equalTo("day", day)
+                                .sort("transactionID", Sort.DESCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC6){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+            case 5:
+                RealmResults<RealmSalesTransaction> queriedSalesC5 =
+                        realm.where(RealmSalesTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .and().equalTo("orderType", orderType)
+                                .and().equalTo("year", year)
+                                .and().equalTo("month", month)
+                                .sort("transactionID", Sort.DESCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC5){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+            case 4:
+                RealmResults<RealmSalesTransaction> queriedSalesC4 =
+                        realm.where(RealmSalesTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .and().equalTo("orderType", orderType)
+                                .and().equalTo("year", year)
+                                .sort("transactionID", Sort.DESCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC4){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+            case 3:
+                RealmResults<RealmSalesTransaction> queriedSalesC3 =
+                        realm.where(RealmSalesTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .and().equalTo("orderType", orderType)
+                                .sort("transactionID", Sort.DESCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC3){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+            case 2:
+                RealmResults<RealmSalesTransaction> queriedSalesC2 =
+                        realm.where(RealmSalesTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .sort("transactionID", Sort.DESCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC2){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+            case 1:
+                RealmResults<RealmSalesTransaction> queriedSalesC1 =
+                        realm.where(RealmSalesTransaction.class)
+                                .sort("transactionID", Sort.DESCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC1){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+        }
+        return listOfSalesTransactions;
+    }
+
+    // SALES TRANSACTION | OBJECT ASCENDING
+    public static List<SalesTransaction> getSalesTransactionAscending(Realm realm, String transactionType, String orderType, String year, String month, String day){
+        List<SalesTransaction> listOfSalesTransactions = new ArrayList<>();
+        int filter = (!transactionType.equals("Any") &&
+                !orderType.equals("Any") &&
+                !year.equals("Any") &&
+                !month.equals("Any") &&
+                !day.equals("Any"))
+                ? 6
+                : (!transactionType.equals("Any") &&
+                !orderType.equals("Any") &&
+                !year.equals("Any") &&
+                !month.equals("Any") &&
+                day.equals("Any"))
+                ? 5
+                : (!transactionType.equals("Any") &&
+                !orderType.equals("Any") &&
+                !year.equals("Any") &&
+                month.equals("Any") &&
+                day.equals("Any"))
+                ? 4
+                : (!transactionType.equals("Any") &&
+                !orderType.equals("Any") &&
+                year.equals("Any") &&
+                month.equals("Any") &&
+                day.equals("Any"))
+                ? 3
+                : (!transactionType.equals("Any") &&
+                orderType.equals("Any") &&
+                year.equals("Any") &&
+                month.equals("Any") &&
+                day.equals("Any"))
+                ? 2
+                : 1;
+
+        switch(filter){
+            case 6:
+                RealmResults<RealmSalesTransaction> queriedSalesC6 =
+                        realm.where(RealmSalesTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .and().equalTo("orderType", orderType)
+                                .and().equalTo("year", year)
+                                .and().equalTo("month", month)
+                                .and().equalTo("day", day)
+                                .sort("transactionID", Sort.ASCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC6){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+            case 5:
+                RealmResults<RealmSalesTransaction> queriedSalesC5 =
+                        realm.where(RealmSalesTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .and().equalTo("orderType", orderType)
+                                .and().equalTo("year", year)
+                                .and().equalTo("month", month)
+                                .sort("transactionID", Sort.ASCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC5){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+            case 4:
+                RealmResults<RealmSalesTransaction> queriedSalesC4 =
+                        realm.where(RealmSalesTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .and().equalTo("orderType", orderType)
+                                .and().equalTo("year", year)
+                                .sort("transactionID", Sort.ASCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC4){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+            case 3:
+                RealmResults<RealmSalesTransaction> queriedSalesC3 =
+                        realm.where(RealmSalesTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .and().equalTo("orderType", orderType)
+                                .sort("transactionID", Sort.ASCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC3){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+            case 2:
+                RealmResults<RealmSalesTransaction> queriedSalesC2 =
+                        realm.where(RealmSalesTransaction.class)
+                                .equalTo("transactionType", transactionType)
+                                .sort("transactionID", Sort.ASCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC2){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+            case 1:
+                RealmResults<RealmSalesTransaction> queriedSalesC1 =
+                        realm.where(RealmSalesTransaction.class)
+                                .sort("transactionID", Sort.ASCENDING)
+                                .findAll();
+                for(RealmSalesTransaction query : queriedSalesC1){
+                    listOfSalesTransactions.add(new SalesTransaction(
+                            query.getDateAndTime(),
+                            query.getTransactionID(),
+                            query.getTransactionNo(),
+                            query.getTransactionType(),
+                            query.getOrder(),
+                            query.getOrderType(),
+                            query.getTotalItems(),
+                            query.getTotalAmountDue(),
+                            query.getTotalPayment(),
+                            query.getPaymentMethod()
+                    ));
+                }
+                break;
+        }
+        return listOfSalesTransactions;
+    }
+
+    // SALES TRANSACTION | OBJECT FILTERED
+    public static List<SalesTransaction> getFilteredSalesTransaction(List<SalesTransaction> listOfSales, String input){
+        List<SalesTransaction> filteredTransaction = new ArrayList<>();
+        for(SalesTransaction transaction : listOfSales){
+            if(transaction.getOrder().toLowerCase().contains(input.toLowerCase())){
+                filteredTransaction.add(transaction);
+            }
+        }
+        return filteredTransaction;
     }
 
 }

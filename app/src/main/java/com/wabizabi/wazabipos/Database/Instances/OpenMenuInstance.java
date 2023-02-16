@@ -108,7 +108,7 @@ public class OpenMenuInstance {
                 item.setItemPrice(price);
                 category.setLastUpdatedID(logID);
                 category.setLastUpdatedText(logTxt);
-                DB.uploadNewItemToCloud(id, icon, "", categoryName, webName, posName, price);
+                DB.uploadNewItemToCloud(id, icon, categoryName, webName, posName, price);
             });
         }
     }

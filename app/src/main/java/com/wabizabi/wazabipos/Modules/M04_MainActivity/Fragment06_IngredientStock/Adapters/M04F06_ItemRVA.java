@@ -14,6 +14,7 @@ import com.wabizabi.wazabipos.Database.ObjectSchemas.StockItem;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
+import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 
@@ -27,6 +28,7 @@ public class M04F06_ItemRVA extends RecyclerView.Adapter<M04F06_ItemRVA.ViewHold
     Realm realm;
     List<StockItem> listOfItems;
     DialogLoader dialogLoader;
+
 
     public M04F06_ItemRVA(Context context, Realm realm, List<StockItem> listOfItems, DialogLoader dialogLoader) {
         this.context = context;
