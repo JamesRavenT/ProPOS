@@ -134,9 +134,9 @@ public class CartHelper {
 
     //--DG15--//
     public static SalesTransaction getLatestTranscation(Realm realm){
-        RealmSalesTransaction query = realm.where(RealmSalesTransaction.class).sort("transactionID", Sort.DESCENDING).findFirst();
+        RealmSalesTransaction query = realm.where(RealmSalesTransaction.class).sort("_id", Sort.DESCENDING).findFirst();
         SalesTransaction sales = new SalesTransaction(
-                query.getTransactionID(),
+                query.get_id(),
                 query.getTransactionNo(),
                 query.getDateAndTime(),
                 query.getCashier(),

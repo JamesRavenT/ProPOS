@@ -26,31 +26,7 @@ public class OpenMenuInstance {
                 category.setCategoryName(name);
                 category.setLastUpdatedID(logID);
                 category.setLastUpdatedText(logTxt);
-                DB.uploadNewCategoryToCloud(id, icon, name);
-            });
-        }
-    }
-
-    public static void toLoadCategoryFromCloud(ObjectId id, int icon, String image, String name){
-        String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
-        try(Realm realm = io.realm.Realm.getDefaultInstance()){
-            realm.executeTransaction(db -> {
-                RealmMenuCategory category = db.createObject(RealmMenuCategory.class, id);
-                category.setCategoryIcon(icon);
-                category.setCategoryImage(image);
-                category.setCategoryName(name);
-                category.setLastUpdatedID(logID);
-                category.setLastUpdatedText(logTxt);
-            });
-        }
-    }
-
-    public static void toUpdateCategoryImage(String image, String name){
-        try(Realm realm = Realm.getDefaultInstance()){
-            realm.executeTransaction(db -> {
-                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", name).findFirst();
-                category.setCategoryImage(image);
+                DB.uploadNewMenuCategoryToCloud(id, icon, name);
             });
         }
     }
@@ -65,13 +41,13 @@ public class OpenMenuInstance {
                 category.setCategoryIcon(icon);
                 category.setCategoryName(name);
                 for(RealmMenuItem item : listOfItems){
-                    DB.updateItemFromCloud(item.get_id(), icon, name, item.getItemWebName(), item.getItemPOSName(), item.getItemPrice());
+                    DB.updateMenuItemFromCloud(item.get_id(), icon, name, item.getItemWebName(), item.getItemPOSName(), item.getItemPrice());
                     item.setItemCategory(name);
                     item.setItemIcon(icon);
                 }
                 category.setLastUpdatedID(logID);
                 category.setLastUpdatedText(logTxt);
-                DB.updateCategoryFromCloud(category.get_id(), icon, name);
+                DB.updateMenuCategoryFromCloud(category.get_id(), icon, name);
             });
         }
     }
@@ -81,10 +57,10 @@ public class OpenMenuInstance {
             RealmResults<RealmMenuItem> listOfItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", name).findAll();
             realm.executeTransaction(db -> {
                 RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", name).findFirst();
-                DB.deleteCategoryFromCloud(category);
+                DB.deleteMenuCategoryFromCloud(category);
                 category.deleteFromRealm();
                 for(RealmMenuItem item : listOfItems){
-                    DB.deleteItemFromCloud(item);
+                    DB.deleteMenuItemFromCloud(item);
                     item.deleteFromRealm();
                 }
             });
@@ -101,37 +77,13 @@ public class OpenMenuInstance {
                 RealmMenuItem item = db.createObject(RealmMenuItem.class, id);
                 RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
                 item.setItemIcon(icon);
-                item.setItemImage("");
                 item.setItemCategory(categoryName);
                 item.setItemWebName(webName);
                 item.setItemPOSName(posName);
                 item.setItemPrice(price);
                 category.setLastUpdatedID(logID);
                 category.setLastUpdatedText(logTxt);
-                DB.uploadNewItemToCloud(id, icon, categoryName, webName, posName, price);
-            });
-        }
-    }
-
-    public static void toLoadItemFromCloud(ObjectId id, int icon, String image, String categoryName, String webName, String posName, double price){
-        try(Realm realm = Realm.getDefaultInstance()){
-            realm.executeTransaction(db -> {
-                RealmMenuItem item = db.createObject(RealmMenuItem.class, id);
-                item.setItemIcon(icon);
-                item.setItemImage(image);
-                item.setItemCategory(categoryName);
-                item.setItemWebName(webName);
-                item.setItemPOSName(posName);
-                item.setItemPrice(price);
-            });
-        }
-    }
-
-    public static void toUpdateItemImage(String name, String image, String category){
-        try(Realm realm = Realm.getDefaultInstance()){
-            realm.executeTransaction(db -> {
-                RealmMenuItem item = db.where(RealmMenuItem.class).equalTo("itemPOSName", name).findFirst();
-                item.setItemImage(image);
+                DB.uploadNewMenuItemToCloud(id, icon, categoryName, webName, posName, price);
             });
         }
     }
@@ -149,7 +101,7 @@ public class OpenMenuInstance {
                 item.setItemPrice(price);
                 category.setLastUpdatedID(logID);
                 category.setLastUpdatedText(logTxt);
-                DB.updateItemFromCloud(item.get_id(), icon, categoryName, webName, posName, price);
+                DB.updateMenuItemFromCloud(item.get_id(), icon, categoryName, webName, posName, price);
             });
         }
     }
@@ -161,12 +113,80 @@ public class OpenMenuInstance {
             realm.executeTransaction(db -> {
                 RealmMenuItem item = db.where(RealmMenuItem.class).equalTo("itemPOSName", name).findFirst();
                 RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
-                DB.deleteItemFromCloud(item);
+                DB.deleteMenuItemFromCloud(item);
                 item.deleteFromRealm();
                 category.setLastUpdatedID(logID);
                 category.setLastUpdatedText(logTxt);
             });
         }
     }
+
+    //CLOUD
+    public static void toLoadCategoryFromCloud(ObjectId id, int icon, String name){
+        String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
+        try(Realm realm = io.realm.Realm.getDefaultInstance()){
+            realm.executeTransaction(db -> {
+                RealmMenuCategory category = db.createObject(RealmMenuCategory.class, id);
+                category.setCategoryIcon(icon);
+                category.setCategoryName(name);
+                category.setLastUpdatedID(logID);
+                category.setLastUpdatedText(logTxt);
+            });
+        }
+    }
+
+    public static void toUpdateCategoryFromCloud(ObjectId id, int icon, String name){
+        String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
+        try(Realm realm = Realm.getDefaultInstance()){
+            realm.executeTransaction(db -> {
+                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("_id", id).findFirst();
+                RealmResults<RealmMenuItem> listOfItems = db.where(RealmMenuItem.class).equalTo("itemCategory", category.getCategoryName()).findAll();
+                category.setCategoryIcon(icon);
+                category.setCategoryName(name);
+                for(RealmMenuItem item : listOfItems){
+                    DB.updateMenuItemFromCloud(item.get_id(), icon, name, item.getItemWebName(), item.getItemPOSName(), item.getItemPrice());
+                    item.setItemCategory(name);
+                    item.setItemIcon(icon);
+                }
+                category.setLastUpdatedID(logID);
+                category.setLastUpdatedText(logTxt);
+                DB.updateMenuCategoryFromCloud(category.get_id(), icon, name);
+            });
+        }
+    }
+
+    public static void toLoadItemFromCloud(ObjectId id, int icon, String categoryName, String webName, String posName, double price){
+        try(Realm realm = Realm.getDefaultInstance()){
+            realm.executeTransaction(db -> {
+                RealmMenuItem item = db.createObject(RealmMenuItem.class, id);
+                item.setItemIcon(icon);
+                item.setItemCategory(categoryName);
+                item.setItemWebName(webName);
+                item.setItemPOSName(posName);
+                item.setItemPrice(price);
+            });
+        }
+    }
+
+    public static void toUpdateItemFromCloud(ObjectId id, int icon,  String categoryName, String webName, String posName, double price){
+        String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
+        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
+        try(Realm realm = Realm.getDefaultInstance()){
+            realm.executeTransaction(db -> {
+                RealmMenuItem item = db.where(RealmMenuItem.class).equalTo("_id", id).findFirst();
+                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
+                item.setItemIcon(icon);
+                item.setItemWebName(webName);
+                item.setItemPOSName(posName);
+                item.setItemPrice(price);
+                category.setLastUpdatedID(logID);
+                category.setLastUpdatedText(logTxt);
+                DB.updateMenuItemFromCloud(item.get_id(), icon, categoryName, webName, posName, price);
+            });
+        }
+    }
+
 
 }

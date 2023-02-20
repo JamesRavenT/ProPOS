@@ -298,7 +298,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     protected void onStart(){
         super.onStart();
-        DB.syncRealmAndFirestore(this);
+//        DB.syncRealmAndFirestore(this);
     }
 
     @Override

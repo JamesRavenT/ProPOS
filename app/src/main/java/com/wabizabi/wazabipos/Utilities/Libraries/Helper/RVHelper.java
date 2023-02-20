@@ -230,7 +230,7 @@ public class RVHelper {
         List<StockItem> listOfStockItems = new ArrayList<>();
         RealmResults<RealmStockItem> queriedItems = realm.where(RealmStockItem.class).equalTo("itemCategory", category).sort("itemName").findAll();
         for(RealmStockItem query : queriedItems){
-            listOfStockItems.add(new StockItem(query.getItemImage(), query.getItemCategory(), query.getItemName(), query.getItemAmount(), query.getUnitOfMeasurement()));
+            listOfStockItems.add(new StockItem(query.getItemIcon(), query.getItemCategory(), query.getItemName(), query.getItemAmount(), query.getUnitOfMeasurement()));
         }
         return listOfStockItems;
     }
@@ -278,11 +278,11 @@ public class RVHelper {
                                 .equalTo("year", year)
                                 .equalTo("month", month)
                                 .equalTo("day", day)
-                                .sort("transactionID", Sort.DESCENDING)
+                                .sort("_id", Sort.DESCENDING)
                                 .findAll();
                 for(RealmInventoryTransaction query : queriedInventoryC5){
                     listOfInventoryTransactions.add(new InventoryTransaction(
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionDT(),
                             query.getTransactionType(),
                             query.getItemName(),
@@ -300,11 +300,11 @@ public class RVHelper {
                                 .equalTo("transactionType", transactionType)
                                 .equalTo("year", year)
                                 .equalTo("month", month)
-                                .sort("transactionID", Sort.DESCENDING)
+                                .sort("_id", Sort.DESCENDING)
                                 .findAll();
                 for(RealmInventoryTransaction query : queriedInventoryC4){
                     listOfInventoryTransactions.add(new InventoryTransaction(
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionDT(),
                             query.getTransactionType(),
                             query.getItemName(),
@@ -321,11 +321,11 @@ public class RVHelper {
                         realm.where(RealmInventoryTransaction.class)
                                 .equalTo("transactionType", transactionType)
                                 .equalTo("year", year)
-                                .sort("transactionID", Sort.DESCENDING)
+                                .sort("_id", Sort.DESCENDING)
                                 .findAll();
                 for(RealmInventoryTransaction query : queriedInventoryC3){
                     listOfInventoryTransactions.add(new InventoryTransaction(
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionDT(),
                             query.getTransactionType(),
                             query.getItemName(),
@@ -341,11 +341,11 @@ public class RVHelper {
                 RealmResults<RealmInventoryTransaction> queriedInventoryC2 =
                         realm.where(RealmInventoryTransaction.class)
                                 .equalTo("transactionType", transactionType)
-                                .sort("transactionID", Sort.DESCENDING)
+                                .sort("_id", Sort.DESCENDING)
                                 .findAll();
                 for(RealmInventoryTransaction query : queriedInventoryC2){
                     listOfInventoryTransactions.add(new InventoryTransaction(
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionDT(),
                             query.getTransactionType(),
                             query.getItemName(),
@@ -360,11 +360,11 @@ public class RVHelper {
             case 1:
                 RealmResults<RealmInventoryTransaction> queriedInventoryC1 =
                         realm.where(RealmInventoryTransaction.class)
-                                .sort("transactionID", Sort.DESCENDING)
+                                .sort("_id", Sort.DESCENDING)
                                 .findAll();
                 for(RealmInventoryTransaction query : queriedInventoryC1){
                     listOfInventoryTransactions.add(new InventoryTransaction(
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionDT(),
                             query.getTransactionType(),
                             query.getItemName(),
@@ -412,11 +412,11 @@ public class RVHelper {
                                 .equalTo("year", year)
                                 .equalTo("month", month)
                                 .equalTo("day", day)
-                                .sort("transactionID", Sort.ASCENDING)
+                                .sort("_id", Sort.ASCENDING)
                                 .findAll();
                 for(RealmInventoryTransaction query : queriedInventoryC5){
                     listOfInventoryTransactions.add(new InventoryTransaction(
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionDT(),
                             query.getTransactionType(),
                             query.getItemName(),
@@ -434,11 +434,11 @@ public class RVHelper {
                                 .equalTo("transactionType", transactionType)
                                 .equalTo("year", year)
                                 .equalTo("month", month)
-                                .sort("transactionID", Sort.ASCENDING)
+                                .sort("_id", Sort.ASCENDING)
                                 .findAll();
                 for(RealmInventoryTransaction query : queriedInventoryC4){
                     listOfInventoryTransactions.add(new InventoryTransaction(
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionDT(),
                             query.getTransactionType(),
                             query.getItemName(),
@@ -455,11 +455,11 @@ public class RVHelper {
                         realm.where(RealmInventoryTransaction.class)
                                 .equalTo("transactionType", transactionType)
                                 .equalTo("year", year)
-                                .sort("transactionID", Sort.ASCENDING)
+                                .sort("_id", Sort.ASCENDING)
                                 .findAll();
                 for(RealmInventoryTransaction query : queriedInventoryC3){
                     listOfInventoryTransactions.add(new InventoryTransaction(
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionDT(),
                             query.getTransactionType(),
                             query.getItemName(),
@@ -475,11 +475,11 @@ public class RVHelper {
                 RealmResults<RealmInventoryTransaction> queriedInventoryC2 =
                         realm.where(RealmInventoryTransaction.class)
                                 .equalTo("transactionType", transactionType)
-                                .sort("transactionID", Sort.ASCENDING)
+                                .sort("_id", Sort.ASCENDING)
                                 .findAll();
                 for(RealmInventoryTransaction query : queriedInventoryC2){
                     listOfInventoryTransactions.add(new InventoryTransaction(
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionDT(),
                             query.getTransactionType(),
                             query.getItemName(),
@@ -494,11 +494,11 @@ public class RVHelper {
             case 1:
                 RealmResults<RealmInventoryTransaction> queriedInventoryC1 =
                         realm.where(RealmInventoryTransaction.class)
-                                .sort("transactionID", Sort.ASCENDING)
+                                .sort("_id", Sort.ASCENDING)
                                 .findAll();
                 for(RealmInventoryTransaction query : queriedInventoryC1){
                     listOfInventoryTransactions.add(new InventoryTransaction(
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionDT(),
                             query.getTransactionType(),
                             query.getItemName(),
@@ -570,12 +570,12 @@ public class RVHelper {
                                 .and().equalTo("year", year)
                                 .and().equalTo("month", month)
                                 .and().equalTo("day", day)
-                                .sort("transactionID", Sort.DESCENDING)
+                                .sort("_id", Sort.DESCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC6){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),
@@ -594,12 +594,12 @@ public class RVHelper {
                                 .and().equalTo("orderType", orderType)
                                 .and().equalTo("year", year)
                                 .and().equalTo("month", month)
-                                .sort("transactionID", Sort.DESCENDING)
+                                .sort("_id", Sort.DESCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC5){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),
@@ -617,12 +617,12 @@ public class RVHelper {
                                 .equalTo("transactionType", transactionType)
                                 .and().equalTo("orderType", orderType)
                                 .and().equalTo("year", year)
-                                .sort("transactionID", Sort.DESCENDING)
+                                .sort("_id", Sort.DESCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC4){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),
@@ -639,12 +639,12 @@ public class RVHelper {
                         realm.where(RealmSalesTransaction.class)
                                 .equalTo("transactionType", transactionType)
                                 .and().equalTo("orderType", orderType)
-                                .sort("transactionID", Sort.DESCENDING)
+                                .sort("_id", Sort.DESCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC3){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),
@@ -660,12 +660,12 @@ public class RVHelper {
                 RealmResults<RealmSalesTransaction> queriedSalesC2 =
                         realm.where(RealmSalesTransaction.class)
                                 .equalTo("transactionType", transactionType)
-                                .sort("transactionID", Sort.DESCENDING)
+                                .sort("_id", Sort.DESCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC2){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),
@@ -680,12 +680,12 @@ public class RVHelper {
             case 1:
                 RealmResults<RealmSalesTransaction> queriedSalesC1 =
                         realm.where(RealmSalesTransaction.class)
-                                .sort("transactionID", Sort.DESCENDING)
+                                .sort("_id", Sort.DESCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC1){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),
@@ -745,12 +745,12 @@ public class RVHelper {
                                 .and().equalTo("year", year)
                                 .and().equalTo("month", month)
                                 .and().equalTo("day", day)
-                                .sort("transactionID", Sort.ASCENDING)
+                                .sort("_id", Sort.ASCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC6){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),
@@ -769,12 +769,12 @@ public class RVHelper {
                                 .and().equalTo("orderType", orderType)
                                 .and().equalTo("year", year)
                                 .and().equalTo("month", month)
-                                .sort("transactionID", Sort.ASCENDING)
+                                .sort("_id", Sort.ASCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC5){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),
@@ -792,12 +792,12 @@ public class RVHelper {
                                 .equalTo("transactionType", transactionType)
                                 .and().equalTo("orderType", orderType)
                                 .and().equalTo("year", year)
-                                .sort("transactionID", Sort.ASCENDING)
+                                .sort("_id", Sort.ASCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC4){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),
@@ -814,12 +814,12 @@ public class RVHelper {
                         realm.where(RealmSalesTransaction.class)
                                 .equalTo("transactionType", transactionType)
                                 .and().equalTo("orderType", orderType)
-                                .sort("transactionID", Sort.ASCENDING)
+                                .sort("_id", Sort.ASCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC3){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),
@@ -835,12 +835,12 @@ public class RVHelper {
                 RealmResults<RealmSalesTransaction> queriedSalesC2 =
                         realm.where(RealmSalesTransaction.class)
                                 .equalTo("transactionType", transactionType)
-                                .sort("transactionID", Sort.ASCENDING)
+                                .sort("_id", Sort.ASCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC2){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),
@@ -855,12 +855,12 @@ public class RVHelper {
             case 1:
                 RealmResults<RealmSalesTransaction> queriedSalesC1 =
                         realm.where(RealmSalesTransaction.class)
-                                .sort("transactionID", Sort.ASCENDING)
+                                .sort("_id", Sort.ASCENDING)
                                 .findAll();
                 for(RealmSalesTransaction query : queriedSalesC1){
                     listOfSalesTransactions.add(new SalesTransaction(
                             query.getDateAndTime(),
-                            query.getTransactionID(),
+                            query.get_id(),
                             query.getTransactionNo(),
                             query.getTransactionType(),
                             query.getOrder(),

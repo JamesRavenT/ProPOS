@@ -7,8 +7,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class RealmInventoryTransaction extends RealmObject {
     @PrimaryKey
-    ObjectId _id;
-    String transactionID;
+    String _id;
     String transactionDT;
     String transactionType;
     String itemName;
@@ -19,20 +18,12 @@ public class RealmInventoryTransaction extends RealmObject {
     public RealmInventoryTransaction(){}
 
 
-    public ObjectId get_id() {
+    public String get_id() {
         return _id;
     }
 
-    public void set_id(ObjectId _id) {
+    public void set_id(String _id) {
         this._id = _id;
-    }
-
-    public String getTransactionID() {
-        return transactionID;
-    }
-
-    public void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
     }
 
     public String getTransactionDT() {

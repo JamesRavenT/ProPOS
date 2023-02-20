@@ -1,5 +1,6 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
+import com.wabizabi.wazabipos.Database.DB;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmPopCombination;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmPopItem;
 
@@ -39,11 +40,13 @@ public class OpenFPGInstance {
                 if(queriedFQList.isEmpty()){
                     for(Map.Entry<String, Integer> fqItem : fqList.entrySet()){
                         realm.executeTransaction(db -> {
-                            RealmPopItem item = db.createObject(RealmPopItem.class, new ObjectId());
+                            ObjectId id = new ObjectId();
+                            RealmPopItem item = db.createObject(RealmPopItem.class, id);
                             item.setName(fqItem.getKey());
                             item.setFrequency(fqItem.getValue());
                             item.setYear(currentYear);
                             item.setMonth(month);
+                            DB.uploadPopItem(id, fqItem.getKey(), fqItem.getValue(), currentYear, month);
                         });
                     }
                 }
@@ -57,22 +60,53 @@ public class OpenFPGInstance {
                 if(queriedFPList.isEmpty()){
                     for(Map.Entry<String, Map<List<String>, Integer>> fpItemSet : fpItemSets.entrySet()){
                         for(Map.Entry<List<String>, Integer> itemSet : fpItemSet.getValue().entrySet()){
+                            ObjectId id = new ObjectId();
                             String name = fpItemSet.getKey();
                             List<String> items = itemSet.getKey();
                             int frequency = itemSet.getValue();
                             realm.executeTransaction(db -> {
-                                RealmPopCombination fpList = db.createObject(RealmPopCombination.class, new ObjectId());
+                                RealmPopCombination fpList = db.createObject(RealmPopCombination.class, id);
                                 RealmList<String> combinations = new RealmList<>(); combinations.addAll(items);
                                 fpList.setItemName(name);
                                 fpList.setItemSet(combinations);
                                 fpList.setFrequency(frequency);
                                 fpList.setYear(currentYear);
                                 fpList.setMonth(month);
+                                DB.uploadPopCombo(id, name, items, frequency, currentYear, month);
                             });
                         }
                     }
                 }
             }
         }
+    }
+
+    public static void toLoadFQLResults(ObjectId id, String name, int frequency, String year, String month){
+        try(Realm realm = Realm.getDefaultInstance()){
+            realm.executeTransaction(db -> {
+                RealmPopItem item = db.createObject(RealmPopItem.class, id);
+                item.setName(name);
+                item.setFrequency(frequency);
+                item.setYear(year);
+                item.setMonth(month);
+                DB.uploadPopItem(id, name, frequency, year, month);
+            });
+        }
+    }
+
+    public static void toLoadFPGResults(ObjectId id, String name, List<String> items, int frequency, String year, String month){
+        try(Realm realm = Realm.getDefaultInstance()){
+            realm.executeTransaction(db -> {
+                RealmPopCombination fpList = db.createObject(RealmPopCombination.class, id);
+                RealmList<String> combinations = new RealmList<>(); combinations.addAll(items);
+                fpList.setItemName(name);
+                fpList.setItemSet(combinations);
+                fpList.setFrequency(frequency);
+                fpList.setYear(year);
+                fpList.setMonth(month);
+                DB.uploadPopCombo(id, name, items, frequency, year, month);
+            });
+        }
+
     }
 }

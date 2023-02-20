@@ -1,7 +1,6 @@
 package com.wabizabi.wazabipos.Utilities.BackgroundThreads;
 
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
-import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.unfilteredfqList;
 
 import android.content.Context;
 
@@ -17,7 +16,6 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -38,7 +36,7 @@ public class W02_UploadResultsToCloud extends Worker {
                         ObjectId id = item.get_id();
                         Map<List<String>, Integer> itemSets = itemSet.getValue();
                         List<List<String>> combinations = new ArrayList<>(itemSets.keySet());
-                        DB.uploadPopularCombinations(id, combinations);
+                        DB.uploadFPGDaily(id, combinations);
                     }
                 }
 

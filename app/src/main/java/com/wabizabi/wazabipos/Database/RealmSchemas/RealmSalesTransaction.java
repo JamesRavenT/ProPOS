@@ -8,9 +8,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class RealmSalesTransaction extends RealmObject {
     @PrimaryKey
-    ObjectId _id;
-    String dataVer; //v1.0
-    String transactionID; //230126110400 || yyMMddHHmmsS
+    String _id; //230126110400 || yyMMddHHmmsSSS
     String transactionNo; //00000-000 || yyDDD-000
     String transactionType;
     String dateAndTime; //00|00|00 || yy|MM|dd
@@ -47,28 +45,12 @@ public class RealmSalesTransaction extends RealmObject {
 
     }
 
-    public ObjectId get_id() {
+    public String get_id() {
         return _id;
     }
 
-    public void set_id(ObjectId _id) {
+    public void set_id(String _id) {
         this._id = _id;
-    }
-
-    public String getDataVer() {
-        return dataVer;
-    }
-
-    public void setDataVer(String dataVer) {
-        this.dataVer = dataVer;
-    }
-
-    public String getTransactionID() {
-        return transactionID;
-    }
-
-    public void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
     }
 
     public String getTransactionNo() {

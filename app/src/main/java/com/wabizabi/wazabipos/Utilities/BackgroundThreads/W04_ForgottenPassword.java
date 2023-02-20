@@ -20,8 +20,8 @@ import javax.mail.internet.MimeMessage;
 
 import io.realm.Realm;
 
-public class W03_Mail extends Worker {
-    public W03_Mail(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+public class W04_ForgottenPassword extends Worker {
+    public W04_ForgottenPassword(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 

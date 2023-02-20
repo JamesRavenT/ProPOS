@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.work.Worker;
 
+import com.wabizabi.wazabipos.Database.Instances.OpenUserInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.M04F07_Admin;
@@ -151,6 +152,7 @@ public class M02F02_UserLogIn extends Fragment {
                     startActivity(new Intent(getActivity(), M04_Main.class));
                     getActivity().finish();
                 } else {
+                    OpenUserInstance.toSetVerifiedUserToTrue();
                     startActivity(new Intent(getActivity(), M03_LoadResources.class));
                     getActivity().finish();
                 }

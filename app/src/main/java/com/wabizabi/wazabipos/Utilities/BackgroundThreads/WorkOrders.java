@@ -28,9 +28,15 @@ public class WorkOrders {
                     .setConstraints(network)
                     .build();
 
+    static OneTimeWorkRequest verificationCode =
+            new OneTimeWorkRequest
+                    .Builder(W03_VerificationCode.class)
+                    .setConstraints(network)
+                    .build();
+
     static OneTimeWorkRequest passwordRecovery =
             new OneTimeWorkRequest
-                    .Builder(W03_Mail.class)
+                    .Builder(W04_ForgottenPassword.class)
                     .setConstraints(network)
                     .build();
 
@@ -50,6 +56,12 @@ public class WorkOrders {
         WorkManager
                 .getInstance(context)
                 .enqueue(passwordRecovery);
+    }
+
+    public static void sendVerificationCode(Context context){
+        WorkManager
+                .getInstance(context)
+                .enqueue(verificationCode);
     }
 
 }

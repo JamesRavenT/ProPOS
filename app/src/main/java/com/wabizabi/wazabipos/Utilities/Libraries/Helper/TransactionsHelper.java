@@ -17,11 +17,11 @@ public class TransactionsHelper {
     public static SalesTransaction getSelectedTransaction(Realm realm, SalesTransaction sale){
         RealmSalesTransaction query
                 = realm.where(RealmSalesTransaction.class)
-                .equalTo("transactionID", sale.getTransactionID())
-                .sort("transactionID", Sort.DESCENDING)
+                .equalTo("_id", sale.getTransactionID())
+                .sort("_id", Sort.DESCENDING)
                 .findFirst();
         SalesTransaction sales = new SalesTransaction(
-                query.getTransactionID(),
+                query.get_id(),
                 query.getTransactionNo(),
                 query.getDateAndTime(),
                 query.getCashier(),

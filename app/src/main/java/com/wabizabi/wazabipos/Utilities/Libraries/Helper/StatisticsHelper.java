@@ -31,7 +31,9 @@ public class StatisticsHelper {
             Map.Entry<String, Integer> a = item.get(i);
             String b = a.getKey();
             int c = a.getValue();
-            listOfPopItems.add(new PopItem(b, c));
+            if(b != null){
+                listOfPopItems.add(new PopItem(b, c));
+            }
         }
         return listOfPopItems;
     }
@@ -49,7 +51,9 @@ public class StatisticsHelper {
                 : 4;
         for(int i = 0 ; i < counter ; i++){
             RealmPopItem query = queriedPopItems.get(i);
-            listOfPopItems.add(new PopItem(query.getName(), query.getFrequency()));
+            if(query != null) {
+                listOfPopItems.add(new PopItem(query.getName(), query.getFrequency()));
+            }
         }
         return listOfPopItems;
     }
@@ -65,7 +69,9 @@ public class StatisticsHelper {
                 : 5;
         for(int i = 0 ; i < counter ; i++){
             RealmPopItem query = queriedPopItems.get(i);
-            listOfPopItems.add(new PopItem(query.getName(), query.getFrequency()));
+            if(query != null) {
+                listOfPopItems.add(new PopItem(query.getName(), query.getFrequency()));
+            }
         }
         return listOfPopItems;
     }

@@ -15,6 +15,7 @@ import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.BackgroundThreads.WorkOrders;
+import com.wabizabi.wazabipos.Utilities.Testing.TestData;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -40,9 +41,9 @@ public class M03_LoadResources extends AppCompatActivity {
         three = new Handler();
         boolean checkComplete = checkForData();
         if(checkComplete){
-            zero.postDelayed(()->{ loading.setText("L O A D I N G ."); WorkOrders.startAlgorithm(this);
+            zero.postDelayed(()->{ loading.setText("L O A D I N G .");
                 one.postDelayed(()->{ loading.setText("L O A D I N G . .");
-                    two.postDelayed(()->{ loading.setText("L O A D I N G . . .");
+                    two.postDelayed(()->{ loading.setText("L O A D I N G . . ."); WorkOrders.startAlgorithm(this);
                         three.postDelayed(()->{ WorkOrders.storeFPData(this); startActivity(new Intent(this, M04_Main.class)); finish();
                         },1000);
                     },1000);
@@ -53,17 +54,10 @@ public class M03_LoadResources extends AppCompatActivity {
 
     private boolean checkForData(){
         boolean isFinished = false;
-        try(Realm realm = Realm.getDefaultInstance()){
-            RealmResults<RealmMenuCategory> queriedItems = realm.where(RealmMenuCategory.class).findAll();
-            if(queriedItems.isEmpty()){
-                boolean connectionExists = checkIfNetworkIsAvailable();
-                if(connectionExists){
-                    DB.fetchDataFromTheCloud();
-                    isFinished = true;
-                }
-            } else {
-                isFinished = true;
-            }
+        boolean connectionExists = checkIfNetworkIsAvailable();
+        if(connectionExists){
+            DB.fetchDataFromTheCloud();
+            isFinished = true;
         }
         return isFinished;
     }

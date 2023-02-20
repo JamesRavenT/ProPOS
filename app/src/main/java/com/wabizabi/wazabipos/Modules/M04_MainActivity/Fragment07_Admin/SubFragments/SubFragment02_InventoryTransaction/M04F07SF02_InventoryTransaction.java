@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.InventoryTransaction;
-import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment02_InventoryTransaction.Adapters.M04F07SF02_InventoryTransactionRVA;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
@@ -384,7 +383,7 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
 
         //On Yes
         invTransDG02_YesBtn.setOnClickListener(yes -> {
-            OpenTransactionsInstance.toVoidTransaction(transaction);
+            OpenTransactionsInstance.toVoidInventoryTransaction(transaction);
             searchbar.removeTextChangedListener(searchEngine);
             load_SearchBar();
             load_RecyclerView("Descending", "Any", "Any", "Any", "Any");

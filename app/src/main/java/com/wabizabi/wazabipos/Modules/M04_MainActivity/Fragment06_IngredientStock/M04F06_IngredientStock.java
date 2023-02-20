@@ -582,7 +582,7 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
         stockDG07_UpdateBtn.setOnClickListener(update -> {
             int newAmount = Integer.parseInt(stockDG07_ItemQty.getText().toString());
             if(newAmount != amount){
-                OpenTransactionsInstance.toCreateInventory(name, amount, newAmount, measurement);
+                OpenTransactionsInstance.toCreateInventoryTransaction(name, amount, newAmount, measurement);
                 OpenStocksInstance.toUpdateAmount(category, name, newAmount);
                 stockRVA.notifyDataSetChanged();
                 stockDG07.dismiss();

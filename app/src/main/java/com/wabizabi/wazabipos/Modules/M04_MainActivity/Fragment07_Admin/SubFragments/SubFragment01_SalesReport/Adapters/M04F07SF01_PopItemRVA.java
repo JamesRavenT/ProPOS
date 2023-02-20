@@ -63,15 +63,17 @@ public class M04F07SF01_PopItemRVA extends RecyclerView.Adapter<M04F07SF01_PopIt
         public void loadFunctionalities(PopItem item, int position){
             //Load Details
             RealmMenuItem i = realm.where(RealmMenuItem.class).equalTo("itemWebName", item.getName()).findFirst();
-            int icon = i.getItemIcon();
-            String frequency = "「　Sold " + item.getFrequency() + " times　」";
-            String name = item.getName();
+            if(i != null){
+                int icon = i.getItemIcon();
+                String frequency = "「　Sold " + item.getFrequency() + " times　」";
+                String name = item.getName();
 
-            //Set Views
-            this.position = position;
-            IconLoader.setMenuIcon(itemIcon, icon);
-            itemFrequency.setText(frequency);
-            itemName.setText(name);
+                //Set Views
+                this.position = position;
+                IconLoader.setMenuIcon(itemIcon, icon);
+                itemFrequency.setText(frequency);
+                itemName.setText(name);
+            }
         }
     }
 }

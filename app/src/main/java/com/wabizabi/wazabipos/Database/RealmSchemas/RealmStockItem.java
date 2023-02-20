@@ -8,7 +8,7 @@ import io.realm.annotations.PrimaryKey;
 public class RealmStockItem extends RealmObject {
     @PrimaryKey
     ObjectId _id;
-    int itemImage;
+    int itemIcon;
     String itemCategory;
     String itemName;
     int itemAmount;
@@ -17,22 +17,30 @@ public class RealmStockItem extends RealmObject {
     public RealmStockItem(){}
 
     public RealmStockItem(int itemImage, String itemCategory, String itemName, int itemAmount, String itemUnit) {
-        this.itemImage = itemImage;
+        this.itemIcon = itemImage;
         this.itemCategory = itemCategory;
         this.itemName = itemName;
         this.itemAmount = itemAmount;
         this.unitOfMeasurement = itemUnit;
     }
 
-    public int getItemImage() { return itemImage; }
+    public int getItemIcon() { return itemIcon; }
     public String getItemCategory() { return itemCategory; }
     public String getItemName() { return itemName; }
     public int getItemAmount() { return itemAmount; }
     public String getUnitOfMeasurement() { return unitOfMeasurement; }
 
-    public void setItemImage(int itemImage) { this.itemImage = itemImage; }
+    public void setItemIcon(int itemIcon) { this.itemIcon = itemIcon; }
     public void setItemCategory(String itemCategory) { this.itemCategory = itemCategory; }
     public void setItemName(String itemName) { this.itemName = itemName; }
     public void setItemAmount(int itemAmount) { this.itemAmount = itemAmount; }
     public void setUnitOfMeasurement(String unitOfMeasurement) { this.unitOfMeasurement = unitOfMeasurement; }
+
+    public ObjectId get_id() {
+        return _id;
+    }
+
+    public void set_id(ObjectId _id) {
+        this._id = _id;
+    }
 }
