@@ -16,29 +16,9 @@ import io.realm.RealmResults;
 
 public class ListHelper {
 
-    //MENU CATEGORY | STRING
-    public static List<String> getMenuCategoryNames(Realm realm){
-        List<String> listOfCategories = new ArrayList<>();
-        RealmResults<RealmMenuCategory> queriedCategories = realm
-                .where(RealmMenuCategory.class)
-                .findAll();
-        for(RealmMenuCategory query : queriedCategories){
-            listOfCategories.add(query.getCategoryName());
-        }
-        return listOfCategories;
-    }
 
-    //MENU ITEMS | STRING
-    public static List<String> getMenuItemNames(Realm realm) {
-        List<String> listOfItems = new ArrayList<>();
-        RealmResults<RealmMenuItem> queriedItems = realm
-                .where(RealmMenuItem.class)
-                .findAll();
-        for(RealmMenuItem query : queriedItems){
-            listOfItems.add(query.getItemPOSName());
-        }
-        return listOfItems;
-    }
+
+
 
     //TABLE | STRING
     public static List<String> getTableNames(Realm realm) {

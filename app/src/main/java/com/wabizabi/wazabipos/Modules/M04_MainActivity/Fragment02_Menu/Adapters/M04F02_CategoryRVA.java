@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Helpers.MIHelper;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
@@ -89,14 +90,14 @@ public class M04F02_CategoryRVA extends RecyclerView.Adapter<M04F02_CategoryRVA.
 
             //On Edit Btn
             editBtn.setOnClickListener(edit -> {
-                dialogLoader.load_DGContents(new DialogBundle(4, category));
+                dialogLoader.load_DGContents(new DialogBundle(3, category));
             });
 
             //On View Btn
             viewBtn.setOnClickListener(click -> {
                 currentFragment = "Menu02";
-                List<MenuItem> listOfItems = RVHelper.getMenuItems(realm, name);
-                itemRV.load_RVContents(new RVBundle(name, listOfItems));
+                List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, name);
+                itemRV.load_RVContents(new RVBundle(category.getCategoryName(), listOfItems));
             });
         }
     }

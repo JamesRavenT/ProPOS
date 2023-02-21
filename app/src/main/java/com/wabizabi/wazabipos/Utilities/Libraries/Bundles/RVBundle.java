@@ -2,6 +2,7 @@ package com.wabizabi.wazabipos.Utilities.Libraries.Bundles;
 
 
 
+import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockItem;
 
@@ -25,6 +26,7 @@ public class RVBundle {
 
     public String getMenuCategory() { return menuCategory; }
     public String getStockCategory() { return stockCategory; }
+
     public List<MenuItem> getListOfMenuItems() { return listOfMenuItems; }
     public List<StockItem> getListOfStockItems() { return listOfStockItems; }
 }

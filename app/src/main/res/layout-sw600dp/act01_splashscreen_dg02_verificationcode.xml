@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M01D02_Container"
-        android:layout_width="650dp"
+        android:layout_width="550dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:elevation="10dp"

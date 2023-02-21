@@ -1,14 +1,18 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,10 +27,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.Instances.OpenMenuInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Adapters.M04F02D01_SelectIconRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Adapters.M04F02D07_CombinationRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Adapters.M04F02_CategoryRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Adapters.M04F02_ItemRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Helpers.MCHelper;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Helpers.MIHelper;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
@@ -35,7 +42,6 @@ import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
@@ -156,9 +162,11 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
     }
 
     private void load_ItemCreation(RVBundle bundle){
+        String categoryName = bundle.getMenuCategory();
+        RealmMenuCategory query = realm.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
         createBtn.setOnClickListener(create -> {
             if(currentFragment.equals("Menu02")){
-                load_DG05Functionalities(new DialogBundle(3, new MenuItem(0, bundle.getMenuCategory(), "", "", 0.00), bundle));
+                load_DG05Functionalities(new DialogBundle(3, new MenuItem(query.getCategoryIcon(), query.getCategoryName(), "", "", 0.00), bundle));
                 menuDG05.show();
             }
         });
@@ -166,22 +174,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
 
     private void load_SearchBar(){
         searchbar.setText("");
-        searchbar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void afterTextChanged(Editable input) {
-                if(currentFragment.equals("Menu01")){
-                    load_FilteredCategoryRV(input.toString());
-                } else {
-                    load_FilteredItemRV(input.toString());
-                }
-            }
-        });
+        searchbar.addTextChangedListener(searchEngine);
     }
 
     private void load_CategoryRV(){
@@ -189,7 +182,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         displayText.setText("「 CATEGORIES 」");
 
         //Initialize RecyclerView
-        listOfMenuCategories = RVHelper.getMenuCategories(realm);
+        listOfMenuCategories = MCHelper.getMenuCategories(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         menuRVA = new M04F02_CategoryRVA(getActivity(), realm, searchbar, listOfMenuCategories, this, this);
@@ -199,7 +192,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
 
     private void load_FilteredCategoryRV(String input){
         //Initialize RecyclerView
-        List<MenuCategory> filteredCategory = RVHelper.getFilteredMenuCategories(listOfMenuCategories, input);
+        List<MenuCategory> filteredCategory = MCHelper.getFilteredMenuCategories(listOfMenuCategories, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         menuRVA = new M04F02_CategoryRVA(getActivity(), realm, searchbar, filteredCategory, this, this);
@@ -209,7 +202,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
 
     private void load_ItemRV(RVBundle bundle){
         //Initialize RV Text
-        displayText.setText("「 " + bundle.getMenuCategory() + " 」");
+        displayText.setText("「 " + bundle.getMenuCategory().toUpperCase() + " 」");
 
         //Initialize RecyclerView
         listOfMenuItems = bundle.getListOfMenuItems();
@@ -225,7 +218,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
 
     private void load_FilteredItemRV(String input){
         //Initialize RecyclerView
-        List<MenuItem> filteredItem = RVHelper.getFilteredMenuItems(listOfMenuItems, input);
+        List<MenuItem> filteredItem = MIHelper.getFilteredMenuItems(listOfMenuItems, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         menuRVA = new M04F02_ItemRVA(getActivity(), realm, filteredItem, this);
@@ -297,13 +290,12 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         menuDG08_YesBtn = menuDG08.findViewById(R.id.M04F02D08_YesBtn);
         menuDG08_NoBtn = menuDG08.findViewById(R.id.M04F02D08_NoBtn);
         closeDG08Btn = menuDG08.findViewById(R.id.M04F02D08_CloseDGBtn);
-
     }
 
     //Select Icon
     private void load_DG01Functionalities(DialogBundle bundle){
         //Initialize RecyclerView
-        List<Integer> icons = RVHelper.getMenuIcons();
+        List<Integer> icons = MCHelper.getMenuIcons();
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         menuDG01_RecyclerViewAdapter = new M04F02D01_SelectIconRVA(getActivity(), realm, menuDG01, bundle, icons, this);
@@ -316,7 +308,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
                 load_DG02Functionalities(bundle);
                 menuDG01.dismiss();
                 menuDG02.show();
-            } else if(bundle.getDialogDestinationNo() == 4){
+            } else if(bundle.getDialogDestinationNo() == 3){
                 load_DG03Functionalities(bundle);
                 menuDG01.dismiss();
                 menuDG03.show();
@@ -352,13 +344,12 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
             String input = menuDG02_CategoryNameInput.getText().toString();
 
             //Check String
-            List<String> listOfCategories = ListHelper.getMenuCategoryNames(realm);
+            List<String> listOfCategories = MCHelper.getMenuCategoryNames(realm);
             if(listOfCategories.contains(input)){
                 menuDG02_CategoryNameInput.setError("Name already exists.");
             } else {
                 OpenMenuInstance.toCreateCategory(image, input);
                 load_CategoryRV();
-                menuDG02_CategoryNameInput.setText("");
                 menuDG02.dismiss();
             }
         });
@@ -378,6 +369,9 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         //Set Image and Name;
         IconLoader.setMenuIcon(menuDG03_CategoryImg, image);
         menuDG03_CategoryNameInput.setText(name);
+        int focus = menuDG03_CategoryNameInput.getText().toString().length();
+        menuDG03_CategoryNameInput.requestFocus();
+        menuDG03_CategoryNameInput.setSelection(focus);
 
         //On Click SelectIconButton
         menuDG03_SelectIconBtn.setOnClickListener(select -> {
@@ -388,9 +382,9 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         //On Apply Button
         menuDG03_ApplyChangesBtn.setOnClickListener(apply -> {
             String input = menuDG03_CategoryNameInput.getText().toString();
-            List<String> listOfCategories = ListHelper.getMenuCategoryNames(realm);
+            List<String> listOfCategories = MCHelper.getMenuCategoryNames(realm);
             if(name.equals(input)){
-                ToastHelper.show(getActivity(), "No Changes were made");
+                OpenMenuInstance.toUpdateCategory(name, image, input);
                 menuDG03_CategoryNameInput.setText("");
                 menuDG03.dismiss();
             } else if(listOfCategories.contains(input) && !name.equals(input)){
@@ -413,6 +407,10 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         //On Close Button
         closeDG03Btn.setOnClickListener(close -> {
             menuDG03.dismiss();
+        });
+
+        menuDG03.setOnDismissListener(dismiss -> {
+            load_CategoryRV();
         });
     }
 
@@ -449,27 +447,32 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         //Unpack Bundle
         int image = bundle.getMenuItem().getItemIcon();
         String category = bundle.getMenuItem().getItemCategory();
-        RVBundle items = bundle.getRvBundle();
 
         //Set Image and Name
         IconLoader.setMenuIcon(menuDG05_ItemImg, image);
-        menuDG06_ItemWebNameInput.setText("");
+        menuDG05_ItemWebNameInput.setText("");
         menuDG05_ItemPOSNameInput.setText("");
         menuDG05_ItemPriceInput.setText("");
+
+        int focus = menuDG05_ItemWebNameInput.getText().toString().length();
+        menuDG05_ItemWebNameInput.requestFocus();
+        menuDG05_ItemWebNameInput.setSelection(focus);
 
         //On Confirm Button
         menuDG05_ConfirmBtn.setOnClickListener(create -> {
             String nameWebInput = menuDG05_ItemWebNameInput.getText().toString();
             String namePOSInput = menuDG05_ItemPOSNameInput.getText().toString();
             String priceInput = menuDG05_ItemPriceInput.getText().toString();
-            List<String> listOfPOSItems = ListHelper.getMenuItemNames(realm);
-            if(listOfPOSItems.contains(namePOSInput)){
+            List<String> listOfWebItems = MIHelper.getMenuWebItemNames(realm);
+            List<String> listOfPOSItems = MIHelper.getMenuPOSItemNames(realm);
+            if(listOfWebItems.contains(nameWebInput)){
+                menuDG05_ItemWebNameInput.setError("Name already exists.");
+            } else if(listOfPOSItems.contains(namePOSInput)){
                 menuDG05_ItemPOSNameInput.setError("Name already exists.");
             } else {
-                OpenMenuInstance.toCreateItem(image, category, namePOSInput, namePOSInput, Double.parseDouble(priceInput));
-                load_ItemRV(items);
-                menuDG05_ItemPOSNameInput.setText("");
-                menuDG05_ItemPriceInput.setText("");
+                OpenMenuInstance.toCreateItem(image, category, nameWebInput, namePOSInput, Double.parseDouble(priceInput));
+                List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
+                load_ItemRV(new RVBundle(category, listOfItems));
                 menuDG05.dismiss();
             }
         });
@@ -485,36 +488,58 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         //Unpack Bundle
         int image = bundle.getMenuItem().getItemIcon();
         String category = bundle.getMenuItem().getItemCategory();
-        String name = bundle.getMenuItem().getItemPOSName();
-        String price = StringHelper.convertToCurrency(bundle.getMenuItem().getItemPrice());
-        RVBundle items = bundle.getRvBundle();
+        String webName = bundle.getMenuItem().getItemWebName();
+        String posName = bundle.getMenuItem().getItemPOSName();
+        String price = String.valueOf(bundle.getMenuItem().getItemPrice());
 
         //Set Image and Name;
         IconLoader.setMenuIcon(menuDG06_ItemImg, image);
-        menuDG06_ItemPOSNameInput.setText(name);
-        menuDG06_ItemPriceInput.setText("₱" + price);
+        menuDG06_ItemWebNameInput.setText(webName);
+        menuDG06_ItemPOSNameInput.setText(posName);
+        menuDG06_ItemPriceInput.setText(price);
+
+        int focus = menuDG06_ItemWebNameInput.getText().toString().length();
+        menuDG06_ItemWebNameInput.requestFocus();
+        menuDG06_ItemWebNameInput.setSelection(focus);
 
         //On Apply Button
         menuDG06_ApplyChangesBtn.setOnClickListener(apply -> {
-            String nameInput = menuDG06_ItemPOSNameInput.getText().toString();
+            String webNameInput = menuDG06_ItemWebNameInput.getText().toString();
+            String posNameInput = menuDG06_ItemPOSNameInput.getText().toString();
             String priceInput = menuDG06_ItemPriceInput.getText().toString();
-            List<String> listOfItems = ListHelper.getMenuItemNames(realm);
-            if(name.equals(nameInput) && price.equals(priceInput)){
+            List<String> listOfWebItems = MIHelper.getMenuWebItemNames(realm);
+            List<String> listOfPOSItems = MIHelper.getMenuPOSItemNames(realm);
+            if(webName.equals(webNameInput) && posName.equals(posNameInput) && price.equals(priceInput)){
                 ToastHelper.show(getActivity(), "No changes were made");
                 menuDG06.dismiss();
-            } else if(name.equals(nameInput) && !price.equals(priceInput)){
-                OpenMenuInstance.toUpdateItem(name, image, category, nameInput, nameInput, Double.parseDouble(priceInput));
-                load_ItemRV(items);
-                menuDG06_ItemPOSNameInput.setText("");
-                menuDG06_ItemPriceInput.setText("");
+            } else if(webName.equals(webNameInput) && posName.equals(posNameInput) && !price.equals(priceInput)){
+                OpenMenuInstance.toUpdateItem(posName, image, category, webNameInput, posNameInput, Double.parseDouble(priceInput));
+                List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
+                load_ItemRV(new RVBundle(category, listOfItems));
                 menuDG06.dismiss();
-            } else if(listOfItems.contains(nameInput)){
+            } else if(webName.equals(webNameInput) && !posName.equals(posNameInput) && price.equals(priceInput)){
+                OpenMenuInstance.toUpdateItem(posName, image, category, webNameInput, posNameInput, Double.parseDouble(priceInput));
+                List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
+                load_ItemRV(new RVBundle(category, listOfItems));
+                menuDG06.dismiss();
+            } else if(!webName.equals(webNameInput) && posName.equals(posNameInput) && price.equals(priceInput)){
+                OpenMenuInstance.toUpdateItem(posName, image, category, webNameInput, posNameInput, Double.parseDouble(priceInput));
+                List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
+                load_ItemRV(new RVBundle(category, listOfItems));
+                menuDG06.dismiss();
+            } else if(!webName.equals(webNameInput) && posName.equals(posNameInput) && !price.equals(priceInput)){
+                OpenMenuInstance.toUpdateItem(posName, image, category, webNameInput, posNameInput, Double.parseDouble(priceInput));
+                List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
+                load_ItemRV(new RVBundle(category, listOfItems));
+                menuDG06.dismiss();
+            } else if(listOfWebItems.contains(webName)){
+                menuDG06_ItemWebNameInput.setError("Name already exists");
+            } else if(listOfPOSItems.contains(posNameInput)){
                 menuDG06_ItemPOSNameInput.setError("Name already exists");
             } else {
-                OpenMenuInstance.toUpdateItem(name, image, category, nameInput, nameInput, Double.parseDouble(priceInput));
-                load_ItemRV(items);
-                menuDG06_ItemPOSNameInput.setText("");
-                menuDG06_ItemPriceInput.setText("");
+                OpenMenuInstance.toUpdateItem(posName, image, category, posNameInput, posNameInput, Double.parseDouble(priceInput));
+                List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
+                load_ItemRV(new RVBundle(category, listOfItems));
                 menuDG06.dismiss();
             }
         });
@@ -537,15 +562,14 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
     //View Item
     private void load_DG07Functionalities(DialogBundle bundle){
         //Unpack Bundle
-        ObjectId id = bundle.getMenuItem().getId();
         int image = bundle.getMenuItem().getItemIcon();
-        String name = bundle.getMenuItem().getItemPOSName();
+        String posName = bundle.getMenuItem().getItemWebName();
         String price = StringHelper.convertToCurrency(bundle.getMenuItem().getItemPrice());
 
         //Load Item Details
         IconLoader.setMenuIcon(menuDG07_ItemImage, image);
-        menuDG07_ItemPOSName.setText(name);
-        menuDG07_ItemPrice.setText("₱" + price);
+        menuDG07_ItemPOSName.setText(posName);
+        menuDG07_ItemPrice.setText(price);
 
         //On Edit Button
         menuDG07_EditBtn.setOnClickListener(edit -> {
@@ -555,7 +579,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         });
 
         //Initialize RecyclerView
-        List<List<String>> listOfCombinations = RVHelper.getPopularCombinations(name);
+        List<List<String>> listOfCombinations = MIHelper.getPopularCombinations(posName);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         menuDG07_RecyclerViewAdapter = new M04F02D07_CombinationRVA(listOfCombinations);
@@ -573,14 +597,14 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         //Unpack Bundle
         String category = bundle.getMenuItem().getItemCategory();
         String name = bundle.getMenuItem().getItemPOSName();
-        RVBundle items = bundle.getRvBundle();
 
         //Set Item Name
         menuDG08_ItemName.setText(name);
         //On Yes Btn
         menuDG08_YesBtn.setOnClickListener(delete -> {
             OpenMenuInstance.toDeleteItem(category, name);
-            load_ItemRV(items);
+            List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
+            load_ItemRV(new RVBundle(category, listOfItems));
             menuDG08.dismiss();
         });
 
@@ -599,8 +623,31 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         });
     }
 
+    protected TextWatcher searchEngine = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable input) {
+            if(currentFragment.equals("Menu01")){
+                load_FilteredCategoryRV(input.toString());
+            } else {
+                load_FilteredItemRV(input.toString());
+            }
+        }
+    };
+
     @Override
     public void load_RVContents(RVBundle bundle) {
+        searchbar.removeTextChangedListener(searchEngine);
+        load_SearchBar();
         load_ItemRV(bundle);
     }
 
@@ -612,11 +659,11 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
                 load_DG02Functionalities(bundle);
                 menuDG02.show();
                 break;
-            case 4:
+            case 3:
                 load_DG03Functionalities(bundle);
                 menuDG03.show();
                 break;
-            case 6:
+            case 7:
                 load_DG07Functionalities(bundle);
                 menuDG07.show();
                 break;

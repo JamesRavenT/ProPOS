@@ -41,6 +41,7 @@ public class M03_LoadResources extends AppCompatActivity {
         three = new Handler();
         boolean checkComplete = checkForData();
         if(checkComplete){
+            TestData.preloadTransactions();
             zero.postDelayed(()->{ loading.setText("L O A D I N G .");
                 one.postDelayed(()->{ loading.setText("L O A D I N G . .");
                     two.postDelayed(()->{ loading.setText("L O A D I N G . . ."); WorkOrders.startAlgorithm(this);

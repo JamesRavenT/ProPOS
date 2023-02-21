@@ -19,6 +19,7 @@ public class OpenUserInstance {
                 account.setEmail(email);
                 account.setUserName(username);
                 account.setPassword(Integer.parseInt(password));
+                account.setVerifiedUser(true);
                 account.setInvTransactionLocal(0);
                 account.setSalesTransactionLocal(0);
                 account.setInvTransactionCloud(0);

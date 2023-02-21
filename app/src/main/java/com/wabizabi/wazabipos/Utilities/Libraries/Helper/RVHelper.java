@@ -30,28 +30,24 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 
 public class RVHelper {
-
-    //MENU ICONS
-    public static List<Integer> getMenuIcons(){
-        List<Integer> icons = new ArrayList<>();
-        int counter = 0;
-        while (counter != 9){
-            icons.add(counter);
-            counter++;
-        }
-        return icons;
+    //MENU CATEGORY | SIZE
+    public static String getMenuCategorySize(Realm realm, String categoryName){
+        RealmResults<RealmMenuItem> queriedItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", categoryName).findAll();
+        String categorySize = "(" + queriedItems.size() + ") items";
+        return categorySize;
     }
-    //MENU CATEGORY | OBJECT
+
+    //MENU CATEGORY | RV
     public static List<MenuCategory> getMenuCategories(Realm realm){
         List<MenuCategory> listOfCategories = new ArrayList<>();
         RealmResults<RealmMenuCategory> queriedCategories = realm.where(RealmMenuCategory.class).sort("categoryName").findAll();
         for(RealmMenuCategory query : queriedCategories){
-            listOfCategories.add(new MenuCategory(query.getCategoryIcon(), query.getCategoryName()));
+            listOfCategories.add(new MenuCategory(query.getCategoryIcon(), query.getCategoryName(), query.getLastUpdatedID(), query.getLastUpdatedText()));
         }
         return listOfCategories;
     }
 
-    //MENU CATEGORY | OBJECT FILTERED
+    //MENU CATEGORY | RV FILTERED
     public static List<MenuCategory> getFilteredMenuCategories(List<MenuCategory> listOfCategories, String input){
         List<MenuCategory> listOfFilteredCategories = new ArrayList<>();
         for(MenuCategory category : listOfCategories){
@@ -60,29 +56,6 @@ public class RVHelper {
             }
         }
         return listOfFilteredCategories;
-    }
-
-    //MENU CATEGORY | SIZE
-    public static String getMenuCategorySize(Realm realm, String categoryName){
-        RealmResults<RealmMenuItem> queriedItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", categoryName).findAll();
-        String categorySize = "(" + queriedItems.size() + ") items";
-        return categorySize;
-    }
-
-    //MENU ITEMS | ALL
-    public static List<MenuItem> getAllMenuItems(Realm realm){
-        List<MenuItem> listOfItems = new ArrayList<>();
-        RealmResults<RealmMenuItem> queriedItems = realm.where(RealmMenuItem.class).findAll();
-        for(RealmMenuItem query : queriedItems){
-            listOfItems.add(
-                    new MenuItem(query.get_id(),
-                            query.getItemIcon(),
-                            query.getItemCategory(),
-                            query.getItemWebName(),
-                            query.getItemPOSName(),
-                            query.getItemPrice()));
-        }
-        return listOfItems;
     }
 
     //MENU ITEMS | OBJECT
@@ -110,19 +83,6 @@ public class RVHelper {
             }
         }
         return listOfFilteredItems;
-    }
-
-    //MENU ITEMS | POPULAR COMBINATIONS
-    public static List<List<String>> getPopularCombinations(String name){
-        List<List<String>> listOfCombinations = new ArrayList<>();
-        for(Map.Entry<String, Map<List<String>, Integer>> list : fpList.entrySet()){
-            if(name.equals(list.getKey())){
-                for(List<String> itemsets : list.getValue().keySet()){
-                    listOfCombinations.add(itemsets);
-                }
-            }
-        }
-        return listOfCombinations;
     }
 
     //TABLE ITEMS | OBJECT

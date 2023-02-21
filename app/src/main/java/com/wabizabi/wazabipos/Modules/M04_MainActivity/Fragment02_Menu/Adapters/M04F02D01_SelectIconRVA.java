@@ -78,14 +78,9 @@ public class M04F02D01_SelectIconRVA extends RecyclerView.Adapter<M04F02D01_Sele
 
             //On Select Btn
             selectBtn.setOnClickListener(select -> {
-                switch(bundle.getDialogDestinationNo()){
-                    case 2:
-                    case 4:
-                        bundle.getMenuCategory().setCategoryImage(icon);
-                        dialogLoader.load_DGContents(bundle);
-                        dialog.dismiss();
-                        break;
-                }
+                bundle.getMenuCategory().setCategoryImage(icon);
+                dialogLoader.load_DGContents(bundle);
+                dialog.dismiss();
             });
         }
     }

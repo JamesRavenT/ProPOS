@@ -10,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
@@ -72,18 +74,18 @@ public class M04F02_ItemRVA extends RecyclerView.Adapter<M04F02_ItemRVA.ViewHold
         public void loadFunctionalities(MenuItem item, int position){
             //Load Details
             int image = item.getItemIcon();
-            String name = StringHelper.limitDisplay(item.getItemPOSName(), 0, 18, 15);
+            String name = StringHelper.limitDisplay(item.getItemWebName(), 0, 22, 19);
             String price = StringHelper.convertToCurrency(item.getItemPrice());
 
             //Set Views
             this.position = position;
             IconLoader.setMenuIcon(itemImage, image);
             itemName.setText(name);
-            itemPrice.setText("₱" + price);
+            itemPrice.setText(price);
 
             //On Container
             itemContainer.setOnClickListener(click -> {
-                dialogLoader.load_DGContents(new DialogBundle(6, item, new RVBundle(item.getItemCategory(), listOfItems)));
+                dialogLoader.load_DGContents(new DialogBundle(7, item));
             });
         }
     }

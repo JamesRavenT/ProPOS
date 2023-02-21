@@ -2,15 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/M04F02_Layout"
+    android:id="@+id/M04F04_Layout"
     android:background="@color/dirtywhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/M04F02_HeaderLayout"
+        android:id="@+id/M04F04_HeaderLayout"
         android:layout_width="0dp"
-        android:layout_height="290dp"
+        android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -19,9 +19,9 @@
         app:layout_constraintVertical_bias="0.0">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/M04F02_HeaderContainer"
+            android:id="@+id/M04F04_HeaderContainer"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="300dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="10dp"
@@ -37,12 +37,12 @@
             app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M04F02_HeaderContainerLayout"
+                android:id="@+id/M04F04_HeaderContainerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/M04F02_ManagementText"
+                    android:id="@+id/M04F04_ManagementText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -50,7 +50,7 @@
                     android:fontFamily="@font/nunito_sans_light"
                     android:text="Management"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
+                    android:textSize="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -59,59 +59,61 @@
                     app:layout_constraintVertical_bias="0.082" />
 
                 <TextView
-                    android:id="@+id/M04F02_MenuText"
+                    android:id="@+id/M04F04_DiscountsText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:fontFamily="@font/nunito_sans_light"
-                    android:text="Menu"
+                    android:text="Discounts"
                     android:textColor="@color/white"
-                    android:textSize="45dp"
+                    android:textSize="75dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/M04F02_ManagementText"
+                    app:layout_constraintTop_toBottomOf="@+id/M04F04_ManagementText"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <ImageView
-                    android:id="@+id/M04F02_CreateBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/M04F04_CreateBtn"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.959"
+                    app:layout_constraintHorizontal_bias="0.978"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.93"
+                    app:layout_constraintVertical_bias="0.928"
                     app:srcCompat="@drawable/icon_button_add_white" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/M04F02_SearchBarContainer"
+            android:id="@+id/M04F04_SearchBarContainer"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="75dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/white"
             app:cardCornerRadius="5dp"
             app:cardElevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/M04F02_HeaderContainer">
+            app:layout_constraintTop_toBottomOf="@+id/M04F04_HeaderContainer">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M04F02_SearchBarContainerLayout"
+                android:id="@+id/M04F04_SearchBarContainerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_shape_rectangle_stroke_dark_marg05p">
 
                 <EditText
-                    android:id="@+id/M04F02_SearchBarInput"
+                    android:id="@+id/M04F04_SearchBarInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -122,17 +124,17 @@
                     android:fontFamily="@font/nunito_sans_light"
                     android:hint="Search . . ."
                     android:textColor="@color/wabizabi"
-                    android:textSize="20dp"
+                    android:textSize="35dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/M04F02_SearchBarImage"
+                    app:layout_constraintEnd_toStartOf="@+id/M04F04_SearchBarImage"
+                    app:layout_constraintHorizontal_bias="0.019"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.521" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/M04F02_SearchBarImage"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:id="@+id/M04F04_SearchBarImage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginEnd="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -145,42 +147,26 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/M04F02_GroupLayout"
+        android:id="@+id/M04F04_GroupLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/M04F02_HeaderLayout">
-
-        <TextView
-            android:id="@+id/M04F02_RecyclerViewItemText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/nunito_sans"
-            android:text="「  CATEGORIES/ITEMS  」"
-            android:textColor="@color/wabizabi"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/M04F04_HeaderLayout">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/M04F02_RecyclerView"
+            android:id="@+id/M04F04_RecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/M04F02_RecyclerViewItemText"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
