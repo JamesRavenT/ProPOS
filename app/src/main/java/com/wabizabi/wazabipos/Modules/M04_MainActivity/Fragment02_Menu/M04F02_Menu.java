@@ -1,18 +1,14 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,12 +36,9 @@ import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
-
-import org.bson.types.ObjectId;
 
 import java.util.List;
 
@@ -166,7 +159,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         RealmMenuCategory query = realm.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
         createBtn.setOnClickListener(create -> {
             if(currentFragment.equals("Menu02")){
-                load_DG05Functionalities(new DialogBundle(3, new MenuItem(query.getCategoryIcon(), query.getCategoryName(), "", "", 0.00), bundle));
+                load_DG05Functionalities(new DialogBundle(5, new MenuItem(query.getCategoryIcon(), query.getCategoryName(), "", "", 0.00), bundle));
                 menuDG05.show();
             }
         });
@@ -323,7 +316,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         String name = bundle.getMenuCategory().getCategoryName();
 
         //Set Image and Name;
-        IconLoader.setMenuIcon(menuDG02_CategoryImg, image);
+        IconHelper.setMenuIcon(menuDG02_CategoryImg, image);
         menuDG02_CategoryNameInput.setText(name);
 
         //On Click SelectIconButton
@@ -367,7 +360,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         String name = bundle.getMenuCategory().getCategoryName();
 
         //Set Image and Name;
-        IconLoader.setMenuIcon(menuDG03_CategoryImg, image);
+        IconHelper.setMenuIcon(menuDG03_CategoryImg, image);
         menuDG03_CategoryNameInput.setText(name);
         int focus = menuDG03_CategoryNameInput.getText().toString().length();
         menuDG03_CategoryNameInput.requestFocus();
@@ -392,7 +385,6 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
             } else {
                 OpenMenuInstance.toUpdateCategory(name, image, input);
                 load_CategoryRV();
-                menuDG03_CategoryNameInput.setText("");
                 menuDG03.dismiss();
             }
         });
@@ -449,7 +441,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         String category = bundle.getMenuItem().getItemCategory();
 
         //Set Image and Name
-        IconLoader.setMenuIcon(menuDG05_ItemImg, image);
+        IconHelper.setMenuIcon(menuDG05_ItemImg, image);
         menuDG05_ItemWebNameInput.setText("");
         menuDG05_ItemPOSNameInput.setText("");
         menuDG05_ItemPriceInput.setText("");
@@ -493,7 +485,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         String price = String.valueOf(bundle.getMenuItem().getItemPrice());
 
         //Set Image and Name;
-        IconLoader.setMenuIcon(menuDG06_ItemImg, image);
+        IconHelper.setMenuIcon(menuDG06_ItemImg, image);
         menuDG06_ItemWebNameInput.setText(webName);
         menuDG06_ItemPOSNameInput.setText(posName);
         menuDG06_ItemPriceInput.setText(price);
@@ -567,7 +559,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         String price = StringHelper.convertToCurrency(bundle.getMenuItem().getItemPrice());
 
         //Load Item Details
-        IconLoader.setMenuIcon(menuDG07_ItemImage, image);
+        IconHelper.setMenuIcon(menuDG07_ItemImage, image);
         menuDG07_ItemPOSName.setText(posName);
         menuDG07_ItemPrice.setText(price);
 
@@ -610,15 +602,11 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
 
         //On No Btn
         menuDG08_NoBtn.setOnClickListener(delete -> {
-            load_DG07Functionalities(bundle);
-            menuDG07.show();
             menuDG08.dismiss();
         });
 
         //On Close Btn
         closeDG08Btn.setOnClickListener(close -> {
-            load_DG07Functionalities(bundle);
-            menuDG07.show();
             menuDG08.dismiss();
         });
     }

@@ -55,6 +55,7 @@
                 android:id="@+id/M04F06D05_CreateItemText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
                 android:text="Create Item"

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.PopItem;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.R;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 
 import java.util.List;
@@ -70,7 +70,7 @@ public class M04F07SF01_PopItemRVA extends RecyclerView.Adapter<M04F07SF01_PopIt
 
                 //Set Views
                 this.position = position;
-                IconLoader.setMenuIcon(itemIcon, icon);
+                IconHelper.setMenuIcon(itemIcon, icon);
                 itemFrequency.setText(frequency);
                 itemName.setText(name);
             }

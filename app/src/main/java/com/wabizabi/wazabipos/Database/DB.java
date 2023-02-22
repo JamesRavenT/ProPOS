@@ -533,7 +533,7 @@ public class DB {
     }
 
     //STOCK CATEGORY | DELETE
-    public static void deleteStockCategoryFromCloud(RealmMenuCategory category){
+    public static void deleteStockCategoryFromCloud(RealmStockCategory category){
         String docID = category.get_id().toString();
         stockCategory.document(docID).delete();
     }
@@ -553,7 +553,7 @@ public class DB {
     }
 
     //STOCK ITEM | UPDATE
-    public static void updateStockItemFromCloud(ObjectId id, int itemIcon, String itemCategory, String itemName, String unitOfMeasurement, int value){
+    public static void updateStockItemFromCloud(ObjectId id, int itemIcon, String itemCategory, String itemName, String unitOfMeasurement){
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
         document.put("_updatedAt", new Date());
@@ -561,6 +561,13 @@ public class DB {
         document.put("icon", itemIcon);
         document.put("name", itemName);
         document.put("unit", unitOfMeasurement);
+        stockItem.document(docID).set(document, SetOptions.merge());
+    }
+
+    public static void updateStockItemAmountFromCloud(ObjectId id, int value){
+        String docID = id.toString();
+        Map<String, Object> document = new HashMap<>();
+        document.put("_updatedAt", new Date());
         document.put("value", value);
         stockItem.document(docID).set(document, SetOptions.merge());
     }
@@ -597,6 +604,9 @@ public class DB {
         document.put("dt_ItemValue", amount);
         document.put("dt_Variables", dateVariables);
         inventoryTransaction.document(docID).set(document);
+
+        RealmUser user = realm.where(RealmUser.class).findFirst();
+        userProfile.document(user.get_id().toString()).update("transaction_InvCounter", FieldValue.increment(1));
     }
 
     //INVENTORY TRANSACTION | DELETE
@@ -675,8 +685,6 @@ public class DB {
         RealmUser user = realm.where(RealmUser.class).findFirst();
         userProfile.document(user.get_id().toString()).update("transaction_SalesCounter", FieldValue.increment(1));
     }
-
-
 }
 
 //    public static void syncRealmAndFirestore(Activity activity){

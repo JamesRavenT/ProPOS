@@ -14,9 +14,9 @@ import com.wabizabi.wazabipos.Database.ObjectSchemas.StockItem;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 
 import java.util.List;
 
@@ -66,14 +66,21 @@ public class M04F06_ItemRVA extends RecyclerView.Adapter<M04F06_ItemRVA.ViewHold
             itemContainer = itemView.findViewById(R.id.M04F06_IRVContainer);
             itemImage = itemView.findViewById(R.id.M04F06_IRVItemImage);
             itemName = itemView.findViewById(R.id.M04F06_IRVItemName);
-            itemAmount = itemView.findViewById(R.id.M04F06_IRVAmount);
+            itemAmount = itemView.findViewById(R.id.M04F06_IRVItemAmount);
         }
 
         public void loadFunctionalities(StockItem item, int position){
+            //Load Details
+            String name = StringHelper.limitDisplay(item.getItemName(), 0, 22, 19);
+            String amount = String.valueOf(item.getItemAmount());
+            String uom = item.getUnitOfMeasurement();
+
+
+            //SetViews
             this.position = position;
-            IconLoader.setMenuIcon(itemImage, item.getItemImage());
-            itemName.setText(item.getItemName());
-            itemAmount.setText(item.getItemAmount() + " " + item.getUnitOfMeasurement());
+            IconHelper.setStockIcon(itemImage, item.getItemImage());
+            itemName.setText(name);
+            itemAmount.setText("In Stock : " + amount + " " + uom);
 
             //On Container
             itemContainer.setOnClickListener(click -> {

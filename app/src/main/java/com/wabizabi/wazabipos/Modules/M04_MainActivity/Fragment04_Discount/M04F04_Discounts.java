@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.Instances.OpenDiscountInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Discount;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_Discount.Adapters.M04F04_DiscountsRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_Discount.Helpers.DCHelper;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
@@ -120,7 +121,7 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
 
     private void load_RecyclerView(){
         //Initialize RecyclerView
-        listOfDiscounts = RVHelper.getDiscounts(realm);
+        listOfDiscounts = DCHelper.getDiscounts(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         discountsRVA = new M04F04_DiscountsRVA(getActivity(), realm, listOfDiscounts, this);
@@ -130,7 +131,7 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
 
     private void load_FilteredRecyclerView(String input){
         //Initialize RecyclerView
-        List<Discount> filteredDiscounts = RVHelper.getFilteredDiscounts(listOfDiscounts, input);
+        List<Discount> filteredDiscounts = DCHelper.getFilteredDiscounts(listOfDiscounts, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         discountsRVA = new M04F04_DiscountsRVA(getActivity(), realm, filteredDiscounts, this);
@@ -172,7 +173,7 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
         discountDG01_ConfirmBtn.setOnClickListener(confirm -> {
             String nameInput = discountDG01_NameInput.getText().toString();
             String percentInput = discountDG01_percentInput.getText().toString();
-            List<String> listOfAllDiscounts = ListHelper.getDiscountNames(realm);
+            List<String> listOfAllDiscounts = DCHelper.getDiscountNames(realm);
             if(listOfAllDiscounts.contains(nameInput)) {
                 discountDG01_NameInput.setError("Name already exists");
             } else if(percentInput.equals("")){
@@ -214,7 +215,7 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
             String percentInput = discountDG02_PercentInput.getText().toString();
             String dcName = discount.getDiscountName();
             int dcPercent = discount.getDiscountInPercentage();
-            List<String> listOfAllDiscounts = ListHelper.getDiscountNames(realm);
+            List<String> listOfAllDiscounts = DCHelper.getDiscountNames(realm);
             if(listOfAllDiscounts.contains(dcName)){
                 listOfAllDiscounts.remove(dcName);
             }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStock.Helpers.SIHelper;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
@@ -86,7 +87,7 @@ public class M04F06_CategoryRVA extends RecyclerView.Adapter<M04F06_CategoryRVA.
             //SetViews
             this.position = position;
             categoryName.setText(category.getCategoryName());
-            lastUpdate.setText(category.getLastUpdatedText());
+            lastUpdate.setText(recentChanges);
 
             //On Edit Btn
             editBtn.setOnClickListener(edit -> {
@@ -96,7 +97,7 @@ public class M04F06_CategoryRVA extends RecyclerView.Adapter<M04F06_CategoryRVA.
             //On View Btn
             viewBtn.setOnClickListener(click -> {
                 currentFragment = "Stock02";
-                List<StockItem> listOfItems = RVHelper.getStockItems(realm, name);
+                List<StockItem> listOfItems = SIHelper.getStockItems(realm, name);
                 itemRV.load_RVContents(new RVBundle(listOfItems, name));
             });
         }

@@ -2,7 +2,6 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Adapters
 
 import android.app.Dialog;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 
 import java.util.List;
@@ -74,7 +73,7 @@ public class M04F02D01_SelectIconRVA extends RecyclerView.Adapter<M04F02D01_Sele
         public void loadFunctionalities(int icon, int position){
             //Set Views
             this.position = position;
-            IconLoader.setMenuIconSelection(iconImage, iconName, icon);
+            IconHelper.setMenuIconSelection(iconImage, iconName, icon);
 
             //On Select Btn
             selectBtn.setOnClickListener(select -> {

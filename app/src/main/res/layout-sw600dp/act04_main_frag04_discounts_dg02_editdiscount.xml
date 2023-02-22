@@ -102,7 +102,7 @@
                 android:id="@+id/M04F04D02_DiscountNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="17dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:paddingBottom="0dp"
@@ -120,7 +120,7 @@
                 android:id="@+id/M04F04D02_DiscountPercentageText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:paddingBottom="0dp"
@@ -154,10 +154,11 @@
 
             <EditText
                 android:id="@+id/M04F04D02_DiscountNameInput"
-                android:layout_width="230dp"
+                android:layout_width="0dp"
                 android:layout_height="42.5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginEnd="30dp"
                 android:background="@drawable/bg_shape_thinline_dark"
                 android:ems="10"
                 android:fontFamily="@font/nunito_sans_light"
@@ -195,9 +196,9 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/M04F04D02_ApplyChangesBtn"
-                android:layout_width="215dp"
+                android:layout_width="235dp"
                 android:layout_height="75dp"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp"
                 android:backgroundTint="@color/wabizabi"
@@ -233,10 +234,10 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/M04F04D02_DeleteBtn"
-                android:layout_width="215dp"
+                android:layout_width="235dp"
                 android:layout_height="75dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="50dp"
+                android:layout_marginEnd="30dp"
                 android:backgroundTint="@color/wabizabi"
                 android:elevation="10dp"
                 app:cardCornerRadius="5dp"

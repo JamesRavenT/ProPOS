@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.Instances.OpenPaymentMethodInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.PaymentMethod;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_PaymentMethods.Adapters.M04F05_PaymentMethodsRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_PaymentMethods.Helpers.PMHelper;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
@@ -118,7 +119,7 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
     }
     private void load_RecyclerView(){
         //Initialize RecyclerView
-        listOfMethods = RVHelper.getPaymentMethods(realm);
+        listOfMethods = PMHelper.getPaymentMethods(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         methodsRVA = new M04F05_PaymentMethodsRVA(getActivity(), realm, listOfMethods, this);
@@ -128,7 +129,7 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
 
     private void load_FilteredRecyclerView(String input){
         //Initialize RecyclerView
-        List<PaymentMethod> filteredMethods = RVHelper.getFilteredPaymentMethods(listOfMethods, input);
+        List<PaymentMethod> filteredMethods = PMHelper.getFilteredPaymentMethods(listOfMethods, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         methodsRVA = new M04F05_PaymentMethodsRVA(getActivity(), realm, filteredMethods, this);
@@ -167,7 +168,7 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
         methodDG01_ConfirmBtn.setOnClickListener(confirm -> {
             String input = methodDG01_NameInput.getText().toString();
 
-            List<String> listOfMethodNames = ListHelper.getMethodNames(realm);
+            List<String> listOfMethodNames = PMHelper.getMethodNames(realm);
             if(listOfMethodNames.contains(input)){
                 methodDG01_NameInput.setError("Name already exists");
             } else {
@@ -200,7 +201,7 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
         methodDG02_ApplyBtn.setOnClickListener(apply -> {
             String input = methodDG02_NameInput.getText().toString();
 
-            List<String> listOfMethodNames = ListHelper.getMethodNames(realm);
+            List<String> listOfMethodNames = PMHelper.getMethodNames(realm);
             if(method.equals(input)){
                 ToastHelper.show(getActivity(), "No changes were made");
                 methodDG02_NameInput.setText("");

@@ -36,7 +36,7 @@ import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
@@ -222,7 +222,7 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
         LogHelper.debug(itemPOSName);
         //Load Item Details
         String price = StringHelper.convertToCurrency(itemPrice);
-        IconLoader.setMenuIcon(posDG01_ItemImage, itemImage);
+        IconHelper.setMenuIcon(posDG01_ItemImage, itemImage);
         posDG01_ItemName.setText(itemPOSName);
         posDG01_ItemPrice.setText(price);
 

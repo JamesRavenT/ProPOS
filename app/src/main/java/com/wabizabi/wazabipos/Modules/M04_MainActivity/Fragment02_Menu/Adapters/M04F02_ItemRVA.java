@@ -10,14 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 
@@ -79,7 +76,7 @@ public class M04F02_ItemRVA extends RecyclerView.Adapter<M04F02_ItemRVA.ViewHold
 
             //Set Views
             this.position = position;
-            IconLoader.setMenuIcon(itemImage, image);
+            IconHelper.setMenuIcon(itemImage, image);
             itemName.setText(name);
             itemPrice.setText(price);
 
@@ -90,3 +87,5 @@ public class M04F02_ItemRVA extends RecyclerView.Adapter<M04F02_ItemRVA.ViewHold
         }
     }
 }
+
+

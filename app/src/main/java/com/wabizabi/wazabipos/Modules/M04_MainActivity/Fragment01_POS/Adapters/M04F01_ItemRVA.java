@@ -18,7 +18,7 @@ import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
@@ -85,7 +85,7 @@ public class M04F01_ItemRVA extends RecyclerView.Adapter<M04F01_ItemRVA.ViewHold
 
             //Set Views
             this.position = position;
-            IconLoader.setMenuIcon(itemImage, item.getItemIcon());
+            IconHelper.setMenuIcon(itemImage, item.getItemIcon());
             itemName.setText(name);
             itemPrice.setText(price);
 

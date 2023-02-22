@@ -35,9 +35,9 @@ public class OpenMenuInstance {
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
         String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
         try(Realm realm = Realm.getDefaultInstance()){
+            RealmMenuCategory category = realm.where(RealmMenuCategory.class).equalTo("categoryName", oldCategoryName).findFirst();
+            RealmResults<RealmMenuItem> listOfItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", oldCategoryName).findAll();
             realm.executeTransaction(db -> {
-                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", oldCategoryName).findFirst();
-                RealmResults<RealmMenuItem> listOfItems = db.where(RealmMenuItem.class).equalTo("itemCategory", oldCategoryName).findAll();
                 category.setCategoryIcon(icon);
                 category.setCategoryName(name);
                 for(RealmMenuItem item : listOfItems){
@@ -55,14 +55,14 @@ public class OpenMenuInstance {
     public static void toDeleteCategory(String name){
         try(Realm realm = Realm.getDefaultInstance()){
             RealmResults<RealmMenuItem> listOfItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", name).findAll();
+            RealmMenuCategory category = realm.where(RealmMenuCategory.class).equalTo("categoryName", name).findFirst();
             realm.executeTransaction(db -> {
-                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", name).findFirst();
                 DB.deleteMenuCategoryFromCloud(category);
-                category.deleteFromRealm();
                 for(RealmMenuItem item : listOfItems){
                     DB.deleteMenuItemFromCloud(item);
                     item.deleteFromRealm();
                 }
+                category.deleteFromRealm();
             });
         }
     }
@@ -71,11 +71,10 @@ public class OpenMenuInstance {
         ObjectId id = new ObjectId();
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
         String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
-        //SAVE TO LOCAL DB//
         try(Realm realm = Realm.getDefaultInstance()){
+            RealmMenuCategory category = realm.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
             realm.executeTransaction(db -> {
                 RealmMenuItem item = db.createObject(RealmMenuItem.class, id);
-                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
                 item.setItemIcon(icon);
                 item.setItemCategory(categoryName);
                 item.setItemWebName(webName);
@@ -92,9 +91,9 @@ public class OpenMenuInstance {
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
         String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
         try(Realm realm = Realm.getDefaultInstance()){
+            RealmMenuItem item = realm.where(RealmMenuItem.class).equalTo("itemPOSName", oldName).findFirst();
+            RealmMenuCategory category = realm.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
             realm.executeTransaction(db -> {
-                RealmMenuItem item = db.where(RealmMenuItem.class).equalTo("itemPOSName", oldName).findFirst();
-                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
                 item.setItemIcon(icon);
                 item.setItemWebName(webName);
                 item.setItemPOSName(posName);
@@ -110,9 +109,9 @@ public class OpenMenuInstance {
         String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
         String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
         try(Realm realm = Realm.getDefaultInstance()){
+            RealmMenuItem item = realm.where(RealmMenuItem.class).equalTo("itemPOSName", name).findFirst();
+            RealmMenuCategory category = realm.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
             realm.executeTransaction(db -> {
-                RealmMenuItem item = db.where(RealmMenuItem.class).equalTo("itemPOSName", name).findFirst();
-                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
                 DB.deleteMenuItemFromCloud(item);
                 item.deleteFromRealm();
                 category.setLastUpdatedID(logID);
@@ -136,27 +135,6 @@ public class OpenMenuInstance {
         }
     }
 
-    public static void toUpdateCategoryFromCloud(ObjectId id, int icon, String name){
-        String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
-        try(Realm realm = Realm.getDefaultInstance()){
-            realm.executeTransaction(db -> {
-                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("_id", id).findFirst();
-                RealmResults<RealmMenuItem> listOfItems = db.where(RealmMenuItem.class).equalTo("itemCategory", category.getCategoryName()).findAll();
-                category.setCategoryIcon(icon);
-                category.setCategoryName(name);
-                for(RealmMenuItem item : listOfItems){
-                    DB.updateMenuItemFromCloud(item.get_id(), icon, name, item.getItemWebName(), item.getItemPOSName(), item.getItemPrice());
-                    item.setItemCategory(name);
-                    item.setItemIcon(icon);
-                }
-                category.setLastUpdatedID(logID);
-                category.setLastUpdatedText(logTxt);
-                DB.updateMenuCategoryFromCloud(category.get_id(), icon, name);
-            });
-        }
-    }
-
     public static void toLoadItemFromCloud(ObjectId id, int icon, String categoryName, String webName, String posName, double price){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
@@ -169,24 +147,4 @@ public class OpenMenuInstance {
             });
         }
     }
-
-    public static void toUpdateItemFromCloud(ObjectId id, int icon,  String categoryName, String webName, String posName, double price){
-        String logID = new SimpleDateFormat("yyMMddHH-mmss").format(new Date());
-        String logTxt = new SimpleDateFormat("MMMM dd, yyyy | HH:mm a").format(new Date());
-        try(Realm realm = Realm.getDefaultInstance()){
-            realm.executeTransaction(db -> {
-                RealmMenuItem item = db.where(RealmMenuItem.class).equalTo("_id", id).findFirst();
-                RealmMenuCategory category = db.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
-                item.setItemIcon(icon);
-                item.setItemWebName(webName);
-                item.setItemPOSName(posName);
-                item.setItemPrice(price);
-                category.setLastUpdatedID(logID);
-                category.setLastUpdatedText(logTxt);
-                DB.updateMenuItemFromCloud(item.get_id(), icon, categoryName, webName, posName, price);
-            });
-        }
-    }
-
-
 }

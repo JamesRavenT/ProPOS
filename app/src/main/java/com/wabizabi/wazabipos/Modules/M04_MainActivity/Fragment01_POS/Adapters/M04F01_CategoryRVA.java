@@ -17,9 +17,8 @@ import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
 import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 
 import java.util.List;
@@ -86,9 +85,9 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
             this.position = position;
             categoryName.setText(name);
             categorySize.setText(size);
-            IconLoader.setMenuIcon(categoryImage01, category.getCategoryImage());
-            IconLoader.setMenuIcon(categoryImage02, category.getCategoryImage());
-            IconLoader.setMenuIcon(categoryImage03, category.getCategoryImage());
+            IconHelper.setMenuIcon(categoryImage01, category.getCategoryImage());
+            IconHelper.setMenuIcon(categoryImage02, category.getCategoryImage());
+            IconHelper.setMenuIcon(categoryImage03, category.getCategoryImage());
 
             //On Click Container
             categoryContainer.setOnClickListener(click -> {

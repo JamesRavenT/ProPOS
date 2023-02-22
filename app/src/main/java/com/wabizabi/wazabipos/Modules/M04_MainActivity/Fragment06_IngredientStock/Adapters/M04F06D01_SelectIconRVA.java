@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconLoader;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 
 import java.util.List;
@@ -72,18 +72,17 @@ public class M04F06D01_SelectIconRVA extends RecyclerView.Adapter<M04F06D01_Sele
 
         public void loadDetails(int icon, int position){
             this.position = position;
-            IconLoader.setStockIconSelection(iconImage, iconName, icon);
+            IconHelper.setStockIconSelection(iconImage, iconName, icon);
 
             //On Select Btn
             selectBtn.setOnClickListener(select -> {
                 switch(bundle.getDialogDestinationNo()){
                     case 2:
-                    case 4:
+                    case 3:
                         bundle.getStockCategory().setCategoryImage(icon);
                         dialogLoader.load_DGContents(bundle);
                         dialog.dismiss();
                         break;
-
                 }
             });
         }

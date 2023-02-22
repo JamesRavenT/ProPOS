@@ -51,6 +51,7 @@ public class OpenTransactionsInstance {
                 transaction.setMonth(month);
                 transaction.setDay(day);
             });
+            DB.uploadNewInventoryTransactionToCloud(id, transactionDT, operation, itemName, amount, itemUnit, day, month, year);
         }
     }
 

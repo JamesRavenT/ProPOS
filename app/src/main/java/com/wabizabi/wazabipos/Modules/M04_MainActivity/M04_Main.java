@@ -282,7 +282,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                     .commit();
 
         } else if(currentFragment == "Stock02") {
-            currentFragment = "Stock02";
+            currentFragment = "Stock01";
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.MainActivityContainer, new M04F06_IngredientStock())

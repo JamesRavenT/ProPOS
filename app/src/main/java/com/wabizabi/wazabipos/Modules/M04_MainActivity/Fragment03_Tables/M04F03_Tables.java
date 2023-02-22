@@ -24,12 +24,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.Instances.OpenTableInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmTicket;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Tables.Adapters.M04F03_TablesRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Tables.Helpers.TBHelper;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
 import java.util.List;
@@ -131,7 +131,7 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
 
     private void load_RecyclerView(){
         //Initialize RecyclerView
-        listOfTables = RVHelper.getTables(realm);
+        listOfTables = TBHelper.getTables(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         tablesRVA = new M04F03_TablesRVA(getActivity(), realm, listOfTables, this);
@@ -141,7 +141,7 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
 
     private void load_FilteredRecyclerView(String input){
         //Initialize RecyclerView
-        List<String> filteredTables = RVHelper.getFilteredTables(listOfTables, input);
+        List<String> filteredTables = TBHelper.getFilteredTables(listOfTables, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         tablesRVA = new M04F03_TablesRVA(getActivity(), realm, filteredTables, this);
@@ -179,7 +179,7 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
         tableDG01_ConfirmBtn.setOnClickListener(confirm -> {
             //Extract String from Edit Text
             String input = tableDG01_NameInput.getText().toString();
-            List<String> listOfTables = ListHelper.getTableNames(realm);
+            List<String> listOfTables = TBHelper.getTableNames(realm);
             if(listOfTables.contains(input)){
                 tableDG01_NameInput.setError("Name already Exists");
             } else {
@@ -212,7 +212,7 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
         tableDG02_ApplyBtn.setOnClickListener(apply -> {
             //Extract String
             String input = tableDG02_NameInput.getText().toString();
-            List<String> listOfTables = ListHelper.getTableNames(realm);
+            List<String> listOfTables = TBHelper.getTableNames(realm);
             if(table.equals(input)){
                 ToastHelper.show(getActivity(), "No Changes were made");
                 tableDG02.dismiss();
