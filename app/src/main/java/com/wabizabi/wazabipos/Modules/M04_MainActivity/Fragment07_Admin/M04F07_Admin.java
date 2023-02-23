@@ -1,5 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin;
 
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
+
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -97,6 +99,7 @@ public class M04F07_Admin extends Fragment {
 
     private void load_ViewSalesReport(){
         viewSalesReportBtn.setOnClickListener(view -> {
+            currentFragment = "Sales Report";
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.MainActivityContainer, new M04F07SF01_SalesReport())
@@ -229,6 +232,11 @@ public class M04F07_Admin extends Fragment {
                 adminDG03.dismiss();
             }
         });
+
+        //On Close
+        closeDG03Btn.setOnClickListener(close -> {
+            adminDG03.dismiss();
+        });
     }
 
     private void load_DG04Functionalities(){
@@ -266,18 +274,22 @@ public class M04F07_Admin extends Fragment {
     private void load_DG05Functionalities(){
         //On Inventory Btn
         adminDG05_InventoryBtn.setOnClickListener(inventory -> {
+            currentFragment = "Inventory Transaction";
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.MainActivityContainer, new M04F07SF02_InventoryTransaction())
                     .commit();
+            adminDG05.dismiss();
         });
 
         //On Sales Btn
         adminDG05_SalesBtn.setOnClickListener(sales -> {
+            currentFragment = "Sales Transaction";
             getActivity().getSupportFragmentManager()
                          .beginTransaction()
                          .replace(R.id.MainActivityContainer, new M04F07SF03_SalesTransaction())
                          .commit();
+            adminDG05.dismiss();
         });
 
         //On Close Btn

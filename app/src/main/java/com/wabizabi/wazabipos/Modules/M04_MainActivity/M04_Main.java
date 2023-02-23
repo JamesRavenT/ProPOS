@@ -287,7 +287,12 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                     .beginTransaction()
                     .replace(R.id.MainActivityContainer, new M04F06_IngredientStock())
                     .commit();
-
+        } else if(currentFragment == "Sales Report" || currentFragment == "Inventory Transaction" || currentFragment == "Sales Transaction") {
+            currentFragment = "Admin";
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.MainActivityContainer, new M04F07_Admin())
+                    .commit();
         } else if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else {
