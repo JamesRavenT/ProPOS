@@ -25,6 +25,7 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragmen
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment03_SalesTransaction.Adapters.M04F07SF03D02_ViewSalesRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment03_SalesTransaction.Adapters.M04F07SF03D04_ViewRefundsRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment03_SalesTransaction.Adapters.M04F07SF03_SalesTransactionRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment03_SalesTransaction.Helpers.STHelper;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
@@ -78,6 +79,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
               transSalesDG01_addYearBtn,
               transSalesDG01_addMonthBtn,
               transSalesDG01_addDayBtn;
+    TextView transSalesDG01_ResetBtn;
     CardView transSalesDG01_ConfirmBtn;
     ImageView closeDG01Btn;
 
@@ -143,27 +145,28 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
         transactionsRV = v.findViewById(R.id.M04F07SF03_RecyclerView);
 
         init_Dialogs();
-        load_Header();
+        load_Header("Descending", "Any", "Any", "Any", "Any", "Any");
         load_SearchBar();
         load_RecyclerView("Descending", "Any", "Any", "Any", "Any", "Any");
     }
 
-    private void load_Header(){
+    private void load_Header(String sortOrder, String transactionType, String orderType, String year, String month, String day){
         settingsBtn.setOnClickListener(settings -> {
-            load_DG01Functionalities();
+            load_DG01Functionalities(sortOrder, transactionType, orderType, year, month, day);
             transSalesDG01.show();
         });
     }
 
     private void load_SearchBar(){
+        searchbar.removeTextChangedListener(searchEngine);
         searchbar.setText("");
         searchbar.addTextChangedListener(searchEngine);
     }
 
     private void load_RecyclerView(String sortOrder, String transactionType, String orderType, String year, String month, String day){
         listOfSalesTransactions = (sortOrder.equals("Ascending"))
-                                ? RVHelper.getSalesTransactionAscending(realm, transactionType, orderType, year, month, day)
-                                : RVHelper.getSalesTransactionDescending(realm, transactionType, orderType, year, month, day);
+                                ? STHelper.getSalesTransactionAscending(realm, transactionType, orderType, year, month, day)
+                                : STHelper.getSalesTransactionDescending(realm, transactionType, orderType, year, month, day);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         transactionsRVA = new M04F07SF03_SalesTransactionRVA(getActivity(), realm, listOfSalesTransactions, this);
@@ -172,7 +175,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
     }
 
     private void load_FilteredRecyclerView(String input){
-        List<SalesTransaction> filteredSalesTransactions = RVHelper.getFilteredSalesTransaction(listOfSalesTransactions, input);
+        List<SalesTransaction> filteredSalesTransactions = STHelper.getFilteredSalesTransaction(listOfSalesTransactions, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         transactionsRVA = new M04F07SF03_SalesTransactionRVA(getActivity(), realm, filteredSalesTransactions, this);
@@ -204,6 +207,8 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
         transSalesDG01_addYearBtn = transSalesDG01.findViewById(R.id.M04F07SF03D01_YearAddBtn);
         transSalesDG01_addMonthBtn = transSalesDG01.findViewById(R.id.M04F07SF03D01_MonthAddBtn);
         transSalesDG01_addDayBtn = transSalesDG01.findViewById(R.id.M04F07SF03D01_DayAddBtn);
+
+        transSalesDG01_ResetBtn = transSalesDG01.findViewById(R.id.M04F07SF03D01_ResetBtn);
 
         transSalesDG01_ConfirmBtn = transSalesDG01.findViewById(R.id.M04F07SF03D01_ConfirmBtn);
         closeDG01Btn = transSalesDG01.findViewById(R.id.M04F07SF03D01_CloseDGBtn);
@@ -263,16 +268,23 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
         closeDG04Btn = transSalesDG04.findViewById(R.id.M04F07SF03D04_CloseDGBtn);
     }
 
-    private void load_DG01Functionalities(){
+    private void load_DG01Functionalities(String sortOrder, String transType, String transOrderType, String transYear, String transMonth, String transDay){
         //LoadDetails
-        selectedOrder = "Any";
+        selectedOrder = sortOrder;
 
         //Set Views
-        transSalesDG01_Trans.setText("Any");
-        transSalesDG01_Order.setText("Any");
-        transSalesDG01_Year.setText("Any");
-        transSalesDG01_Month.setText("Any");
-        transSalesDG01_Day.setText("Any");
+        transSalesDG01_Trans.setText(transType);
+        transSalesDG01_Order.setText(transOrderType);
+        transSalesDG01_Year.setText(transYear);
+        transSalesDG01_Month.setText(transMonth);
+        transSalesDG01_Day.setText(transDay);
+        if(selectedOrder.equals("Descending")){
+            transSalesDG01_DescendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
+            transSalesDG01_AscendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+        } else {
+            transSalesDG01_AscendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
+            transSalesDG01_DescendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+        }
 
         //Modify Ascending/Descending
         transSalesDG01_AscendingBtn.setOnClickListener(select -> {
@@ -295,6 +307,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                     ? "Sales"
                     : "Any";
             transSalesDG01_Trans.setText(newType);
+            transSalesDG01_Order.setText("Any");
         });
         transSalesDG01_addTransBtn.setOnClickListener(add -> {
             String transactionType = transSalesDG01_Trans.getText().toString();
@@ -304,6 +317,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                     ? "Refund"
                     : "Any";
             transSalesDG01_Trans.setText(newType);
+            transSalesDG01_Order.setText("Any");
         });
 
         //Modify OrderType
@@ -320,6 +334,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                         ? "Dine In"
                         : "Any";
                 transSalesDG01_Order.setText(newType);
+                transSalesDG01_Year.setText("Any");
             }
         });
         transSalesDG01_addOrderBtn.setOnClickListener(add -> {
@@ -335,6 +350,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                         ? "Pick Up"
                         : "Any";
                 transSalesDG01_Order.setText(newType);
+                transSalesDG01_Year.setText("Any");
             }
         });
 
@@ -350,6 +366,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                     yearInt--;
                     transSalesDG01_Year.setText(String.valueOf(yearInt));
                 }
+                transSalesDG01_Month.setText("Any");
             }
         });
         transSalesDG01_addYearBtn.setOnClickListener(add -> {
@@ -363,31 +380,41 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                     yearInt++;
                     transSalesDG01_Year.setText(String.valueOf(yearInt));
                 }
+                transSalesDG01_Month.setText("Any");
             }
         });
 
         //Modify Month
         transSalesDG01_SubMonthBtn.setOnClickListener(sub -> {
             if(!transSalesDG01_Year.getText().equals("Any")) {
-                String currentMonth = DateHelper.getMonthName(transSalesDG01_Month.getText().toString());
-                if (currentMonth.equals("January")) {
-                    transSalesDG01_Month.setText("Any");
+                if(!transSalesDG01_Month.getText().toString().equals("Any")) {
+                    String currentMonth = transSalesDG01_Month.getText().toString();
+                    if (currentMonth.equals("January")) {
+                        transSalesDG01_Month.setText("Any");
+                    } else {
+                        String displayedMonth = DateHelper.getSubMonth(transSalesDG01_Month.getText().toString());
+                        transSalesDG01_Month.setText(displayedMonth);
+                    }
                 } else {
-                    String displayedMonth = DateHelper.getSubMonth(transSalesDG01_Month.getText().toString());
-                    transSalesDG01_Month.setText(displayedMonth);
+                    transSalesDG01_Month.setText("December");
                 }
+                transSalesDG01_Day.setText("Any");
             }
         });
         transSalesDG01_addMonthBtn.setOnClickListener(add -> {
             if(!transSalesDG01_Year.getText().equals("Any")) {
-                String currentMonth = DateHelper.getMonthName(transSalesDG01_Month.getText().toString());
-                LogHelper.debug(currentMonth);
-                if (currentMonth.equals("December")) {
-                    transSalesDG01_Month.setText("Any");
+                if(!transSalesDG01_Month.getText().toString().equals("Any")) {
+                    String currentMonth = transSalesDG01_Month.getText().toString();
+                    if (currentMonth.equals("December")) {
+                        transSalesDG01_Month.setText("Any");
+                    } else {
+                        String displayedMonth = DateHelper.getAddMonth(transSalesDG01_Month.getText().toString());
+                        transSalesDG01_Month.setText(displayedMonth);
+                    }
                 } else {
-                    String displayedMonth = DateHelper.getAddMonth(transSalesDG01_Month.getText().toString());
-                    transSalesDG01_Month.setText(displayedMonth);
+                    transSalesDG01_Month.setText("January");
                 }
+                transSalesDG01_Day.setText("Any");
             }
         });
 
@@ -450,7 +477,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                         transSalesDG01_Day.setText("01");
                     } else {
                         int dayNo = Integer.parseInt(transSalesDG01_Day.getText().toString());
-                        dayNo--;
+                        dayNo++;
                         String number = (dayNo <= 9)
                                 ? StringHelper.addZero(String.valueOf(dayNo))
                                 : String.valueOf(dayNo);
@@ -463,7 +490,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                         transSalesDG01_Day.setText("01");
                     } else {
                         int dayNo = Integer.parseInt(transSalesDG01_Day.getText().toString());
-                        dayNo--;
+                        dayNo++;
                         String number = (dayNo <= 9)
                                 ? StringHelper.addZero(String.valueOf(dayNo))
                                 : String.valueOf(dayNo);
@@ -476,7 +503,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                         transSalesDG01_Day.setText("01");
                     } else {
                         int dayNo = Integer.parseInt(transSalesDG01_Day.getText().toString());
-                        dayNo--;
+                        dayNo++;
                         String number = (dayNo <= 9)
                                 ? StringHelper.addZero(String.valueOf(dayNo))
                                 : String.valueOf(dayNo);
@@ -484,6 +511,18 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                     }
                 }
             }
+        });
+
+        //On Reset
+        transSalesDG01_ResetBtn.setOnClickListener(reset -> {
+            selectedOrder = "Descending";
+            transSalesDG01_Trans.setText("Any");
+            transSalesDG01_Order.setText("Any");
+            transSalesDG01_Year.setText("Any");
+            transSalesDG01_Month.setText("Any");
+            transSalesDG01_Day.setText("Any");
+            transSalesDG01_DescendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
+            transSalesDG01_AscendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
         });
 
         //On Confirm
@@ -495,8 +534,6 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                          ? DateHelper.getMonthNo(transSalesDG01_Month.getText().toString())
                          : "Any";
             String day = transSalesDG01_Day.getText().toString();
-
-            searchbar.removeTextChangedListener(searchEngine);
             load_SearchBar();
             load_RecyclerView(selectedOrder, trans, order, year, month, day);
             transSalesDG01.dismiss();
@@ -576,7 +613,6 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
         //On Yes
         transSalesDG03_YesBtn.setOnClickListener(yes -> {
             OpenTransactionsInstance.toCreateRefund(sales);
-            searchbar.removeTextChangedListener(searchEngine);
             load_SearchBar();
             load_RecyclerView("Descending", "Any", "Any", "Any", "Any", "Any");
             transSalesDG03.dismiss();

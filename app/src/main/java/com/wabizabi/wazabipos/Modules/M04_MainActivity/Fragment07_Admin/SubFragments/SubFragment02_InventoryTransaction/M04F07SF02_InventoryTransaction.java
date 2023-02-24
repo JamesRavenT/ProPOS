@@ -189,13 +189,11 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
             invTransDG01_AscendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
             invTransDG01_DescendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
             selectedOrder = "Ascending";
-            LogHelper.debug(selectedOrder);
         });
         invTransDG01_DescendingBtn.setOnClickListener(select -> {
             invTransDG01_DescendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
             invTransDG01_AscendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
             selectedOrder = "Descending";
-            LogHelper.debug(selectedOrder);
         });
 
         //Modify TransactionType
@@ -227,13 +225,12 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
                     int yearInt = Integer.parseInt(invTransDG01_Year.getText().toString());
                     yearInt--;
                     invTransDG01_Year.setText(String.valueOf(yearInt));
-                    invTransDG01_Month.setText("Any");
                 } else {
                     int yearInt = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
                     yearInt--;
                     invTransDG01_Year.setText(String.valueOf(yearInt));
-                    invTransDG01_Month.setText("Any");
                 }
+                invTransDG01_Month.setText("Any");
             }
         });
         invTransDG01_addYearBtn.setOnClickListener(add -> {
@@ -242,13 +239,12 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
                     int yearInt = Integer.parseInt(invTransDG01_Year.getText().toString());
                     yearInt++;
                     invTransDG01_Year.setText(String.valueOf(yearInt));
-                    invTransDG01_Month.setText("Any");
                 } else {
                     int yearInt = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
                     yearInt++;
                     invTransDG01_Year.setText(String.valueOf(yearInt));
-                    invTransDG01_Month.setText("Any");
                 }
+                invTransDG01_Month.setText("Any");
             }
         });
 
@@ -256,20 +252,19 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
         invTransDG01_SubMonthBtn.setOnClickListener(sub -> {
             if(!invTransDG01_Year.getText().equals("Any")) {
                 if(!invTransDG01_Month.getText().toString().equals("Any")) {
-                    String currentMonth = DateHelper.getMonthName(invTransDG01_Month.getText().toString());
+                    String currentMonth = invTransDG01_Month.getText().toString();
                     if (currentMonth.equals("January")) {
                         invTransDG01_Month.setText("Any");
-                        invTransDG01_Day.setText("Any");
                     } else {
                         String displayedMonth = DateHelper.getSubMonth(invTransDG01_Month.getText().toString());
                         invTransDG01_Month.setText(displayedMonth);
-                        invTransDG01_Day.setText("Any");
                     }
                 } else {
                     invTransDG01_Month.setText("December");
-                    invTransDG01_Day.setText("Any");
                 }
+                invTransDG01_Day.setText("Any");
             }
+
         });
         invTransDG01_addMonthBtn.setOnClickListener(add -> {
             if(!invTransDG01_Year.getText().equals("Any")) {

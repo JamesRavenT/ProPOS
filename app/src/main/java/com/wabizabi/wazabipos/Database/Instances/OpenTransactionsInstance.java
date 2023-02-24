@@ -156,10 +156,8 @@ public class OpenTransactionsInstance {
                 transaction.setDayTxt(dayTxt);
                 transaction.setDayNo(dayNo);
                 transaction.setHour(hour);
-
-                OpenUserInstance.toUpdateLocalSalesTransactionCount();
             });
-
+            OpenUserInstance.toUpdateLocalSalesTransactionCount();
         }
     }
 
@@ -223,24 +221,29 @@ public class OpenTransactionsInstance {
                 transaction.setDiscountName(discountsIDName);
                 transaction.setDiscountPercent(discountsIDPercent);
                 transaction.setTotalItems(sales.getTotalItems());
-                transaction.setTotalAmountDue(sales.getTotalAmountDue());
-                transaction.setTotalDiscount(sales.getTotalDiscount());
+                transaction.setTotalSubTotal(sales.getTotalSubTotal());
                 transaction.setTotalTax(sales.getTotalTax());
+                transaction.setTotalServiceFee(sales.getTotalServiceFee());
+                transaction.setTotalDiscount(sales.getTotalDiscount());
+                transaction.setTotalAmountDue(sales.getTotalAmountDue());
+                transaction.setPaymentMethod(sales.getPaymentMethod());
                 transaction.setTotalPayment(sales.getTotalPayment());
                 transaction.setTotalChange(sales.getChange());
-                transaction.setPaymentMethod(sales.getPaymentMethod());
+
                 transaction.setYear(year);
                 transaction.setMonth(month);
                 transaction.setWeek(week);
                 transaction.setDayTxt(dayTxt);
                 transaction.setDayNo(dayNo);
                 transaction.setHour(hour);
-//                DB.uploadNewSalesToCloud(id, dataVer, transactionID, "Refund", transactionNo, dateAndTime, cashier, order, orderType,
-//                        itemsetWebName, itemsetPOSName, itemsetPrice, itemsetQty, discountsItem, discountsName, discountsPercent,
-//                        totalItems, totalAmountDue, totalDiscount, totalTax, totalAmountReceived, change, paymentMethod, year, month, week, dayTxt, dayNo, hour);
-
-                OpenUserInstance.toUpdateLocalSalesTransactionCount();
+                DB.uploadNewSalesToCloud(
+                        id,sales.getTransactionNo(), "Refund", dateAndTime, sales.getCashier(), sales.getOrder(), sales.getOrderType(),
+                        itemWebName, itemPOSName, itemPrice, itemQty, discountItem, discountName, discountPercentage, sales.getTotalItems(),
+                        sales.getTotalSubTotal(), sales.getTotalTax(), sales.getTotalServiceFee(), sales.getTotalDiscount(), sales.getTotalAmountDue(),
+                        sales.getTotalPayment(), sales.getChange(), sales.getPaymentMethod(),year, month, week, dayTxt, dayNo, hour
+                );
             });
+            OpenUserInstance.toUpdateLocalSalesTransactionCount();
 
         }
     }

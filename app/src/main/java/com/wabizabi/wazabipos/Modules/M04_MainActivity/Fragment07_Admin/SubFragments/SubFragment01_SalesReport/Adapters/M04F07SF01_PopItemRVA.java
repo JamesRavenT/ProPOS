@@ -73,6 +73,14 @@ public class M04F07SF01_PopItemRVA extends RecyclerView.Adapter<M04F07SF01_PopIt
                 IconHelper.setMenuIcon(itemIcon, icon);
                 itemFrequency.setText(frequency);
                 itemName.setText(name);
+            } else {
+                String frequency = "「　Sold " + item.getFrequency() + " times　」";
+                String name = item.getName();
+
+                //Set Views
+                this.position = position;
+                itemFrequency.setText(frequency);
+                itemName.setText(name);
             }
         }
     }
