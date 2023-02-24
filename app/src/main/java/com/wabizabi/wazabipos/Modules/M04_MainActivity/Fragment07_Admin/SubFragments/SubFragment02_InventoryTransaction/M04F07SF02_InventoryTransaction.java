@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.InventoryTransaction;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment02_InventoryTransaction.Adapters.M04F07SF02_InventoryTransactionRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment02_InventoryTransaction.Helpers.ITHelper;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
@@ -70,6 +71,7 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
             invTransDG01_addMonthBtn,
             invTransDG01_addDayBtn;
     CardView invTransDG01_ConfirmBtn;
+    TextView invTransDG01_ResetChangesBtn;
     ImageView closeDG01Btn;
 
     //--DG02--//
@@ -93,27 +95,28 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
         transactionsRV = v.findViewById(R.id.M04F07SF02_RecyclerView);
 
         init_Dialogs();
-        load_Header();
+        load_Header("Descending", "Any", "Any", "Any", "Any");
         load_SearchBar();
         load_RecyclerView("Descending", "Any", "Any", "Any", "Any");
     }
 
-    private void load_Header(){
+    private void load_Header(String sortOrder, String transactionType, String year, String month, String day){
         settingsBtn.setOnClickListener(settings -> {
-            load_DG01Functionalities();
+            load_DG01Functionalities(sortOrder, transactionType, year, month, day);
             invTransDG01.show();
         });
     }
 
     private void load_SearchBar(){
+        searchbar.removeTextChangedListener(searchEngine);
         searchbar.setText("");
         searchbar.addTextChangedListener(searchEngine);
     }
 
     private void load_RecyclerView(String sortOrder, String transactionType, String year, String month, String day){
         listOfInventoryTransactions = (sortOrder.equals("Ascending"))
-                                    ? RVHelper.getInventoryTransactionAscending(realm, transactionType, year, month, day)
-                                    : RVHelper.getInventoryTransactionDescending(realm, transactionType, year, month, day);
+                                    ? ITHelper.getInventoryTransactionAscending(realm, transactionType, year, month, day)
+                                    : ITHelper.getInventoryTransactionDescending(realm, transactionType, year, month, day);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         transactionsRVA = new M04F07SF02_InventoryTransactionRVA(getActivity(), realm, listOfInventoryTransactions, this);
@@ -122,7 +125,7 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
     }
 
     private void load_FilteredRecyclerView(String s){
-        List<InventoryTransaction> filteredTransaction = RVHelper.getFilteredInventoryTransaction(listOfInventoryTransactions, s);
+        List<InventoryTransaction> filteredTransaction = ITHelper.getFilteredInventoryTransaction(listOfInventoryTransactions, s);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         transactionsRVA = new M04F07SF02_InventoryTransactionRVA(getActivity(), realm, filteredTransaction, this);
@@ -150,6 +153,7 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
         invTransDG01_addYearBtn = invTransDG01.findViewById(R.id.M04F07SF02D01_YearAddBtn);
         invTransDG01_addMonthBtn = invTransDG01.findViewById(R.id.M04F07SF02D01_MonthAddBtn);
         invTransDG01_addDayBtn = invTransDG01.findViewById(R.id.M04F07SF02D01_DayAddBtn);
+        invTransDG01_ResetChangesBtn = invTransDG01.findViewById(R.id.M04F07SF02D01_ResetBtn);
 
         invTransDG01_ConfirmBtn = invTransDG01.findViewById(R.id.M04F07SF02D01_ConfirmBtn);
         closeDG01Btn = invTransDG01.findViewById(R.id.M04F07SF02D01_CloseDGBtn);
@@ -162,15 +166,23 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
         closeDG02Btn = invTransDG02.findViewById(R.id.M04F07SF02D02_CloseDGBtn);
     }
 
-    private void load_DG01Functionalities(){
+    private void load_DG01Functionalities(String sortOrder, String transType, String transYear, String transMonth, String transDay){
         //LoadDetails
-        selectedOrder = "Any";
+        selectedOrder = sortOrder;
 
         //Set Views
-        invTransDG01_Trans.setText("Any");
-        invTransDG01_Year.setText("Any");
-        invTransDG01_Month.setText("Any");
-        invTransDG01_Day.setText("Any");
+        invTransDG01_Trans.setText(transType);
+        invTransDG01_Year.setText(transYear);
+        invTransDG01_Month.setText(transMonth);
+        invTransDG01_Day.setText(transDay);
+        if(selectedOrder.equals("Descending")){
+            invTransDG01_DescendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
+            invTransDG01_AscendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+        } else {
+            invTransDG01_AscendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
+            invTransDG01_DescendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+        }
+
 
         //Modify Ascending/Descending
         invTransDG01_AscendingBtn.setOnClickListener(select -> {
@@ -190,20 +202,22 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
         invTransDG01_subTransBtn.setOnClickListener(sub -> {
             String transactionType = invTransDG01_Trans.getText().toString();
             String newType = (transactionType.equals("Any"))
-                    ? "Refund"
-                    : (transactionType.equals("Refund"))
-                    ? "Sales"
+                    ? "Stock Out"
+                    : (transactionType.equals("Stock Out"))
+                    ? "Stock In"
                     : "Any";
             invTransDG01_Trans.setText(newType);
+            invTransDG01_Year.setText("Any");
         });
         invTransDG01_addTransBtn.setOnClickListener(add -> {
             String transactionType = invTransDG01_Trans.getText().toString();
             String newType = (transactionType.equals("Any"))
-                    ? "Sales"
-                    : (transactionType.equals("Sales"))
-                    ? "Refund"
+                    ? "Stock In"
+                    : (transactionType.equals("Stock In"))
+                    ? "Stock Out"
                     : "Any";
             invTransDG01_Trans.setText(newType);
+            invTransDG01_Year.setText("Any");
         });
 
         //Modify Year
@@ -213,10 +227,12 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
                     int yearInt = Integer.parseInt(invTransDG01_Year.getText().toString());
                     yearInt--;
                     invTransDG01_Year.setText(String.valueOf(yearInt));
+                    invTransDG01_Month.setText("Any");
                 } else {
                     int yearInt = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
                     yearInt--;
                     invTransDG01_Year.setText(String.valueOf(yearInt));
+                    invTransDG01_Month.setText("Any");
                 }
             }
         });
@@ -226,10 +242,12 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
                     int yearInt = Integer.parseInt(invTransDG01_Year.getText().toString());
                     yearInt++;
                     invTransDG01_Year.setText(String.valueOf(yearInt));
+                    invTransDG01_Month.setText("Any");
                 } else {
                     int yearInt = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
                     yearInt++;
                     invTransDG01_Year.setText(String.valueOf(yearInt));
+                    invTransDG01_Month.setText("Any");
                 }
             }
         });
@@ -237,23 +255,37 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
         //Modify Month
         invTransDG01_SubMonthBtn.setOnClickListener(sub -> {
             if(!invTransDG01_Year.getText().equals("Any")) {
-                String currentMonth = DateHelper.getMonthName(invTransDG01_Month.getText().toString());
-                if (currentMonth.equals("January")) {
-                    invTransDG01_Month.setText("Any");
+                if(!invTransDG01_Month.getText().toString().equals("Any")) {
+                    String currentMonth = DateHelper.getMonthName(invTransDG01_Month.getText().toString());
+                    if (currentMonth.equals("January")) {
+                        invTransDG01_Month.setText("Any");
+                        invTransDG01_Day.setText("Any");
+                    } else {
+                        String displayedMonth = DateHelper.getSubMonth(invTransDG01_Month.getText().toString());
+                        invTransDG01_Month.setText(displayedMonth);
+                        invTransDG01_Day.setText("Any");
+                    }
                 } else {
-                    String displayedMonth = DateHelper.getSubMonth(invTransDG01_Month.getText().toString());
-                    invTransDG01_Month.setText(displayedMonth);
+                    invTransDG01_Month.setText("December");
+                    invTransDG01_Day.setText("Any");
                 }
             }
         });
         invTransDG01_addMonthBtn.setOnClickListener(add -> {
             if(!invTransDG01_Year.getText().equals("Any")) {
-                String currentMonth = DateHelper.getMonthName(invTransDG01_Month.getText().toString());
-                if (currentMonth.equals("December")) {
-                    invTransDG01_Month.setText("Any");
+                if(!invTransDG01_Month.getText().toString().equals("Any")) {
+                    String currentMonth = invTransDG01_Month.getText().toString();
+                    if (currentMonth.equals("December")) {
+                        invTransDG01_Month.setText("Any");
+                        invTransDG01_Day.setText("Any");
+                    } else {
+                        String displayedMonth = DateHelper.getAddMonth(invTransDG01_Month.getText().toString());
+                        invTransDG01_Month.setText(displayedMonth);
+                        invTransDG01_Day.setText("Any");
+                    }
                 } else {
-                    String displayedMonth = DateHelper.getAddMonth(invTransDG01_Month.getText().toString());
-                    invTransDG01_Month.setText(displayedMonth);
+                    invTransDG01_Month.setText("January");
+                    invTransDG01_Day.setText("Any");
                 }
             }
         });
@@ -262,13 +294,12 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
         invTransDG01_SubDayBtn.setOnClickListener(sub -> {
             if(!invTransDG01_Month.getText().equals("Any")) {
                 String dayText = invTransDG01_Day.getText().toString();
-
                 int daysOfTheMonth = DateHelper.getDaysCount(invTransDG01_Month.getText().toString());
                 if(daysOfTheMonth == 29){
-                    if(dayText.equals("01")) {
-                        invTransDG01_Day.setText("Any");
-                    } else if(dayText.equals("Any")){
+                    if(dayText.equals("Any")){
                         invTransDG01_Day.setText(String.valueOf(daysOfTheMonth));
+                    } else if(dayText.equals("01")) {
+                        invTransDG01_Day.setText("Any");
                     } else {
                         int dayNo = Integer.parseInt(invTransDG01_Day.getText().toString());
                         dayNo--;
@@ -278,10 +309,10 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
                         invTransDG01_Day.setText(number);
                     }
                 } else if(daysOfTheMonth == 30){
-                    if(dayText.equals("01")) {
-                        invTransDG01_Day.setText("Any");
-                    } else if(dayText.equals("Any")){
+                    if(dayText.equals("Any")) {
                         invTransDG01_Day.setText(String.valueOf(daysOfTheMonth));
+                    } if(dayText.equals("01")) {
+                        invTransDG01_Day.setText("Any");
                     } else {
                         int dayNo = Integer.parseInt(invTransDG01_Day.getText().toString());
                         dayNo--;
@@ -291,10 +322,10 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
                         invTransDG01_Day.setText(number);
                     }
                 } else if(daysOfTheMonth == 31)   {
-                    if(dayText.equals("01")) {
-                        invTransDG01_Day.setText("Any");
-                    } else if(dayText.equals("Any")){
+                    if(dayText.equals("Any")) {
                         invTransDG01_Day.setText(String.valueOf(daysOfTheMonth));
+                    } else if(dayText.equals("01")) {
+                        invTransDG01_Day.setText("Any");
                     } else {
                         int dayNo = Integer.parseInt(invTransDG01_Day.getText().toString());
                         dayNo--;
@@ -309,42 +340,42 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
         invTransDG01_addDayBtn.setOnClickListener(add -> {
             if(!invTransDG01_Month.getText().equals("Any")) {
                 String dayText = invTransDG01_Day.getText().toString();
-
                 int daysOfTheMonth = DateHelper.getDaysCount(invTransDG01_Month.getText().toString());
                 if(daysOfTheMonth == 29){
-                    if(dayText.equals(String.valueOf(daysOfTheMonth))) {
-                        invTransDG01_Day.setText("Any");
-                    } else if(dayText.equals("Any")){
+                    if(dayText.equals("Any")) {
                         invTransDG01_Day.setText("01");
+                    } else if(dayText.equals(String.valueOf(daysOfTheMonth))) {
+                        invTransDG01_Day.setText("Any");
                     } else {
                         int dayNo = Integer.parseInt(invTransDG01_Day.getText().toString());
-                        dayNo--;
+                        dayNo++;
                         String number = (dayNo <= 9)
                                 ? StringHelper.addZero(String.valueOf(dayNo))
                                 : String.valueOf(dayNo);
                         invTransDG01_Day.setText(number);
                     }
                 } else if(daysOfTheMonth == 30){
-                    if(dayText.equals(String.valueOf(daysOfTheMonth))) {
-                        invTransDG01_Day.setText("Any");
-                    } else if(dayText.equals("Any")){
+                    if(dayText.equals("Any")) {
                         invTransDG01_Day.setText("01");
+
+                    } else if(dayText.equals(String.valueOf(daysOfTheMonth))) {
+                        invTransDG01_Day.setText("Any");
                     } else {
                         int dayNo = Integer.parseInt(invTransDG01_Day.getText().toString());
-                        dayNo--;
+                        dayNo++;
                         String number = (dayNo <= 9)
                                 ? StringHelper.addZero(String.valueOf(dayNo))
                                 : String.valueOf(dayNo);
                         invTransDG01_Day.setText(number);
                     }
                 } else if(daysOfTheMonth == 31)   {
-                    if(dayText.equals(String.valueOf(daysOfTheMonth))) {
-                        invTransDG01_Day.setText("Any");
-                    } else if(dayText.equals("Any")){
+                    if(dayText.equals("Any")) {
                         invTransDG01_Day.setText("01");
+                    } else if(dayText.equals(String.valueOf(daysOfTheMonth))) {
+                        invTransDG01_Day.setText("Any");
                     } else {
                         int dayNo = Integer.parseInt(invTransDG01_Day.getText().toString());
-                        dayNo--;
+                        dayNo++;
                         String number = (dayNo <= 9)
                                 ? StringHelper.addZero(String.valueOf(dayNo))
                                 : String.valueOf(dayNo);
@@ -352,6 +383,18 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
                     }
                 }
             }
+        });
+
+        //On Reset
+        invTransDG01_ResetChangesBtn.setOnClickListener(reset -> {
+            selectedOrder = "Descending";
+            invTransDG01_Trans.setText("Any");
+            invTransDG01_Year.setText("Any");
+            invTransDG01_Month.setText("Any");
+            invTransDG01_Day.setText("Any");
+            invTransDG01_DescendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
+            invTransDG01_AscendingBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+
         });
 
         //On Confirm
@@ -362,8 +405,8 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
                     ? DateHelper.getMonthNo(invTransDG01_Month.getText().toString())
                     : "Any";
             String day = invTransDG01_Day.getText().toString();
-            searchbar.removeTextChangedListener(searchEngine);
             load_SearchBar();
+            load_Header(selectedOrder, trans, year, month, day);
             load_RecyclerView(selectedOrder, trans, year, month, day);
             invTransDG01.dismiss();
         });
@@ -384,7 +427,6 @@ public class M04F07SF02_InventoryTransaction extends Fragment implements DialogL
         //On Yes
         invTransDG02_YesBtn.setOnClickListener(yes -> {
             OpenTransactionsInstance.toVoidInventoryTransaction(transaction);
-            searchbar.removeTextChangedListener(searchEngine);
             load_SearchBar();
             load_RecyclerView("Descending", "Any", "Any", "Any", "Any");
             invTransDG02.dismiss();

@@ -55,7 +55,7 @@ public class M04F07SF02_InventoryTransactionRVA extends RecyclerView.Adapter<M04
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
-        private TextView transDate, transID, transOP, transItemName, transAmount;
+        private TextView transDate, transID, transOP, transItemName, transAmount, transNewAmount;
         private CardView voidBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +64,7 @@ public class M04F07SF02_InventoryTransactionRVA extends RecyclerView.Adapter<M04
             transOP = itemView.findViewById(R.id.M04F07SF02_RVItemTransactionText);
             transItemName = itemView.findViewById(R.id.M04F07SF02_RVItemName);
             transAmount = itemView.findViewById(R.id.M04F07SF02_RVAmountSettled);
+            transNewAmount = itemView.findViewById(R.id.M04F07SF02_RVAmountRemaining);
             voidBtn = itemView.findViewById(R.id.M04F07SF02_RVDeleteBtn);
         }
 
@@ -71,11 +72,12 @@ public class M04F07SF02_InventoryTransactionRVA extends RecyclerView.Adapter<M04
             //Load Details
             String transactionDT = transaction.getTransactionDT();
             String transactionID = "#" + transaction.getTransactionID();
-            String transactionOP = transaction.getTransactionType();
+            String transactionOP = transaction.getTransactionType().toUpperCase();
             String transactionItemName = transaction.getItemName();
             String transactionAmount = (transactionOP.equals("Stock In"))
-                                     ? "Stocked In " + transaction.getAmount() + " " + transaction.getItemUnit() + "(s)"
-                                     : "Stocked Out " + transaction.getAmount() + " " + transaction.getItemUnit() + "(s)";
+                                     ? "Stocked In " + transaction.getAmount() + " " + transaction.getItemUnit()
+                                     : "Stocked Out " + transaction.getAmount() + " " + transaction.getItemUnit();
+            String newAmount = "Value after Transaction : " + transaction.getAmount() + " " + transaction.getItemUnit();
 
             //SetViews
             this.position = position;
@@ -84,6 +86,7 @@ public class M04F07SF02_InventoryTransactionRVA extends RecyclerView.Adapter<M04
             transOP.setText(transactionOP);
             transItemName.setText(transactionItemName);
             transAmount.setText(transactionAmount);
+            transNewAmount.setText(newAmount);
 
             //On Void
             voidBtn.setOnClickListener(confirm -> {

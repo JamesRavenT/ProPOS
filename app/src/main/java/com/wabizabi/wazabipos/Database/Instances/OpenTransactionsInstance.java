@@ -38,8 +38,11 @@ public class OpenTransactionsInstance {
                              ? "Stock Out"
                              : "Stock In";
             int amount = (originalAmount > amountToBeAdded)
-                       ? originalAmount - amountToBeAdded
-                       : amountToBeAdded - originalAmount;
+                       ? originalAmount - amountToBeAdded //Stocked Out
+                       : amountToBeAdded - originalAmount; //Stocked In
+            int newAmount = (originalAmount > amountToBeAdded)
+                          ? originalAmount - amount //Stocked Out
+                          : originalAmount + amount; //Stocked In
             realm.executeTransaction(db -> {
                 RealmInventoryTransaction transaction = db.createObject(RealmInventoryTransaction.class, id);
                 transaction.setTransactionDT(transactionDT);
@@ -47,11 +50,13 @@ public class OpenTransactionsInstance {
                 transaction.setTransactionType(operation);
                 transaction.setAmount(amount);
                 transaction.setItemUnit(itemUnit);
+                transaction.setNewAmount(newAmount);
                 transaction.setYear(year);
                 transaction.setMonth(month);
                 transaction.setDay(day);
             });
-            DB.uploadNewInventoryTransactionToCloud(id, transactionDT, operation, itemName, amount, itemUnit, day, month, year);
+            DB.uploadNewInventoryTransactionToCloud(id, transactionDT, operation, itemName, amount, itemUnit, newAmount, day, month, year);
+            OpenUserInstance.toUpdateLocalInventoryTransactionCountAdd();
         }
     }
 
@@ -59,8 +64,11 @@ public class OpenTransactionsInstance {
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 RealmInventoryTransaction transaction = db.where(RealmInventoryTransaction.class).equalTo("_id", inventory.getTransactionID()).findFirst();
+
+                DB.voidInventoryTransactionFromCloud(inventory);
                 transaction.deleteFromRealm();
             });
+            OpenUserInstance.toUpdateLocalInventoryTransactionCountSub();
         }
     }
 
@@ -148,6 +156,8 @@ public class OpenTransactionsInstance {
                 transaction.setDayTxt(dayTxt);
                 transaction.setDayNo(dayNo);
                 transaction.setHour(hour);
+
+                OpenUserInstance.toUpdateLocalSalesTransactionCount();
             });
 
         }
@@ -228,6 +238,8 @@ public class OpenTransactionsInstance {
 //                DB.uploadNewSalesToCloud(id, dataVer, transactionID, "Refund", transactionNo, dateAndTime, cashier, order, orderType,
 //                        itemsetWebName, itemsetPOSName, itemsetPrice, itemsetQty, discountsItem, discountsName, discountsPercent,
 //                        totalItems, totalAmountDue, totalDiscount, totalTax, totalAmountReceived, change, paymentMethod, year, month, week, dayTxt, dayNo, hour);
+
+                OpenUserInstance.toUpdateLocalSalesTransactionCount();
             });
 
         }
@@ -299,6 +311,7 @@ public class OpenTransactionsInstance {
                         totalPrice, totalPrice*0.03, 0.00, 0.00, totalPrice + (totalPrice * 0.03), totalPrice + (totalPrice * 0.03),
                         0.00, "Cash", year, month, week, dayTxt, dayNo, hour
                         );
+                OpenUserInstance.toUpdateLocalSalesTransactionCount();
             });
         }
     }
@@ -309,6 +322,7 @@ public class OpenTransactionsInstance {
                                                            String itemName,
                                                            int amount,
                                                            String itemUnit,
+                                                           int newAmount,
                                                            List<String> dtVar){
         try(Realm realm = Realm.getDefaultInstance()){
             String year = dtVar.get(0);
@@ -321,18 +335,10 @@ public class OpenTransactionsInstance {
                 transaction.setTransactionType(transactionType);
                 transaction.setAmount(amount);
                 transaction.setItemUnit(itemUnit);
+                transaction.setNewAmount(newAmount);
                 transaction.setYear(year);
                 transaction.setMonth(month);
                 transaction.setDay(day);
-            });
-        }
-    }
-
-    public static void toVoidInventoryTransactionFromCloud(String id){
-        try(Realm realm = Realm.getDefaultInstance()){
-            realm.executeTransaction(db -> {
-                RealmInventoryTransaction transaction = db.where(RealmInventoryTransaction.class).equalTo("_id", id).findFirst();
-                transaction.deleteFromRealm();
             });
         }
     }

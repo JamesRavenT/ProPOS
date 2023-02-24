@@ -196,7 +196,7 @@
 
             <TextView
                 android:id="@+id/M04F06D07_ItemQty"
-                android:layout_width="65dp"
+                android:layout_width="wrap_content"
                 android:layout_height="65dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/nunito_sans_light"

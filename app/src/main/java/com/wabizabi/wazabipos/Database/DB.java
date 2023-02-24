@@ -179,8 +179,8 @@ public class DB {
                             if(document.exists()){
                                 ObjectId id = new ObjectId(document.getString("id"));
                                 String category = document.getString("category");
-                                int icon = document.getLong("itemIcon").intValue();
-                                String name = document.getString("itemName");
+                                int icon = document.getLong("icon").intValue();
+                                String name = document.getString("name");
                                 int value = document.getLong("value").intValue();
                                 String unit = document.getString("unit");
                                 OpenStocksInstance.toLoadItemFromCloud(id, icon,category, name, value, unit);
@@ -215,15 +215,16 @@ public class DB {
                         DocumentReference docRef = snapShot.getReference();
                         docRef.get().addOnSuccessListener(document -> {
                             if(document.exists()){
-                                String id = document.getString("id");
+                                String id = document.getString("_id");
                                 String transactionDT = document.getString("_transDT");
                                 String transactionType = document.getString("_transType");
                                 String itemName = document.getString("dt_ItemName");
                                 String itemUnit = document.getString("dt_ItemUnit");
                                 int amount = document.getLong("dt_ItemValue").intValue();
-                                List<String> date = (List<String>) document.get("dt_variables");
-                                OpenTransactionsInstance.toLoadInventoryTransactionFromCloud(id, transactionDT, transactionType, itemName, amount, itemUnit, date);
-                                OpenUserInstance.toUpdateLocalInventoryTransactionCount();
+                                int newAmount = document.getLong("dt_ItemValueNew").intValue();
+                                List<String> date = (List<String>) document.get("dt_Variables");
+                                OpenTransactionsInstance.toLoadInventoryTransactionFromCloud(id, transactionDT, transactionType, itemName, amount, itemUnit, newAmount, date);
+                                OpenUserInstance.toUpdateLocalInventoryTransactionCountAdd();
                             }
                         });
                     }
@@ -585,6 +586,7 @@ public class DB {
                                                  String itemName,
                                                  int amount,
                                                  String itemUnit,
+                                                 int newAmount,
                                                  String day,
                                                  String month,
                                                  String year){
@@ -602,6 +604,7 @@ public class DB {
         document.put("dt_ItemName", itemName);
         document.put("dt_ItemUnit", itemUnit);
         document.put("dt_ItemValue", amount);
+        document.put("dt_ItemValueNew", newAmount);
         document.put("dt_Variables", dateVariables);
         inventoryTransaction.document(docID).set(document);
 
@@ -613,6 +616,9 @@ public class DB {
     public static void voidInventoryTransactionFromCloud(InventoryTransaction transaction){
         String docID = transaction.getTransactionID();
         inventoryTransaction.document(docID).delete();
+
+        RealmUser user = realm.where(RealmUser.class).findFirst();
+        userProfile.document(user.get_id().toString()).update("transaction_InvCounter", FieldValue.increment(-1));
     }
 
     //SALES TRANSACTION | UPLOAD

@@ -19,6 +19,7 @@ import com.wabizabi.wazabipos.Database.DB;
 import com.wabizabi.wazabipos.Database.Instances.OpenUserInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.M02_UserVerification;
+import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.BackgroundThreads.WorkOrders;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
@@ -166,19 +167,22 @@ public class M01_SplashScreen extends AppCompatActivity {
                 scDG02_codeInput.setError("Code Invalid");
             } else {
                 OpenUserInstance.toDeleteVerificationCode();
+                load_SkipVerification();
                 scDG02.dismiss();
-                load_NextModule();
             }
         });
     }
 
     private void load_NextModule(){
-        Handler splashScreen = new Handler();
-        splashScreen.postDelayed(()->{
-            startActivity(new Intent(this, M02_UserVerification.class));
-            finish();
-        }, 1000);
+        startActivity(new Intent(this, M02_UserVerification.class));
+        finish();
     }
+
+    private void load_SkipVerification(){
+        startActivity(new Intent(this, M03_LoadResources.class));
+        finish();
+    }
+
 
     private boolean checkIfNetworkIsAvailable() {
         ConnectivityManager connectivityManager

@@ -13,6 +13,7 @@ public class RealmInventoryTransaction extends RealmObject {
     String itemName;
     int amount;
     String itemUnit;
+    int newAmount;
     String day, month, year;
 
     public RealmInventoryTransaction(){}
@@ -34,20 +35,20 @@ public class RealmInventoryTransaction extends RealmObject {
         this.transactionDT = transactionDT;
     }
 
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
     public String getTransactionType() {
         return transactionType;
     }
 
     public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public int getAmount() {
@@ -64,6 +65,14 @@ public class RealmInventoryTransaction extends RealmObject {
 
     public void setItemUnit(String itemUnit) {
         this.itemUnit = itemUnit;
+    }
+
+    public int getNewAmount() {
+        return newAmount;
+    }
+
+    public void setNewAmount(int newAmount) {
+        this.newAmount = newAmount;
     }
 
     public String getDay() {

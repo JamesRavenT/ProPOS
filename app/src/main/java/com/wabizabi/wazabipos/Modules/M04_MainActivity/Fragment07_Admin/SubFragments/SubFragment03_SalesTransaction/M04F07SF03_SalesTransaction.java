@@ -370,7 +370,6 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
         transSalesDG01_SubMonthBtn.setOnClickListener(sub -> {
             if(!transSalesDG01_Year.getText().equals("Any")) {
                 String currentMonth = DateHelper.getMonthName(transSalesDG01_Month.getText().toString());
-                LogHelper.debug(currentMonth);
                 if (currentMonth.equals("January")) {
                     transSalesDG01_Month.setText("Any");
                 } else {
@@ -396,7 +395,6 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
         transSalesDG01_SubDayBtn.setOnClickListener(sub -> {
             if(!transSalesDG01_Month.getText().equals("Any")) {
                 String dayText = transSalesDG01_Day.getText().toString();
-
                 int daysOfTheMonth = DateHelper.getDaysCount(transSalesDG01_Month.getText().toString());
                 if(daysOfTheMonth == 29){
                     if(dayText.equals("01")) {

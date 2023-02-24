@@ -109,12 +109,22 @@ public class OpenUserInstance {
         }
     }
 
-    public static void toUpdateLocalInventoryTransactionCount(){
+    public static void toUpdateLocalInventoryTransactionCountAdd(){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {
                 RealmUser user = db.where(RealmUser.class).findFirst();
                 int count = user.getInvTransactionLocal();
                 user.setInvTransactionLocal(count + 1);
+            });
+        }
+    }
+
+    public static void toUpdateLocalInventoryTransactionCountSub(){
+        try(Realm realm = Realm.getDefaultInstance()){
+            realm.executeTransaction(db -> {
+                RealmUser user = db.where(RealmUser.class).findFirst();
+                int count = user.getInvTransactionLocal();
+                user.setInvTransactionLocal(count - 1);
             });
         }
     }

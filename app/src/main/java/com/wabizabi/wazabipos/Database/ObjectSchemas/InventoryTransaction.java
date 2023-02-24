@@ -7,17 +7,19 @@ public class InventoryTransaction {
     String transactionType;
     int amount;
     String itemUnit;
+    int newAmount;
     String day, month, year;
 
     public InventoryTransaction(){}
 
-    public InventoryTransaction(String transactionID, String transactionDT, String transactionType, String itemName,  int amount, String itemUnit, String day, String month, String year) {
+    public InventoryTransaction(String transactionID, String transactionDT, String transactionType, String itemName,  int amount, String itemUnit, int newAmount, String day, String month, String year) {
         this.transactionID = transactionID;
         this.transactionDT = transactionDT;
         this.transactionType = transactionType;
         this.itemName = itemName;
         this.amount = amount;
         this.itemUnit = itemUnit;
+        this.newAmount = newAmount;
         this.day = day;
         this.month = month;
         this.year = year;
@@ -69,6 +71,14 @@ public class InventoryTransaction {
 
     public void setItemUnit(String itemUnit) {
         this.itemUnit = itemUnit;
+    }
+
+    public int getNewAmount() {
+        return newAmount;
+    }
+
+    public void setNewAmount(int newAmount) {
+        this.newAmount = newAmount;
     }
 
     public String getDay() {

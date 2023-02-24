@@ -51,7 +51,6 @@ public class M02_UserVerification extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(currentFragment != null){
-            startActivity(new Intent(this, M04_Main.class));
             finish();
         }
     }
