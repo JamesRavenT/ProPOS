@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D15_TransactionCompleteRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment03_SalesTransaction.Adapters.M04F07SF03D02_ViewSalesRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment03_SalesTransaction.Adapters.M04F07SF03D04_ViewRefundsRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment03_SalesTransaction.Adapters.M04F07SF03_SalesTransactionRVA;
@@ -32,10 +31,8 @@ import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DateHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

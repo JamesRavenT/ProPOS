@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wabizabi.wazabipos.Database.Instances.OpenTableInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTicketInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
-import com.wabizabi.wazabipos.Database.Instances.OpenUserInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.PaymentMethod;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Table;
@@ -43,17 +42,17 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragmen
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D10_ManageTicketRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D14_ConfirmTransactionRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D15_TransactionCompleteRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Helper.CartHelper;
+import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
+import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.CartHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.PrintHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA;
-import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
-import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -1131,7 +1130,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     //DG to display upon clicking the order details if currentTicket is !null
     private void load_DG12Functionalities(){
         //Load Details
-        String details = StringHelper.trim(currentCartTicket.getDetails(), 20);
+        String details = currentCartTicket.getDetails();
 
         //SetView
         cartDG12_DetailsText.setText(details);

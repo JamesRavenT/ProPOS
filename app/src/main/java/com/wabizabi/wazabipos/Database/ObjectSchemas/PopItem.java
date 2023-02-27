@@ -1,10 +1,5 @@
 package com.wabizabi.wazabipos.Database.ObjectSchemas;
 
-import org.bson.types.ObjectId;
-
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 public class PopItem {
     String name;
     int frequency;

@@ -1,8 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M01_SplashScreen;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +11,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wabizabi.wazabipos.Database.DB;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import com.wabizabi.wazabipos.Database.DB;
 import com.wabizabi.wazabipos.Database.Instances.OpenUserInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.M02_UserVerification;
@@ -56,7 +55,13 @@ public class M01_SplashScreen extends AppCompatActivity {
     private void init_Functionalities(){
         init_DB();
         init_Dialog();
+//        init_TestData();
         verify_User();
+    }
+
+    private void init_TestData(){
+        TestData.preloadProducts();
+        TestData.preloadTransactions();
     }
 
     private void init_DB(){

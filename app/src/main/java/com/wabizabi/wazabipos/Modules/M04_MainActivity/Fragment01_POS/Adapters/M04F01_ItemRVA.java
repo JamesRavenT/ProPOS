@@ -1,6 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 
 import android.content.Context;
 import android.view.View;
@@ -9,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
@@ -21,7 +24,7 @@ import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +83,7 @@ public class M04F01_ItemRVA extends RecyclerView.Adapter<M04F01_ItemRVA.ViewHold
 
         public void loadFunctionalities(MenuItem item, int position){
             //Load Details
-            String name = StringHelper.limitDisplay(item.getItemPOSName(), 0, 18, 15);
+            String name = StringHelper.limitDisplay(item.getItemWebName(), 0, 16, 13);
             String price = StringHelper.convertToCurrency(item.getItemPrice());
 
             //Set Views
@@ -106,6 +109,15 @@ public class M04F01_ItemRVA extends RecyclerView.Adapter<M04F01_ItemRVA.ViewHold
                 itemStatus.setVisibility(View.VISIBLE);
                 //Disbale Add Btn and count it's frequency in the cart
                 itemStatusText.setText("In Cart : " + itemAmount.get(0));
+                itemStatus.setOnClickListener(click -> {
+                    currentFragment = "Cart";
+                    AppCompatActivity activity = (AppCompatActivity) itemStatus.getContext();
+                    activity
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.MainActivityContainer, new M04F01SF03_Cart())
+                            .commit();
+                });
             } else {
                 //Set Item's Status to Free
                 itemStatus.setVisibility(View.GONE);

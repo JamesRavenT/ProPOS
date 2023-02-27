@@ -2,15 +2,13 @@ package com.wabizabi.wazabipos.Modules.M02_UserVerification;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments.M02F01_UserSignIn;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments.M02F02_UserLogIn;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main;
 import com.wabizabi.wazabipos.R;
 
 import io.realm.Realm;

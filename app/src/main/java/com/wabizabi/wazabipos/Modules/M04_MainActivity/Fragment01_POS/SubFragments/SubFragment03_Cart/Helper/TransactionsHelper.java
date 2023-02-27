@@ -1,8 +1,8 @@
-package com.wabizabi.wazabipos.Utilities.Libraries.Helper;
+package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Helper;
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
-import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;

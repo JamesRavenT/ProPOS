@@ -10,18 +10,16 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.TransactionsHelper;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Helper.TransactionsHelper;
 
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class M04F07SF03_SalesTransactionRVA extends RecyclerView.Adapter<M04F07SF03_SalesTransactionRVA.ViewHolder>{
 

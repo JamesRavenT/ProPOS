@@ -5,7 +5,6 @@ import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Sub
 
 import android.app.Dialog;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Discount;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmDiscount;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
@@ -86,7 +86,7 @@ public class M04F01SF03D04_AppliedDiscountsRVA extends RecyclerView.Adapter<M04F
 
         public void loadFunctionalities(String name, int percentage, int frequency, int position){
             //Load Details
-            String items = (frequency == cart.size()) ? "All Items" : frequency + "item(s)";
+            String items = (frequency == cart.size()) ? "All Items" : frequency + " item(s)";
 
             //Set Views
             this.position = position;
@@ -106,6 +106,12 @@ public class M04F01SF03D04_AppliedDiscountsRVA extends RecyclerView.Adapter<M04F
                     currentCartTicket.setTicketStatus("Voidable");
                 }
                 listOfDiscountsApplied.remove(name, frequency);
+                for(CartItem item : cart.keySet()){
+                    Map<String, Integer> discounts = item.getItemDiscounts();
+                    if(discounts.containsKey(name)){
+                        discounts.remove(name, percentage);
+                    }
+                }
                 fragmentLoader.load_FGContents();
                 notifyDataSetChanged();
             });

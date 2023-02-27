@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.wabizabi.wazabipos.Database.Instances.OpenPaymentMethodInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.PaymentMethod;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_PaymentMethods.Adapters.M04F05_PaymentMethodsRVA;
@@ -27,8 +26,6 @@ import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ListHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
 import java.util.List;

@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.R;
-import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 public class M04F01SF02_RecommendationRVA extends RecyclerView.Adapter<M04F01SF02_RecommendationRVA.ViewHolder> {
@@ -55,47 +55,12 @@ public class M04F01SF02_RecommendationRVA extends RecyclerView.Adapter<M04F01SF0
 
         public void getRecommendedItems(CartItem item, int position){
             this.position = position;
-            if(item.getItemPOSName().length() < 25) {
-                itemName.setText(item.getItemPOSName());
-            } else {
-                itemName.setText(item.getItemPOSName().substring(0, Math.min(item.getItemPOSName().length(), 20)) + "...");
-            }
-            itemPrice.setText("₱" + new BigDecimal(item.getItemPrice()).setScale(2, RoundingMode.HALF_UP).toString());
-            switch(item.getItemImage()){
-                case 0:
-                    itemImage.setImageResource(R.drawable.icon_products00_default);
-                    break;
-                case 1:
-                    itemImage.setImageResource(R.drawable.icon_products01_deepfried);
-                    break;
-                case 2:
-                    itemImage.setImageResource(R.drawable.icon_products02_desserts);
-                    break;
-                case 3:
-                    itemImage.setImageResource(R.drawable.icon_products03_donburi);
-                    break;
-                case 4:
-                    itemImage.setImageResource(R.drawable.icon_products04_drinks);
-                    break;
-                case 5:
-                    itemImage.setImageResource(R.drawable.icon_products05_nigiri);
-                    break;
-                case 6:
-                    itemImage.setImageResource(R.drawable.icon_products06_noodles);
-                    break;
-                case 7:
-                    itemImage.setImageResource(R.drawable.icon_products07_salad);
-                    break;
-                case 8:
-                    itemImage.setImageResource(R.drawable.icon_products08_sashimi);
-                    break;
-                case 9:
-                    itemImage.setImageResource(R.drawable.icon_products09_sushi);
-                    break;
-                case 10:
-                    itemImage.setImageResource(R.drawable.icon_products10_sushirolls);
-                    break;
-            }
+            String name = StringHelper.limitDisplay(item.getItemWebName(), 0, 18, 15);
+            String price = StringHelper.convertToCurrency(item.getItemPrice());
+            IconHelper.setMenuIcon(itemImage, item.getItemImage());
+            itemName.setText(name);
+            itemPrice.setText(price);
+
         }
     }
 }

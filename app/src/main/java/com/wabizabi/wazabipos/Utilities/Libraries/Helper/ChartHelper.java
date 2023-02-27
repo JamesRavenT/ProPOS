@@ -1,20 +1,13 @@
 package com.wabizabi.wazabipos.Utilities.Libraries.Helper;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class ChartHelper {

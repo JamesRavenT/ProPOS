@@ -22,7 +22,6 @@ import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 
 import java.util.List;
 

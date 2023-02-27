@@ -1,9 +1,5 @@
 package com.wabizabi.wazabipos.Utilities.Libraries.Algorithm;
 
-import android.util.Log;
-
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogHelper;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;

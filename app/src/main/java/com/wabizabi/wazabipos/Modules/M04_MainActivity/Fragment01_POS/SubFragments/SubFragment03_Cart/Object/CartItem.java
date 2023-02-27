@@ -1,4 +1,4 @@
-package com.wabizabi.wazabipos.Utilities.Libraries.Objects;
+package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object;
 
 import java.util.Map;
 import java.util.TreeMap;

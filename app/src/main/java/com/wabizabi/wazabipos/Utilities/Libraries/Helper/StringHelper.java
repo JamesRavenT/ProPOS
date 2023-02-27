@@ -1,6 +1,6 @@
 package com.wabizabi.wazabipos.Utilities.Libraries.Helper;
 
-import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

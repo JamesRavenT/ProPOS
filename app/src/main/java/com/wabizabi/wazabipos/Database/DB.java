@@ -458,8 +458,8 @@ public class DB {
         document.put("category", itemCategory);
         document.put("name", itemWebName);
         document.put("price", price);
-        document.put("z_PosIcon", itemIcon);
-        document.put("z_PosName", itemPOSName);
+        document.put("z_POSIcon", itemIcon);
+        document.put("z_POSName", itemPOSName);
         menuItem.document(docID).set(document, SetOptions.merge());
     }
 

@@ -10,7 +10,6 @@ import com.wabizabi.wazabipos.Database.Instances.OpenFPGInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
 import com.wabizabi.wazabipos.Utilities.Libraries.Algorithm.FQList;
 import com.wabizabi.wazabipos.Utilities.Libraries.Algorithm.Tree;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

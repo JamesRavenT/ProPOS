@@ -3,8 +3,6 @@ package com.wabizabi.wazabipos.Utilities.Libraries.Helper;
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fqList;
 
-import android.util.Log;
-
 import com.wabizabi.wazabipos.Database.ObjectSchemas.PopCombination;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.PopItem;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmPopCombination;

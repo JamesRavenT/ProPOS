@@ -10,8 +10,7 @@ import com.wabizabi.wazabipos.Database.ObjectSchemas.StockCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.StockItem;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Table;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Ticket;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.CartHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
 
 public class DialogBundle {
     int dialogDestinationNo;

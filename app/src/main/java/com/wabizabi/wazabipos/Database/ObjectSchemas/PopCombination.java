@@ -1,13 +1,7 @@
 package com.wabizabi.wazabipos.Database.ObjectSchemas;
 
-import org.bson.types.ObjectId;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 public class PopCombination {
 

@@ -1,7 +1,5 @@
 package com.wabizabi.wazabipos.Modules.M03_LoadResources;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -10,15 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.wabizabi.wazabipos.Database.DB;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.BackgroundThreads.WorkOrders;
-import com.wabizabi.wazabipos.Utilities.Testing.TestData;
-
-import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class M03_LoadResources extends AppCompatActivity {
 

@@ -2,7 +2,6 @@ package com.wabizabi.wazabipos.Modules.M02_UserVerification.Fragments;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -20,12 +19,10 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.work.Worker;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenUserInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
-import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.M04F07_Admin;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.BackgroundThreads.WorkOrders;

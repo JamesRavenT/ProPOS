@@ -1,7 +1,5 @@
 package com.wabizabi.wazabipos.Database.RealmSchemas;
 
-import org.bson.types.ObjectId;
-
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

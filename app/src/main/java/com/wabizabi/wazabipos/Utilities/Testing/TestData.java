@@ -2,7 +2,6 @@ package com.wabizabi.wazabipos.Utilities.Testing;
 
 import android.os.Handler;
 
-import com.wabizabi.wazabipos.Database.Instances.OpenDiscountInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenMenuInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
@@ -34,16 +33,16 @@ public class TestData {
         //Sashimi and Nigiri [4]
         String[] SashimiAndNigiri = {
                 "California Maki",
-                "nigiri salmon",
+                "Nigiri salmon",
                 "Salmon sashimi",
                 "Tuna Sashimi"
         };
 
         String[] SashimiAndNigiriPOS = {
-                "Cal Maki",
-                "Nig salmon",
-                "Sal sashimi",
-                "Tuna Sashimi"
+                "CL Maki",
+                "NG Salmon",
+                "SL Sashimi",
+                "TN Sashimi"
         };
 
         //Salad [3]
@@ -54,9 +53,9 @@ public class TestData {
         };
 
         String[] SaladPOS = {
-                "Kani Sld",
-                "Sld Wrap",
-                "SWeed Salad"
+                "KN Salad",
+                "SLD Wrap",
+                "SW Salad"
         };
 
         //Sushi Rolls [9]
@@ -73,15 +72,15 @@ public class TestData {
         };
 
         String[] SushiRollsPOS = {
-                "3 Ch.CK Roll",
-                "Ab Salmon Roll",
-                "Cpy Philly Roll",
-                "Futomaki Roll",
-                "SS Temp Roll",
-                "SL Roll",
-                "TS Dynamite Roll",
-                "TT Roll",
-                "Yuzu CS Roll"
+                "3Cheese CKRoll",
+                "ABSalmon Roll",
+                "CPL Roll",
+                "FMK Roll",
+                "S&STMP Roll",
+                "SLMNLV Roll",
+                "T.SLMN DRoll",
+                "TNTK Roll",
+                "YZCS Roll"
 
         };
 
@@ -94,10 +93,10 @@ public class TestData {
         };
 
         String[] SushiPlatterPOS = {
-                "All FS Platter",
-                "CSpcl Sushi Platter",
-                "Dlx Sushi Platter",
-                "Prm Sushi Set"
+                "AFS Platter",
+                "SP SSH Platter",
+                "DLX SSH Platter",
+                "PRM SSH Set"
         };
 
         //Noodles [6]
@@ -111,12 +110,12 @@ public class TestData {
         };
 
         String[] NoodlesPOS = {
-                "BY Udon",
+                "BFYK Udon",
                 "Gyudon",
                 "Katsudon",
-                "M Ramen",
-                "Tntn Ramen",
-                "Tk Ramen"
+                "MS Ramen",
+                "TNTN Ramen",
+                "TNK Ramen"
         };
 
         //Donburi [4]
@@ -128,10 +127,10 @@ public class TestData {
         };
 
         String[] DonburiPOS = {
-                "Cal Deluxe",
-                "Krzy Volcano",
-                "RB Chirashi",
-                "TKdon"
+                "CLF Deluxe",
+                "KRZY Volcano",
+                "RNBW Chirashi",
+                "Teriyakidon"
         };
 
         //Drinks [3]
@@ -163,7 +162,7 @@ public class TestData {
 
         String[] OthersPOS = {
                 "S&V Tempura",
-                "S Tempura"
+                "SHMP Tempura"
         };
 
 
@@ -209,9 +208,9 @@ public class TestData {
             if (listOfTransactions.size() < 50) {
                 Handler timer = new Handler();
                 List<List<String>> table = new ArrayList<>();
-                DataSetA.insertInto(table);
-//                DataSetB.insertInto(table);
-//                DataSetC.insertInto(table);
+                //DataSetA.insertInto(table);
+                //DataSetB.insertInto(table);
+                DataSetC.insertInto(table);
 //                DataSetD.insertInto(table);
 //                DataSetE.insertInto(table);
 //                DataSetF.insertInto(table);

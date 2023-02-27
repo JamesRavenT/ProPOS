@@ -4,7 +4,7 @@ import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment08_Printer
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.Ticket;
-import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
 
 import java.io.IOException;
 import java.io.OutputStream;

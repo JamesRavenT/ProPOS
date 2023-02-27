@@ -2,7 +2,6 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.Helpers;
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ public class MCHelper {
     public static List<Integer> getMenuIcons(){
         List<Integer> icons = new ArrayList<>();
         int counter = 0;
-        while (counter != 9){
+        while (counter != 11){
             icons.add(counter);
             counter++;
         }

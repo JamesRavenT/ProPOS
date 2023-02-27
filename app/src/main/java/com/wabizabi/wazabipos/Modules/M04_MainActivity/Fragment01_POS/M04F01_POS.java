@@ -28,19 +28,20 @@ import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_CategoryRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters.M04F01_ItemRVA;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Helpers.POSCHelper;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Helpers.POSIHelper;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment01_Header.M04F01SF01_Header;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation.M04F01SF02_Recommendation;
+import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.DialogLoader;
 import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
-import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,34 +130,16 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
     }
 
     private void load_SearchBar(){
+        searchBar.removeTextChangedListener(searchEngine);
         searchBar.getText().clear();
-        searchBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable input) {
-                if(currentFragment.equals("POS01")){
-                    load_FilteredCategoryRV(input.toString());
-                } else {
-                    load_FilteredItemRV(input.toString());
-                }
-            }
-        });
+        searchBar.addTextChangedListener(searchEngine);
     }
 
     private void load_CategoryRV() {
         //Initialize Text Display
         currentRVText.setText("「 CATEGORIES 」");
         //Initialize RV Items and then the RecyclerView
-        listOfCategories = RVHelper.getMenuCategories(realm);
+        listOfCategories = POSCHelper.getMenuCategories(realm);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         posRVA = new M04F01_CategoryRVA(getActivity(), realm, listOfCategories, this);
@@ -166,7 +149,7 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
 
     private void load_FilteredCategoryRV(String input){
         //Initialize RV Items and then the RecyclerView
-        List<MenuCategory> filteredCategory = RVHelper.getFilteredMenuCategories(listOfCategories, input);
+        List<MenuCategory> filteredCategory = POSCHelper.getFilteredMenuCategories(listOfCategories, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         posRVA = new M04F01_CategoryRVA(getActivity(), realm, filteredCategory, this);
@@ -189,7 +172,7 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
 
     private void load_FilteredItemRV(String input){
         //Initialize RV Items and then the RecyclerView
-        List<MenuItem> filteredListOfItem = RVHelper.getFilteredMenuItems(listOfItems, input);
+        List<MenuItem> filteredListOfItem = POSIHelper.getFilteredMenuItems(listOfItems, input);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         posRVA = new M04F01_ItemRVA(getActivity(), realm, filteredListOfItem, this);
@@ -253,7 +236,7 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
                 CartItem itemkey = basket.get(0);
                 cart.put(itemkey, cart.get(itemkey) + 1);
             } else {
-                cart.put(new CartItem(itemPOSName, itemWebName, itemPrice), itemQtyCount);
+                cart.put(new CartItem(itemWebName, itemPOSName, itemPrice), itemQtyCount);
             }
             if(currentCartTicket != null) {
                 currentCartTicket.setTicketStatus("Voidable");
@@ -270,6 +253,27 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
         });
     }
 
+    protected TextWatcher searchEngine = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable input) {
+            if(currentFragment.equals("POS01")){
+                load_FilteredCategoryRV(input.toString());
+            } else {
+                load_FilteredItemRV(input.toString());
+            }
+        }
+    };
+
     @Override
     public void load_DGContents(DialogBundle bundle) {
         load_DG01Functionalities(bundle);
@@ -279,6 +283,7 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
     @Override
     public void load_RVContents(RVBundle bundle) {
         currentFragment = "POS02";
+        load_SearchBar();
         load_ItemRV(bundle);
     }
 

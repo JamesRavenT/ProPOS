@@ -6,11 +6,8 @@ import com.wabizabi.wazabipos.Database.ObjectSchemas.InventoryTransaction;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmInventoryTransaction;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
-import com.wabizabi.wazabipos.Utilities.Libraries.Objects.CartItem;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
 
-import org.bson.types.ObjectId;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -314,8 +311,9 @@ public class OpenTransactionsInstance {
                         totalPrice, totalPrice*0.03, 0.00, 0.00, totalPrice + (totalPrice * 0.03), totalPrice + (totalPrice * 0.03),
                         0.00, "Cash", year, month, week, dayTxt, dayNo, hour
                         );
-                OpenUserInstance.toUpdateLocalSalesTransactionCount();
+
             });
+            OpenUserInstance.toUpdateLocalSalesTransactionCount();
         }
     }
 

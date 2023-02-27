@@ -1,6 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment08_Printer;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
@@ -26,8 +27,6 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment08_Printer.Adapte
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
-
-import android.bluetooth.BluetoothAdapter;
 
 import java.io.InputStream;
 import java.io.OutputStream;

@@ -1,7 +1,6 @@
 package com.wabizabi.wazabipos.Database.Instances;
 
 import com.wabizabi.wazabipos.Database.DB;
-import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuCategory;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmStockCategory;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmStockItem;
 

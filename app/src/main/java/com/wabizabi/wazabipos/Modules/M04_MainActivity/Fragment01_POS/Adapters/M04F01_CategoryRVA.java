@@ -14,12 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
-import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Helpers.POSCHelper;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Helpers.POSIHelper;
 import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Utilities.Interfaces.RVLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.RVBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.RVHelper;
 
 import java.util.List;
 
@@ -79,7 +80,7 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
         public void loadFunctionalities(MenuCategory category, int position){
             //Load Details
             String name = category.getCategoryName();
-            String size = RVHelper.getMenuCategorySize(realm, name);
+            String size = POSCHelper.getMenuCategorySize(realm, name);
 
             //Set Views
             this.position = position;
@@ -92,7 +93,7 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
             //On Click Container
             categoryContainer.setOnClickListener(click -> {
                 currentFragment = "POS02";
-                List<MenuItem> listOfItems = RVHelper.getMenuItems(realm, name);
+                List<MenuItem> listOfItems = POSIHelper.getMenuItems(realm, name);
                 itemRV.load_RVContents(new RVBundle(name, listOfItems));
             });
         }
