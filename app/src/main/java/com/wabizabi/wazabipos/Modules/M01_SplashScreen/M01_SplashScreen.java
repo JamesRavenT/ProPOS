@@ -60,8 +60,8 @@ public class M01_SplashScreen extends AppCompatActivity {
     }
 
     private void init_TestData(){
-        TestData.preloadProducts();
-        TestData.preloadTransactions();
+//        TestData.preloadProducts();
+//        TestData.preloadTransactions();
     }
 
     private void init_DB(){

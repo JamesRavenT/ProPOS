@@ -259,6 +259,21 @@ public class OpenTransactionsInstance {
             String dayTxt = new SimpleDateFormat("EEEE").format(new Date());
             String dayNo = new SimpleDateFormat("dd").format(new Date());
             String hour = new SimpleDateFormat("kk").format(new Date());
+            String transNo = new SimpleDateFormat("yyDDD").format(new Date());
+            RealmResults<RealmSalesTransaction> query = realm.where(RealmSalesTransaction.class)
+                    .equalTo("year", year)
+                    .and()
+                    .equalTo("month", month)
+                    .and()
+                    .equalTo("dayNo", dayNo)
+                    .findAll();
+            String transactionNo = (String.valueOf(query.size()).length() == 3)
+                    ? transNo + "-" + query.size()
+                    : (String.valueOf(query.size()).length() == 2)
+                    ? transNo + "-0" + query.size()
+                    : (String.valueOf(query.size()).length() == 1 && query.size() != 1)
+                    ? transNo + "-00" + query.size()
+                    : transNo + "-000";
             realm.executeTransaction(db -> {
                 //TRANSACTION
                 RealmSalesTransaction transaction = db.createObject(RealmSalesTransaction.class, id);
@@ -272,7 +287,7 @@ public class OpenTransactionsInstance {
                 RealmList<String> discountsIDName = new RealmList<>();
                 RealmList<Integer> discountsIDPercent = new RealmList<>();
 
-                transaction.setTransactionNo("00000-000");
+                transaction.setTransactionNo(transactionNo);
                 transaction.setTransactionType("Sales");
                 transaction.setDateAndTime(dateAndTime);
                 transaction.setCashier("Test Cashier");
@@ -306,7 +321,7 @@ public class OpenTransactionsInstance {
                 List<String> discountsName = new ArrayList<>();
                 List<Integer> discountsPercent = new ArrayList<>();
                 DB.uploadNewSalesToCloud(
-                        id,"00000-000", "Sales", dateAndTime, "Test Cashier", "Table 00 [Default]", "Take Out",
+                        id,transactionNo, "Sales", dateAndTime, "Test Cashier", "Table 00 [Default]", "Take Out",
                         itemsetWebName, itemsetPOSName, itemsetPrice, itemsetQty, discountsItem, discountsName, discountsPercent, itemsetQty.stream().mapToInt(i->i).sum(),
                         totalPrice, totalPrice*0.03, 0.00, 0.00, totalPrice + (totalPrice * 0.03), totalPrice + (totalPrice * 0.03),
                         0.00, "Cash", year, month, week, dayTxt, dayNo, hour

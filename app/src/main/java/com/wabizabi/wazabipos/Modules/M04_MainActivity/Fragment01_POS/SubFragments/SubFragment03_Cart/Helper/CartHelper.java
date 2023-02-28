@@ -67,7 +67,7 @@ public class CartHelper {
     //--DG07--//
     public static List<Table> getListOfFreeTable(Realm realm){
         List<Table> listOfTables = new ArrayList<>();
-        RealmResults<RealmTable> queriedTables = realm.where(RealmTable.class).equalTo("tableStatus", "Free").sort("tableName").sort("tableNo").findAll();
+        RealmResults<RealmTable> queriedTables = realm.where(RealmTable.class).equalTo("tableStatus", "Free").sort("tableNo").sort("tableName").findAll();
         for(RealmTable query : queriedTables){
             listOfTables.add(new Table(query.getTableName(), query.getTableNo()));
         }

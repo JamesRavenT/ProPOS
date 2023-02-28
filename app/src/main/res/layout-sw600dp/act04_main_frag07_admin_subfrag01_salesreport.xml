@@ -104,7 +104,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/M04F07SF01_SalesReportChartContainer"
             android:layout_width="0dp"
-            android:layout_height="325dp"
+            android:layout_height="350dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             app:cardBackgroundColor="@color/white"
@@ -143,7 +143,7 @@
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/M04F07SF01_Chart"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="225dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
@@ -283,7 +283,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
                     android:fontFamily="@font/nunito_sans_light"
-                    android:gravity="center|start"
+                    android:gravity="center"
                     android:text="Statistics"
                     android:textColor="@color/wabizabi"
                     android:textSize="30dp"
@@ -319,14 +319,14 @@
 
                         <TextView
                             android:id="@+id/M04F07SF01_PopularItemsText"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginEnd="15dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
                             android:fontFamily="@font/nunito_sans_light"
-                            android:gravity="center|start"
+                            android:gravity="center"
                             android:text="Top 5 Popular Items"
                             android:textColor="@color/white"
                             android:textSize="30dp"
@@ -340,7 +340,7 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/M04F07SF01_PopularItemRVLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="125dp"
+                            android:layout_height="200dp"
                             android:background="@drawable/bg_shape_rectangle_stroke_dark_bordertopbot">
 
                             <androidx.recyclerview.widget.RecyclerView
@@ -353,20 +353,22 @@
                                 android:layout_marginBottom="1dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.0" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
                             android:id="@+id/M04F07SF01_PopularCombinationsText"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="15dp"
                             android:layout_marginBottom="5dp"
                             android:fontFamily="@font/nunito_sans_light"
-                            android:gravity="center|start"
+                            android:gravity="center"
                             android:text="Top 5 Combinations"
                             android:textColor="@color/white"
                             android:textSize="30dp"
@@ -380,7 +382,7 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/M04F07SF01_PopularCombinationRVLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="125dp"
+                            android:layout_height="200dp"
                             android:background="@drawable/bg_shape_rectangle_stroke_dark_bordertopbot">
 
                             <androidx.recyclerview.widget.RecyclerView

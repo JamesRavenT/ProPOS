@@ -14,6 +14,7 @@ import com.wabizabi.wazabipos.Database.DB;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.BackgroundThreads.WorkOrders;
+import com.wabizabi.wazabipos.Utilities.Testing.TestData;
 
 public class M03_LoadResources extends AppCompatActivity {
 
@@ -36,6 +37,7 @@ public class M03_LoadResources extends AppCompatActivity {
         three = new Handler();
         boolean checkComplete = checkForData();
         if(checkComplete){
+//            TestData.preloadProducts();
 //            TestData.preloadTransactions();
             zero.postDelayed(()->{ loading.setText("L O A D I N G .");
                 one.postDelayed(()->{ loading.setText("L O A D I N G . .");

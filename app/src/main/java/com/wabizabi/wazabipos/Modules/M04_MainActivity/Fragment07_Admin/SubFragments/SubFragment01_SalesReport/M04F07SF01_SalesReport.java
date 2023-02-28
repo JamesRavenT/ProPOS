@@ -31,11 +31,11 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragm
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment01_SalesReport.Adapters.M04F07SF01_PopItemRVA;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ChartHelper;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment01_SalesReport.SRHelper.ChartHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DateHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
-import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StatisticsHelper;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment01_SalesReport.SRHelper.StatisticsHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 
 import java.text.SimpleDateFormat;
@@ -76,23 +76,19 @@ public class M04F07SF01_SalesReport extends Fragment {
     Dialog srDG01;
     TextView srDG01_YearTxt,
             srDG01_MonthTxt,
-            srDG01_WeekTxt,
-            srDG01_DayTxt;
+            srDG01_WeekTxt;
     ImageView srDG01_SubDisplayBtn,
               srDG01_SubYearBtn,
               srDG01_SubMonthBtn,
-              srDG01_SubWeekBtn,
-              srDG01_SubDayBtn;
+              srDG01_SubWeekBtn;
     TextView srDG01_Display,
              srDG01_Year,
              srDG01_Month,
-             srDG01_Week,
-             srDG01_Day;
+             srDG01_Week;
     ImageView srDG01_AddDisplayBtn,
               srDG01_AddYearBtn,
               srDG01_AddMonthBtn,
-              srDG01_AddWeekBtn,
-              srDG01_AddDayBtn;
+              srDG01_AddWeekBtn;
     CardView srDG01_ConfirmBtn;
     ImageView closeDG01Btn;
 
@@ -161,7 +157,7 @@ public class M04F07SF01_SalesReport extends Fragment {
                 load_WeeklyReport(realm, viewType, year, month, week);
                 break;
             case "Daily":
-                load_DailyReport(realm, viewType, year, month, week, day);
+                load_DailyReport(realm, viewType, year, month, day);
                 break;
         }
         //Prepare Variables
@@ -227,10 +223,10 @@ public class M04F07SF01_SalesReport extends Fragment {
         init_Chart(salesData, refundsData, chartVariables);
     }
 
-    private void load_DailyReport(Realm realm, String viewType, String year, String month, String week, String day){
-        listOfSales = ChartHelper.getDailyView(realm, year, month, week, day);
-        salesEntries = ChartHelper.getDailySales(realm, year, month, week, day);
-        refundEntries = ChartHelper.getDailyRefund(realm, year, month, week, day);
+    private void load_DailyReport(Realm realm, String viewType, String year, String month, String day){
+        listOfSales = ChartHelper.getDailyView(realm, year, month, day);
+        salesEntries = ChartHelper.getDailySales(realm, year, month, day);
+        refundEntries = ChartHelper.getDailyRefund(realm, year, month, day);
         String[] chartVariables = ChartHelper.getXVariables(viewType);
         BarDataSet salesData = new BarDataSet(salesEntries, "Sales");
         BarDataSet refundsData = new BarDataSet(refundEntries, "Refunds");
@@ -322,23 +318,19 @@ public class M04F07SF01_SalesReport extends Fragment {
         srDG01 = DialogHelper.create(getActivity(), R.layout.act04_main_frag07_admin_subfrag01_salesreport_dg01_searchsettings);
         srDG01_YearTxt = srDG01.findViewById(R.id.M04F07SF01D01_YearText);
         srDG01_MonthTxt = srDG01.findViewById(R.id.M04F07SF01D01_MonthText);
-        srDG01_WeekTxt = srDG01.findViewById(R.id.M04F07SF01D01_WeekText);
-        srDG01_DayTxt = srDG01.findViewById(R.id.M04F07SF01D01_DayText);
+        srDG01_WeekTxt = srDG01.findViewById(R.id.M04F07SF01D01_WeekDayText);
         srDG01_SubDisplayBtn = srDG01.findViewById(R.id.M04F07SF01D01_DisplaySubBtn);
         srDG01_SubYearBtn = srDG01.findViewById(R.id.M04F07SF01D01_YearSubBtn);
         srDG01_SubMonthBtn = srDG01.findViewById(R.id.M04F07SF01D01_MonthSubBtn);
         srDG01_SubWeekBtn = srDG01.findViewById(R.id.M04F07SF01D01_WeekSubBtn);
-        srDG01_SubDayBtn = srDG01.findViewById(R.id.M04F07SF01D01_DaySubBtn);
         srDG01_Display = srDG01.findViewById(R.id.M04F07SF01D01_DisplayInput);
         srDG01_Year = srDG01.findViewById(R.id.M04F07SF01D01_YearInput);
         srDG01_Month = srDG01.findViewById(R.id.M04F07SF01D01_MonthInput);
         srDG01_Week = srDG01.findViewById(R.id.M04F07SF01D01_WeekInput);
-        srDG01_Day = srDG01.findViewById(R.id.M04F07SF01D01_DayInput);
         srDG01_AddDisplayBtn = srDG01.findViewById(R.id.M04F07SF01D01_DisplayAddBtn);
         srDG01_AddYearBtn = srDG01.findViewById(R.id.M04F07SF01D01_YearAddBtn);
         srDG01_AddMonthBtn = srDG01.findViewById(R.id.M04F07SF01D01_MonthAddBtn);
         srDG01_AddWeekBtn = srDG01.findViewById(R.id.M04F07SF01D01_WeekAddBtn);
-        srDG01_AddDayBtn = srDG01.findViewById(R.id.M04F07SF01D01_DayAddBtn);
         srDG01_ConfirmBtn = srDG01.findViewById(R.id.M04F07SF01D01_ConfirmBtn);
         closeDG01Btn = srDG01.findViewById(R.id.M04F07SF01D01_CloseDGBtn);
     }
@@ -347,14 +339,21 @@ public class M04F07SF01_SalesReport extends Fragment {
         //Unpack Bundle
         String year = bundle.getYear();
         String month = DateHelper.getMonthName(bundle.getMonth());
-        String week = bundle.getWeek();
-        String day = bundle.getDay();
+        String week = (bundle.getWeek().equals("N/A"))
+                    ? "1"
+                    : bundle.getDay();
+        String day = (bundle.getDay().equals("N/A"))
+                   ? "01"
+                   : bundle.getDay();
 
         //SetViews
-        srDG01_Year.setText(year);
-        srDG01_Month.setText(month);
-        srDG01_Week.setText(week);
-        srDG01_Day.setText(day);
+        setVisibility(year, month, week);
+        srDG01_Display.setText("Daily");
+        srDG01_Year.setText(currentYear);
+        srDG01_Month.setText(DateHelper.getMonthName(currentMonth));
+        srDG01_Week.setText(currentDay);
+        srDG01_WeekTxt.setText("Day :");
+
 
         //Modify View Type
         srDG01_SubDisplayBtn.setOnClickListener(sub -> {
@@ -366,10 +365,12 @@ public class M04F07SF01_SalesReport extends Fragment {
                     break;
                 case "Weekly":
                     srDG01_Display.setText("Daily");
-                    set_DailyView(year, month, week, day);
+                    srDG01_WeekTxt.setText("Day :");
+                    set_DailyView(year, month, day);
                     break;
                 case "Monthly":
                     srDG01_Display.setText("Weekly");
+                    srDG01_WeekTxt.setText("Week :");
                     set_WeeklyView(year, month, week);
                     break;
                 case "Yearly":
@@ -383,6 +384,7 @@ public class M04F07SF01_SalesReport extends Fragment {
             switch (display) {
                 case "Daily":
                     srDG01_Display.setText("Weekly");
+                    srDG01_WeekTxt.setText("Week :");
                     set_WeeklyView(year, month, week);
                     break;
                 case "Weekly":
@@ -395,7 +397,8 @@ public class M04F07SF01_SalesReport extends Fragment {
                     break;
                 case "Yearly":
                     srDG01_Display.setText("Daily");
-                    set_DailyView(year, month, week, day);
+                    srDG01_WeekTxt.setText("Day :");
+                    set_DailyView(year, month, day);
                     break;
             }
         });
@@ -417,102 +420,107 @@ public class M04F07SF01_SalesReport extends Fragment {
             if(!srDG01_Display.getText().toString().equals("Yearly")) {
                 String displayedMonth = DateHelper.getSubMonth(srDG01_Month.getText().toString());
                 srDG01_Month.setText(displayedMonth);
-                srDG01_Week.setText("1");
-                srDG01_Day.setText("01");
+                if(srDG01_Display.getText().toString().equals("Weekly")){
+                    srDG01_WeekTxt.setText("Week");
+                    srDG01_Week.setText("1");
+                } else {
+                    srDG01_WeekTxt.setText("Day");
+                    srDG01_Week.setText("01");
+                }
             }
         });
         srDG01_AddMonthBtn.setOnClickListener(add -> {
             if(!srDG01_Display.getText().toString().equals("Yearly")) {
                 String displayedMonth = DateHelper.getAddMonth(srDG01_Month.getText().toString());
                 srDG01_Month.setText(displayedMonth);
-                srDG01_Week.setText("1");
-                srDG01_Day.setText("01");
+                if(srDG01_Display.getText().toString().equals("Weekly")){
+                    srDG01_WeekTxt.setText("Week");
+                    srDG01_Week.setText("1");
+                } else {
+                    srDG01_WeekTxt.setText("Day");
+                    srDG01_Week.setText("01");
+                }
             }
         });
 
         //ModifyWeek
         srDG01_SubWeekBtn.setOnClickListener(sub -> {
             if(!srDG01_Display.getText().toString().equals("Yearly") || !srDG01_Display.getText().toString().equals("Monthly")){
-                int weekInt = Integer.parseInt(srDG01_Week.getText().toString());
-                if(weekInt != 1){
-                    weekInt--;
-                } else {
-                    weekInt = 5;
+                if(srDG01_Display.getText().toString().equals("Weekly")){
+                    int weekInt = Integer.parseInt(srDG01_Week.getText().toString());
+                    if(weekInt != 1){
+                        weekInt--;
+                    } else {
+                        weekInt = 5;
+                    }
+                    srDG01_Week.setText(String.valueOf(weekInt));
+                } else if (srDG01_Display.getText().toString().equals("Daily")){
+                    int dayNo = Integer.parseInt(srDG01_Week.getText().toString());
+                    int daysOfTheMonth = DateHelper.getDaysCount(srDG01_Month.getText().toString());
+                    if(daysOfTheMonth == 29){
+                        if(dayNo == 1) {
+                            dayNo = 29;
+                        } else {
+                            dayNo--;
+                        }
+                    } else if(daysOfTheMonth == 30){
+                        if(dayNo == 1) {
+                            dayNo = 30;
+                        } else {
+                            dayNo--;
+                        }
+                    } else if(daysOfTheMonth == 31)   {
+                        if(dayNo == 1) {
+                            dayNo = 31;
+                        } else {
+                            dayNo--;
+                        }
+                    }
+                    String number = (dayNo <= 9)
+                            ? StringHelper.addZero(String.valueOf(dayNo))
+                            : String.valueOf(dayNo);
+                    srDG01_Week.setText(number);
                 }
-                srDG01_Week.setText(String.valueOf(weekInt));
-                srDG01_Day.setText("01");
+
             }
         });
         srDG01_AddWeekBtn.setOnClickListener(add -> {
             if(!srDG01_Display.getText().toString().equals("Yearly") || !srDG01_Display.getText().toString().equals("Monthly")){
-                int weekInt = Integer.parseInt(srDG01_Week.getText().toString());
-                if(weekInt != 5){
-                    weekInt++;
-                } else {
-                    weekInt = 1;
+                if(srDG01_Display.getText().toString().equals("Weekly")){
+                    int weekInt = Integer.parseInt(srDG01_Week.getText().toString());
+                    if(weekInt != 5){
+                        weekInt++;
+                    } else {
+                        weekInt = 1;
+                    }
+                    srDG01_Week.setText(String.valueOf(weekInt));
+                } else if(srDG01_Display.getText().toString().equals("Daily")){
+                    int dayNo = Integer.parseInt(srDG01_Week.getText().toString());
+                    int daysOfTheMonth = DateHelper.getDaysCount(srDG01_Month.getText().toString());
+                    if(daysOfTheMonth == 29){
+                        if(dayNo == 29) {
+                            dayNo = 1;
+                        } else {
+                            dayNo++;
+                        }
+                    } else if(daysOfTheMonth == 30){
+                        if(dayNo == 30) {
+                            dayNo = 1;
+                        } else {
+                            dayNo++;
+                        }
+                    } else if(daysOfTheMonth == 31){
+                        if(dayNo == 31) {
+                            dayNo = 1;
+                        } else {
+                            dayNo++;
+                        }
+                    }
+                    String number = (dayNo <= 9)
+                            ? StringHelper.addZero(String.valueOf(dayNo))
+                            : String.valueOf(dayNo);
+                    srDG01_Week.setText(number);
                 }
-                srDG01_Week.setText(String.valueOf(weekInt));
-                srDG01_Day.setText("01");
-            }
-        });
-
-        //ModifyDay
-        srDG01_SubDayBtn.setOnClickListener(sub -> {
-            if(!srDG01_Display.getText().toString().equals("Yearly") || !srDG01_Display.getText().toString().equals("Monthly") || !srDG01_Display.getText().toString().equals("Weekly")) {
-                int dayNo = Integer.parseInt(srDG01_Day.getText().toString());
-                int daysOfTheMonth = DateHelper.getDaysCount(srDG01_Month.getText().toString());
-                if(daysOfTheMonth == 29){
-                    if(dayNo == 1) {
-                        dayNo = 29;
-                    } else {
-                        dayNo--;
-                    }
-                } else if(daysOfTheMonth == 30){
-                    if(dayNo == 1) {
-                        dayNo = 30;
-                    } else {
-                        dayNo--;
-                    }
-                } else if(daysOfTheMonth == 31)   {
-                    if(dayNo == 1) {
-                        dayNo = 31;
-                    } else {
-                        dayNo--;
-                    }
-                }
-                String number = (dayNo <= 9)
-                              ? StringHelper.addZero(String.valueOf(dayNo))
-                              : String.valueOf(dayNo);
-                srDG01_Day.setText(number);
-            }
-        });
-        srDG01_AddDayBtn.setOnClickListener(add -> {
-            if(!srDG01_Display.getText().toString().equals("Yearly") || !srDG01_Display.getText().toString().equals("Monthly") || !srDG01_Display.getText().toString().equals("Weekly")) {
-                int dayNo = Integer.parseInt(srDG01_Day.getText().toString());
-                int daysOfTheMonth = DateHelper.getDaysCount(srDG01_Month.getText().toString());
-                if(daysOfTheMonth == 29){
-                    if(dayNo == 29) {
-                        dayNo = 1;
-                    } else {
-                        dayNo++;
-                    }
-                } else if(daysOfTheMonth == 30){
-                    if(dayNo == 30) {
-                        dayNo = 1;
-                    } else {
-                        dayNo++;
-                    }
-                } else if(daysOfTheMonth == 31){
-                    if(dayNo == 31) {
-                        dayNo = 1;
-                    } else {
-                        dayNo++;
-                    }
-                }
-                String number = (dayNo <= 9)
-                        ? StringHelper.addZero(String.valueOf(dayNo))
-                        : String.valueOf(dayNo);
-                srDG01_Day.setText(number);
             }
         });
 
@@ -526,10 +534,9 @@ public class M04F07SF01_SalesReport extends Fragment {
                 case "Daily":
                      newYear = srDG01_Year.getText().toString();
                      newMonth = DateHelper.getMonthNo(srDG01_Month.getText().toString());
-                     newWeek = srDG01_Week.getText().toString();
-                     newDay = srDG01_Day.getText().toString();
-                     load_Header(newYear, newMonth, newWeek, newDay);
-                     load_Chart(newYear, newMonth, newWeek, newDay);
+                     newDay = srDG01_Week.getText().toString();
+                     load_Header(newYear, newMonth, "N/A", newDay);
+                     load_Chart(newYear, newMonth, "N/A", newDay);
                      load_Statistics(newYear, newMonth);
                      srDG01.dismiss();
                      break;
@@ -583,11 +590,7 @@ public class M04F07SF01_SalesReport extends Fragment {
         srDG01_SubWeekBtn.setVisibility(View.INVISIBLE);
         srDG01_Week.setVisibility(View.INVISIBLE);
         srDG01_AddWeekBtn.setVisibility(View.INVISIBLE);
-        //DAY
-        srDG01_DayTxt.setVisibility(View.INVISIBLE);
-        srDG01_SubDayBtn.setVisibility(View.INVISIBLE);
-        srDG01_Day.setVisibility(View.INVISIBLE);
-        srDG01_AddDayBtn.setVisibility(View.INVISIBLE);
+
     }
 
     private void set_MonthlyView(String year, String month){
@@ -608,11 +611,7 @@ public class M04F07SF01_SalesReport extends Fragment {
         srDG01_SubWeekBtn.setVisibility(View.INVISIBLE);
         srDG01_Week.setVisibility(View.INVISIBLE);
         srDG01_AddWeekBtn.setVisibility(View.INVISIBLE);
-        //DAY
-        srDG01_DayTxt.setVisibility(View.INVISIBLE);
-        srDG01_SubDayBtn.setVisibility(View.INVISIBLE);
-        srDG01_Day.setVisibility(View.INVISIBLE);
-        srDG01_AddDayBtn.setVisibility(View.INVISIBLE);
+
     }
 
     private void set_WeeklyView(String year, String month, String week){
@@ -633,15 +632,12 @@ public class M04F07SF01_SalesReport extends Fragment {
         srDG01_SubWeekBtn.setVisibility(View.VISIBLE);
         srDG01_Week.setVisibility(View.VISIBLE);
         srDG01_AddWeekBtn.setVisibility(View.VISIBLE);
-        srDG01_Week.setText(week);
-        //DAY
-        srDG01_DayTxt.setVisibility(View.INVISIBLE);
-        srDG01_SubDayBtn.setVisibility(View.INVISIBLE);
-        srDG01_Day.setVisibility(View.INVISIBLE);
-        srDG01_AddDayBtn.setVisibility(View.INVISIBLE);
+        srDG01_Week.setText("1");
+        //WEEK TEXT
+        srDG01_WeekTxt.setText("Week :");
     }
 
-    private void set_DailyView(String year, String month, String week, String day){
+    private void set_DailyView(String year, String month, String week){
         //YEAR
         srDG01_YearTxt.setVisibility(View.VISIBLE);
         srDG01_SubYearBtn.setVisibility(View.VISIBLE);
@@ -659,12 +655,31 @@ public class M04F07SF01_SalesReport extends Fragment {
         srDG01_SubWeekBtn.setVisibility(View.VISIBLE);
         srDG01_Week.setVisibility(View.VISIBLE);
         srDG01_AddWeekBtn.setVisibility(View.VISIBLE);
-        srDG01_Week.setText(week);
+        srDG01_Week.setText("01");
         //DAY
-        srDG01_DayTxt.setVisibility(View.VISIBLE);
-        srDG01_SubDayBtn.setVisibility(View.VISIBLE);
-        srDG01_Day.setVisibility(View.VISIBLE);
-        srDG01_AddDayBtn.setVisibility(View.VISIBLE);
-        srDG01_Day.setText(day);
+        srDG01_WeekTxt.setText("Day :");
+    }
+
+    private void setVisibility(String year, String month, String week){
+        //YEAR
+        srDG01_YearTxt.setVisibility(View.VISIBLE);
+        srDG01_SubYearBtn.setVisibility(View.VISIBLE);
+        srDG01_Year.setVisibility(View.VISIBLE);
+        srDG01_AddYearBtn.setVisibility(View.VISIBLE);
+        srDG01_Year.setText(year);
+        //MONTH
+        srDG01_MonthTxt.setVisibility(View.VISIBLE);
+        srDG01_SubMonthBtn.setVisibility(View.VISIBLE);
+        srDG01_Month.setVisibility(View.VISIBLE);
+        srDG01_AddMonthBtn.setVisibility(View.VISIBLE);
+        srDG01_Month.setText(month);
+        //WEEK
+        srDG01_WeekTxt.setVisibility(View.VISIBLE);
+        srDG01_SubWeekBtn.setVisibility(View.VISIBLE);
+        srDG01_Week.setVisibility(View.VISIBLE);
+        srDG01_AddWeekBtn.setVisibility(View.VISIBLE);
+        srDG01_Week.setText("01");
+        //DAY
+        srDG01_WeekTxt.setText("Day :");
     }
 }

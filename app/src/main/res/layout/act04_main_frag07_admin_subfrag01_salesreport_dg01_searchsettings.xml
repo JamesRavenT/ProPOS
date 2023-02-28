@@ -212,23 +212,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/M04F07SF01D01_MonthInput"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:id="@+id/M04F07SF01D01_DayInput"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/nunito_sans_light"
-                android:gravity="center"
-                android:text="Current"
-                android:textColor="@color/wabizabi"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.301"
-                app:layout_constraintStart_toEndOf="@+id/M04F07SF01D01_YearText"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07SF01D01_WeekInput"
-                app:layout_constraintVertical_bias="0.0" />
-
             <ImageView
                 android:id="@+id/M04F07SF01D01_YearAddBtn"
                 android:layout_width="40dp"
@@ -290,7 +273,7 @@
                 app:srcCompat="@drawable/icon_button_arrowright" />
 
             <TextView
-                android:id="@+id/M04F07SF01D01_WeekText"
+                android:id="@+id/M04F07SF01D01_WeekDayText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
@@ -335,58 +318,12 @@
                 app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/icon_button_arrowright" />
 
-            <TextView
-                android:id="@+id/M04F07SF01D01_DayText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/nunito_sans_light"
-                android:gravity="start"
-                android:text="Day  : "
-                android:textColor="@color/wabizabi"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.003"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07SF01D01_WeekText"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
-                android:id="@+id/M04F07SF01D01_DaySubBtn"
-                android:layout_width="40dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="-10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/M04F07SF01D01_WeekInput"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07SF01D01_WeekSubBtn"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/icon_button_arrowleft" />
-
-            <ImageView
-                android:id="@+id/M04F07SF01D01_DayAddBtn"
-                android:layout_width="40dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="-10dp"
-                android:layout_marginTop="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/M04F07SF01D01_YearInput"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07SF01D01_WeekAddBtn"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/icon_button_arrowright" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/M04F07SF01D01_ConfirmBtn"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="25dp"
                 android:layout_marginBottom="25dp"
                 android:backgroundTint="@color/wabizabi"
@@ -396,7 +333,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F07SF01D01_DayText"
+                app:layout_constraintTop_toBottomOf="@+id/M04F07SF01D01_WeekDayText"
                 app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout

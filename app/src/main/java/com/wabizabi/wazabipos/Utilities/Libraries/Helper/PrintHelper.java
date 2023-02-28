@@ -316,17 +316,17 @@ public class PrintHelper {
             }
             //SUB TOTAL
             String subTotal = "  SUBTOTAL     " + StringHelper.getPrinterSubAmounts(dueTotal);
-            String tax = space + "  Tax     "  + StringHelper.getPrinterSubAmounts(dueTotal * 0.03);
+            String tax = "   " +  "  Tax      "  + StringHelper.getPrinterSubAmounts(dueTotal * 0.03);
             String serviceFee = (sales.getOrderType().equals("Dine In"))
-                    ? space + "  Svc Fee " + StringHelper.getPrinterSubAmounts(dueTotal * 0.05)
-                    : space + "  Svc Fee " + StringHelper.getPrinterSubAmounts(0.00);
-            String discounts = space + "  Discount" + StringHelper.getPrinterSubAmounts(discountTotal);
+                    ? "   " + "  Svc Fee  " + StringHelper.getPrinterSubAmounts(dueTotal * 0.05)
+                    : "   " + "  Svc Fee  " + StringHelper.getPrinterSubAmounts(0.00);
+            String discounts = "   " + "  Discount " + StringHelper.getPrinterSubAmounts(discountTotal);
             //TOTAL
             String amountDue = (sales.getOrderType().equals("Dine In"))
                              ? "  TOTAL        " + StringHelper.getPrinterSubAmounts(dueTotal + (dueTotal * 0.03) + (dueTotal * 0.05) - discountTotal)
                              : "  TOTAL        " + StringHelper.getPrinterSubAmounts(dueTotal + (dueTotal * 0.03) - discountTotal);
-            String method = space + StringHelper.getPrinterPaymentMethod(sales.getPaymentMethod()) + StringHelper.getPrinterSubAmounts(sales.getTotalPayment());
-            String change = space + "  Change  " + StringHelper.getPrinterSubAmounts(sales.getChange()) + linebreak;
+            String method = "   " + StringHelper.getPrinterPaymentMethod(sales.getPaymentMethod()) + StringHelper.getPrinterSubAmounts(sales.getTotalPayment());
+            String change = "   " + "  Change   " + StringHelper.getPrinterSubAmounts(sales.getChange()) + linebreak;
             String itemQty = "[ "+ items +" ] items in total" + linebreak;
             String dt = sales.getDateAndTime() + linebreak;
             String footer = space + " ARIGATOU GOZAIMASU!\n";

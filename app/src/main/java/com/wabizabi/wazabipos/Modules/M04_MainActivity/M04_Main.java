@@ -30,6 +30,7 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStoc
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.M04F07_Admin;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment08_Printer.M04F08_Printer;
 import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 
 import io.realm.Realm;
 
@@ -46,6 +47,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     NavigationView navigation;
     View navi;
     TextView username;
+    TextView email;
     //--GLOBAL VARIABLES--//
     public static String currentFragment;
 
@@ -96,8 +98,14 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         //--USERNAME IN DRAWER--//
         navi = navigation.getHeaderView(0);
         username = navi.findViewById(R.id.nav_username);
+        email = navi.findViewById(R.id.nav_email);
         RealmUser user = realm.where(RealmUser.class).findFirst();
         username.setText(user.getUserName());
+        if(user.getEmail().length() > 18){
+            email.setText(StringHelper.limitDisplay(user.getEmail(), 0, 28, 25));
+        } else {
+            email.setText(user.getEmail());
+        }
     }
 
     @SuppressLint("NonConstantResourceId")

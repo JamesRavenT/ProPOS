@@ -914,9 +914,13 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
                         : table.getTableName() + " " + table.getTableNo()
                         : customerName;
         String cashier = user.getUserName();
-        String orderDetails = (!details.equals(""))
-                            ? StringHelper.trim(details, 15) + details
-                            : " N/A";
+        String orderDetails = details;
+
+//                (!details.equals("") && details.length() > 60)
+//                            ? StringHelper.trim(details, 15) + "\n" + StringHelper.resume(details, 16)
+//                            : (!details.equals("") && details.length() <  15)
+//                            ? details
+//                            : " N/A";
         String orderType = currentCartOrderType;
         String itemCount = String.valueOf(cart.values().stream().mapToInt(i->i).sum());
         String dateAndtime = new SimpleDateFormat("MMMM dd , yyyy | hh:mm a").format(new Date());

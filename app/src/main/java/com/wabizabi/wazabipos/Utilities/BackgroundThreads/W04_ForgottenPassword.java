@@ -1,6 +1,7 @@
 package com.wabizabi.wazabipos.Utilities.BackgroundThreads;
 
 import android.content.Context;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -37,6 +38,7 @@ public class W04_ForgottenPassword extends Worker {
             s.append("\n");
             s.append("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n");
             s.append("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n");
+            s.append("A request was recieved from " + Build.MANUFACTURER + " - " + Build.PRODUCT + "\n\n");
             s.append(user.getPassword() +  " is your PIN for the Wazabi App\n");
             s.append("\n");
             s.append("To ensure the safety of your account, please change the password immediately after successfully logging into your device.\n");

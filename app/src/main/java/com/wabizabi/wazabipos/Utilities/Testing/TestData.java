@@ -207,10 +207,10 @@ public class TestData {
             RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
                 Handler timer = new Handler();
                 List<List<String>> table = new ArrayList<>();
-                //DataSetA.insertInto(table);
-                //DataSetB.insertInto(table);
-                //DataSetC.insertInto(table);
-                DataSetD.insertInto(table);
+                DataSetA.insertInto(table);
+//                DataSetB.insertInto(table);
+//                DataSetC.insertInto(table);
+//                DataSetD.insertInto(table);
 //                DataSetE.insertInto(table);
 //                DataSetF.insertInto(table);
 //                DataSetG.insertInto(table);
