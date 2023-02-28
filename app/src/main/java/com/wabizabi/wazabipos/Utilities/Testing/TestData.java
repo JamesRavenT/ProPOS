@@ -205,13 +205,12 @@ public class TestData {
     public static void preloadTransactions() {
         try(Realm realm = Realm.getDefaultInstance()){
             RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
-            if (listOfTransactions.size() < 50) {
                 Handler timer = new Handler();
                 List<List<String>> table = new ArrayList<>();
                 //DataSetA.insertInto(table);
                 //DataSetB.insertInto(table);
-                DataSetC.insertInto(table);
-//                DataSetD.insertInto(table);
+                //DataSetC.insertInto(table);
+                DataSetD.insertInto(table);
 //                DataSetE.insertInto(table);
 //                DataSetF.insertInto(table);
 //                DataSetG.insertInto(table);
@@ -231,7 +230,6 @@ public class TestData {
                         OpenTransactionsInstance.toCreateTestSales(items, items, price, amount, totalPrice);
                     },5000);
                 }
-            }
         }
     }
 }
