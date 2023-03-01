@@ -82,9 +82,9 @@ public class W01_Algorithm extends Worker {
             FQList.filterandsort(minSuppThreshold, unfilteredfqList, fqList);
             Tree fpTree = Tree.create(listOfTransactions, fqList);
             Tree.mineToFindFrequentPatterns(fpTree, minSuppThreshold, fqList, fpList);
-            OpenFPGInstance.toSaveResult(fqList, fpList);
         }
         realm.commitTransaction();
+        OpenFPGInstance.toSaveResult(fqList, fpList);
         return Result.success();
     }
 }

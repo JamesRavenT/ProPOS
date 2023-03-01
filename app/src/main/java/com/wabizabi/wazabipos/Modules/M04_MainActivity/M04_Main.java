@@ -8,6 +8,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -22,6 +25,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.M02_UserVerification;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment02_Recommendation.M04F01SF02_Recommendation;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.M04F01SF03_Cart;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment02_Menu.M04F02_Menu;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment03_Tables.M04F03_Tables;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment04_Discount.M04F04_Discounts;
@@ -34,7 +39,7 @@ import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 
 import io.realm.Realm;
 
-public class M04_Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class M04_Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, M04F01SF02_Recommendation.RefreshHeader, M04F01SF03_Cart.RefreshPOS, M04F01_POS.RefreshCart, M04F01SF02_Recommendation.AddRecommendations {
     //--DATABASE--//
     Realm realm = Realm.getDefaultInstance();
     //--DEVICE TYPE AND ORIENTATION--//
@@ -50,14 +55,30 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     TextView email;
     //--GLOBAL VARIABLES--//
     public static String currentFragment;
+    public static M04F01_POS landscapePOS = new M04F01_POS();
+    public static M04F01SF03_Cart landscapeCART = new M04F01SF03_Cart();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_WaZabiPOS);
         setContentView(R.layout.act04_main);
-        screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         orientation = getResources().getConfiguration().orientation;
+        screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+//        landscapePOS = new M04F01_POS();
+//        landscapeCART = new M04F01SF03_Cart();
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.wabizabi));
+            window.getDecorView().setSystemUiVisibility(window.getDecorView().getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.dirtywhite));
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+
         init_Functionalities();
         if(savedInstanceState == null) {
             if(currentFragment != null) {
@@ -65,7 +86,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
             } else {
                 currentFragment = "POS01";
                 setTheme(R.style.Theme_WaZabiPOS);
-                getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, new M04F01_POS()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, landscapePOS).commit();
             }
         }
     }
@@ -94,7 +115,11 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            toggle.getDrawerArrowDrawable().setColor(ContextCompat.getColor(this, R.color.white));
+        } else {
+            toggle.getDrawerArrowDrawable().setColor(ContextCompat.getColor(this, R.color.wabizabi));
+        }
         //--USERNAME IN DRAWER--//
         navi = navigation.getHeaderView(0);
         username = navi.findViewById(R.id.nav_username);
@@ -209,50 +234,65 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     private void load_CurrentFragment(){
-         if(currentFragment != null) {
-             switch (currentFragment){
-                 case "POS01":
-                     getSupportFragmentManager()
-                             .beginTransaction()
-                             .replace(R.id.MainActivityContainer, new M04F01_POS())
-                             .commit();
-                     break;
-                 case "Menu01":
-                     getSupportFragmentManager()
-                             .beginTransaction()
-                             .replace(R.id.MainActivityContainer, new M04F02_Menu())
-                             .commit();
-                     break;
-                 case "Table":
-                     getSupportFragmentManager()
-                             .beginTransaction()
-                             .replace(R.id.MainActivityContainer, new M04F03_Tables())
-                             .commit();
-                     break;
-                 case "Discount":
-                     getSupportFragmentManager()
-                             .beginTransaction()
-                             .replace(R.id.MainActivityContainer, new M04F04_Discounts())
-                             .commit();
-                     break;
-                 case "Method":
-                     getSupportFragmentManager()
-                             .beginTransaction()
-                             .replace(R.id.MainActivityContainer, new M04F05_PaymentMethods())
-                             .commit();
-                     break;
-                 case "Stock01":
-                     getSupportFragmentManager()
-                             .beginTransaction()
-                             .replace(R.id.MainActivityContainer, new M04F06_IngredientStock())
-                             .commit();
-                     break;
-                 case "Admin":
-                     getSupportFragmentManager()
-                             .beginTransaction()
-                             .replace(R.id.MainActivityContainer, new M04F07_Admin())
-                             .commit();
-                     break;
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.MainActivityContainer, landscapePOS)
+                    .replace(R.id.MainActivityContainer2, landscapeCART)
+                    .commit();
+        } else if(currentFragment != null) {
+             if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                 getSupportFragmentManager()
+                         .beginTransaction()
+                         .replace(R.id.MainActivityContainer, landscapePOS)
+                         .replace(R.id.MainActivityContainer2, landscapeCART)
+                         .commit();
+             } else {
+                 switch (currentFragment){
+                     case "POS01":
+                         getSupportFragmentManager()
+                                 .beginTransaction()
+                                 .replace(R.id.MainActivityContainer, new M04F01_POS())
+                                 .commit();
+                         break;
+                     case "Menu01":
+                         getSupportFragmentManager()
+                                 .beginTransaction()
+                                 .replace(R.id.MainActivityContainer, new M04F02_Menu())
+                                 .commit();
+                         break;
+                     case "Table":
+                         getSupportFragmentManager()
+                                 .beginTransaction()
+                                 .replace(R.id.MainActivityContainer, new M04F03_Tables())
+                                 .commit();
+                         break;
+                     case "Discount":
+                         getSupportFragmentManager()
+                                 .beginTransaction()
+                                 .replace(R.id.MainActivityContainer, new M04F04_Discounts())
+                                 .commit();
+                         break;
+                     case "Method":
+                         getSupportFragmentManager()
+                                 .beginTransaction()
+                                 .replace(R.id.MainActivityContainer, new M04F05_PaymentMethods())
+                                 .commit();
+                         break;
+                     case "Stock01":
+                         getSupportFragmentManager()
+                                 .beginTransaction()
+                                 .replace(R.id.MainActivityContainer, new M04F06_IngredientStock())
+                                 .commit();
+                         break;
+                     case "Admin":
+                         getSupportFragmentManager()
+                                 .beginTransaction()
+                                 .replace(R.id.MainActivityContainer, new M04F07_Admin())
+                                 .commit();
+                         break;
+             }
+
              }
          }
     }
@@ -268,6 +308,9 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         orientation = getResources().getConfiguration().orientation;
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
+        } else if (currentFragment == "POS04"){
+            currentFragment = "POS03";
+            landscapePOS.backToCategory();
         } else if(currentFragment == "POS02") {
             currentFragment = "POS01";
             getSupportFragmentManager()
@@ -316,6 +359,27 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     protected void onResume() {
         super.onResume();
         load_CurrentFragment();
+    }
+
+    @Override
+    public void updateCart() {
+        landscapeCART.refreshCartAdapter();
+    }
+
+
+    @Override
+    public void updatePOS() {
+        landscapePOS.refreshPOSAdapter();
+    }
+
+    @Override
+    public void updateCartAfter() {
+        landscapeCART.refreshCartAdapter();
+    }
+
+    @Override
+    public void updateHeaderContent() {
+        landscapePOS.refreshPOSAdapter();
     }
 }
 

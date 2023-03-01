@@ -4,6 +4,7 @@ import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Sub
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -110,13 +111,16 @@ public class M04F01_ItemRVA extends RecyclerView.Adapter<M04F01_ItemRVA.ViewHold
                 //Disbale Add Btn and count it's frequency in the cart
                 itemStatusText.setText("In Cart : " + itemAmount.get(0));
                 itemStatus.setOnClickListener(click -> {
-                    currentFragment = "Cart";
-                    AppCompatActivity activity = (AppCompatActivity) itemStatus.getContext();
-                    activity
-                            .getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.MainActivityContainer, new M04F01SF03_Cart())
-                            .commit();
+                    int orientation = context.getResources().getConfiguration().orientation;
+                    if(orientation != Configuration.ORIENTATION_LANDSCAPE){
+                        currentFragment = "Cart";
+                        AppCompatActivity activity = (AppCompatActivity) itemStatus.getContext();
+                        activity
+                                .getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.MainActivityContainer, new M04F01SF03_Cart())
+                                .commit();
+                    }
                 });
             } else {
                 //Set Item's Status to Free

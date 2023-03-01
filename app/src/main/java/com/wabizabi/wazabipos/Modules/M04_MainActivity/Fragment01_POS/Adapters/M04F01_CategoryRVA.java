@@ -3,6 +3,7 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Adapters;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.core.ComponentProvider;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuItem;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.Helpers.POSCHelper;
@@ -92,7 +94,10 @@ public class M04F01_CategoryRVA extends RecyclerView.Adapter<M04F01_CategoryRVA.
 
             //On Click Container
             categoryContainer.setOnClickListener(click -> {
-                currentFragment = "POS02";
+                int orientation = context.getResources().getConfiguration().orientation;
+                currentFragment = (orientation == Configuration.ORIENTATION_LANDSCAPE)
+                                ? "POS04"
+                                : "POS02";
                 List<MenuItem> listOfItems = POSIHelper.getMenuItems(realm, name);
                 itemRV.load_RVContents(new RVBundle(name, listOfItems));
             });

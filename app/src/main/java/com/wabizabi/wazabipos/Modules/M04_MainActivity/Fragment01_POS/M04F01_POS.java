@@ -6,6 +6,7 @@ import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFr
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
@@ -70,6 +71,12 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
     CardView posDG01_AddToCartBtn;
     ImageView posDG01_CloseDGBtn;
 
+    //Interface
+    RefreshCart cartContent;
+    public interface RefreshCart {
+        void updateCart();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,23 +90,10 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
         currentRVText = v.findViewById(R.id.M04F01_RecyclerViewText);
         posRV = v.findViewById(R.id.M04F01_RecyclerView);
 
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            load_PortraitFunctionalities();
-        } else {
-            load_LandscapeFunctionalities();
-        }
-    }
-
-    private void load_PortraitFunctionalities() {
         init_Dialogs();
         load_Header();
         load_SearchBar();
         load_CategoryRV();
-    }
-
-    private void load_LandscapeFunctionalities(){
-
     }
 
     private void load_Header(){
@@ -194,6 +188,9 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
     }
 
     private void load_DG01Functionalities(DialogBundle bundle){
+        //Get Screen Configuration
+        int orientation = getResources().getConfiguration().orientation;
+        int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         //Unpack Bundle
         int itemImage = bundle.getMenuItem().getItemIcon();
         String itemCategory = bundle.getMenuItem().getItemCategory();
@@ -244,6 +241,9 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
             load_Header();
             load_ItemRV(new RVBundle(itemCategory, listOfItems));
             itemQtyCount = 1;
+            if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                cartContent.updateCart();
+            }
             posDG01.dismiss();
         });
 
@@ -251,6 +251,20 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
         posDG01_CloseDGBtn.setOnClickListener(close -> {
             posDG01.dismiss();
         });
+    }
+
+    public void refreshPOSAdapter(){
+        load_Header();
+        posRVA.notifyDataSetChanged();
+    }
+
+    public void backToCategory(){
+        int orientation = getActivity().getResources().getConfiguration().orientation;
+        int screenLayoutSize = getActivity().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            load_SearchBar();
+            load_CategoryRV();
+        }
     }
 
     protected TextWatcher searchEngine = new TextWatcher() {
@@ -266,13 +280,29 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
 
         @Override
         public void afterTextChanged(Editable input) {
-            if(currentFragment.equals("POS01")){
+            if(currentFragment.equals("POS01") || currentFragment.equals("POS03")){
                 load_FilteredCategoryRV(input.toString());
             } else {
                 load_FilteredItemRV(input.toString());
             }
         }
     };
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof RefreshCart){
+            cartContent = (RefreshCart) context;
+        } else {
+            throw new RuntimeException(context.toString() + "Must implement Fragment");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        cartContent = null;
+    }
 
     @Override
     public void load_DGContents(DialogBundle bundle) {
@@ -282,13 +312,12 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
 
     @Override
     public void load_RVContents(RVBundle bundle) {
-        currentFragment = "POS02";
         load_SearchBar();
         load_ItemRV(bundle);
     }
 
 
-//    int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+//
 //        if (screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
 //        Toast.makeText(getActivity(), "Landscape mode is only available for Tablets", Toast.LENGTH_SHORT).show();
 //    } else {

@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F01SF02_Layout"
-    android:layout_width="match_parent"
-    android:layout_height="310dp">
+    android:layout_width="800dp"
+    android:layout_height="230dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F01SF02_Container"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="220dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/wabizabi"
@@ -37,69 +37,13 @@
                 android:fontFamily="@font/nunito_sans_extralight"
                 android:text="# items"
                 android:textColor="@color/white"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF02_AddToCartBtn"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/M04F01SF02_RecommendedRV"
                 app:layout_constraintVertical_bias="0.3" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/M04F01SF02_POSButtonLayout"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.977"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.928">
-
-                <ImageView
-                    android:id="@+id/M04F01SF02_POSButton"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    app:srcCompat="@drawable/icon_button_pos" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/M04F01SF02_POSButtonNumberLayout"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_shape_number_white"
-                    android:elevation="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0">
-
-                    <TextView
-                        android:id="@+id/M04F01SF02_POSButtonNumberText"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:fontFamily="@font/nunito_sans"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/wabizabi"
-                        android:textSize="20dp"
-
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/M04F01SF02_DescriptionText"
@@ -110,7 +54,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="Popular Combinations with"
                 android:textColor="@color/white"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -127,7 +71,7 @@
                 android:fontFamily="@font/nunito_sans_extralight"
                 android:text="Item"
                 android:textColor="@color/white"
-                android:textSize="25dp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -138,7 +82,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/M04F01SF02_RecommendedRV"
                 android:layout_width="0dp"
-                android:layout_height="120dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -152,9 +96,9 @@
 
             <ImageView
                 android:id="@+id/M04F01SF02_AddToCartBtn"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginEnd="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF02_RotateBtn"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -165,15 +109,14 @@
 
             <ImageView
                 android:id="@+id/M04F01SF02_RotateBtn"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginEnd="22dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/M04F01SF02_POSButtonLayout"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.978"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/M04F01SF02_RecommendedRV"
-                app:layout_constraintVertical_bias="0.2"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/icon_rotate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

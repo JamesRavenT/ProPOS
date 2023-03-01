@@ -11,7 +11,7 @@ import io.realm.RealmResults;
 
 public class POSIHelper {
 
-    //MENU ITEMS | OBJECT
+    //MENU ITEMS | RV
     public static List<MenuItem> getMenuItems(Realm realm, String categoryName){
         List<MenuItem> listOfItems = new ArrayList<>();
         RealmResults<RealmMenuItem> queriedItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", categoryName).sort("itemCategory").findAll();
@@ -27,11 +27,11 @@ public class POSIHelper {
         return listOfItems;
     }
 
-    //MENU ITEMS | OBJECT FILTERED
+    //MENU ITEMS | RV FILTERED
     public static List<MenuItem> getFilteredMenuItems(List<MenuItem> listOfItems, String input) {
         List<MenuItem> listOfFilteredItems = new ArrayList<>();
         for(MenuItem item : listOfItems){
-            if(item.getItemPOSName().toLowerCase().contains(input.toLowerCase())){
+            if(item.getItemWebName().toLowerCase().contains(input.toLowerCase())){
                 listOfFilteredItems.add(item);
             }
         }

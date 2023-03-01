@@ -3,6 +3,8 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragme
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ import com.wabizabi.wazabipos.Database.ObjectSchemas.Ticket;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmDiscount;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmTicket;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D01_AppliedDiscountsRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D02_SelectDiscountToApplyRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03D04_AppliedDiscountsRVA;
@@ -259,6 +262,11 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
     TextView cartDG16_OrderName;
     CardView cartDG16_YesBtn, cartDG16_NoBtn;
     ImageView closeDG16Btn;
+
+    RefreshPOS posContent;
+    public interface RefreshPOS {
+        void updatePOS();
+    }
 
     @Nullable
     @Override
@@ -1497,11 +1505,40 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
         });
     }
 
-    //--INTERFACES--//
+    public void refreshCartAdapter(){
+        int orientation = getActivity().getResources().getConfiguration().orientation;
+        int screenLayoutSize = getActivity().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            cartRVA.notifyDataSetChanged();
+            load_OrderDetails();
+        }
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof RefreshPOS){
+            posContent = (RefreshPOS) context;
+        } else {
+            throw new RuntimeException(context.toString() + "Must implement Fragment");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        posContent = null;
+    }
+
     @Override
     public void load_FGContents() {
         cartRVA.notifyDataSetChanged();
         load_OrderDetails();
+        int orientation = getActivity().getResources().getConfiguration().orientation;
+        int screenLayoutSize = getActivity().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            posContent.updatePOS();
+        }
     }
 
     @Override
@@ -1538,6 +1575,11 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
             cart.remove(item);
             cartRVA.notifyDataSetChanged();
             load_OrderDetails();
+            int orientation = getActivity().getResources().getConfiguration().orientation;
+            int screenLayoutSize = getActivity().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+            if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                posContent.updatePOS();
+            }
         }
     };
 }

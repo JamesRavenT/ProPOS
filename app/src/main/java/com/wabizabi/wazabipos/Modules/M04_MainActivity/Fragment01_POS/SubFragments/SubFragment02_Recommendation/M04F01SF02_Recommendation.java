@@ -2,8 +2,12 @@ package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragme
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Adapter.M04F01SF03_CartRVA.cart;
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.landscapePOS;
 import static com.wabizabi.wazabipos.Utilities.BackgroundThreads.W01_Algorithm.fpList;
 
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +40,7 @@ import io.realm.Realm;
 
 public class M04F01SF02_Recommendation extends Fragment {
     TextView itemName, itemQuantity;
-    ImageView addtoCartBtn;
+    ImageView addtoCartBtn, rotateBtn;
     RecyclerView recommendedItemsRV;
     RecyclerView.Adapter recommendedItemsRVA;
     List<String> recommendedItemsListString = new ArrayList<>();
@@ -45,6 +49,16 @@ public class M04F01SF02_Recommendation extends Fragment {
     ImageView posBtn;
     ConstraintLayout posLayout;
     TextView posText;
+
+    AddRecommendations cartContent;
+    public interface AddRecommendations {
+        void updateCartAfter();
+    }
+
+    RefreshHeader headerContent;
+    public interface RefreshHeader {
+        void updateHeaderContent();
+    }
 
     @Nullable
     @Override
@@ -55,6 +69,8 @@ public class M04F01SF02_Recommendation extends Fragment {
     }
 
     private void init_FragmentFunctionalities(View v){
+        int orientation = getActivity().getResources().getConfiguration().orientation;
+        int screenLayoutSize = getActivity().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         itemName = v.findViewById(R.id.M04F01SF02_ItemName);
         itemQuantity = v.findViewById(R.id.M04F01SF02_RecommendedQuantity);
         recommendedItemsRV = v.findViewById(R.id.M04F01SF02_RecommendedRV);
@@ -62,6 +78,24 @@ public class M04F01SF02_Recommendation extends Fragment {
         posBtn = v.findViewById(R.id.M04F01SF02_POSButton);
         posText = v.findViewById(R.id.M04F01SF02_POSButtonNumberText);
         posLayout = v.findViewById(R.id.M04F01SF02_POSButtonNumberLayout);
+
+        if (screenLayoutSize != Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize != Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+            rotateBtn = v.findViewById(R.id.M04F01SF02_RotateBtn);
+            rotateBtn.setOnClickListener(rotate -> {
+                if(orientation == Configuration.ORIENTATION_PORTRAIT){
+                    currentFragment = "POS03";
+                    getActivity().setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                } else {
+                    currentFragment = "POS01";
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.MainActivityContainer, new M04F01_POS())
+                            .commit();
+                    getActivity().setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+            });
+        }
 
         load_Recommendations();
         load_Buttons();
@@ -133,12 +167,18 @@ public class M04F01SF02_Recommendation extends Fragment {
                 }
             }
             recommendedItemsListObject.clear();
+            int orientation = getActivity().getResources().getConfiguration().orientation;
+            if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                cartContent.updateCartAfter();
+                headerContent.updateHeaderContent();
+            } else {
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F01_POS())
+                        .commit();
+            }
             Toast.makeText(getActivity(), "Items Added Into Cart!", Toast.LENGTH_SHORT).show();
-            getActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.MainActivityContainer, new M04F01_POS())
-                    .commit();
         });
     }
 
@@ -236,25 +276,49 @@ public class M04F01SF02_Recommendation extends Fragment {
     }
 
     private void load_POSFunctionalities(){
-        posBtn.setOnClickListener(pos -> {
-            currentFragment = "Cart";
-            getActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.MainActivityContainer, new M04F01SF03_Cart())
-                    .commit();
-        });
+        int orientation = getActivity().getResources().getConfiguration().orientation;
+        if(orientation == Configuration.ORIENTATION_PORTRAIT){
+            posBtn.setOnClickListener(pos -> {
+                currentFragment = "Cart";
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.MainActivityContainer, new M04F01SF03_Cart())
+                        .commit();
+            });
 
-        if(cart.isEmpty()){
-            posText.setText("0");
-            posText.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
-            posLayout.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.bg_shape_number_white));
-        } else {
-            int size = cart.values().stream().mapToInt(Integer::intValue).sum();
-            posText.setText(String.valueOf(size));
-            posText.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
-            posLayout.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.bg_shape_number_red));
+            if(cart.isEmpty()){
+                posText.setText("0");
+                posText.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+                posLayout.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.bg_shape_number_white));
+            } else {
+                int size = cart.values().stream().mapToInt(Integer::intValue).sum();
+                posText.setText(String.valueOf(size));
+                posText.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+                posLayout.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.bg_shape_number_red));
+            }
         }
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof AddRecommendations){
+            cartContent = (AddRecommendations) context;
+        } else {
+            throw new RuntimeException(context.toString() + "Must implement Fragment");
+        }
+        if(context instanceof RefreshHeader){
+            headerContent = (RefreshHeader) context;
+        } else {
+            throw new RuntimeException(context.toString() + "Must implement Fragment");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        cartContent = null;
     }
 }
 
