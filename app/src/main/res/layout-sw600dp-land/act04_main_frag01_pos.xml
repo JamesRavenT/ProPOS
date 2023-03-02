@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/M04F01_HeaderLayout"
         android:layout_width="0dp"
-        android:layout_height="210dp"
+        android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -40,7 +40,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/M04F01_SearchBarContainer"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:backgroundTint="@color/white"
@@ -57,9 +57,9 @@
                 android:id="@+id/M04F01_SearchBarContainerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/bg_shape_rectangle_stroke_dark_marg05p"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:background="@drawable/bg_shape_rectangle_stroke_dark_marg05p">
+                android:focusableInTouchMode="true">
 
                 <EditText
                     android:id="@+id/M04F01_SearchBarInput"
@@ -73,7 +73,7 @@
                     android:fontFamily="@font/nunito_sans_light"
                     android:hint="Search . . ."
                     android:textColor="@color/wabizabi"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/M04F01_SearchBarImage"
                     app:layout_constraintHorizontal_bias="0.019"
@@ -83,8 +83,8 @@
 
                 <ImageView
                     android:id="@+id/M04F01_SearchBarImage"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_marginEnd="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -100,14 +100,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/nunito_sans"
             android:text="「  CATEGORIES/ITEMS  」"
             android:textColor="@color/wabizabi"
-            android:textSize="20dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/M04F01_SearchBarContainer"
             app:layout_constraintVertical_bias="0.0" />

@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/M04F01SF03D13_Layout"
-    android:layout_width="400dp"
-    android:layout_height="560dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:padding="5dp">
 
@@ -60,7 +60,7 @@
                 android:gravity="center"
                 android:text="Amount Due"
                 android:textColor="@color/wabizabi"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -77,7 +77,7 @@
                 android:gravity="center"
                 android:text="₱0.00"
                 android:textColor="@color/wabizabi"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -159,7 +159,7 @@
 
             <TextView
                 android:id="@+id/M04F01SF03D13_ServiceFeeTxt"
-                android:layout_width="85dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="5dp"
@@ -177,7 +177,7 @@
 
             <TextView
                 android:id="@+id/M04F01SF03D13_DiscountsTxt"
-                android:layout_width="85dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="5dp"
@@ -278,7 +278,7 @@
                 android:gravity="center"
                 android:text="Amount Recieved"
                 android:textColor="@color/wabizabi"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

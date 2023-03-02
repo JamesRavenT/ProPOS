@@ -49,7 +49,6 @@ public class M04F01SF01_Header extends Fragment {
         posBtn = v.findViewById(R.id.M04F01SF01_POSButton);
         posText = v.findViewById(R.id.M04F01SF01_POSButtonNumberText);
         posLayout = v.findViewById(R.id.M04F01SF01_POSButtonNumberLayout);
-
         boolean devIsTablet = getResources().getBoolean(R.bool.isTablet);
         if (devIsTablet) {
             rotateBtn = v.findViewById(R.id.M04F01SF01_RotateBtn);

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/M04F01SF03_RVLayout"
     android:layout_width="match_parent"
-    android:layout_height="140dp">
+    android:layout_height="120dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F01SF03_RVContainer"
@@ -33,7 +33,7 @@
                 android:layout_width="22sp"
                 android:layout_height="24sp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -47,12 +47,12 @@
                 android:layout_width="147dp"
                 android:layout_height="24sp"
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center|start"
                 android:text="0 Discounts Applied"
                 android:textColor="@color/gray"
-                android:textSize="15sp"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -63,14 +63,14 @@
             <TextView
                 android:id="@+id/M04F01SF03_RVItemName"
                 android:layout_width="0dp"
-                android:layout_height="42dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="5dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="start|center"
                 android:text="ItemName"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -88,7 +88,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="₱ 0.00"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -104,14 +104,13 @@
                 android:gravity="center"
                 android:text="|\n|\n|\n|\n|"
                 android:textColor="@color/dirtywhite"
-                android:textSize="15sp"
+                android:textSize="12dp"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.416" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/M04F01SF03_RVTotalPrice"
@@ -121,10 +120,9 @@
                 android:gravity="center"
                 android:text="₱0.00"
                 android:textColor="@color/white"
-                android:textSize="32sp"
+                android:textSize="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.333"
                 app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.188" />
@@ -132,8 +130,8 @@
             <ImageButton
                 android:id="@+id/M04F01SF03_RVQtySubBtn"
                 android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="2dp"
                 android:background="@null"
                 android:backgroundTintMode="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -146,17 +144,16 @@
 
             <TextView
                 android:id="@+id/M04F01SF03_RVItemQty"
-                android:layout_width="80dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="2dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
                 android:text="x0"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.47"
                 app:layout_constraintStart_toEndOf="@+id/M04F01SF03_RVDivider"
                 app:layout_constraintTop_toBottomOf="@+id/M04F01SF03_RVTotalPrice"
                 app:layout_constraintVertical_bias="0.0" />
@@ -164,8 +161,8 @@
             <ImageButton
                 android:id="@+id/M04F01SF03_RVQtyAddBtn"
                 android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="2dp"
                 android:background="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -177,8 +174,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/M04F01SF03_RVRemoveItemBtnLayout"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/bg_shape_rectangle_stroke_red_marg00p"

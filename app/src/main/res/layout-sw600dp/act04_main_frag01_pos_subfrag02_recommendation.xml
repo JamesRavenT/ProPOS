@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/M04F01SF02_Layout"
     android:layout_width="match_parent"
-    android:layout_height="210dp">
+    android:layout_height="230dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F01SF02_Container"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="10dp"
@@ -138,7 +138,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/M04F01SF02_RecommendedRV"
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"

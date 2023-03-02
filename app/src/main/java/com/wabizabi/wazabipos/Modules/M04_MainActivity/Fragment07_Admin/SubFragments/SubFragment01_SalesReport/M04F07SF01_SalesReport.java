@@ -255,7 +255,6 @@ public class M04F07SF01_SalesReport extends Fragment {
         leftAxis.setDrawGridLinesBehindData(false);
         leftAxis.setDrawAxisLine(true);
         leftAxis.setAxisLineColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
-        leftAxis.setAxisMinimum(0);
         //Y AXIS | RIGHT
         YAxis rightAxis = chart.getAxisRight();
         rightAxis.setEnabled(false);

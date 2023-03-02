@@ -157,21 +157,40 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
 
         //Unpack bundle to get RV Items and then initialize the RecyclerView
         listOfItems = bundle.getListOfMenuItems();
-        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-        layout.setOrientation(LinearLayoutManager.VERTICAL);
-        posRVA = new M04F01_ItemRVA(getActivity(), realm, listOfItems, this);
-        posRV.setAdapter(posRVA);
-        posRV.setLayoutManager(layout);
+        int orientation = getActivity().getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+            layout.setOrientation(LinearLayoutManager.HORIZONTAL);
+            posRVA = new M04F01_ItemRVA(getActivity(), realm, listOfItems, this);
+            posRV.setAdapter(posRVA);
+            posRV.setLayoutManager(layout);
+        } else {
+            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+            layout.setOrientation(LinearLayoutManager.VERTICAL);
+            posRVA = new M04F01_ItemRVA(getActivity(), realm, listOfItems, this);
+            posRV.setAdapter(posRVA);
+            posRV.setLayoutManager(layout);
+        }
     }
 
     private void load_FilteredItemRV(String input){
         //Initialize RV Items and then the RecyclerView
         List<MenuItem> filteredListOfItem = POSIHelper.getFilteredMenuItems(listOfItems, input);
-        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-        layout.setOrientation(LinearLayoutManager.VERTICAL);
-        posRVA = new M04F01_ItemRVA(getActivity(), realm, filteredListOfItem, this);
-        posRV.setAdapter(posRVA);
-        posRV.setLayoutManager(layout);
+        int orientation = getActivity().getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+            layout.setOrientation(LinearLayoutManager.VERTICAL);
+            posRVA = new M04F01_ItemRVA(getActivity(), realm, filteredListOfItem, this);
+            posRV.setAdapter(posRVA);
+            posRV.setLayoutManager(layout);
+        } else {
+            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+            layout.setOrientation(LinearLayoutManager.VERTICAL);
+            posRVA = new M04F01_ItemRVA(getActivity(), realm, filteredListOfItem, this);
+            posRV.setAdapter(posRVA);
+            posRV.setLayoutManager(layout);
+        }
+
     }
 
     private void init_Dialogs() {

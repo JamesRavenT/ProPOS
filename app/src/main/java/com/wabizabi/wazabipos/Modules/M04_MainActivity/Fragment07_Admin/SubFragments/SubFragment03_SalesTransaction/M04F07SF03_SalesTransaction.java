@@ -588,20 +588,10 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
 
         //On Print
         transSalesDG02_PrintBtn.setOnClickListener(print -> {
-            RealmSalesTransaction saleToRefund = realm.where(RealmSalesTransaction.class)
-                    .equalTo("transactionNo", sales.getTransactionNo())
-                    .and().equalTo("transactionType", "Refund")
-                    .findFirst();
-            if(saleToRefund != null){
-                try {
-                    PrintHelper.printSalesReceipt(sales);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                load_DG04Functionalities(bundle);
-                transSalesDG04.show();
-                ToastHelper.show(getActivity(), "This receipt has already been refunded");
+            try {
+                PrintHelper.printSalesReceipt(sales);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             transSalesDG02.dismiss();
         });
@@ -612,7 +602,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
                     .equalTo("transactionNo", sales.getTransactionNo())
                     .and().equalTo("transactionType", "Refund")
                     .findFirst();
-            if(saleToRefund != null){
+            if(saleToRefund == null){
                 load_DG03Functionalities(bundle);
                 transSalesDG03.show();
             } else {
