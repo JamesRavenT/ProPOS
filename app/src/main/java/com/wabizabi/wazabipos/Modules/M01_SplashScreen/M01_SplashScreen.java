@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,6 +33,9 @@ import java.util.Date;
 import io.realm.Realm;
 
 public class M01_SplashScreen extends AppCompatActivity {
+    //--Views--//
+    TextView title, subtitle;
+
     //--DG01--//
     Dialog scDG01;
     CardView scDG01_retryBtn;
@@ -53,6 +57,8 @@ public class M01_SplashScreen extends AppCompatActivity {
     }
 
     private void init_Functionalities(){
+        title = findViewById(R.id.M01A01_AppTitle);
+        subtitle = findViewById(R.id.M01A01_AppMotto);
         init_DB();
         init_Dialog();
 //        init_TestData();
@@ -80,7 +86,7 @@ public class M01_SplashScreen extends AppCompatActivity {
                     DB.checkForUser();
                     timer.postDelayed(() -> {
                         RealmUser userVerification = realm.where(RealmUser.class).findFirst();
-                        if(userVerification != null && !userVerification.isVerifiedUser()) {
+                        if(userVerification != null || !userVerification.isVerifiedUser()) {
                             load_DG02Functionalities();
                             scDG02.show();
                         } else {
@@ -92,8 +98,21 @@ public class M01_SplashScreen extends AppCompatActivity {
                     scDG01.show();
                 }
             } else if(!user.isVerifiedUser()){
-                load_DG02Functionalities();
-                scDG02.show();
+                boolean connectionExists = checkIfNetworkIsAvailable();
+                if(connectionExists){
+                    timer.postDelayed(() -> {
+                        RealmUser userVerification = realm.where(RealmUser.class).findFirst();
+                        if(userVerification != null || !userVerification.isVerifiedUser()) {
+                            load_DG02Functionalities();
+                            scDG02.show();
+                        } else {
+                            load_NextModule();
+                        }
+                    }, 5000);
+                } else {
+                    load_DG01Functionalities();
+                    scDG01.show();
+                }
             } else {
                 load_NextModule();
             }
@@ -172,22 +191,29 @@ public class M01_SplashScreen extends AppCompatActivity {
                 scDG02_codeInput.setError("Code Invalid");
             } else {
                 OpenUserInstance.toDeleteVerificationCode();
-                load_SkipVerification();
+                load_NextModuleAfterVerification();
                 scDG02.dismiss();
             }
         });
     }
 
     private void load_NextModule(){
-        startActivity(new Intent(this, M02_UserVerification.class));
-        finish();
+        Handler timer = new Handler();
+        timer.postDelayed(() -> {
+            startActivity(new Intent(this, M02_UserVerification.class));
+            finish();
+        }, 2000);
     }
 
-    private void load_SkipVerification(){
-        startActivity(new Intent(this, M03_LoadResources.class));
-        finish();
+    private void load_NextModuleAfterVerification(){
+        title.setText("V E R I F I E D !");
+        subtitle.setVisibility(View.INVISIBLE);
+        Handler timer = new Handler();
+        timer.postDelayed(() -> {
+            startActivity(new Intent(this, M03_LoadResources.class));
+            finish();
+        }, 500);
     }
-
 
     private boolean checkIfNetworkIsAvailable() {
         ConnectivityManager connectivityManager

@@ -84,6 +84,7 @@ public class M04F08_Printer extends Fragment implements FragmentLoader {
     }
     private void init_Devices(){
         listOfBluetoothDevices = new ArrayList<>();
+        connectedDevice.setVisibility(View.INVISIBLE);
         try {
             //Check Permissions
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_DENIED) {

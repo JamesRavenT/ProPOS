@@ -46,6 +46,7 @@
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/bg_shape_thinline_dark.xml" value="0.229" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/bg_shape_triangle_dark_upper.xml" value="0.363" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/bg_shape_triangle_white_upper.xml" value="0.363" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/ic_launcher_background.xml" value="0.278" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/icon_addbutton.xml" value="0.2095" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/icon_arrowleft.xml" value="0.3725" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/drawable/icon_arrowright.xml" value="0.3725" />
@@ -568,6 +569,7 @@
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/test.xml" value="0.75" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/layout/toolbar_customactionbar.xml" value="0.2877297990594271" />
         <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/menu/drawer_menu.xml" value="0.33" />
+        <entry key="..\:/Users/black/AndroidStudioProjects/WaZabiPOS/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.278" />
       </map>
     </option>
   </component>

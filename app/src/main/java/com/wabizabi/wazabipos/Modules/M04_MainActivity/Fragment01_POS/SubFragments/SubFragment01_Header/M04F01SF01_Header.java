@@ -44,14 +44,14 @@ public class M04F01SF01_Header extends Fragment {
 
     private void init_FragmentFunctionalities(View v){
         int orientation = getActivity().getResources().getConfiguration().orientation;
-        int screenLayoutSize = getActivity().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         dateText = v.findViewById(R.id.M04F01SF01_DateText);
         timeText = v.findViewById(R.id.M04F01SF01_TimeText);
         posBtn = v.findViewById(R.id.M04F01SF01_POSButton);
         posText = v.findViewById(R.id.M04F01SF01_POSButtonNumberText);
         posLayout = v.findViewById(R.id.M04F01SF01_POSButtonNumberLayout);
 
-        if (screenLayoutSize != Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize != Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+        boolean devIsTablet = getResources().getBoolean(R.bool.isTablet);
+        if (devIsTablet) {
             rotateBtn = v.findViewById(R.id.M04F01SF01_RotateBtn);
             rotateBtn.setOnClickListener(rotate -> {
                 currentFragment = "POS03";

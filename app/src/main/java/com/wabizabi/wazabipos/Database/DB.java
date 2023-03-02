@@ -70,17 +70,8 @@ public class DB {
     //--CLOUD INSTANCE--//
 
     //Fire Store
-    public static void fetchDataFromTheCloud(){
-        RealmUser user = realm.where(RealmUser.class).findFirst();
-        RealmResults<RealmMenuCategory> queryListMenuCategory = realm.where(RealmMenuCategory.class).findAll();
-        RealmResults<RealmMenuItem> queryListMenuItems = realm.where(RealmMenuItem.class).findAll();
-        RealmResults<RealmStockCategory> queryListStockCategory = realm.where(RealmStockCategory.class).findAll();
-        RealmResults<RealmStockItem> queryListStockItems = realm.where(RealmStockItem.class).findAll();
-        RealmResults<RealmInventoryTransaction> queryListInventoryTransaction = realm.where(RealmInventoryTransaction.class).findAll();
-        RealmResults<RealmSalesTransaction> queryListSalesTransaction = realm.where(RealmSalesTransaction.class).findAll();
-        RealmResults<RealmPopItem> queryListPopItems = realm.where(RealmPopItem.class).findAll();
-        RealmResults<RealmPopCombination> queryListPopCombos = realm.where(RealmPopCombination.class).findAll();
 
+    public static void fetchTransactionCountFromCloud(){
         //Counts
         userProfile.get().addOnSuccessListener(snapshots -> {
             if(snapshots.getDocuments().size() > 0){
@@ -100,6 +91,21 @@ public class DB {
                 }
             }
         });
+
+    }
+
+    public static void fetchDataFromTheCloud(){
+        RealmUser user = realm.where(RealmUser.class).findFirst();
+        RealmResults<RealmMenuCategory> queryListMenuCategory = realm.where(RealmMenuCategory.class).findAll();
+        RealmResults<RealmMenuItem> queryListMenuItems = realm.where(RealmMenuItem.class).findAll();
+        RealmResults<RealmStockCategory> queryListStockCategory = realm.where(RealmStockCategory.class).findAll();
+        RealmResults<RealmStockItem> queryListStockItems = realm.where(RealmStockItem.class).findAll();
+        RealmResults<RealmInventoryTransaction> queryListInventoryTransaction = realm.where(RealmInventoryTransaction.class).findAll();
+        RealmResults<RealmSalesTransaction> queryListSalesTransaction = realm.where(RealmSalesTransaction.class).findAll();
+        RealmResults<RealmPopItem> queryListPopItems = realm.where(RealmPopItem.class).findAll();
+        RealmResults<RealmPopCombination> queryListPopCombos = realm.where(RealmPopCombination.class).findAll();
+
+
 
         //Menu Category
         if(queryListMenuCategory.isEmpty()){
@@ -197,14 +203,14 @@ public class DB {
             if(queryListInventoryTransaction.isEmpty()){
                 query = inventoryTransaction
                         .orderBy("_id", Query.Direction.ASCENDING)
-                        .limit(5000);
+                        .limit(5000 - user.getDailyInvSyncCounter());
             } else {
                 RealmResults<RealmInventoryTransaction> transactionList = realm.where(RealmInventoryTransaction.class).sort("_id", Sort.ASCENDING).findAll();
                 RealmInventoryTransaction transaction = transactionList.get(user.getInvTransactionLocal() - 1);
                 query = inventoryTransaction
                         .orderBy("_id", Query.Direction.ASCENDING)
                         .startAfter(transaction.get_id())
-                        .limit(5000);
+                        .limit(5000 - user.getDailyInvSyncCounter());
             }
 
             query.get().addOnSuccessListener(snapshots -> {
@@ -238,14 +244,14 @@ public class DB {
             if(queryListSalesTransaction.isEmpty()){
                 query = salesTransaction
                         .orderBy("_id", Query.Direction.ASCENDING)
-                        .limit(5000);
+                        .limit(5000 - user.getDailySalesSyncCounter());
             } else {
                 RealmResults<RealmSalesTransaction> transactionList = realm.where(RealmSalesTransaction.class).sort("_id", Sort.ASCENDING).findAll();
                 RealmSalesTransaction transaction = transactionList.get(user.getSalesTransactionLocal()-1);
                 query = salesTransaction
                         .orderBy("_id", Query.Direction.ASCENDING)
                         .startAfter(transaction.get_id())
-                        .limit(5000);
+                        .limit(5000 - user.getDailySalesSyncCounter());
             }
             query.get().addOnSuccessListener(snapshots -> {
                 if(snapshots.getDocuments().size() > 0){
@@ -495,7 +501,7 @@ public class DB {
         document.put("itemFrequency", itemFrequency);
         document.put("time_Year", year);
         document.put("time_Month", month);
-        algorithmFQ.document("FQ" + year + month).set(document, SetOptions.merge());
+        algorithmFQ.document("FQ" + year + month + " - " + docID).set(document, SetOptions.merge());
     }
 
     //FPG MONTHLY | UPLOAD
@@ -509,7 +515,7 @@ public class DB {
         document.put("itemFrequency", frequency);
         document.put("time_Year", year);
         document.put("time_Month", month);
-        algorithmFP.document("FP" + year + month).set(document, SetOptions.merge());
+        algorithmFP.document("FP" + year + month + " - " + docID).set(document, SetOptions.merge());
     }
 
     //STOCK CATEGORY | UPLOAD

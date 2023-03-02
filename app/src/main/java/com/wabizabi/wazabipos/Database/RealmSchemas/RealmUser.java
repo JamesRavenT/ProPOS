@@ -19,9 +19,10 @@ public class RealmUser extends RealmObject {
     int invTransactionCloud;
     int salesTransactionLocal;
     int salesTransactionsCloud;
-
-
-    public RealmUser(){}
+    //SYNC
+    String dateOfLastSync;
+    int dailySalesSyncCounter;
+    int dailyInvSyncCounter;
 
     public ObjectId get_id() {
         return _id;
@@ -101,5 +102,29 @@ public class RealmUser extends RealmObject {
 
     public void setSalesTransactionsCloud(int salesTransactionsCloud) {
         this.salesTransactionsCloud = salesTransactionsCloud;
+    }
+
+    public String getDateOfLastSync() {
+        return dateOfLastSync;
+    }
+
+    public void setDateOfLastSync(String dateOfLastSync) {
+        this.dateOfLastSync = dateOfLastSync;
+    }
+
+    public int getDailySalesSyncCounter() {
+        return dailySalesSyncCounter;
+    }
+
+    public void setDailySalesSyncCounter(int dailySalesSyncCounter) {
+        this.dailySalesSyncCounter = dailySalesSyncCounter;
+    }
+
+    public int getDailyInvSyncCounter() {
+        return dailyInvSyncCounter;
+    }
+
+    public void setDailyInvSyncCounter(int dailyInvSyncCounter) {
+        this.dailyInvSyncCounter = dailyInvSyncCounter;
     }
 }

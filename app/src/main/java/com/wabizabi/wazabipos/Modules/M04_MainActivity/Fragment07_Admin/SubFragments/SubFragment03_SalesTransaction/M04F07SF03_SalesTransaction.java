@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
 import com.wabizabi.wazabipos.Database.ObjectSchemas.SalesTransaction;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment03_SalesTransaction.Adapters.M04F07SF03D02_ViewSalesRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment03_SalesTransaction.Adapters.M04F07SF03D04_ViewRefundsRVA;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.SubFragments.SubFragment03_SalesTransaction.Adapters.M04F07SF03_SalesTransactionRVA;
@@ -31,9 +32,12 @@ import com.wabizabi.wazabipos.Utilities.Libraries.Bundles.DialogBundle;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DateHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.PrintHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.SubFragments.SubFragment03_Cart.Object.CartItem;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -584,14 +588,39 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
 
         //On Print
         transSalesDG02_PrintBtn.setOnClickListener(print -> {
-
+            RealmSalesTransaction saleToRefund = realm.where(RealmSalesTransaction.class)
+                    .equalTo("transactionNo", sales.getTransactionNo())
+                    .and().equalTo("transactionType", "Refund")
+                    .findFirst();
+            if(saleToRefund != null){
+                try {
+                    PrintHelper.printSalesReceipt(sales);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                load_DG04Functionalities(bundle);
+                transSalesDG04.show();
+                ToastHelper.show(getActivity(), "This receipt has already been refunded");
+            }
+            transSalesDG02.dismiss();
         });
 
         //On Refund
         transSalesDG02_RefundBtn.setOnClickListener(refund -> {
-            load_DG03Functionalities(bundle);
+            RealmSalesTransaction saleToRefund = realm.where(RealmSalesTransaction.class)
+                    .equalTo("transactionNo", sales.getTransactionNo())
+                    .and().equalTo("transactionType", "Refund")
+                    .findFirst();
+            if(saleToRefund != null){
+                load_DG03Functionalities(bundle);
+                transSalesDG03.show();
+            } else {
+                load_DG04Functionalities(bundle);
+                transSalesDG04.show();
+                ToastHelper.show(getActivity(), "This receipt has already been refunded");
+            }
             transSalesDG02.dismiss();
-            transSalesDG03.show();
         });
 
         //On Close
@@ -610,6 +639,11 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
         //On Yes
         transSalesDG03_YesBtn.setOnClickListener(yes -> {
             OpenTransactionsInstance.toCreateRefund(sales);
+            try {
+                PrintHelper.printRefundReceipt(sales);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             load_SearchBar();
             load_RecyclerView("Descending", "Any", "Any", "Any", "Any", "Any");
             transSalesDG03.dismiss();
@@ -669,7 +703,11 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
 
         //On Print
         transSalesDG04_PrintBtn.setOnClickListener(print -> {
-
+            try {
+                PrintHelper.printRefundReceipt(sales);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             transSalesDG04.dismiss();
         });
 

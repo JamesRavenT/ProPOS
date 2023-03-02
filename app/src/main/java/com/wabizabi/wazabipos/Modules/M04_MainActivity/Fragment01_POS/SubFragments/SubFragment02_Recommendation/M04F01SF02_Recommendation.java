@@ -70,7 +70,6 @@ public class M04F01SF02_Recommendation extends Fragment {
 
     private void init_FragmentFunctionalities(View v){
         int orientation = getActivity().getResources().getConfiguration().orientation;
-        int screenLayoutSize = getActivity().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         itemName = v.findViewById(R.id.M04F01SF02_ItemName);
         itemQuantity = v.findViewById(R.id.M04F01SF02_RecommendedQuantity);
         recommendedItemsRV = v.findViewById(R.id.M04F01SF02_RecommendedRV);
@@ -79,7 +78,8 @@ public class M04F01SF02_Recommendation extends Fragment {
         posText = v.findViewById(R.id.M04F01SF02_POSButtonNumberText);
         posLayout = v.findViewById(R.id.M04F01SF02_POSButtonNumberLayout);
 
-        if (screenLayoutSize != Configuration.SCREENLAYOUT_SIZE_SMALL || screenLayoutSize != Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+        boolean devIsTablet = getResources().getBoolean(R.bool.isTablet);
+        if (devIsTablet) {
             rotateBtn = v.findViewById(R.id.M04F01SF02_RotateBtn);
             rotateBtn.setOnClickListener(rotate -> {
                 if(orientation == Configuration.ORIENTATION_PORTRAIT){
