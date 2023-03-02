@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/M04F01SF02_RVLayout"
     android:layout_width="150dp"
-    android:layout_height="100dp">
+    android:layout_height="80dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F01SF02_RVContainer"
         android:layout_width="130dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:elevation="15dp"
         app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,14 +20,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/M04F01SF02_RVContainerLayout"
-            android:background="@drawable/bg_shape_rectangle_stroke_dark_marg03p"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_shape_rectangle_stroke_dark_marg03p">
 
             <ImageView
                 android:id="@+id/M04F01SF02_RVItemImage"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.093"
@@ -37,8 +37,8 @@
                 app:srcCompat="@drawable/icon_products00_default" />
 
             <!--                android:layout_width="124dp"-->
-<!--                android:layout_height="27dp"-->
-<!--                android:background="@drawable/bg_shape_rectangle_solid_dark_m04f01sf02rvtxt"-->
+            <!--                android:layout_height="27dp"-->
+            <!--                android:background="@drawable/bg_shape_rectangle_solid_dark_m04f01sf02rvtxt"-->
 
 
             <TextView
@@ -61,7 +61,7 @@
             <TextView
                 android:id="@+id/M04F01SF02_RVItemPrice"
                 android:layout_width="60dp"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="3dp"
                 android:fontFamily="@font/nunito_sans"
                 android:gravity="center"
@@ -71,10 +71,10 @@
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.304"
                 app:layout_constraintStart_toEndOf="@+id/M04F01SF02_RVItemImage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.246" />
+                app:layout_constraintVertical_bias="0.25" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

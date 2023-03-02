@@ -61,12 +61,12 @@ public class M03_LoadResources extends AppCompatActivity {
         } else {
             zero.postDelayed(()->{ loading.setText("L O A D I N G ."); WorkOrders.startAlgorithm(this);
                 one.postDelayed(()->{ loading.setText("L O A D I N G . .");
-                    two.postDelayed(()->{ loading.setText("C O M P L E T E!");
+                    two.postDelayed(()->{ loading.setText("C O M P L E T E !");
                         three.postDelayed(()->{ WorkOrders.storeFPData(this); startActivity(new Intent(this, M04_Main.class)); finish();
-                        },1000);
-                    },500);
-                },500);
-            }, 500);
+                        },500);
+                    },1000);
+                },1000);
+            }, 1000);
         }
     }
 
@@ -80,24 +80,24 @@ public class M03_LoadResources extends AppCompatActivity {
         int c = OpenUserInstance.fetchSalesLimit();
         LogHelper.debug(String.valueOf(limit));
         LogHelper.debug(a + " " + b + " " + c);
-        zero.postDelayed(() -> { loading.setText("L O A D I N G .");
-        one.postDelayed(() -> { loading.setText("L O A D I N G . .");
-        two.postDelayed(() -> { loading.setText("L O A D I N G . . .");
+        zero.postDelayed(() -> { loading.setText("S Y N C I N G  D A T A .");
+        one.postDelayed(() -> { loading.setText("S Y N C I N G  D A T A . .");
+        two.postDelayed(() -> { loading.setText("S Y N C I N G  D A T A . . .");
         three.postDelayed(() -> {
                 if (a < limit) {
                     (new Handler()).postDelayed(() -> checkIfTransmissionIsComplete(limit),500);
                 } else {
-                    zero.postDelayed(()->{ loading.setText("L O A D I N G ."); WorkOrders.startAlgorithm(this);
-                        one.postDelayed(()->{ loading.setText("L O A D I N G . .");
-                            two.postDelayed(()->{ loading.setText("C O M P L E T E!");
+                    zero.postDelayed(()->{ loading.setText("L O A D I N G  R E S O U R C E S ."); WorkOrders.startAlgorithm(this);
+                        one.postDelayed(()->{ loading.setText("L O A D I N G  R E S O U R C E S . .");
+                            two.postDelayed(()->{ loading.setText("C O M P L E T E !");
                                 three.postDelayed(()->{ WorkOrders.storeFPData(this); startActivity(new Intent(this, M04_Main.class)); finish();
-                                },1000);
+                                },500);
                             },1000);
                         },1000);
                     }, 1000);
                     return;
                 }
-        }, 1000);
+        }, 500);
         }, 1000);
         }, 1000);
         }, 1000);

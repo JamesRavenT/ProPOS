@@ -20,6 +20,7 @@ import com.wabizabi.wazabipos.Database.Instances.OpenUserInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.M02_UserVerification;
 import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
+import com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.BackgroundThreads.WorkOrders;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
@@ -48,6 +49,8 @@ public class M01_SplashScreen extends AppCompatActivity {
     String previousSendingTime = null;
     TextView scDG02_resendVerificationCode;
     CardView scDG02_verifyBtn;
+
+    Handler zero, one, two, three;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,13 +209,20 @@ public class M01_SplashScreen extends AppCompatActivity {
     }
 
     private void load_NextModuleAfterVerification(){
+        zero = new Handler();
+        one = new Handler();
+        two = new Handler();
+        three = new Handler();
         title.setText("V E R I F I E D !");
         subtitle.setVisibility(View.INVISIBLE);
-        Handler timer = new Handler();
-        timer.postDelayed(() -> {
-            startActivity(new Intent(this, M03_LoadResources.class));
-            finish();
-        }, 500);
+        zero.postDelayed(()->{ title.setText("V E R I F Y I N G .");
+            one.postDelayed(()->{ title.setText("V E R I F Y I N G . .");
+                two.postDelayed(()->{ title.setText("V E R I F I E D !");
+                    three.postDelayed(()->{ startActivity(new Intent(this, M03_LoadResources.class)); finish();
+                    },500);
+                },1000);
+            },1000);
+        }, 1000);
     }
 
     private boolean checkIfNetworkIsAvailable() {

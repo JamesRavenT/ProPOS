@@ -30,7 +30,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/M04F07SF03_RVInvoiceLayout"
-                android:layout_width="389dp"
+                android:layout_width="0dp"
                 android:layout_height="125dp"
                 android:background="@drawable/bg_shape_rectangle_solid_dark_marg10p"
                 app:layout_constraintBottom_toBottomOf="parent"

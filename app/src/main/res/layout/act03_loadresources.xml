@@ -15,7 +15,7 @@
         android:fontFamily="@font/nunito_sans_extralight"
         android:text="L O A D I N G"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
