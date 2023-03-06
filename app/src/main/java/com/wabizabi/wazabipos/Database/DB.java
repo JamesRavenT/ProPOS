@@ -366,14 +366,33 @@ public class DB {
                         }
                     });
                 }
-                LogHelper.debug("TRUE!");
-            }
-            else {
-                LogHelper.debug("FALSE!");
             }
         });
     }
 
+    public static void getUserUpdates(){
+        userProfile.get().addOnSuccessListener(query -> {
+            if(query.getDocuments().size() > 0) {
+                List<DocumentSnapshot> listOfDocuments = query.getDocuments();
+                for(int i = 0 ; i < listOfDocuments.size() ; i++) {
+                    DocumentSnapshot snapShot = listOfDocuments.get(i);
+                    DocumentReference docRef = snapShot.getReference();
+                    docRef.get().addOnSuccessListener(document -> {
+                        if (document.exists()) {
+                            ObjectId id = new ObjectId(document.getString("id"));
+                            String email = document.getString("email");
+                            String name = document.getString("name");
+                            int password = document.getLong("password").intValue();
+                            int transaction_InvCounter = document.getLong("transaction_InvCounter").intValue();
+                            int transaction_SalesCounter = document.getLong("transaction_SalesCounter").intValue();
+                            OpenUserInstance.toUpdateUserFromCloud(email, name, password, transaction_InvCounter, transaction_SalesCounter);
+                        }
+                    });
+                }
+            }
+        });
+
+    }
     //USER | UPLOAD
     public static void uploadUserToCloud(ObjectId id, String email, String name, int password){
         String docID = id.toString();

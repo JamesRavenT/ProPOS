@@ -154,6 +154,12 @@ public class OpenTransactionsInstance {
                 transaction.setDayNo(dayNo);
                 transaction.setHour(hour);
             });
+            DB.uploadNewSalesToCloud(
+                    id,transactionNo, "Sales", dateAndTime, cashier, order, orderType,
+                    itemsetWebName, itemsetPOSName, itemsetPrice, itemsetQty, discountsItem, discountsName, discountsPercent, totalItems,
+                    totalSubTotal, totalTax, totalServiceFee, totalDiscount, totalAmountDue,
+                    totalAmountReceived, change, paymentMethod,year, month, week, dayTxt, dayNo, hour
+            );
             OpenUserInstance.toUpdateLocalSalesTransactionCount();
         }
     }

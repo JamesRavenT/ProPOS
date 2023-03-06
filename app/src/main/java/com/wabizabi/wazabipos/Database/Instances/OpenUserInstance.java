@@ -57,6 +57,19 @@ public class OpenUserInstance {
         }
     }
 
+    public static void toUpdateUserFromCloud(String email, String username, int password, int invTransaction, int salesTransaction){
+        try (Realm realm = Realm.getDefaultInstance()){
+            RealmUser account = realm.where(RealmUser.class).findFirst();
+            realm.executeTransaction((user) -> {
+                account.setEmail(email);
+                account.setUserName(username);
+                account.setPassword(password);
+                account.setInvTransactionCloud(invTransaction);
+                account.setSalesTransactionsCloud(salesTransaction);
+            });
+        }
+    }
+
     public static void toCreateVerificationCode(){
         try(Realm realm = Realm.getDefaultInstance()){
             realm.executeTransaction(db -> {

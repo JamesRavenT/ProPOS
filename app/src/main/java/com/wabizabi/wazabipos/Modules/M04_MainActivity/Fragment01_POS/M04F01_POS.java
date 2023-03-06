@@ -134,21 +134,42 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
         currentRVText.setText("「 CATEGORIES 」");
         //Initialize RV Items and then the RecyclerView
         listOfCategories = POSCHelper.getMenuCategories(realm);
-        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-        layout.setOrientation(LinearLayoutManager.VERTICAL);
-        posRVA = new M04F01_CategoryRVA(getActivity(), realm, listOfCategories, this);
-        posRV.setAdapter(posRVA);
-        posRV.setLayoutManager(layout);
+        int orientation = getActivity().getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+            layout.setOrientation(LinearLayoutManager.HORIZONTAL);
+            posRVA = new M04F01_CategoryRVA(getActivity(), realm, listOfCategories, this);
+            posRV.setAdapter(posRVA);
+            posRV.setLayoutManager(layout);
+        } else {
+            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+            layout.setOrientation(LinearLayoutManager.VERTICAL);
+            posRVA = new M04F01_CategoryRVA(getActivity(), realm, listOfCategories, this);
+            posRV.setAdapter(posRVA);
+            posRV.setLayoutManager(layout);
+        }
+
+
     }
 
     private void load_FilteredCategoryRV(String input){
         //Initialize RV Items and then the RecyclerView
         List<MenuCategory> filteredCategory = POSCHelper.getFilteredMenuCategories(listOfCategories, input);
-        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-        layout.setOrientation(LinearLayoutManager.VERTICAL);
-        posRVA = new M04F01_CategoryRVA(getActivity(), realm, filteredCategory, this);
-        posRV.setAdapter(posRVA);
-        posRV.setLayoutManager(layout);
+        int orientation = getActivity().getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+            layout.setOrientation(LinearLayoutManager.HORIZONTAL);
+            posRVA = new M04F01_CategoryRVA(getActivity(), realm, filteredCategory, this);
+            posRV.setAdapter(posRVA);
+            posRV.setLayoutManager(layout);
+        } else {
+            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+            layout.setOrientation(LinearLayoutManager.VERTICAL);
+            posRVA = new M04F01_CategoryRVA(getActivity(), realm, filteredCategory, this);
+            posRV.setAdapter(posRVA);
+            posRV.setLayoutManager(layout);
+        }
+
     }
 
     private void load_ItemRV(RVBundle bundle){

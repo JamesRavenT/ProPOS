@@ -103,6 +103,7 @@ public class M01_SplashScreen extends AppCompatActivity {
             } else if(!user.isVerifiedUser()){
                 boolean connectionExists = checkIfNetworkIsAvailable();
                 if(connectionExists){
+                    DB.getUserUpdates();
                     timer.postDelayed(() -> {
                         RealmUser userVerification = realm.where(RealmUser.class).findFirst();
                         if(userVerification != null || !userVerification.isVerifiedUser()) {
@@ -117,6 +118,10 @@ public class M01_SplashScreen extends AppCompatActivity {
                     scDG01.show();
                 }
             } else {
+                boolean connectionExists = checkIfNetworkIsAvailable();
+                if(connectionExists){
+                    DB.getUserUpdates();
+                }
                 load_NextModule();
             }
         }
@@ -217,7 +222,6 @@ public class M01_SplashScreen extends AppCompatActivity {
         one = new Handler();
         two = new Handler();
         three = new Handler();
-        title.setText("V E R I F I E D !");
         subtitle.setVisibility(View.INVISIBLE);
         zero.postDelayed(()->{ title.setText("V E R I F Y I N G .");
             one.postDelayed(()->{ title.setText("V E R I F Y I N G . .");
