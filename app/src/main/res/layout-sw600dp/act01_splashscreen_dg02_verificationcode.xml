@@ -105,7 +105,7 @@
                 android:gravity="center"
                 android:text="A verification code has been sent to your\nregistered email to verify if it's really you."
                 android:textColor="@color/wabizabi"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
