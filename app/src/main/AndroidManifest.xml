@@ -44,7 +44,8 @@
         </activity>
         <activity
             android:name=".Modules.M04_MainActivity.M04_Main"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked"/>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -8,9 +8,9 @@
 
     <ImageView
         android:id="@+id/M02F02_AppLogo"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -23,7 +23,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/nunito_sans_light"
         android:text="Enter your PIN"
         android:textColor="@color/wabizabi"
@@ -102,8 +102,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M02F02_Button01"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="15dp"
         android:backgroundTint="@color/wabizabi"
@@ -126,7 +126,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="1"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -136,8 +136,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M02F02_Button02"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="25dp"
         android:backgroundTint="@color/wabizabi"
         android:elevation="20dp"
@@ -158,7 +158,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="2"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -168,8 +168,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M02F02_Button03"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="25dp"
         android:backgroundTint="@color/wabizabi"
@@ -192,7 +192,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="3"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -202,8 +202,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M02F02_Button04"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:backgroundTint="@color/wabizabi"
@@ -226,7 +226,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="4"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -236,8 +236,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M02F02_Button05"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="15dp"
         android:backgroundTint="@color/wabizabi"
         android:elevation="20dp"
@@ -258,7 +258,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="5"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -268,8 +268,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M02F02_Button06"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:backgroundTint="@color/wabizabi"
@@ -292,7 +292,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="6"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -302,8 +302,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M02F02_Button07"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:backgroundTint="@color/wabizabi"
@@ -326,7 +326,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="7"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -336,8 +336,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M02F02_Button08"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="15dp"
         android:backgroundTint="@color/wabizabi"
         android:elevation="20dp"
@@ -358,7 +358,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="8"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -368,8 +368,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M02F02_Button09"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:backgroundTint="@color/wabizabi"
@@ -392,7 +392,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="9"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -402,8 +402,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M02F02_Button00"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="15dp"
         android:backgroundTint="@color/wabizabi"
         android:elevation="20dp"
@@ -424,7 +424,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="0"
                 android:textColor="@color/white"
-                android:textSize="40dp"
+                android:textSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -434,8 +434,8 @@
 
     <ImageButton
         android:id="@+id/M02F02_ButtonBackspace"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:background="@null"
