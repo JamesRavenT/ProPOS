@@ -97,24 +97,9 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
     }
 
     private void load_SearchBar(){
+        searchbar.removeTextChangedListener(searchEngine);
         searchbar.setText("");
-        searchbar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable input) {
-                load_FilteredRecyclerView(input.toString());
-            }
-        });
-
+        searchbar.addTextChangedListener(searchEngine);
     }
 
     private void load_RecyclerView(){
@@ -287,6 +272,23 @@ public class M04F04_Discounts extends Fragment implements DialogLoader {
             discountDG02.show();
         });
     }
+
+    protected TextWatcher searchEngine = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable input) {
+            load_FilteredRecyclerView(input.toString());
+        }
+    };
 
     @Override
     public void load_DGContents(DialogBundle bundle) {

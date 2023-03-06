@@ -1,5 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment05_PaymentMethods;
 
+import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
+
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -95,24 +97,9 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
     }
 
     private void load_SearchBar(){
+        searchbar.removeTextChangedListener(searchEngine);
         searchbar.setText("");
-        searchbar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable input) {
-                load_FilteredRecyclerView(input.toString());
-            }
-        });
-
+        searchbar.addTextChangedListener(searchEngine);
     }
     private void load_RecyclerView(){
         //Initialize RecyclerView
@@ -260,6 +247,23 @@ public class M04F05_PaymentMethods extends Fragment implements DialogLoader {
             methodDG02.show();
         });
     }
+
+    protected TextWatcher searchEngine = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable input) {
+            load_FilteredRecyclerView(input.toString());
+        }
+    };
 
     @Override
     public void load_DGContents(DialogBundle bundle) {

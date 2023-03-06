@@ -99,33 +99,9 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
 
     }
     private void load_Searchbar(){
+        searchBar.removeTextChangedListener(searchEngine);
         searchBar.setText("");
-        searchBar.setOnKeyListener((search, key, keyEvent) -> {
-            if(key == KeyEvent.KEYCODE_ENTER){
-                keyBoard = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                keyBoard.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getRootView().getWindowToken() , 0);
-                return true;
-            } else {
-                return false;
-            }
-        });
-        searchBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable input) {
-                load_FilteredRecyclerView(input.toString());
-            }
-        });
-
+        searchBar.addTextChangedListener(searchEngine);
     }
 
     private void load_RecyclerView(){
@@ -276,6 +252,23 @@ public class M04F03_Tables extends Fragment implements DialogLoader {
             tableDG02.show();
         });
     }
+
+    protected TextWatcher searchEngine = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable input) {
+            load_FilteredRecyclerView(input.toString());
+        }
+    };
 
     @Override
     public void load_DGContents(DialogBundle bundle) {
