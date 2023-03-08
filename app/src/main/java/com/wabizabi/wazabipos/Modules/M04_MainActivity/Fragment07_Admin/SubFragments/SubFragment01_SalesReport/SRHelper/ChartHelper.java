@@ -251,18 +251,18 @@ public class ChartHelper {
                         .and().equalTo("month", "12")
                         .findAll();
 
-        listOfYearlySales.add(new BarEntry(1, janQuery.size()));
-        listOfYearlySales.add(new BarEntry(2, febQuery.size()));
-        listOfYearlySales.add(new BarEntry(3, marQuery.size()));
-        listOfYearlySales.add(new BarEntry(4, aprQuery.size()));
-        listOfYearlySales.add(new BarEntry(5, mayQuery.size()));
-        listOfYearlySales.add(new BarEntry(6, junQuery.size()));
-        listOfYearlySales.add(new BarEntry(7, julQuery.size()));
-        listOfYearlySales.add(new BarEntry(8, augQuery.size()));
-        listOfYearlySales.add(new BarEntry(9, sepQuery.size()));
-        listOfYearlySales.add(new BarEntry(10, octQuery.size()));
-        listOfYearlySales.add(new BarEntry(11, novQuery.size()));
-        listOfYearlySales.add(new BarEntry(12, decQuery.size()));
+        listOfYearlySales.add(new BarEntry(0, janQuery.size()));
+        listOfYearlySales.add(new BarEntry(1, febQuery.size()));
+        listOfYearlySales.add(new BarEntry(2, marQuery.size()));
+        listOfYearlySales.add(new BarEntry(3, aprQuery.size()));
+        listOfYearlySales.add(new BarEntry(4, mayQuery.size()));
+        listOfYearlySales.add(new BarEntry(5, junQuery.size()));
+        listOfYearlySales.add(new BarEntry(6, julQuery.size()));
+        listOfYearlySales.add(new BarEntry(7, augQuery.size()));
+        listOfYearlySales.add(new BarEntry(8, sepQuery.size()));
+        listOfYearlySales.add(new BarEntry(9, octQuery.size()));
+        listOfYearlySales.add(new BarEntry(10, novQuery.size()));
+        listOfYearlySales.add(new BarEntry(11, decQuery.size()));
 
         return listOfYearlySales;
     }
@@ -365,18 +365,18 @@ public class ChartHelper {
                         .equalTo("month", "12")
                         .findAll();
 
-        listOfYearlyRefunds.add(new BarEntry(1, janQuery.size()));
-        listOfYearlyRefunds.add(new BarEntry(2, febQuery.size()));
-        listOfYearlyRefunds.add(new BarEntry(3, marQuery.size()));
-        listOfYearlyRefunds.add(new BarEntry(4, aprQuery.size()));
-        listOfYearlyRefunds.add(new BarEntry(5, mayQuery.size()));
-        listOfYearlyRefunds.add(new BarEntry(6, junQuery.size()));
-        listOfYearlyRefunds.add(new BarEntry(7, julQuery.size()));
-        listOfYearlyRefunds.add(new BarEntry(8, augQuery.size()));
-        listOfYearlyRefunds.add(new BarEntry(9, sepQuery.size()));
-        listOfYearlyRefunds.add(new BarEntry(10, octQuery.size()));
-        listOfYearlyRefunds.add(new BarEntry(11, novQuery.size()));
-        listOfYearlyRefunds.add(new BarEntry(12, decQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(0, janQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(1, febQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(2, marQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(3, aprQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(4, mayQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(5, junQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(6, julQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(7, augQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(8, sepQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(9, octQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(10, novQuery.size()));
+        listOfYearlyRefunds.add(new BarEntry(11, decQuery.size()));
 
         return listOfYearlyRefunds;
     }
@@ -438,11 +438,11 @@ public class ChartHelper {
                         .and()
                         .equalTo("week", "5")
                         .findAll();
-        listOfMonthlySales.add(new BarEntry(1, w1Query.size()));
-        listOfMonthlySales.add(new BarEntry(2, w2Query.size()));
-        listOfMonthlySales.add(new BarEntry(3, w3Query.size()));
-        listOfMonthlySales.add(new BarEntry(4, w4Query.size()));
-        listOfMonthlySales.add(new BarEntry(5, w5Query.size()));
+        listOfMonthlySales.add(new BarEntry(0, w1Query.size()));
+        listOfMonthlySales.add(new BarEntry(1, w2Query.size()));
+        listOfMonthlySales.add(new BarEntry(2, w3Query.size()));
+        listOfMonthlySales.add(new BarEntry(3, w4Query.size()));
+        listOfMonthlySales.add(new BarEntry(4, w5Query.size()));
         return listOfMonthlySales;
     }
     public static List<BarEntry> getMonthlyRefund(Realm realm, String year, String month){
@@ -502,11 +502,11 @@ public class ChartHelper {
                         .and()
                         .equalTo("week", "5")
                         .findAll();
-        listOfMonthlyRefunds.add(new BarEntry(1, w1Query.size()));
-        listOfMonthlyRefunds.add(new BarEntry(2, w2Query.size()));
-        listOfMonthlyRefunds.add(new BarEntry(3, w3Query.size()));
-        listOfMonthlyRefunds.add(new BarEntry(4, w4Query.size()));
-        listOfMonthlyRefunds.add(new BarEntry(5, w5Query.size()));
+        listOfMonthlyRefunds.add(new BarEntry(0, w1Query.size()));
+        listOfMonthlyRefunds.add(new BarEntry(1, w2Query.size()));
+        listOfMonthlyRefunds.add(new BarEntry(2, w3Query.size()));
+        listOfMonthlyRefunds.add(new BarEntry(3, w4Query.size()));
+        listOfMonthlyRefunds.add(new BarEntry(4, w5Query.size()));
         return listOfMonthlyRefunds;
     }
 
@@ -603,13 +603,13 @@ public class ChartHelper {
                         .and()
                         .equalTo("dayTxt", "Sunday")
                         .findAll();
-        listOfWeeklySales.add(new BarEntry(1, monQuery.size()));
-        listOfWeeklySales.add(new BarEntry(2, tueQuery.size()));
-        listOfWeeklySales.add(new BarEntry(3, wedQuery.size()));
-        listOfWeeklySales.add(new BarEntry(4, thuQuery.size()));
-        listOfWeeklySales.add(new BarEntry(5, friQuery.size()));
-        listOfWeeklySales.add(new BarEntry(6, satQuery.size()));
-        listOfWeeklySales.add(new BarEntry(7, sunQuery.size()));
+        listOfWeeklySales.add(new BarEntry(0, monQuery.size()));
+        listOfWeeklySales.add(new BarEntry(1, tueQuery.size()));
+        listOfWeeklySales.add(new BarEntry(2, wedQuery.size()));
+        listOfWeeklySales.add(new BarEntry(3, thuQuery.size()));
+        listOfWeeklySales.add(new BarEntry(4, friQuery.size()));
+        listOfWeeklySales.add(new BarEntry(5, satQuery.size()));
+        listOfWeeklySales.add(new BarEntry(6, sunQuery.size()));
         return listOfWeeklySales;
     }
     public static List<BarEntry> getWeeklyRefund(Realm realm, String year, String month, String week){
@@ -705,13 +705,13 @@ public class ChartHelper {
                         .and()
                         .equalTo("dayTxt", "Sunday")
                         .findAll();
-        listOfWeeklyRefund.add(new BarEntry(1, monQuery.size()));
-        listOfWeeklyRefund.add(new BarEntry(2, tueQuery.size()));
-        listOfWeeklyRefund.add(new BarEntry(3, wedQuery.size()));
-        listOfWeeklyRefund.add(new BarEntry(4, thuQuery.size()));
-        listOfWeeklyRefund.add(new BarEntry(5, friQuery.size()));
-        listOfWeeklyRefund.add(new BarEntry(6, satQuery.size()));
-        listOfWeeklyRefund.add(new BarEntry(7, sunQuery.size()));
+        listOfWeeklyRefund.add(new BarEntry(0, monQuery.size()));
+        listOfWeeklyRefund.add(new BarEntry(1, tueQuery.size()));
+        listOfWeeklyRefund.add(new BarEntry(2, wedQuery.size()));
+        listOfWeeklyRefund.add(new BarEntry(3, thuQuery.size()));
+        listOfWeeklyRefund.add(new BarEntry(4, friQuery.size()));
+        listOfWeeklyRefund.add(new BarEntry(5, satQuery.size()));
+        listOfWeeklyRefund.add(new BarEntry(6, sunQuery.size()));
         return listOfWeeklyRefund;
     }
 
@@ -844,12 +844,12 @@ public class ChartHelper {
                         .and().equalTo("dayNo", day)
                         .and().equalTo("hour", "23")
                         .findAll();
-        listOfDailySales.add(new BarEntry(1, gozenRokuJi.size()));
-        listOfDailySales.add(new BarEntry(2, gozenKuJi.size()));
-        listOfDailySales.add(new BarEntry(3, gogoNiJuuJi.size()));
-        listOfDailySales.add(new BarEntry(4, gogoSanJi.size()));
-        listOfDailySales.add(new BarEntry(5, gogoRokuJi.size()));
-        listOfDailySales.add(new BarEntry(6, gogoKuJi.size()));
+        listOfDailySales.add(new BarEntry(0, gozenRokuJi.size()));
+        listOfDailySales.add(new BarEntry(1, gozenKuJi.size()));
+        listOfDailySales.add(new BarEntry(2, gogoNiJuuJi.size()));
+        listOfDailySales.add(new BarEntry(3, gogoSanJi.size()));
+        listOfDailySales.add(new BarEntry(4, gogoRokuJi.size()));
+        listOfDailySales.add(new BarEntry(5, gogoKuJi.size()));
         return listOfDailySales;
     }
     public static List<BarEntry> getDailyRefund(Realm realm, String year, String month, String day){
@@ -980,12 +980,12 @@ public class ChartHelper {
                         .and().equalTo("dayNo", day)
                         .and().equalTo("hour", "23")
                         .findAll();
-        listOfDailyRefund.add(new BarEntry(1, gozenRokuJi.size()));
-        listOfDailyRefund.add(new BarEntry(2, gozenKuJi.size()));
-        listOfDailyRefund.add(new BarEntry(3, gogoNiJuuJi.size()));
-        listOfDailyRefund.add(new BarEntry(4, gogoSanJi.size()));
-        listOfDailyRefund.add(new BarEntry(5, gogoRokuJi.size()));
-        listOfDailyRefund.add(new BarEntry(6, gogoKuJi.size()));
+        listOfDailyRefund.add(new BarEntry(0, gozenRokuJi.size()));
+        listOfDailyRefund.add(new BarEntry(1, gozenKuJi.size()));
+        listOfDailyRefund.add(new BarEntry(2, gogoNiJuuJi.size()));
+        listOfDailyRefund.add(new BarEntry(3, gogoSanJi.size()));
+        listOfDailyRefund.add(new BarEntry(4, gogoRokuJi.size()));
+        listOfDailyRefund.add(new BarEntry(5, gogoKuJi.size()));
         return listOfDailyRefund;
     }
 }

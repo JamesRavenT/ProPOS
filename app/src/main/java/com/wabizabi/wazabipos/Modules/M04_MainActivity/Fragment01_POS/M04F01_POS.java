@@ -134,42 +134,21 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
         currentRVText.setText("「 CATEGORIES 」");
         //Initialize RV Items and then the RecyclerView
         listOfCategories = POSCHelper.getMenuCategories(realm);
-        int orientation = getActivity().getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-            layout.setOrientation(LinearLayoutManager.HORIZONTAL);
-            posRVA = new M04F01_CategoryRVA(getActivity(), realm, listOfCategories, this);
-            posRV.setAdapter(posRVA);
-            posRV.setLayoutManager(layout);
-        } else {
-            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-            layout.setOrientation(LinearLayoutManager.VERTICAL);
-            posRVA = new M04F01_CategoryRVA(getActivity(), realm, listOfCategories, this);
-            posRV.setAdapter(posRVA);
-            posRV.setLayoutManager(layout);
-        }
-
-
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        posRVA = new M04F01_CategoryRVA(getActivity(), realm, listOfCategories, this);
+        posRV.setAdapter(posRVA);
+        posRV.setLayoutManager(layout);
     }
 
     private void load_FilteredCategoryRV(String input){
         //Initialize RV Items and then the RecyclerView
         List<MenuCategory> filteredCategory = POSCHelper.getFilteredMenuCategories(listOfCategories, input);
-        int orientation = getActivity().getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-            layout.setOrientation(LinearLayoutManager.HORIZONTAL);
-            posRVA = new M04F01_CategoryRVA(getActivity(), realm, filteredCategory, this);
-            posRV.setAdapter(posRVA);
-            posRV.setLayoutManager(layout);
-        } else {
-            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-            layout.setOrientation(LinearLayoutManager.VERTICAL);
-            posRVA = new M04F01_CategoryRVA(getActivity(), realm, filteredCategory, this);
-            posRV.setAdapter(posRVA);
-            posRV.setLayoutManager(layout);
-        }
-
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        posRVA = new M04F01_CategoryRVA(getActivity(), realm, filteredCategory, this);
+        posRV.setAdapter(posRVA);
+        posRV.setLayoutManager(layout);
     }
 
     private void load_ItemRV(RVBundle bundle){
@@ -178,40 +157,21 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
 
         //Unpack bundle to get RV Items and then initialize the RecyclerView
         listOfItems = bundle.getListOfMenuItems();
-        int orientation = getActivity().getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-            layout.setOrientation(LinearLayoutManager.HORIZONTAL);
-            posRVA = new M04F01_ItemRVA(getActivity(), realm, listOfItems, this);
-            posRV.setAdapter(posRVA);
-            posRV.setLayoutManager(layout);
-        } else {
-            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-            layout.setOrientation(LinearLayoutManager.VERTICAL);
-            posRVA = new M04F01_ItemRVA(getActivity(), realm, listOfItems, this);
-            posRV.setAdapter(posRVA);
-            posRV.setLayoutManager(layout);
-        }
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        posRVA = new M04F01_ItemRVA(getActivity(), realm, listOfItems, this);
+        posRV.setAdapter(posRVA);
+        posRV.setLayoutManager(layout);
     }
 
     private void load_FilteredItemRV(String input){
         //Initialize RV Items and then the RecyclerView
         List<MenuItem> filteredListOfItem = POSIHelper.getFilteredMenuItems(listOfItems, input);
-        int orientation = getActivity().getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-            layout.setOrientation(LinearLayoutManager.VERTICAL);
-            posRVA = new M04F01_ItemRVA(getActivity(), realm, filteredListOfItem, this);
-            posRV.setAdapter(posRVA);
-            posRV.setLayoutManager(layout);
-        } else {
-            LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-            layout.setOrientation(LinearLayoutManager.VERTICAL);
-            posRVA = new M04F01_ItemRVA(getActivity(), realm, filteredListOfItem, this);
-            posRV.setAdapter(posRVA);
-            posRV.setLayoutManager(layout);
-        }
-
+        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
+        layout.setOrientation(LinearLayoutManager.VERTICAL);
+        posRVA = new M04F01_ItemRVA(getActivity(), realm, filteredListOfItem, this);
+        posRV.setAdapter(posRVA);
+        posRV.setLayoutManager(layout);
     }
 
     private void init_Dialogs() {
@@ -243,6 +203,7 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
         //Load Item Details
         String price = StringHelper.convertToCurrency(itemPrice);
         IconHelper.setMenuIcon(posDG01_ItemImage, itemImage);
+        posDG01_ItemQty.setText("1");
         posDG01_ItemName.setText(itemPOSName);
         posDG01_ItemPrice.setText(price);
 
@@ -256,8 +217,10 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
 
         //On Add Btn
         posDG01_ItemAddBtn.setOnClickListener(inc -> {
-            itemQtyCount++;
-            posDG01_ItemQty.setText(String.valueOf(itemQtyCount));
+            if(itemQtyCount != 99){
+                itemQtyCount++;
+                posDG01_ItemQty.setText(String.valueOf(itemQtyCount));
+            }
         });
 
         //On Add To Cart Btn
@@ -300,7 +263,6 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
 
     public void backToCategory(){
         int orientation = getActivity().getResources().getConfiguration().orientation;
-        int screenLayoutSize = getActivity().getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             load_SearchBar();
             load_CategoryRV();

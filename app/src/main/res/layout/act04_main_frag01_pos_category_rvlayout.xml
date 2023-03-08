@@ -30,8 +30,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/M04F01_CRVTextLayout"
-                android:layout_width="191dp"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginEnd="200dp"
                 android:background="@color/wabizabi"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -42,10 +43,11 @@
 
                 <TextView
                     android:id="@+id/M04F01_CRVCategoryName"
-                    android:layout_width="173dp"
+                    android:layout_width="0dp"
                     android:layout_height="42dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:fontFamily="@font/nunito_sans_light"
                     android:gravity="start|center"
                     android:text="Category Name"

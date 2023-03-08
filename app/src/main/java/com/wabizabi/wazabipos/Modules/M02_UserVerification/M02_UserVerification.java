@@ -2,7 +2,12 @@ package com.wabizabi.wazabipos.Modules.M02_UserVerification;
 
 import static com.wabizabi.wazabipos.Modules.M04_MainActivity.M04_Main.currentFragment;
 
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +25,7 @@ public class M02_UserVerification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act02_userverification);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         init_Functionalities();
     }
     private void init_Functionalities(){
@@ -51,5 +57,30 @@ public class M02_UserVerification extends AppCompatActivity {
         if(currentFragment != null){
             finish();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(final Context baseContext) {
+
+        Context newContext;
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+            DisplayMetrics displayMetrics = baseContext.getResources().getDisplayMetrics();
+            Configuration configuration = baseContext.getResources().getConfiguration();
+
+            if (displayMetrics.densityDpi != DisplayMetrics.DENSITY_DEVICE_STABLE) {
+                // Current density is different from Default Density. Override it
+                configuration.densityDpi = DisplayMetrics.DENSITY_DEVICE_STABLE;
+                newContext = baseContext.createConfigurationContext(configuration);
+            } else {
+                // Same density. Just use same context
+                newContext = baseContext;
+            }
+        } else {
+            // Old API. Screen zoom not supported
+            newContext = baseContext;
+        }
+        super.attachBaseContext(newContext);
     }
 }

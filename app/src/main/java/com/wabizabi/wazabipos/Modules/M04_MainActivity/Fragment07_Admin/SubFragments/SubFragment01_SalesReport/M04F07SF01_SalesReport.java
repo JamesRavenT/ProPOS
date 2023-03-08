@@ -243,10 +243,12 @@ public class M04F07SF01_SalesReport extends Fragment {
         axis.setValueFormatter(new IndexAxisValueFormatter(chartVariables));
         axis.setCenterAxisLabels(true);
         axis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        axis.setGranularity(1.0f);
+        axis.setGranularity(1);
         axis.setGranularityEnabled(true);
         axis.setDrawGridLinesBehindData(false);
         axis.setDrawAxisLine(true);
+        axis.setAxisMaximum(data.getXMax() + 1);
+        axis.setAxisMinimum(0);
         axis.setAxisLineColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
         //Y AXIS | LEFT
         YAxis leftAxis = chart.getAxisLeft();
@@ -263,10 +265,14 @@ public class M04F07SF01_SalesReport extends Fragment {
         float grpSpc = 0.3f;
         data.setBarWidth(0.25f);
         chart.setData(data);
-        calculateMinMax(chart, listOfSales.size() + 10);
+        if(listOfSales.size() < 10){
+            calculateMinMax(chart, listOfSales.size() + 10);
+        } else {
+            calculateMinMax(chart, listOfSales.size());
+        }
         chart.setDragEnabled(true);
-        chart.setVisibleXRangeMaximum(3);
-        chart.setMaxVisibleValueCount(5);
+        chart.setVisibleXRangeMaximum(4);
+        chart.setMaxVisibleValueCount(4);
         chart.groupBars(0, grpSpc, barSpc);
         chart.getDescription().setEnabled(false);
         chart.invalidate();
@@ -275,7 +281,6 @@ public class M04F07SF01_SalesReport extends Fragment {
     private void calculateMinMax(BarLineChartBase chart, int labelCount) {
         float maxValue = chart.getData().getYMax();
         float minValue = chart.getData().getYMin();
-
         if ((maxValue - minValue) < labelCount) {
             float diff = labelCount - (maxValue - minValue);
             maxValue = maxValue + diff;

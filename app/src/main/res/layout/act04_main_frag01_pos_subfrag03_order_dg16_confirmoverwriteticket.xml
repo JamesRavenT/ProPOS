@@ -90,6 +90,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="25dp"
                 android:backgroundTint="@color/wabizabi"
                 android:elevation="10dp"
                 app:cardCornerRadius="5dp"
@@ -98,7 +99,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D16_TicketNameText"
-                app:layout_constraintVertical_bias="0.0" >
+                app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/M04F01SF03D16_YesBtnLayout"
@@ -127,6 +128,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="25dp"
+                android:layout_marginBottom="25dp"
                 android:backgroundTint="@color/wabizabi"
                 android:elevation="10dp"
                 app:cardCornerRadius="5dp"
@@ -135,7 +137,7 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/M04F01SF03D16_TicketNameText"
-                app:layout_constraintVertical_bias="0.0" >
+                app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/M04F01SF03D16_NoBtnLayout"

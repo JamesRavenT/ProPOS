@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/wabizabi"
@@ -28,38 +28,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/M04F01SF02_RecommendedQuantity"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/nunito_sans_extralight"
-                android:text="# items"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/M04F01SF02_AddToCartBtn"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/M04F01SF02_RecommendedRV"
-                app:layout_constraintVertical_bias="0.3" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/M04F01SF02_POSButtonLayout"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.977"
+                app:layout_constraintHorizontal_bias="0.959"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.928">
+                app:layout_constraintVertical_bias="0.93">
 
                 <ImageView
                     android:id="@+id/M04F01SF02_POSButton"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -102,6 +85,23 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+                android:id="@+id/M04F01SF02_RecommendedQuantity"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/nunito_sans_extralight"
+                android:text="# items"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/M04F01SF02_AddToCartBtn"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/M04F01SF02_RecommendedRV"
+                app:layout_constraintVertical_bias="0.3" />
+
+            <TextView
                 android:id="@+id/M04F01SF02_DescriptionText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="Popular Combinations with"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -127,7 +127,7 @@
                 android:fontFamily="@font/nunito_sans_extralight"
                 android:text="Item"
                 android:textColor="@color/white"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -154,26 +154,26 @@
                 android:id="@+id/M04F01SF02_AddToCartBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF02_RotateBtn"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.928"
+                app:layout_constraintVertical_bias="0.93"
                 app:srcCompat="@drawable/icon_button_add_white" />
 
             <ImageView
                 android:id="@+id/M04F01SF02_RotateBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="22dp"
+                android:layout_marginEnd="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/M04F01SF02_POSButtonLayout"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.928"
+                app:layout_constraintVertical_bias="0.93"
                 app:srcCompat="@drawable/icon_rotate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -119,6 +119,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
              cartDG03_TakeOutBtn,
              cartDG03_DeliveryBtn,
              cartDG03_PickUpBtn;
+    TextView cartDG03_ClearBtn;
     ImageView closeDG03Btn;
 
     //--DG04 VIEW APPLIED DISCOUNTS--//
@@ -418,6 +419,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
                 cartRVA.notifyDataSetChanged();
                 currentCartTicket = null;
                 load_OrderDetails();
+                posContent.updatePOS();
             } else {
                 load_DG10Functionalities();
                 cartDG10.show();
@@ -473,6 +475,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
         cartDG03_TakeOutBtn = cartDG03.findViewById(R.id.M04F01SF03D03_TakeOutButton);
         cartDG03_DeliveryBtn = cartDG03.findViewById(R.id.M04F01SF03D03_DeliveryButton);
         cartDG03_PickUpBtn = cartDG03.findViewById(R.id.M04F01SF03D03_PickUpButton);
+        cartDG03_ClearBtn = cartDG03.findViewById(R.id.M04F01SF03D03_ClearButton);
         closeDG03Btn = cartDG03.findViewById(R.id.M04F01SF03D03_CloseDGBtn);
 
         //--DG04 VIEW APPLIED DISCOUNTS DG--//
@@ -719,32 +722,39 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
                     cartDG03_PickUpBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
                     break;
             }
+        } else {
+            cartDG03_DineInBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+            cartDG03_TakeOutBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+            cartDG03_DeliveryBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
+            cartDG03_PickUpBtn.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.wabizabi));
         }
 
         cartDG03_DineInBtn.setOnClickListener(di -> {
             currentCartOrderType = "Dine In";
-            load_DG03Functionalities();
             load_OrderDetails();
             cartDG03.dismiss();
         });
 
         cartDG03_TakeOutBtn.setOnClickListener(to -> {
             currentCartOrderType = "Take Out";
-            load_DG03Functionalities();
             load_OrderDetails();
             cartDG03.dismiss();
         });
 
         cartDG03_DeliveryBtn.setOnClickListener(dv -> {
             currentCartOrderType = "Delivery";
-            load_DG03Functionalities();
             load_OrderDetails();
             cartDG03.dismiss();
         });
 
         cartDG03_PickUpBtn.setOnClickListener(pu -> {
             currentCartOrderType = "Pick Up";
-            load_DG03Functionalities();
+            load_OrderDetails();
+            cartDG03.dismiss();
+        });
+
+        cartDG03_ClearBtn.setOnClickListener(cl -> {
+            currentCartOrderType = null;
             load_OrderDetails();
             cartDG03.dismiss();
         });
@@ -1491,6 +1501,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
             cart.clear();
             cartRVA.notifyDataSetChanged();
             load_OrderDetails();
+            posContent.updatePOS();
             cartDG16.dismiss();
         });
 

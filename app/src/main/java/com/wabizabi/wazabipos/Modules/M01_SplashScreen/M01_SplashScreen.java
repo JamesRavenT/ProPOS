@@ -3,10 +3,14 @@ package com.wabizabi.wazabipos.Modules.M01_SplashScreen;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -56,6 +60,7 @@ public class M01_SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act01_splashscreen);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         init_Functionalities();
     }
 
@@ -161,7 +166,7 @@ public class M01_SplashScreen extends AppCompatActivity {
         String name = user.getUserName();
 
         //Set Views
-        scDG02_userName.setText("Welcome Back,\n" + name + "!");
+        scDG02_userName.setText("Welcome Back, " + name + "!");
         scDG02_codeInput.setText("");
 
         //On Resend
@@ -238,6 +243,31 @@ public class M01_SplashScreen extends AppCompatActivity {
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    @Override
+    protected void attachBaseContext(final Context baseContext) {
+
+        Context newContext;
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+            DisplayMetrics displayMetrics = baseContext.getResources().getDisplayMetrics();
+            Configuration configuration = baseContext.getResources().getConfiguration();
+
+            if (displayMetrics.densityDpi != DisplayMetrics.DENSITY_DEVICE_STABLE) {
+                // Current density is different from Default Density. Override it
+                configuration.densityDpi = DisplayMetrics.DENSITY_DEVICE_STABLE;
+                newContext = baseContext.createConfigurationContext(configuration);
+            } else {
+                // Same density. Just use same context
+                newContext = baseContext;
+            }
+        } else {
+            // Old API. Screen zoom not supported
+            newContext = baseContext;
+        }
+        super.attachBaseContext(newContext);
     }
 
 }

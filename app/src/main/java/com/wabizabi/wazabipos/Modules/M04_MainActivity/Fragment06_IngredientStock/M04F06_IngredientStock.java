@@ -555,8 +555,10 @@ public class M04F06_IngredientStock extends Fragment implements RVLoader, Dialog
 
         stockDG07_AddBtn.setOnClickListener(add -> {
             int counter = Integer.parseInt(stockDG07_ItemQty.getText().toString());
-            counter++;
-            stockDG07_ItemQty.setText(String.valueOf(counter));
+            if(counter < 99){
+                counter++;
+                stockDG07_ItemQty.setText(String.valueOf(counter));
+            }
         });
 
         //On Update Button

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/M04F07SF03_RVLayout"
     android:layout_width="match_parent"
-    android:layout_height="260dp">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/M04F07SF03_RVContainer"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
@@ -173,6 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="20dp"
+                android:layout_marginBottom="25dp"
                 android:fontFamily="@font/nunito_sans_light"
                 android:text="Payment Method :"
                 android:textColor="@color/wabizabi"

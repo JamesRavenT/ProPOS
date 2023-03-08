@@ -88,9 +88,8 @@ public class M04F03_TablesRVA extends RecyclerView.Adapter<M04F03_TablesRVA.View
 
             //On Click Sub Btn
             subBtn.setOnClickListener(sub -> {
-                RealmResults<RealmTable> listOfTables = realm.where(RealmTable.class).findAll();
                 RealmResults<RealmTicket> listOfTickets = realm.where(RealmTicket.class).findAll();
-                if(listOfTables.size() != 1 && listOfTickets.isEmpty()){
+                if(tableCount.size() > 1 && listOfTickets.isEmpty()){
                     OpenTableInstance.toSubTableCount(table);
                     notifyDataSetChanged();
                 } else if(!listOfTickets.isEmpty()) {
@@ -102,8 +101,11 @@ public class M04F03_TablesRVA extends RecyclerView.Adapter<M04F03_TablesRVA.View
 
             //On Click Add Btn
             addBtn.setOnClickListener(sub -> {
-                OpenTableInstance.toAddTableCount(table);
-                notifyDataSetChanged();
+                RealmResults<RealmTable> tableQuery = realm.where(RealmTable.class).findAll();
+                if(tableCount.size() != 99){
+                    OpenTableInstance.toAddTableCount(table);
+                    notifyDataSetChanged();
+                }
             });
         }
     }

@@ -114,6 +114,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@android:color/transparent"
                     android:cursorVisible="false"
                     android:focusedByDefault="false"
@@ -126,8 +127,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/M04F03_SearchBarImage"
                     app:layout_constraintHorizontal_bias="0.019"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.521" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/M04F03_SearchBarImage"

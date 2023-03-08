@@ -133,10 +133,12 @@ public class M04F01SF03_CartRVA extends RecyclerView.Adapter<M04F01SF03_CartRVA.
             //On Add
             addQtyBtn.setOnClickListener(add -> {
                 if(cart.containsKey(item)){
-                    cart.put(item, cart.get(item) +1);
+                    if(cart.get(item) < 99){
+                        cart.put(item, cart.get(item) +1);
+                        notifyDataSetChanged();
+                        fragmentLoader.load_FGContents();
+                    }
                 }
-                notifyDataSetChanged();
-                fragmentLoader.load_FGContents();
             });
 
             //On Sub

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <group android:checkableBehavior="none">
-        <item android:title="WaZabiPOS">
+        <item android:title="W A Z A B I  P O S">
             <menu>
                 <item
                     android:id="@+id/nav_POS"
@@ -12,7 +12,7 @@
             </menu>
         </item>
 
-        <item android:title="Management">
+        <item android:title="M A N A G E M E N T">
             <menu>
                 <item
                     android:id="@+id/nav_Menu"
@@ -32,7 +32,7 @@
             </menu>
         </item>
 
-        <item android:title="BackOffice">
+        <item android:title="B A C K  O F F I C E">
             <menu>
                 <item
                     android:id="@+id/nav_Admin"
@@ -40,7 +40,7 @@
             </menu>
         </item>
 
-        <item android:title="Settings">
+        <item android:title="D E V I C E S">
             <menu>
                 <item
                     android:id="@+id/nav_Printer"

@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -234,13 +236,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     private void load_CurrentFragment(){
-        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.MainActivityContainer, landscapePOS)
-                    .replace(R.id.MainActivityContainer2, landscapeCART)
-                    .commit();
-        } else if(currentFragment != null) {
+        if(currentFragment != null) {
              if(orientation == Configuration.ORIENTATION_LANDSCAPE){
                  getSupportFragmentManager()
                          .beginTransaction()
@@ -350,6 +346,31 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     @Override
+    protected void attachBaseContext(final Context baseContext) {
+
+        Context newContext;
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+            DisplayMetrics displayMetrics = baseContext.getResources().getDisplayMetrics();
+            Configuration configuration = baseContext.getResources().getConfiguration();
+
+            if (displayMetrics.densityDpi != DisplayMetrics.DENSITY_DEVICE_STABLE) {
+                // Current density is different from Default Density. Override it
+                configuration.densityDpi = DisplayMetrics.DENSITY_DEVICE_STABLE;
+                newContext = baseContext.createConfigurationContext(configuration);
+            } else {
+                // Same density. Just use same context
+                newContext = baseContext;
+            }
+        } else {
+            // Old API. Screen zoom not supported
+            newContext = baseContext;
+        }
+        super.attachBaseContext(newContext);
+    }
+
+    @Override
     protected void onStart(){
         super.onStart();
 //        DB.syncRealmAndFirestore(this);
@@ -360,6 +381,8 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         super.onResume();
         load_CurrentFragment();
     }
+
+
 
     @Override
     public void updateCart() {
