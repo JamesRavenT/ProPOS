@@ -10,7 +10,7 @@
         android:id="@+id/M02F02_AppLogo"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/M02F02_AppLogo"
-        app:layout_constraintVertical_bias="0.084" />
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <TextView
         android:id="@+id/M04F02_ForgotPasswordBtn"

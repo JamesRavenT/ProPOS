@@ -190,7 +190,6 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
     private void load_DG01Functionalities(DialogBundle bundle){
         //Get Screen Configuration
         int orientation = getResources().getConfiguration().orientation;
-        int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         //Unpack Bundle
         int itemImage = bundle.getMenuItem().getItemIcon();
         String itemCategory = bundle.getMenuItem().getItemCategory();
@@ -198,12 +197,11 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
         String itemPOSName = bundle.getMenuItem().getItemPOSName();
         double itemPrice = bundle.getMenuItem().getItemPrice();
         List<MenuItem> listOfItems = bundle.getRvBundle().getListOfMenuItems();
-        LogHelper.debug(itemWebName);
-        LogHelper.debug(itemPOSName);
         //Load Item Details
+        itemQtyCount = 1;
         String price = StringHelper.convertToCurrency(itemPrice);
         IconHelper.setMenuIcon(posDG01_ItemImage, itemImage);
-        posDG01_ItemQty.setText("1");
+        posDG01_ItemQty.setText(String.valueOf(itemQtyCount));
         posDG01_ItemName.setText(itemPOSName);
         posDG01_ItemPrice.setText(price);
 
@@ -247,6 +245,7 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
             if(orientation == Configuration.ORIENTATION_LANDSCAPE){
                 cartContent.updateCart();
             }
+            posDG01_ItemQty.setText(String.valueOf(itemQtyCount));
             posDG01.dismiss();
         });
 

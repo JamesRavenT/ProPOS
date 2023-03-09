@@ -109,7 +109,7 @@ public class M03_LoadResources extends AppCompatActivity {
                 if (a < limit) {
                     (new Handler()).postDelayed(() -> checkIfTransmissionIsComplete(limit),500);
                 } else {
-                    zero.postDelayed(()->{ loading.setText("L O A D I N G ."); state.setText("Initializing System");
+                    zero.postDelayed(()->{ loading.setText("L O A D I N G ."); state.setText("Initializing System [4/5]");
                         one.postDelayed(()->{ loading.setText("L O A D I N G . ."); WorkOrders.startAlgorithm(this);
                             two.postDelayed(()->{ loading.setText("W E L C O M E !"); loadDefaultVariables(); state.setText("Complete [5/5]");
                                 three.postDelayed(()->{ WorkOrders.storeFPData(this); startActivity(new Intent(this, M04_Main.class)); finish();
