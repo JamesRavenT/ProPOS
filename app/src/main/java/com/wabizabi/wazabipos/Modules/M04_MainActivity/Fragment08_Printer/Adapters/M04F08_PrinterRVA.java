@@ -24,6 +24,7 @@ import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LogHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -99,6 +100,7 @@ public class M04F08_PrinterRVA extends RecyclerView.Adapter<M04F08_PrinterRVA.Vi
             connectBtn.setOnClickListener(connect -> {
                 if(printer != device){
                     try {
+                        ToastHelper.show(context, "Connecting...");
                         printer = device;
                         UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
                         socket = printer.createRfcommSocketToServiceRecord(uuid);

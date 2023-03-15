@@ -27,6 +27,7 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment08_Printer.Adapte
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Interfaces.FragmentLoader;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.LayoutHelper;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -104,10 +105,12 @@ public class M04F08_Printer extends Fragment implements FragmentLoader {
             //Check if there's a connected Device
             if(printer == null){
                 connectedDevice.setVisibility(View.INVISIBLE);
+
             } else if (printer != null){
                 //Set Views
                 connectedDevice.setVisibility(View.VISIBLE);
                 connectedDeviceName.setText(printer.getName());
+                ToastHelper.show(getActivity(), "Connected!");
                 //On Clicking Disconnect Btn
                 disconnectBtn.setOnClickListener(disconnect -> {
                     try{
@@ -121,6 +124,7 @@ public class M04F08_Printer extends Fragment implements FragmentLoader {
                         listOfBluetoothDevices.add(device);
                         printer = null;
                         devicesRVA.notifyDataSetChanged();
+                        ToastHelper.show(getActivity(), "Disconnecting Printer...");
                         init_Devices();
                         load_RecyclerView();
                     } catch (Exception e) { e.printStackTrace(); }
@@ -149,6 +153,7 @@ public class M04F08_Printer extends Fragment implements FragmentLoader {
         searchButton.setOnClickListener(search -> {
             init_Devices();
             load_RecyclerView();
+            ToastHelper.show(getActivity(), "Fetching Paired Devices...");
         });
     }
 

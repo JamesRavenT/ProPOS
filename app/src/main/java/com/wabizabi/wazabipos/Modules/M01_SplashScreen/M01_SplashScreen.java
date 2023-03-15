@@ -79,7 +79,6 @@ public class M01_SplashScreen extends AppCompatActivity {
     }
 
     private void init_DB(){
-        LogHelper.debug("ONE");
         Realm.init(this);
         DB.init();
     }
@@ -94,11 +93,11 @@ public class M01_SplashScreen extends AppCompatActivity {
                     DB.checkForUser();
                     timer.postDelayed(() -> {
                         RealmUser userVerification = realm.where(RealmUser.class).findFirst();
-                        if(userVerification != null || !userVerification.isVerifiedUser()) {
+                        if(userVerification == null || userVerification.isVerifiedUser()) {
+                            load_NextModule();
+                        } else {
                             load_DG02Functionalities();
                             scDG02.show();
-                        } else {
-                            load_NextModule();
                         }
                     }, 5000);
                 } else {
@@ -174,7 +173,6 @@ public class M01_SplashScreen extends AppCompatActivity {
             boolean connectionExists = checkIfNetworkIsAvailable();
             if(connectionExists){
                 if(previousSendingTime == null){
-                    LogHelper.debug("case1");
                     OpenUserInstance.toCreateVerificationCode();
                     previousSendingTime = new SimpleDateFormat("mm").format(new Date());
                     WorkOrders.sendVerificationCode(this);
@@ -182,13 +180,11 @@ public class M01_SplashScreen extends AppCompatActivity {
                     int previousTime = Integer.parseInt(previousSendingTime);
                     int currentTime = Integer.parseInt(new SimpleDateFormat("mm").format(new Date()));
                     if(previousTime != currentTime){
-                        LogHelper.debug("case2");
                         OpenUserInstance.toCreateVerificationCode();
                         WorkOrders.sendVerificationCode(this);
                         ToastHelper.show(this, "A mail has been sent to your registered E-mail");
                         previousSendingTime = String.valueOf(currentTime);
                     } else {
-                        LogHelper.debug("case3");
                         ToastHelper.show(this, "Please wait for a minute before sending a mail again");
                     }
                 }

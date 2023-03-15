@@ -51,7 +51,7 @@ import io.realm.Realm;
 
 public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
     //--DATABASE--//
-    Realm realm = Realm.getDefaultInstance();
+    Realm realm;
 
     //--SEARCH BAR--//
     EditText searchBar;
@@ -86,6 +86,8 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
     }
 
     private void init_FragmentFunctionalities(View v){
+         realm = Realm.getDefaultInstance();
+
         searchBar = v.findViewById(R.id.M04F01_SearchBarInput);
         currentRVText = v.findViewById(R.id.M04F01_RecyclerViewText);
         posRV = v.findViewById(R.id.M04F01_RecyclerView);

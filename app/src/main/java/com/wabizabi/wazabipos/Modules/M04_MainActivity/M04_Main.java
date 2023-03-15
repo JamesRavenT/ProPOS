@@ -38,6 +38,7 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.M04F07_A
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment08_Printer.M04F08_Printer;
 import com.wabizabi.wazabipos.R;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
+import com.wabizabi.wazabipos.Utilities.Testing.TestData;
 
 import io.realm.Realm;
 
@@ -64,12 +65,10 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_WaZabiPOS);
-        setContentView(R.layout.act04_main);
         orientation = getResources().getConfiguration().orientation;
         screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-//        landscapePOS = new M04F01_POS();
-//        landscapeCART = new M04F01SF03_Cart();
+        setTheme(R.style.Theme_WaZabiPOS);
+        setContentView(R.layout.act04_main);
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -86,7 +85,11 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
             if(currentFragment != null) {
                 load_CurrentFragment();
             } else {
-                currentFragment = "POS01";
+                if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                    currentFragment = "POS03";
+                } else {
+                    currentFragment = "POS01";
+                }
                 setTheme(R.style.Theme_WaZabiPOS);
                 getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, landscapePOS).commit();
             }

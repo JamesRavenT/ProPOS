@@ -593,6 +593,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            ToastHelper.show(getActivity(), "Printing...");
             transSalesDG02.dismiss();
         });
 
@@ -636,6 +637,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
             }
             load_SearchBar();
             load_RecyclerView("Descending", "Any", "Any", "Any", "Any", "Any");
+            ToastHelper.show(getActivity(), "Refund Complete!");
             transSalesDG03.dismiss();
         });
 
@@ -698,6 +700,7 @@ public class M04F07SF03_SalesTransaction extends Fragment implements DialogLoade
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            ToastHelper.show(getActivity(), "Printing...");
             transSalesDG04.dismiss();
         });
 

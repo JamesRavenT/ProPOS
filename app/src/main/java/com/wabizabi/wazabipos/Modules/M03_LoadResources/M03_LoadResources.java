@@ -100,8 +100,6 @@ public class M03_LoadResources extends AppCompatActivity {
         int a = OpenUserInstance.fetchLocalSalesCount();
         int b = OpenUserInstance.fetchCloudSalesCount();
         int c = OpenUserInstance.fetchSalesLimit();
-        LogHelper.debug(String.valueOf(limit));
-        LogHelper.debug(a + " " + b + " " + c);
         zero.postDelayed(() -> { loading.setText("L O A D I N G .");
         one.postDelayed(() -> { loading.setText("L O A D I N G . .");
         two.postDelayed(() -> { loading.setText("L O A D I N G . . .");

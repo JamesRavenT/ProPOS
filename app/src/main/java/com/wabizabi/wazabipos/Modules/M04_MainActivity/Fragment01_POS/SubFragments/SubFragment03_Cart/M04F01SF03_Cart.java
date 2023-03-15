@@ -1447,7 +1447,7 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            cartDG15.dismiss();
         });
 
         //On Close [Close]

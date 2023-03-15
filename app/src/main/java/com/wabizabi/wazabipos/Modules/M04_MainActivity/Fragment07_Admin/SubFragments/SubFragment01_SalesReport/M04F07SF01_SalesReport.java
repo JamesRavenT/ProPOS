@@ -126,7 +126,7 @@ public class M04F07SF01_SalesReport extends Fragment {
                 ?  "「 " + "Week " + week + ", " + DateHelper.getMonthName(month) + " " + year + " 」"
                 : (!year.equals("N/A") && !month.equals("N/A") && !week.equals("N/A") && !day.equals(currentDay))
                 ? "「 " + "Week " + week + ", " + DateHelper.getMonthName(month) + " " + day + " " + year + " 」"
-                : "「 Today 」";
+                : "「 " + DateHelper.getMonthName(month) +  day + ", " + year + " 」";
         salesDate.setText(text);
         settingsBtn.setOnClickListener(settings -> {
             load_DG01Functionalities(new DialogBundle(year, month, week, day));
