@@ -47,7 +47,7 @@ public class DB {
     static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     static CollectionReference userProfile = firestore.collection("Debug_UserProfile");
     static CollectionReference menuCategory = firestore.collection("Debug_MenuCategory");
-    static CollectionReference menuItem = firestore.collection("Debug_MenuItem");
+    static CollectionReference menuItem = firestore.collection("WazabiITEMSYNCTEST");
     static CollectionReference stockCategory = firestore.collection("Debug_StockCategory");
     static CollectionReference stockItem = firestore.collection("Debug_StockItem");
     static CollectionReference salesTransaction = firestore.collection("Debug_TransactionSales");
@@ -117,9 +117,13 @@ public class DB {
                         DocumentReference docRef = snapShot.getReference();
                         docRef.get().addOnSuccessListener(document -> {
                             if(document.exists()){
+//                                ObjectId id = new ObjectId(document.getString("Category ID"));
+//                                int icon = document.getLong("Icon").intValue();
+//                                String name = document.getString("Name");
+//                                OpenMenuInstance.toLoadCategoryFromCloud(id, icon, name);
                                 ObjectId id = new ObjectId(document.getString("id"));
                                 int icon = document.getLong("icon").intValue();
-                                String name = document.getString("name");
+                                String name = document.getString("text");
                                 OpenMenuInstance.toLoadCategoryFromCloud(id, icon, name);
                             }
                         });
@@ -141,10 +145,17 @@ public class DB {
                                 ObjectId id = new ObjectId(document.getString("id"));
                                 String category = document.getString("category");
                                 String webName = document.getString("name");
-                                double price = document.getLong("price").doubleValue();
-                                int icon = document.getLong("z_POSIcon").intValue();
-                                String posName = document.getString("z_POSName");
+                                double price = Double.parseDouble(document.getString("price"));
+                                int icon = document.getLong("z_PosIcon").intValue();
+                                String posName = document.getString("z_PosName");
                                 OpenMenuInstance.toLoadItemFromCloud(id, icon, category, webName, posName, price);
+//                                ObjectId id = new ObjectId(document.getString("id"));
+//                                String category = document.getString("category");
+//                                String webName = document.getString("name");
+//                                double price = document.getLong("price").doubleValue();
+//                                int icon = document.getLong("z_POSIcon").intValue();
+//                                String posName = document.getString("z_POSName");
+//                                OpenMenuInstance.toLoadItemFromCloud(id, icon, category, webName, posName, price);
                             }
                         });
                     }
@@ -441,7 +452,12 @@ public class DB {
         document.put("_createdAt", new Date());
         document.put("id", docID);
         document.put("icon", categoryIcon);
-        document.put("name", categoryName);
+        document.put("text", categoryName);
+        document.put("jtext", "");
+        document.put("img", "");
+        document.put("icons", "");
+        document.put("links", "");
+        document.put("query", "");
         menuCategory.document(docID).set(document);
     }
 
@@ -451,7 +467,7 @@ public class DB {
         Map<String, Object> document = new HashMap<>();
         document.put("_updatedAt", new Date());
         document.put("icon", categoryIcon);
-        document.put("name", categoryName);
+        document.put("text", categoryName);
         menuCategory.document(docID).set(document, SetOptions.merge());
     }
 

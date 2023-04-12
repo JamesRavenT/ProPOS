@@ -524,7 +524,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
                 List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
                 load_ItemRV(new RVBundle(category, listOfItems));
                 menuDG06.dismiss();
-            } else if(listOfWebItems.contains(webName)){
+            } else if(listOfWebItems.contains(webNameInput)){
                 menuDG06_ItemWebNameInput.setError("Name already exists");
             } else if(listOfPOSItems.contains(posNameInput)){
                 menuDG06_ItemPOSNameInput.setError("Name already exists");

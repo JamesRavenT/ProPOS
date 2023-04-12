@@ -61,7 +61,7 @@ public class MIHelper {
                 .where(RealmMenuItem.class)
                 .findAll();
         for(RealmMenuItem query : queriedItems){
-            listOfItems.add(query.getItemPOSName());
+            listOfItems.add(query.getItemWebName());
         }
         return listOfItems;
     }
