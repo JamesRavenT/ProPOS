@@ -4,6 +4,7 @@ import android.os.Handler;
 
 import com.wabizabi.wazabipos.Database.Instances.OpenMenuInstance;
 import com.wabizabi.wazabipos.Database.Instances.OpenTransactionsInstance;
+import com.wabizabi.wazabipos.Database.ObjectSchemas.MenuCategory;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
 
@@ -165,36 +166,46 @@ public class TestData {
                 "SHMP Tempura"
         };
 
+             createItem("Sashimi and Nigiri", SashimiAndNigiri, SashimiAndNigiriPOS);
+             createItem("Salads", Salad, SaladPOS);
+             createItem("Sushi Roll", SushiRolls, SushiRollsPOS);
+             createItem("Sushi Platter", SushiPlatter, SushiPlatterPOS);
+             createItem("Noodles", Noodles, NoodlesPOS);
+             createItem("Donburi", Donburi, DonburiPOS);
+             createItem("Drinks", Drinks, DrinksPOS);
+             createItem("Dessert", Dessert, DessertPOS);
+             createItem("Deep fried", Others, OthersPOS);
 
-        try(Realm realm = Realm.getDefaultInstance()){
-            RealmResults<RealmMenuItem> products = realm.where(RealmMenuItem.class).findAll();
-            if(products.isEmpty()){
-                for (String category : categories) {
-                    OpenMenuInstance.toCreateCategory(0, category);
-                    switch (category) {
-                        case "Sashimi and Nigiri": createItem(category, SashimiAndNigiri, SashimiAndNigiriPOS);
-                            break;
-                        case "Salad": createItem(category, Salad, SaladPOS);
-                            break;
-                        case "Sushi Rolls": createItem(category, SushiRolls, SushiRollsPOS);
-                            break;
-                        case "Sushi Platter": createItem(category, SushiPlatter, SushiPlatterPOS);
-                            break;
-                        case "Noodles": createItem(category, Noodles, NoodlesPOS);
-                            break;
-                        case "Donburi": createItem(category, Donburi, DonburiPOS);
-                            break;
-                        case "Drinks": createItem(category, Drinks, DrinksPOS);
-                            break;
-                        case "Dessert": createItem(category, Dessert, DessertPOS);
-                            break;
-                        case "Deep fried": createItem(category, Others, OthersPOS);
-                            break;
-                    }
 
-                }
-            }
-        }
+//        try(Realm realm = Realm.getDefaultInstance()){
+//            RealmResults<RealmMenuItem> products = realm.where(RealmMenuItem.class).findAll();
+//            if(products.isEmpty()){
+//                for (String category : categories) {
+//                    OpenMenuInstance.toCreateCategory(0, category);
+//                    switch (category) {
+//                        case "Sashimi and Nigiri": createItem(category, SashimiAndNigiri, SashimiAndNigiriPOS);
+//                            break;
+//                        case "Salad": createItem(category, Salad, SaladPOS);
+//                            break;
+//                        case "Sushi Rolls": createItem(category, SushiRolls, SushiRollsPOS);
+//                            break;
+//                        case "Sushi Platter": createItem(category, SushiPlatter, SushiPlatterPOS);
+//                            break;
+//                        case "Noodles": createItem(category, Noodles, NoodlesPOS);
+//                            break;
+//                        case "Donburi": createItem(category, Donburi, DonburiPOS);
+//                            break;
+//                        case "Drinks": createItem(category, Drinks, DrinksPOS);
+//                            break;
+//                        case "Dessert": createItem(category, Dessert, DessertPOS);
+//                            break;
+//                        case "Deep fried": createItem(category, Others, OthersPOS);
+//                            break;
+//                    }
+//
+//                }
+//            }
+//        }
     }
     public static void createItem(String category, String[] items, String[] pos){
         for(int i = 0 ; i < items.length ; i ++){
@@ -202,23 +213,14 @@ public class TestData {
         }
     }
 
-    public static void preloadTransactions() {
+    public static void preloadTransactionA() {
         try(Realm realm = Realm.getDefaultInstance()){
             RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
                 Handler timer = new Handler();
                 List<List<String>> table = new ArrayList<>();
                 DataSetA.insertInto(table);
-//                DataSetB.insertInto(table);
-//                DataSetC.insertInto(table);
-//                DataSetD.insertInto(table);
-//                DataSetE.insertInto(table);
-//                DataSetF.insertInto(table);
-//                DataSetG.insertInto(table);
-//                DataSetH.insertInto(table);
-//                DataSetI.insertInto(table);
                 //TOTAL PRICE
                 double totalPrice = 1000.00;
-
                 for (List<String> items : table) {
                     List<Double> price = new ArrayList<>();
                     List<Integer> amount = new ArrayList<>();
@@ -232,4 +234,181 @@ public class TestData {
                 }
         }
     }
+
+    public static void preloadTransactionB() {
+        try(Realm realm = Realm.getDefaultInstance()){
+            RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
+            Handler timer = new Handler();
+            List<List<String>> table = new ArrayList<>();
+            DataSetB.insertInto(table);
+            //TOTAL PRICE
+            double totalPrice = 1000.00;
+            for (List<String> items : table) {
+                List<Double> price = new ArrayList<>();
+                List<Integer> amount = new ArrayList<>();
+                for(int i = 0 ; i < items.size() ; i++){
+                    price.add(100.00);
+                    amount.add(1);
+                }
+                timer.postDelayed(() -> {
+                    OpenTransactionsInstance.toCreateTestSales(items, items, price, amount, totalPrice);
+                },5000);
+            }
+        }
+    }
+
+    public static void preloadTransactionC() {
+        try(Realm realm = Realm.getDefaultInstance()){
+            RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
+            Handler timer = new Handler();
+            List<List<String>> table = new ArrayList<>();
+            DataSetC.insertInto(table);
+            //TOTAL PRICE
+            double totalPrice = 1000.00;
+            for (List<String> items : table) {
+                List<Double> price = new ArrayList<>();
+                List<Integer> amount = new ArrayList<>();
+                for(int i = 0 ; i < items.size() ; i++){
+                    price.add(100.00);
+                    amount.add(1);
+                }
+                timer.postDelayed(() -> {
+                    OpenTransactionsInstance.toCreateTestSales(items, items, price, amount, totalPrice);
+                },5000);
+            }
+        }
+    }
+
+    public static void preloadTransactionD() {
+        try(Realm realm = Realm.getDefaultInstance()){
+            RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
+            Handler timer = new Handler();
+            List<List<String>> table = new ArrayList<>();
+            DataSetD.insertInto(table);
+            //TOTAL PRICE
+            double totalPrice = 1000.00;
+            for (List<String> items : table) {
+                List<Double> price = new ArrayList<>();
+                List<Integer> amount = new ArrayList<>();
+                for(int i = 0 ; i < items.size() ; i++){
+                    price.add(100.00);
+                    amount.add(1);
+                }
+                timer.postDelayed(() -> {
+                    OpenTransactionsInstance.toCreateTestSales(items, items, price, amount, totalPrice);
+                },5000);
+            }
+        }
+    }
+
+    public static void preloadTransactionE() {
+        try(Realm realm = Realm.getDefaultInstance()){
+            RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
+            Handler timer = new Handler();
+            List<List<String>> table = new ArrayList<>();
+            DataSetE.insertInto(table);
+            //TOTAL PRICE
+            double totalPrice = 1000.00;
+            for (List<String> items : table) {
+                List<Double> price = new ArrayList<>();
+                List<Integer> amount = new ArrayList<>();
+                for(int i = 0 ; i < items.size() ; i++){
+                    price.add(100.00);
+                    amount.add(1);
+                }
+                timer.postDelayed(() -> {
+                    OpenTransactionsInstance.toCreateTestSales(items, items, price, amount, totalPrice);
+                },5000);
+            }
+        }
+    }
+
+    public static void preloadTransactionF() {
+        try(Realm realm = Realm.getDefaultInstance()){
+            RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
+            Handler timer = new Handler();
+            List<List<String>> table = new ArrayList<>();
+            DataSetF.insertInto(table);
+            //TOTAL PRICE
+            double totalPrice = 1000.00;
+            for (List<String> items : table) {
+                List<Double> price = new ArrayList<>();
+                List<Integer> amount = new ArrayList<>();
+                for(int i = 0 ; i < items.size() ; i++){
+                    price.add(100.00);
+                    amount.add(1);
+                }
+                timer.postDelayed(() -> {
+                    OpenTransactionsInstance.toCreateTestSales(items, items, price, amount, totalPrice);
+                },5000);
+            }
+        }
+    }
+
+    public static void preloadTransactionG() {
+        try(Realm realm = Realm.getDefaultInstance()){
+            RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
+            Handler timer = new Handler();
+            List<List<String>> table = new ArrayList<>();
+            DataSetG.insertInto(table);
+            //TOTAL PRICE
+            double totalPrice = 1000.00;
+            for (List<String> items : table) {
+                List<Double> price = new ArrayList<>();
+                List<Integer> amount = new ArrayList<>();
+                for(int i = 0 ; i < items.size() ; i++){
+                    price.add(100.00);
+                    amount.add(1);
+                }
+                timer.postDelayed(() -> {
+                    OpenTransactionsInstance.toCreateTestSales(items, items, price, amount, totalPrice);
+                },5000);
+            }
+        }
+    }
+
+    public static void preloadTransactionH() {
+        try(Realm realm = Realm.getDefaultInstance()){
+            RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
+            Handler timer = new Handler();
+            List<List<String>> table = new ArrayList<>();
+            DataSetH.insertInto(table);
+            //TOTAL PRICE
+            double totalPrice = 1000.00;
+            for (List<String> items : table) {
+                List<Double> price = new ArrayList<>();
+                List<Integer> amount = new ArrayList<>();
+                for(int i = 0 ; i < items.size() ; i++){
+                    price.add(100.00);
+                    amount.add(1);
+                }
+                timer.postDelayed(() -> {
+                    OpenTransactionsInstance.toCreateTestSales(items, items, price, amount, totalPrice);
+                },5000);
+            }
+        }
+    }
+
+    public static void preloadTransactionI() {
+        try(Realm realm = Realm.getDefaultInstance()){
+            RealmResults<RealmSalesTransaction> listOfTransactions = realm.where(RealmSalesTransaction.class).findAll();
+            Handler timer = new Handler();
+            List<List<String>> table = new ArrayList<>();
+            DataSetI.insertInto(table);
+            //TOTAL PRICE
+            double totalPrice = 1000.00;
+            for (List<String> items : table) {
+                List<Double> price = new ArrayList<>();
+                List<Integer> amount = new ArrayList<>();
+                for(int i = 0 ; i < items.size() ; i++){
+                    price.add(100.00);
+                    amount.add(1);
+                }
+                timer.postDelayed(() -> {
+                    OpenTransactionsInstance.toCreateTestSales(items, items, price, amount, totalPrice);
+                },5000);
+            }
+        }
+    }
+
 }

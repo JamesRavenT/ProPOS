@@ -20,6 +20,16 @@ public class FQList {
         }
     }
 
+    //TRANSATION 1 : [ITEM D, ITEM C]
+    //TRANSACTION 2 : [ITEM D, ITEM A]
+
+    // FQ LIST | VALUE
+    // ITEM A      2
+    // ITEM B      4
+    // ITEM C      3
+    // ITEM D      5
+
+
     public static Integer calculateMinSupp(List<List<String>> listOfTransactions,
                                            Map<String, Integer> fqItemsets){
         int confidence = listOfTransactions.size();
@@ -39,5 +49,17 @@ public class FQList {
             fqList.put(map.getKey(), map.getValue());
         }
     }
+
+    //Minimum Support Threshold is : 3
+
+    // FQ LIST | VALUE
+    // ITEM B      4
+    // ITEM C      3
+    // ITEM D      5
+
+    // FQ LIST | VALUE
+    // ITEM D  :   5
+    // ITEM B  :   4
+    // ITEM C  :   3
 
 }

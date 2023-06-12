@@ -45,9 +45,17 @@ public class DB {
     static Realm realm;
     static RealmConfiguration wazabi;
     static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+//    static CollectionReference userProfile = firestore.collection("Live_UserProfile");
+//    static CollectionReference menuItem = firestore.collection("Live_MenuItem");
+//    static CollectionReference stockCategory = firestore.collection("Live_StockCategory");
+//    static CollectionReference stockItem = firestore.collection("Live_StockItem");
+//    static CollectionReference salesTransaction = firestore.collection("Live_TransactionSales");
+//    static CollectionReference inventoryTransaction = firestore.collection("Live_TransactionInv");
+//    static CollectionReference algorithmFP = firestore.collection("Live_AlgorithmFP");
+//    static CollectionReference algorithmFQ = firestore.collection("Live_AlgorithmFQ");
+
     static CollectionReference userProfile = firestore.collection("Debug_UserProfile");
-    static CollectionReference menuCategory = firestore.collection("Debug_MenuCategory");
-    static CollectionReference menuItem = firestore.collection("WazabiITEMSYNCTEST");
+    static CollectionReference menuItem = firestore.collection("Debug_MenuItem");
     static CollectionReference stockCategory = firestore.collection("Debug_StockCategory");
     static CollectionReference stockItem = firestore.collection("Debug_StockItem");
     static CollectionReference salesTransaction = firestore.collection("Debug_TransactionSales");
@@ -85,7 +93,6 @@ public class DB {
                             int sales = document.getLong("transaction_SalesCounter").intValue();
                             OpenUserInstance.toFetchCloudInventoryTransactionCount(inv);
                             OpenUserInstance.toFetchCloudSalesTransactionCount(sales);
-
                         }
                     });
                 }
@@ -105,33 +112,6 @@ public class DB {
         RealmResults<RealmPopItem> queryListPopItems = realm.where(RealmPopItem.class).findAll();
         RealmResults<RealmPopCombination> queryListPopCombos = realm.where(RealmPopCombination.class).findAll();
 
-
-
-        //Menu Category
-        if(queryListMenuCategory.isEmpty()){
-            menuCategory.get().addOnSuccessListener(query -> {
-                if(query.getDocuments().size() > 0){
-                    List<DocumentSnapshot> listOfDocuments = query.getDocuments();
-                    for(int i = 0 ; i < listOfDocuments.size() ; i++){
-                        DocumentSnapshot snapShot = listOfDocuments.get(i);
-                        DocumentReference docRef = snapShot.getReference();
-                        docRef.get().addOnSuccessListener(document -> {
-                            if(document.exists()){
-//                                ObjectId id = new ObjectId(document.getString("Category ID"));
-//                                int icon = document.getLong("Icon").intValue();
-//                                String name = document.getString("Name");
-//                                OpenMenuInstance.toLoadCategoryFromCloud(id, icon, name);
-                                ObjectId id = new ObjectId(document.getString("id"));
-                                int icon = document.getLong("icon").intValue();
-                                String name = document.getString("text");
-                                OpenMenuInstance.toLoadCategoryFromCloud(id, icon, name);
-                            }
-                        });
-                    }
-                }
-            });
-        }
-
         //Menu Item
         if(queryListMenuItems.isEmpty()){
             menuItem.get().addOnSuccessListener(query -> {
@@ -146,16 +126,9 @@ public class DB {
                                 String category = document.getString("category");
                                 String webName = document.getString("name");
                                 double price = Double.parseDouble(document.getString("price"));
-                                int icon = document.getLong("z_PosIcon").intValue();
-                                String posName = document.getString("z_PosName");
+                                int icon = document.getLong("z_POSIcon").intValue();
+                                String posName = document.getString("z_POSName");
                                 OpenMenuInstance.toLoadItemFromCloud(id, icon, category, webName, posName, price);
-//                                ObjectId id = new ObjectId(document.getString("id"));
-//                                String category = document.getString("category");
-//                                String webName = document.getString("name");
-//                                double price = document.getLong("price").doubleValue();
-//                                int icon = document.getLong("z_POSIcon").intValue();
-//                                String posName = document.getString("z_POSName");
-//                                OpenMenuInstance.toLoadItemFromCloud(id, icon, category, webName, posName, price);
                             }
                         });
                     }
@@ -408,7 +381,6 @@ public class DB {
     public static void uploadUserToCloud(ObjectId id, String email, String name, int password){
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_createdAt", new Date());
         document.put("id", docID);
         document.put("email", email);
         document.put("name", name);
@@ -422,7 +394,6 @@ public class DB {
     public static void updateUserEmailFromCloud(ObjectId id, String email){
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_updatedAt", new Date());
         document.put("email", email);
         userProfile.document(docID).set(document, SetOptions.merge());
     }
@@ -431,7 +402,6 @@ public class DB {
     public static void updateUserNameFromCloud(ObjectId id, String name){
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_updatedAt", new Date());
         document.put("name", name);
         userProfile.document(docID).set(document, SetOptions.merge());
     }
@@ -440,52 +410,18 @@ public class DB {
     public static void updateUserPasswordFromCloud(ObjectId id, int password){
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_updatedAt", new Date());
         document.put("password", password);
         userProfile.document(docID).set(document, SetOptions.merge());
-    }
-
-    //MENU CATEGORY | UPLOAD
-    public static void uploadNewMenuCategoryToCloud(ObjectId id, int categoryIcon, String categoryName){
-        String docID = id.toString();
-        Map<String, Object> document = new HashMap<>();
-        document.put("_createdAt", new Date());
-        document.put("id", docID);
-        document.put("icon", categoryIcon);
-        document.put("text", categoryName);
-        document.put("jtext", "");
-        document.put("img", "");
-        document.put("icons", "");
-        document.put("links", "");
-        document.put("query", "");
-        menuCategory.document(docID).set(document);
-    }
-
-    //MENU CATEGORY | UPDATE
-    public static void updateMenuCategoryFromCloud(ObjectId id, int categoryIcon, String categoryName){
-        String docID = id.toString();
-        Map<String, Object> document = new HashMap<>();
-        document.put("_updatedAt", new Date());
-        document.put("icon", categoryIcon);
-        document.put("text", categoryName);
-        menuCategory.document(docID).set(document, SetOptions.merge());
-    }
-
-    //MENU CATEGORY | DELETE
-    public static void deleteMenuCategoryFromCloud(RealmMenuCategory category){
-        String docID = category.get_id().toString();
-        menuCategory.document(docID).delete();
     }
 
     //MENU ITEM | UPLOAD
     public static void uploadNewMenuItemToCloud(ObjectId id, int itemIcon, String itemCategory, String itemWebName, String itemPOSName, double price) {
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_createdAt", new Date());
         document.put("id", docID);
         document.put("category", itemCategory);
         document.put("name", itemWebName);
-        document.put("price", price);
+        document.put("price", String.valueOf(price));
         document.put("z_POSIcon", itemIcon);
         document.put("z_POSName", itemPOSName);
         menuItem.document(docID).set(document);
@@ -495,10 +431,9 @@ public class DB {
     public static void updateMenuItemFromCloud(ObjectId id, int itemIcon, String itemCategory, String itemWebName, String itemPOSName, double price){
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_updatedAt", new Date());
         document.put("category", itemCategory);
         document.put("name", itemWebName);
-        document.put("price", price);
+        document.put("price", String.valueOf(price));
         document.put("z_POSIcon", itemIcon);
         document.put("z_POSName", itemPOSName);
         menuItem.document(docID).set(document, SetOptions.merge());
@@ -530,7 +465,6 @@ public class DB {
     public static void uploadPopItem(ObjectId id, String name, int itemFrequency, String year, String month){
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_createdAt", new Date());
         document.put("_id", docID);
         document.put("itemName", name);
         document.put("itemFrequency", itemFrequency);
@@ -543,7 +477,6 @@ public class DB {
     public static void uploadPopCombo(ObjectId id, String name, List<String> combinations, int frequency, String year, String month) {
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_createdAt", new Date());
         document.put("_id", docID);
         document.put("itemName", name);
         document.put("itemSet", combinations);
@@ -557,7 +490,6 @@ public class DB {
     public static void uploadNewStockCategoryToCloud(ObjectId id, int categoryIcon, String categoryName){
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_createdAt", new Date());
         document.put("id", docID);
         document.put("icon", categoryIcon);
         document.put("name", categoryName);
@@ -568,7 +500,6 @@ public class DB {
     public static void updateStockCategoryFromCloud(ObjectId id, int categoryIcon, String categoryName){
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_updatedAt", new Date());
         document.put("icon", categoryIcon);
         document.put("name", categoryName);
         stockCategory.document(docID).set(document, SetOptions.merge());
@@ -584,7 +515,6 @@ public class DB {
     public static void uploadNewStockItemToCloud(ObjectId id, int itemIcon, String itemCategory, String itemName, String unitOfMeasurement, int value) {
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_createdAt", new Date());
         document.put("id", docID);
         document.put("category", itemCategory);
         document.put("icon", itemIcon);
@@ -598,7 +528,6 @@ public class DB {
     public static void updateStockItemFromCloud(ObjectId id, int itemIcon, String itemCategory, String itemName, String unitOfMeasurement){
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_updatedAt", new Date());
         document.put("category", itemCategory);
         document.put("icon", itemIcon);
         document.put("name", itemName);
@@ -609,7 +538,6 @@ public class DB {
     public static void updateStockItemAmountFromCloud(ObjectId id, int value){
         String docID = id.toString();
         Map<String, Object> document = new HashMap<>();
-        document.put("_updatedAt", new Date());
         document.put("value", value);
         stockItem.document(docID).set(document, SetOptions.merge());
     }
@@ -638,7 +566,6 @@ public class DB {
 
         String docID = id;
         Map<String, Object> document = new HashMap<>();
-        document.put("_createdAt", new Date());
         document.put("_id", docID);
         document.put("_transType", transactionType);
         document.put("_transDT", transactionDT);
@@ -702,7 +629,6 @@ public class DB {
 
         String docID = id;
         Map<String, Object> document = new HashMap<>();
-        document.put("_createdAt", new Date());
         document.put("_id", docID);
         document.put("_transNo", transNo);
         document.put("_transType", transType);

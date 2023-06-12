@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_sans_light"
                 android:gravity="center"
-                android:text="Tickets [0]"
+                android:text="Tickets"
                 android:textColor="@color/wabizabi"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"

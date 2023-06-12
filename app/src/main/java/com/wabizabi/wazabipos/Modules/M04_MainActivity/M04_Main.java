@@ -1,6 +1,7 @@
 package com.wabizabi.wazabipos.Modules.M04_MainActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -19,11 +20,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.M02_UserVerification;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment01_POS.M04F01_POS;
@@ -37,10 +40,13 @@ import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment06_IngredientStoc
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment07_Admin.M04F07_Admin;
 import com.wabizabi.wazabipos.Modules.M04_MainActivity.Fragment08_Printer.M04F08_Printer;
 import com.wabizabi.wazabipos.R;
+import com.wabizabi.wazabipos.Utilities.BackgroundThreads.WorkOrders;
+import com.wabizabi.wazabipos.Utilities.Libraries.Helper.DialogHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 import com.wabizabi.wazabipos.Utilities.Testing.TestData;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class M04_Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, M04F01SF02_Recommendation.RefreshHeader, M04F01SF03_Cart.RefreshPOS, M04F01_POS.RefreshCart, M04F01SF02_Recommendation.AddRecommendations {
     //--DATABASE--//
@@ -62,6 +68,10 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
     public static M04F01SF03_Cart landscapeCART = new M04F01SF03_Cart();
 
 
+    //--DEBUG--//
+    Dialog dialogDebug;
+    CardView dialogAlgo, dialogAddTr, dialogDelTr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +91,7 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
         }
 
         init_Functionalities();
+        load_Debug();
         if(savedInstanceState == null) {
             if(currentFragment != null) {
                 load_CurrentFragment();
@@ -94,6 +105,52 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                 getSupportFragmentManager().beginTransaction().replace(R.id.MainActivityContainer, landscapePOS).commit();
             }
         }
+    }
+
+    private void load_Debug(){
+        dialogDebug = DialogHelper.create(this, R.layout.act04_main_dg01_debug);
+        dialogAlgo = dialogDebug.findViewById(R.id.M04D01_StartAlgoBtn);
+        dialogAddTr = dialogDebug.findViewById(R.id.M04D01_AddTransBtn);
+        dialogDelTr = dialogDebug.findViewById(R.id.M04D01_DelTransBtn);
+
+        dialogAlgo.setOnClickListener(algo -> {
+            WorkOrders.startAlgorithm(this);
+            dialogDebug.dismiss();
+        });
+
+        dialogAddTr.setOnClickListener(add -> {
+            RealmResults<RealmSalesTransaction> query = realm.where(RealmSalesTransaction.class).findAll();
+            if(query.size() <= 500) {
+                TestData.preloadTransactionA();
+            } else if(query.size() > 500 && query.size() <= 1000) {
+                TestData.preloadTransactionB();
+            } else if(query.size() > 1000 && query.size() <= 1500) {
+                TestData.preloadTransactionC();
+            } else if(query.size() > 1500 && query.size() <= 2000) {
+                TestData.preloadTransactionD();
+            } else if(query.size() > 2000 && query.size() <= 2500) {
+                TestData.preloadTransactionE();
+            } else if(query.size() > 2500 && query.size() <= 3000) {
+                TestData.preloadTransactionF();
+            } else if(query.size() > 3000 && query.size() <= 3500) {
+                TestData.preloadTransactionG();
+            } else if(query.size() > 3500 && query.size() <= 4000) {
+                TestData.preloadTransactionH();
+            } else if(query.size() > 4000 && query.size() <= 4500) {
+                TestData.preloadTransactionI();
+            }
+            dialogDebug.dismiss();
+        });
+
+        dialogDelTr.setOnClickListener(del -> {
+            RealmResults<RealmSalesTransaction> query = realm.where(RealmSalesTransaction.class).findAll();
+            if(query.size() > 0) {
+                realm.executeTransaction(db -> {
+                    query.deleteAllFromRealm();
+                });
+            }
+            dialogDebug.dismiss();
+        });
     }
 
     private void init_Functionalities(){
@@ -137,6 +194,8 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
             email.setText(user.getEmail());
         }
     }
+
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -232,6 +291,9 @@ public class M04_Main extends AppCompatActivity implements NavigationView.OnNavi
                         .beginTransaction()
                         .replace(R.id.MainActivityContainer, new M04F08_Printer())
                         .commit();
+                break;
+            case R.id.nav_Debug:
+                dialogDebug.show();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

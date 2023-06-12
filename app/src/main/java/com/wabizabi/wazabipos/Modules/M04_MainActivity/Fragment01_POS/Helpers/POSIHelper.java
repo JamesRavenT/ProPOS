@@ -14,7 +14,7 @@ public class POSIHelper {
     //MENU ITEMS | RV
     public static List<MenuItem> getMenuItems(Realm realm, String categoryName){
         List<MenuItem> listOfItems = new ArrayList<>();
-        RealmResults<RealmMenuItem> queriedItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", categoryName).sort("itemCategory").findAll();
+        RealmResults<RealmMenuItem> queriedItems = realm.where(RealmMenuItem.class).equalTo("itemCategory", categoryName).sort("itemWebName").findAll();
         for(RealmMenuItem query : queriedItems){
             listOfItems.add(
                     new MenuItem(query.get_id(),

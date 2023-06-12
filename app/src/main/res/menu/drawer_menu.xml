@@ -47,5 +47,12 @@
                     android:title="Printer"/>
             </menu>
         </item>
+        <item android:title="O T H E R S">
+            <menu>
+                <item
+                    android:id="@+id/nav_Debug"
+                    android:title="Debug"/>
+            </menu>
+        </item>
     </group>
 </menu>

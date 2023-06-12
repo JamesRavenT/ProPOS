@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Tree {
+
     public Node root = new Node();
 
     public Tree(){}
@@ -27,6 +28,16 @@ public class Tree {
         } return tree;
     }
 
+    // TRANSACTION 1 : [ITEM B, ITEM C]
+    // TRANSACTION 2 : [ITEM D, ITEM B, ITEM C]
+
+    // FQ LIST | VALUE
+    // ITEM D  :   5
+    // ITEM B  :   4
+    // ITEM C  :   3
+
+
+
     void addTransaction(List<String> transactions) {
         Node nodeOfFocus = root;
         for (String item : transactions) {
@@ -42,6 +53,17 @@ public class Tree {
         }
     }
 
+    // TRANSACTION 1 : [ITEM B, ITEM C]
+    // TRANSACTION 2 : [ITEM B, ITEM C]
+    // TRANSACTION 3 : [ITEM D, ITEM B]
+
+    //                  ROOT
+    //              /          \
+    //        ITEM B : 2    ITEM D : 1
+    //             /            \
+    //      ITEM C : 2      ITEM B : 1
+
+
     public static void mineToFindFrequentPatterns(Tree tree,
                             int minSuppThreshold,
                             Map<String, Integer> fqList,
@@ -54,6 +76,7 @@ public class Tree {
         }
         paths.entrySet().removeIf(entry -> entry.getValue() < (minSuppThreshold));
 
+        // FQPATTERN
         fpList.clear();
         for (Map.Entry<String, Integer> items : fqList.entrySet()) {
             String item = items.getKey();

@@ -188,8 +188,10 @@ public class M04F01SF02_Recommendation extends Fragment {
         for(String singleItem : recommendedItemsListString) {
             try(Realm realm = Realm.getDefaultInstance()){
                 RealmMenuItem product = realm.where(RealmMenuItem.class).equalTo("itemWebName", singleItem).findFirst();
-                CartItem cartItem = new CartItem(product.getItemIcon(), product.getItemWebName(), product.getItemPOSName(), product.getItemPrice());
-                recommendedItemsListObject.add(cartItem);
+                if(product != null){
+                    CartItem cartItem = new CartItem(product.getItemIcon(), product.getItemWebName(), product.getItemPOSName(), product.getItemPrice());
+                    recommendedItemsListObject.add(cartItem);
+                }
             }
         }
         if(itemNo1.length() < 25) {

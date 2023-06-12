@@ -66,37 +66,26 @@ public class M04F02_CategoryRVA extends RecyclerView.Adapter<M04F02_CategoryRVA.
     public class ViewHolder extends RecyclerView.ViewHolder {
         private int position;
         private TextView categoryName;
-        private ImageView editBtn;
-        private TextView lastUpdate;
         private CardView viewBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryName = itemView.findViewById(R.id.M04F02_CRVCategoryName);
-            editBtn = itemView.findViewById(R.id.M04F02_CRVEditBtn);
-            lastUpdate = itemView.findViewById(R.id.M04F02_CRVDateAndTime);
             viewBtn = itemView.findViewById(R.id.M04F02_CRVViewBtn);
         }
 
         public void loadFunctionalities(MenuCategory category, int position){
             //Load Details
             String name = category.getCategoryName();
-            String recentChanges = category.getLastUpdatedText();
 
             //SetViews
             this.position = position;
             categoryName.setText(name);
-            lastUpdate.setText(recentChanges);
-
-            //On Edit Btn
-            editBtn.setOnClickListener(edit -> {
-                dialogLoader.load_DGContents(new DialogBundle(3, category));
-            });
 
             //On View Btn
             viewBtn.setOnClickListener(click -> {
                 currentFragment = "Menu02";
                 List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, name);
-                itemRV.load_RVContents(new RVBundle(category.getCategoryName(), listOfItems));
+                itemRV.load_RVContents(new RVBundle(category.getCategoryImage(), category.getCategoryName(), listOfItems));
             });
         }
     }

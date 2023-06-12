@@ -135,7 +135,19 @@ public class M04F01_POS extends Fragment implements RVLoader, DialogLoader {
         //Initialize Text Display
         currentRVText.setText("「 CATEGORIES 」");
         //Initialize RV Items and then the RecyclerView
-        listOfCategories = POSCHelper.getMenuCategories(realm);
+        listOfCategories = new ArrayList<>();
+        if(listOfCategories.size() < 1){
+            listOfCategories.add(new MenuCategory(1 ,"Deep fried"));
+            listOfCategories.add(new MenuCategory(2 ,"Dessert"));
+            listOfCategories.add(new MenuCategory(3 ,"Donburi"));
+            listOfCategories.add(new MenuCategory(4 ,"Drinks"));
+            listOfCategories.add(new MenuCategory(6 ,"Noodles"));
+            listOfCategories.add(new MenuCategory(7 ,"Salads"));
+            listOfCategories.add(new MenuCategory(5 ,"Sashimi and Nigiri"));
+            listOfCategories.add(new MenuCategory(9 ,"Sushi Platter"));
+            listOfCategories.add(new MenuCategory(10 ,"Sushi Roll"));
+            listOfCategories.add(new MenuCategory(0 ,"Others"));
+        }
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         posRVA = new M04F01_CategoryRVA(getActivity(), realm, listOfCategories, this);

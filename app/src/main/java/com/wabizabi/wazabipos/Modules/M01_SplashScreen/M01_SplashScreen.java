@@ -21,6 +21,7 @@ import androidx.cardview.widget.CardView;
 
 import com.wabizabi.wazabipos.Database.DB;
 import com.wabizabi.wazabipos.Database.Instances.OpenUserInstance;
+import com.wabizabi.wazabipos.Database.RealmSchemas.RealmMenuItem;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmUser;
 import com.wabizabi.wazabipos.Modules.M02_UserVerification.M02_UserVerification;
 import com.wabizabi.wazabipos.Modules.M03_LoadResources.M03_LoadResources;
@@ -36,6 +37,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class M01_SplashScreen extends AppCompatActivity {
     //--Views--//
@@ -69,18 +71,24 @@ public class M01_SplashScreen extends AppCompatActivity {
         subtitle = findViewById(R.id.M01A01_AppMotto);
         init_DB();
         init_Dialog();
-//        init_TestData();
+        init_TestData();
         verify_User();
     }
 
-    private void init_TestData(){
-//        TestData.preloadProducts();
-//        TestData.preloadTransactions();
-    }
+
 
     private void init_DB(){
         Realm.init(this);
         DB.init();
+    }
+
+    private void init_TestData(){
+        try(Realm realm = Realm.getDefaultInstance()){
+            RealmResults<RealmMenuItem> query = realm.where(RealmMenuItem.class).findAll();
+            if(query.size() ==  0){
+                TestData.preloadProducts();
+            }
+        }
     }
 
     private void verify_User(){

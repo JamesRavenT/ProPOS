@@ -11,26 +11,26 @@ import io.realm.RealmResults;
 
 public class MCHelper {
 
-    //MENU ICONS | RV
-    public static List<Integer> getMenuIcons(){
-        List<Integer> icons = new ArrayList<>();
-        int counter = 0;
-        while (counter != 11){
-            icons.add(counter);
-            counter++;
-        }
-        return icons;
-    }
-
-    //MENU CATEGORY | RV
-    public static List<MenuCategory> getMenuCategories(Realm realm){
-        List<MenuCategory> listOfCategories = new ArrayList<>();
-        RealmResults<RealmMenuCategory> queriedCategories = realm.where(RealmMenuCategory.class).sort("categoryName").findAll();
-        for(RealmMenuCategory query : queriedCategories){
-            listOfCategories.add(new MenuCategory(query.getCategoryIcon(), query.getCategoryName(), query.getLastUpdatedID(), query.getLastUpdatedText()));
-        }
-        return listOfCategories;
-    }
+//    //MENU ICONS | RV
+//    public static List<Integer> getMenuIcons(){
+//        List<Integer> icons = new ArrayList<>();
+//        int counter = 0;
+//        while (counter != 11){
+//            icons.add(counter);
+//            counter++;
+//        }
+//        return icons;
+//    }
+//
+//    //MENU CATEGORY | RV
+//    public static List<MenuCategory> getMenuCategories(Realm realm){
+//        List<MenuCategory> listOfCategories = new ArrayList<>();
+//        RealmResults<RealmMenuCategory> queriedCategories = realm.where(RealmMenuCategory.class).sort("categoryName").findAll();
+//        for(RealmMenuCategory query : queriedCategories){
+//            listOfCategories.add(new MenuCategory(query.getCategoryIcon(), query.getCategoryName(), query.getLastUpdatedID(), query.getLastUpdatedText()));
+//        }
+//        return listOfCategories;
+//    }
 
     //MENU CATEGORY | RV FILTERED
     public static List<MenuCategory> getFilteredMenuCategories(List<MenuCategory> listOfCategories, String input){

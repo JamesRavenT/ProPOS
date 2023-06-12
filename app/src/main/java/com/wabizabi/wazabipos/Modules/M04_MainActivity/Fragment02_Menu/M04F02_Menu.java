@@ -40,6 +40,7 @@ import com.wabizabi.wazabipos.Utilities.Libraries.Helper.IconHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.StringHelper;
 import com.wabizabi.wazabipos.Utilities.Libraries.Helper.ToastHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
@@ -62,33 +63,6 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
     List<MenuItem> listOfMenuItems;
 
     //--Dialogs--//
-    //--DG01 SELECT ICON--//
-    Dialog menuDG01;
-    RecyclerView menuDG01_RecyclerView;
-    RecyclerView.Adapter menuDG01_RecyclerViewAdapter;
-    ImageView closeDG01Btn;
-
-    //--DG02 CREATE CATEGORY--//
-    Dialog menuDG02;
-    ImageView menuDG02_CategoryImg;
-    CardView menuDG02_SelectIconBtn;
-    EditText menuDG02_CategoryNameInput;
-    CardView menuDG02_ConfirmBtn;
-    ImageView closeDG02Btn;
-
-    //--DG03 EDIT CATEGORY--//
-    Dialog menuDG03;
-    ImageView menuDG03_CategoryImg;
-    CardView menuDG03_SelectIconBtn;
-    EditText menuDG03_CategoryNameInput;
-    CardView menuDG03_ApplyChangesBtn, menuDG03_DeleteBtn;
-    ImageView closeDG03Btn;
-
-    //--DG04 DELETE CATEGORY--//
-    Dialog menuDG04;
-    TextView menuDG04_CategoryName;
-    CardView menuDG04_YesBtn, menuDG04_NoBtn;
-    ImageView closeDG04Btn;
 
     //--DG05 CREATE ITEM--//
     Dialog menuDG05;
@@ -146,20 +120,16 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
     }
 
     private void load_CategoryCreation(){
-        createBtn.setOnClickListener(create -> {
-            if(currentFragment.equals("Menu01")){
-                load_DG02Functionalities(new DialogBundle(2, new MenuCategory(0, "")));
-                menuDG02.show();
-            }
-        });
+        createBtn.setVisibility(View.INVISIBLE);
     }
 
     private void load_ItemCreation(RVBundle bundle){
+        createBtn.setVisibility(View.VISIBLE);
+        int categoryIcon = bundle.getMenuIcon();
         String categoryName = bundle.getMenuCategory();
-        RealmMenuCategory query = realm.where(RealmMenuCategory.class).equalTo("categoryName", categoryName).findFirst();
         createBtn.setOnClickListener(create -> {
             if(currentFragment.equals("Menu02")){
-                load_DG05Functionalities(new DialogBundle(5, new MenuItem(query.getCategoryIcon(), query.getCategoryName(), "", "", 0.00), bundle));
+                load_DG05Functionalities(new DialogBundle(5, new MenuItem(categoryIcon, categoryName, "", "", 0.00), bundle));
                 menuDG05.show();
             }
         });
@@ -175,7 +145,19 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         displayText.setText("「 CATEGORIES 」");
 
         //Initialize RecyclerView
-        listOfMenuCategories = MCHelper.getMenuCategories(realm);
+        listOfMenuCategories = new ArrayList<>();
+        if(listOfMenuCategories.size() < 1){
+            listOfMenuCategories.add(new MenuCategory(1 ,"Deep fried"));
+            listOfMenuCategories.add(new MenuCategory(2 ,"Dessert"));
+            listOfMenuCategories.add(new MenuCategory(3 ,"Donburi"));
+            listOfMenuCategories.add(new MenuCategory(4 ,"Drinks"));
+            listOfMenuCategories.add(new MenuCategory(6 ,"Noodles"));
+            listOfMenuCategories.add(new MenuCategory(7 ,"Salads"));
+            listOfMenuCategories.add(new MenuCategory(5 ,"Sashimi and Nigiri"));
+            listOfMenuCategories.add(new MenuCategory(9 ,"Sushi Platter"));
+            listOfMenuCategories.add(new MenuCategory(10 ,"Sushi Roll"));
+            listOfMenuCategories.add(new MenuCategory(0 ,"Others"));
+        }
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
         menuRVA = new M04F02_CategoryRVA(getActivity(), realm, searchbar, listOfMenuCategories, this, this);
@@ -220,35 +202,6 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
     }
 
     private void init_Dialogs(){
-        //--DG01 SELECT ICON--//
-        menuDG01 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg01_selecticon);
-        menuDG01_RecyclerView = menuDG01.findViewById(R.id.M04F02D01_IconsRV);
-        closeDG01Btn = menuDG01.findViewById(R.id.M04F02D01_CloseDGBtn);
-
-        //--DG02 CREATE CATEGORY--//
-        menuDG02 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg02_createcategory);
-        menuDG02_CategoryImg = menuDG02.findViewById(R.id.M04F02D02_CategoryImage);
-        menuDG02_SelectIconBtn = menuDG02.findViewById(R.id.M04F02D02_SelectIconBtn);
-        menuDG02_CategoryNameInput = menuDG02.findViewById(R.id.M04F02D02_CategoryNameInput);
-        menuDG02_ConfirmBtn = menuDG02.findViewById(R.id.M04F02D02_ConfirmBtn);
-        closeDG02Btn = menuDG02.findViewById(R.id.M04F02D02_CloseDGBtn);
-
-        //--DG03 EDIT CATEGORY--//
-        menuDG03 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg03_editcategory);
-        menuDG03_CategoryImg = menuDG03.findViewById(R.id.M04F02D03_CategoryImage);
-        menuDG03_CategoryNameInput = menuDG03.findViewById(R.id.M04F02D03_CategoryNameInput);
-        menuDG03_SelectIconBtn = menuDG03.findViewById(R.id.M04F02D03_SelectIconBtn);
-        menuDG03_ApplyChangesBtn = menuDG03.findViewById(R.id.M04F02D03_ApplyChangesBtn);
-        menuDG03_DeleteBtn = menuDG03.findViewById(R.id.M04F02D03_DeleteBtn);
-        closeDG03Btn = menuDG03.findViewById(R.id.M04F02D03_CloseDGBtn);
-
-        //--DG04 DELETE CATEGORY--//
-        menuDG04 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg04_deletecategory);
-        menuDG04_CategoryName = menuDG04.findViewById(R.id.M04F02D04_CategoryNameText);
-        menuDG04_YesBtn = menuDG04.findViewById(R.id.M04F02D04_YesBtn);
-        menuDG04_NoBtn = menuDG04.findViewById(R.id.M04F02D04_NoBtn);
-        closeDG04Btn = menuDG04.findViewById(R.id.M04F02D04_CloseDGBtn);
-
         //--DG05 CREATE ITEM--//
         menuDG05 = DialogHelper.create(getActivity(), R.layout.act04_main_frag02_menu_dg05_createitem);
         menuDG05_ItemImg = menuDG05.findViewById(R.id.M04F02D05_CategoryImage);
@@ -285,155 +238,6 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
         closeDG08Btn = menuDG08.findViewById(R.id.M04F02D08_CloseDGBtn);
     }
 
-    //Select Icon
-    private void load_DG01Functionalities(DialogBundle bundle){
-        //Initialize RecyclerView
-        List<Integer> icons = MCHelper.getMenuIcons();
-        LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-        layout.setOrientation(LinearLayoutManager.VERTICAL);
-        menuDG01_RecyclerViewAdapter = new M04F02D01_SelectIconRVA(getActivity(), realm, menuDG01, bundle, icons, this);
-        menuDG01_RecyclerView.setAdapter(menuDG01_RecyclerViewAdapter);
-        menuDG01_RecyclerView.setLayoutManager(layout);
-
-        //On Close Button
-        closeDG01Btn.setOnClickListener(close->{
-            if(bundle.getDialogDestinationNo() == 2){
-                load_DG02Functionalities(bundle);
-                menuDG01.dismiss();
-                menuDG02.show();
-            } else if(bundle.getDialogDestinationNo() == 3){
-                load_DG03Functionalities(bundle);
-                menuDG01.dismiss();
-                menuDG03.show();
-            }
-        });
-    }
-
-    //Create Category
-    private void load_DG02Functionalities(DialogBundle bundle){
-        //Unpack Bundle
-        int image = bundle.getMenuCategory().getCategoryImage();
-        String name = bundle.getMenuCategory().getCategoryName();
-
-        //Set Image and Name;
-        IconHelper.setMenuIcon(menuDG02_CategoryImg, image);
-        menuDG02_CategoryNameInput.setText(name);
-
-        //On Click SelectIconButton
-        menuDG02_SelectIconBtn.setOnClickListener(select -> {
-            //Extract String from Edit Text
-            String input = menuDG02_CategoryNameInput.getText().toString();
-
-            //Load DG01 and pass the Bundle
-            bundle.getMenuCategory().setCategoryName(input);
-            load_DG01Functionalities(bundle);
-            menuDG02.dismiss();
-            menuDG01.show();
-        });
-
-        //On Confirm Button
-        menuDG02_ConfirmBtn.setOnClickListener(create -> {
-            //Extract String from Edit Text
-            String input = menuDG02_CategoryNameInput.getText().toString();
-
-            //Check String
-            List<String> listOfCategories = MCHelper.getMenuCategoryNames(realm);
-            if(listOfCategories.contains(input)){
-                menuDG02_CategoryNameInput.setError("Name already exists.");
-            } else {
-                OpenMenuInstance.toCreateCategory(image, input);
-                load_CategoryRV();
-                menuDG02.dismiss();
-            }
-        });
-
-        //On Close Button
-        closeDG02Btn.setOnClickListener(close -> {
-            menuDG02.dismiss();
-        });
-    }
-
-    //Edit Category
-    private void load_DG03Functionalities(DialogBundle bundle){
-        //Unpack Bundle
-        int image = bundle.getMenuCategory().getCategoryImage();
-        String name = bundle.getMenuCategory().getCategoryName();
-
-        //Set Image and Name;
-        IconHelper.setMenuIcon(menuDG03_CategoryImg, image);
-        menuDG03_CategoryNameInput.setText(name);
-        int focus = menuDG03_CategoryNameInput.getText().toString().length();
-        menuDG03_CategoryNameInput.requestFocus();
-        menuDG03_CategoryNameInput.setSelection(focus);
-
-        //On Click SelectIconButton
-        menuDG03_SelectIconBtn.setOnClickListener(select -> {
-            load_DG01Functionalities(bundle);
-            menuDG01.show();
-        });
-
-        //On Apply Button
-        menuDG03_ApplyChangesBtn.setOnClickListener(apply -> {
-            String input = menuDG03_CategoryNameInput.getText().toString();
-            List<String> listOfCategories = MCHelper.getMenuCategoryNames(realm);
-            if(name.equals(input)){
-                OpenMenuInstance.toUpdateCategory(name, image, input);
-                menuDG03_CategoryNameInput.setText("");
-                menuDG03.dismiss();
-            } else if(listOfCategories.contains(input) && !name.equals(input)){
-                menuDG03_CategoryNameInput.setError("Name Already Exists");
-            } else {
-                OpenMenuInstance.toUpdateCategory(name, image, input);
-                load_CategoryRV();
-                menuDG03.dismiss();
-            }
-        });
-
-        //On Delete Button
-        menuDG03_DeleteBtn.setOnClickListener(delete -> {
-            load_DG04Functionalities(bundle);
-            menuDG03.dismiss();
-            menuDG04.show();
-        });
-
-        //On Close Button
-        closeDG03Btn.setOnClickListener(close -> {
-            menuDG03.dismiss();
-        });
-
-        menuDG03.setOnDismissListener(dismiss -> {
-            load_CategoryRV();
-        });
-    }
-
-    //Delete Category
-    private void load_DG04Functionalities(DialogBundle bundle){
-        //Unpack Bundle
-        String name = bundle.getMenuCategory().getCategoryName();
-
-        //Set Category Name
-        menuDG04_CategoryName.setText(name);
-
-        //On Yes Btn
-        menuDG04_YesBtn.setOnClickListener(delete -> {
-            OpenMenuInstance.toDeleteCategory(name);
-            load_CategoryRV();
-            menuDG04.dismiss();
-        });
-        //On No Btn
-        menuDG04_NoBtn.setOnClickListener(delete -> {
-            load_DG03Functionalities(bundle);
-            menuDG04.dismiss();
-            menuDG03.show();
-        });
-        //On Close Btn
-        closeDG04Btn.setOnClickListener(close -> {
-            load_DG03Functionalities(bundle);
-            menuDG04.dismiss();
-            menuDG03.show();
-        });
-    }
-
     //Create Item
     private void load_DG05Functionalities(DialogBundle bundle){
         //Unpack Bundle
@@ -461,10 +265,16 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
                 menuDG05_ItemWebNameInput.setError("Name already exists.");
             } else if(listOfPOSItems.contains(namePOSInput)){
                 menuDG05_ItemPOSNameInput.setError("Name already exists.");
+            } else if(nameWebInput.equals("")) {
+                menuDG05_ItemWebNameInput.setError("Please input name");
+            } else if(namePOSInput.equals("")) {
+                menuDG05_ItemPOSNameInput.setError("Please input name");
+            } else if(priceInput.equals("")) {
+                menuDG05_ItemPriceInput.setError("Please input price");
             } else {
                 OpenMenuInstance.toCreateItem(image, category, nameWebInput, namePOSInput, Double.parseDouble(priceInput));
                 List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
-                load_ItemRV(new RVBundle(category, listOfItems));
+                load_ItemRV(new RVBundle(image, category, listOfItems));
                 menuDG05.dismiss();
             }
         });
@@ -507,22 +317,22 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
             } else if(webName.equals(webNameInput) && posName.equals(posNameInput) && !price.equals(priceInput)){
                 OpenMenuInstance.toUpdateItem(posName, image, category, webNameInput, posNameInput, Double.parseDouble(priceInput));
                 List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
-                load_ItemRV(new RVBundle(category, listOfItems));
+                load_ItemRV(new RVBundle(image, category, listOfItems));
                 menuDG06.dismiss();
             } else if(webName.equals(webNameInput) && !posName.equals(posNameInput) && price.equals(priceInput)){
                 OpenMenuInstance.toUpdateItem(posName, image, category, webNameInput, posNameInput, Double.parseDouble(priceInput));
                 List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
-                load_ItemRV(new RVBundle(category, listOfItems));
+                load_ItemRV(new RVBundle(image, category, listOfItems));
                 menuDG06.dismiss();
             } else if(!webName.equals(webNameInput) && posName.equals(posNameInput) && price.equals(priceInput)){
                 OpenMenuInstance.toUpdateItem(posName, image, category, webNameInput, posNameInput, Double.parseDouble(priceInput));
                 List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
-                load_ItemRV(new RVBundle(category, listOfItems));
+                load_ItemRV(new RVBundle(image, category, listOfItems));
                 menuDG06.dismiss();
             } else if(!webName.equals(webNameInput) && posName.equals(posNameInput) && !price.equals(priceInput)){
                 OpenMenuInstance.toUpdateItem(posName, image, category, webNameInput, posNameInput, Double.parseDouble(priceInput));
                 List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
-                load_ItemRV(new RVBundle(category, listOfItems));
+                load_ItemRV(new RVBundle(image, category, listOfItems));
                 menuDG06.dismiss();
             } else if(listOfWebItems.contains(webNameInput)){
                 menuDG06_ItemWebNameInput.setError("Name already exists");
@@ -531,7 +341,7 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
             } else {
                 OpenMenuInstance.toUpdateItem(posName, image, category, posNameInput, posNameInput, Double.parseDouble(priceInput));
                 List<MenuItem> listOfItems = MIHelper.getMenuItems(realm, category);
-                load_ItemRV(new RVBundle(category, listOfItems));
+                load_ItemRV(new RVBundle(image, category, listOfItems));
                 menuDG06.dismiss();
             }
         });
@@ -643,14 +453,6 @@ public class M04F02_Menu extends Fragment implements RVLoader, DialogLoader {
     public void load_DGContents(DialogBundle bundle) {
         int dialogNo = bundle.getDialogDestinationNo();
         switch(dialogNo){
-            case 2:
-                load_DG02Functionalities(bundle);
-                menuDG02.show();
-                break;
-            case 3:
-                load_DG03Functionalities(bundle);
-                menuDG03.show();
-                break;
             case 7:
                 load_DG07Functionalities(bundle);
                 menuDG07.show();

@@ -95,7 +95,7 @@ public class OpenTransactionsInstance {
             String month = new SimpleDateFormat("MM").format(new Date());
             String week = new SimpleDateFormat("W").format(new Date());
             String dayTxt = new SimpleDateFormat("EEEE").format(new Date());
-            String dayNo = new SimpleDateFormat("dd").format(new Date());
+            String dayNo = new SimpleDateFormat(    "dd").format(new Date());
             String hour = new SimpleDateFormat("kk").format(new Date());
             RealmResults<RealmSalesTransaction> query = realm.where(RealmSalesTransaction.class)
                     .equalTo("year", year)
@@ -292,7 +292,6 @@ public class OpenTransactionsInstance {
                 RealmList<String> discountsIDItem = new RealmList<>();
                 RealmList<String> discountsIDName = new RealmList<>();
                 RealmList<Integer> discountsIDPercent = new RealmList<>();
-
                 transaction.setTransactionNo(transactionNo);
                 transaction.setTransactionType("Sales");
                 transaction.setDateAndTime(dateAndTime);
@@ -315,14 +314,12 @@ public class OpenTransactionsInstance {
                 transaction.setPaymentMethod("Cash");
                 transaction.setTotalPayment(totalPrice + (totalPrice * 0.03));
                 transaction.setTotalChange(0.00);
-
                 transaction.setYear(year);
                 transaction.setMonth(month);
                 transaction.setWeek(week);
                 transaction.setDayTxt(dayTxt);
                 transaction.setDayNo(dayNo);
                 transaction.setHour(hour);
-
                 List<String> discountsItem = new ArrayList<>();
                 List<String> discountsName = new ArrayList<>();
                 List<Integer> discountsPercent = new ArrayList<>();

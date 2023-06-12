@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.google.firebase.firestore.CollectionReference;
 import com.wabizabi.wazabipos.Database.Instances.OpenFPGInstance;
 import com.wabizabi.wazabipos.Database.RealmSchemas.RealmSalesTransaction;
 import com.wabizabi.wazabipos.Utilities.Libraries.Algorithm.FQList;
@@ -38,38 +39,20 @@ public class W01_Algorithm extends Worker {
         Realm.init(getApplicationContext());
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-
         String currentYear = new SimpleDateFormat("YYYY").format(new Date());
         String currentMonth = new SimpleDateFormat("MM").format(new Date());
         int prevMonthInt = (Integer.parseInt(currentMonth) == 1 )
                          ? 12
                          : Integer.parseInt(currentMonth) - 1;
-        int prevYearInt = (prevMonthInt == 12)
-                        ? Integer.parseInt(currentYear) - 1
-                        : Integer.parseInt(currentYear);
-        int nextMonthInt = (Integer.parseInt(currentMonth) == 12)
-                         ? 1
-                         : Integer.parseInt(currentMonth) + 1;
-        int nextYearInt = (nextMonthInt == 1)
-                        ? Integer.parseInt(currentYear) + 1
-                        : Integer.parseInt(currentYear);
-        String prevYear = (String.valueOf(prevYearInt).length() == 1)
-                        ? "0" + prevYearInt
-                        : String.valueOf(prevYearInt);
         String prevMonth = (String.valueOf(prevMonthInt).length() == 1)
                          ? "0" + prevMonthInt
                          : String.valueOf(prevMonthInt);
-        String nextYear = (String.valueOf(nextYearInt).length() == 1)
-                        ? "0" + nextYearInt
-                        : String.valueOf(nextYearInt);
-        String nextMonth = (String.valueOf(nextMonthInt).length() == 1)
-                        ? "0" + nextMonthInt
-                        : String.valueOf(nextMonthInt);
+
         //ALGORITHM
         RealmResults<RealmSalesTransaction> queriedTransactions = realm.where(RealmSalesTransaction.class)
-                .equalTo("year", prevYear).or().equalTo("year", currentYear).or().equalTo("year", nextYear)
+                .equalTo("year", currentYear)
                 .and()
-                .equalTo("month", prevMonth).or().equalTo("month", currentMonth).or().equalTo("month", nextMonth)
+                .equalTo("month", prevMonth).or().equalTo("month", currentMonth)
                 .findAll();
         if (!queriedTransactions.isEmpty()) {
             List<List<String>> listOfTransactions = new ArrayList<>();
@@ -88,4 +71,6 @@ public class W01_Algorithm extends Worker {
         return Result.success();
     }
 }
+
+
 

@@ -419,7 +419,10 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
                 cartRVA.notifyDataSetChanged();
                 currentCartTicket = null;
                 load_OrderDetails();
-                posContent.updatePOS();
+                int orientation = getResources().getConfiguration().orientation;
+                if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                    posContent.updatePOS();
+                }
             } else {
                 load_DG10Functionalities();
                 cartDG10.show();
@@ -1501,7 +1504,10 @@ public class M04F01SF03_Cart extends Fragment implements FragmentLoader, DialogL
             cart.clear();
             cartRVA.notifyDataSetChanged();
             load_OrderDetails();
-            posContent.updatePOS();
+            int orientation = getActivity().getResources().getConfiguration().orientation;
+            if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                posContent.updatePOS();
+            }
             cartDG16.dismiss();
         });
 

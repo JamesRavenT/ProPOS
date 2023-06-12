@@ -57,39 +57,49 @@ public class M03_LoadResources extends AppCompatActivity {
         intervalOne = new Handler();
         intervalTwo = new Handler();
         loading.setText("L O A D I N G");
-        state.setText("Establishing Connection To Cloud [1/5]");
-        boolean networkIsAvailable = checkIfNetworkIsAvailable();
-        if(networkIsAvailable){
-            checkLastDataSync();
-            boolean dailySyncLimitIsReached = checkIfDailySyncLimitIsReached();
-            intervalOne.postDelayed(() -> { state.setText("Connection Established, Checking User Data [2/5]");
-                intervalTwo.postDelayed(() -> {
-                    if(!dailySyncLimitIsReached){
-                        state.setText("Syncing User Data [3/5]");
-                        int amountOfLocalTransactions = OpenUserInstance.fetchLocalSalesCount();
-                        int amountOfTotalTransactions = OpenUserInstance.fetchCloudSalesCount();
-                        int amountOfSyncedTransactions = OpenUserInstance.fetchSalesLimit();
-                        int remainingSyncableDocuments = 5000 - amountOfSyncedTransactions;
-                        int sumOfSyncedDocuments  = amountOfLocalTransactions + remainingSyncableDocuments;
-                        int limit = (sumOfSyncedDocuments > amountOfTotalTransactions)
-                                ? amountOfTotalTransactions - amountOfLocalTransactions
-                                : 5000;
-                        DB.fetchDataFromTheCloud();
-                        checkIfTransmissionIsComplete(limit);
-                    }
-                }, 500);
-            }, 500);
-        } else {
-            state.setText("Failure to Connect, Device is Offline [3/5]");
-            zero.postDelayed(()->{ loading.setText("L O A D I N G ."); state.setText("Initializing System [4/5]");
-                one.postDelayed(()->{ loading.setText("L O A D I N G . ."); WorkOrders.startAlgorithm(this);
-                    two.postDelayed(()->{ loading.setText("W E L C O M E !"); loadDefaultVariables(); state.setText("Complete [5/5]");
-                        three.postDelayed(()->{ WorkOrders.storeFPData(this); startActivity(new Intent(this, M04_Main.class)); finish();
-                        },500);
-                    },1000);
+//        state.setText("Establishing Connection To Cloud [1/5]");
+//        boolean networkIsAvailable = checkIfNetworkIsAvailable();
+//        if(networkIsAvailable){
+//            checkLastDataSync();
+//            boolean dailySyncLimitIsReached = checkIfDailySyncLimitIsReached();
+//            intervalOne.postDelayed(() -> { state.setText("Connection Established, Checking User Data [2/5]");
+//                intervalTwo.postDelayed(() -> {
+//                    if(!dailySyncLimitIsReached){
+//                        state.setText("Syncing User Data [3/5]");
+//                        int amountOfLocalTransactions = OpenUserInstance.fetchLocalSalesCount();
+//                        int amountOfTotalTransactions = OpenUserInstance.fetchCloudSalesCount();
+//                        int amountOfSyncedTransactions = OpenUserInstance.fetchSalesLimit();
+//                        int remainingSyncableDocuments = 5000 - amountOfSyncedTransactions;
+//                        int sumOfSyncedDocuments  = amountOfLocalTransactions + remainingSyncableDocuments;
+//                        int limit = (sumOfSyncedDocuments > amountOfTotalTransactions)
+//                                ? amountOfTotalTransactions - amountOfLocalTransactions
+//                                : 5000;
+//                        DB.fetchDataFromTheCloud();
+//                        checkIfTransmissionIsComplete(limit);
+//                    }
+//                }, 500);
+//            }, 500);
+//        } else {
+//            state.setText("Failure to Connect, Device is Offline [3/5]");
+//            zero.postDelayed(()->{ loading.setText("L O A D I N G ."); state.setText("Initializing System [4/5]");
+//                one.postDelayed(()->{ loading.setText("L O A D I N G . ."); WorkOrders.startAlgorithm(this);
+//                    two.postDelayed(()->{ loading.setText("W E L C O M E !"); loadDefaultVariables(); state.setText("Complete [5/5]");
+//                        three.postDelayed(()->{ WorkOrders.storeFPData(this); startActivity(new Intent(this, M04_Main.class)); finish();
+//                        },500);
+//                    },1000);
+//                },1000);
+//            }, 1000);
+//        }
+
+        state.setText("Entering Debug Mode... [1/3]");
+        zero.postDelayed(()->{ loading.setText("L O A D I N G ."); state.setText("Initializing System [2/3]");
+            one.postDelayed(()->{ loading.setText("L O A D I N G . ."); WorkOrders.startAlgorithm(this);
+                two.postDelayed(()->{ loading.setText("W E L C O M E !"); loadDefaultVariables(); state.setText("Complete [3/3]");
+                    three.postDelayed(()->{ WorkOrders.storeFPData(this); startActivity(new Intent(this, M04_Main.class)); finish();
+                    },500);
                 },1000);
-            }, 1000);
-        }
+            },1000);
+        }, 1000);
     }
 
     private void checkIfTransmissionIsComplete(int limit){
